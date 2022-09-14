@@ -1,5 +1,7 @@
-//여행생성 페이지
+//여행 일정 생성 페이지
 import React from "react"
 
-const createCoursePage = () => <div></div>
-export default createCoursePage
+const CreateCoursePage = () => {
+  return <div></div>
+}
+export default CreateCoursePage
