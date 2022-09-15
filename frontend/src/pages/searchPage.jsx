@@ -1,6 +1,11 @@
 import React from "react"
+import Box from "@material-ui/core/Box"
 
 const SearchPage = () => {
-  return <div></div>
+  return (
+    <Box>
+      <h1>search Page</h1>
+    </Box>
+  )
 }
 export default SearchPage
