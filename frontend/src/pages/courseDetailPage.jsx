@@ -7,7 +7,11 @@ import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
 import Map from "../components/map"
 import React from "react"
+import Navbar from "../components/navbar"
+import SpotDetail from "../components/spotDetail"
+import { Modal } from "@mui/material"
 const Side = () => {
+  const navbarHeight = "60px"
   //상세페이지 사이드바
   return (
     <Box
@@ -16,8 +20,12 @@ const Side = () => {
         height: "100%",
         backgroundColor: "white",
         position: "absolute",
+        overflow: "auto",
       }}
     >
+      <Sidecontents></Sidecontents>
+      <Sidecontents></Sidecontents>
+      <Sidecontents></Sidecontents>
       <Sidecontents></Sidecontents>
       <Sidecontents></Sidecontents>
       <Sidecontents></Sidecontents>
@@ -25,6 +33,10 @@ const Side = () => {
   )
 }
 const Sidecontents = () => {
+  //사이드바 컨텐츠
+  const [open, setOpen] = React.useState(false)
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
@@ -39,7 +51,15 @@ const Sidecontents = () => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">더보기</Button>
+        <Button onClick={handleOpen}>자세히 보기</Button>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <SpotDetail></SpotDetail>
+        </Modal>
       </CardActions>
     </Card>
   )
@@ -48,8 +68,11 @@ const Sidecontents = () => {
 const CourseDetailPage = () => {
   return (
     <Box>
-      <Map></Map>
-      <Side></Side>
+      <Navbar></Navbar>
+      <Box>
+        <Map></Map>
+        <Side></Side>
+      </Box>
     </Box>
   )
 }
