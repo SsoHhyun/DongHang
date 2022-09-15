@@ -5,6 +5,7 @@ const SearchPage = () => {
   return (
     <Box>
       <h1>search Page</h1>
+      <Box></Box>
     </Box>
   )
 }

@@ -1,5 +1,6 @@
 import React from "react"
 import { Box } from "@material-ui/core"
+import RecommTripCard from "../components/main/recommTrip"
 
 const MainPage = () => {
   return (
@@ -7,19 +8,15 @@ const MainPage = () => {
       <h1>Main Page</h1>
       <Box>
         <Box>
-          <p>
-            추천 여행지
-          </p>
+          <RecommTripCard></RecommTripCard>
+          <RecommTripCard></RecommTripCard>
+          <RecommTripCard></RecommTripCard>
         </Box>
         <Box>
-          <p>
-           여행일정
-          </p>
+          <p>여행일정</p>
         </Box>
         <Box>
-          <p>
-            미션
-          </p>
+          <p>미션</p>
         </Box>
       </Box>
     </Box>
