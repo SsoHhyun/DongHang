@@ -1,13 +1,11 @@
-//장소 상세 페이지
 import React from "react"
 import Card from "@mui/material/Card"
 import CardHeader from "@mui/material/CardHeader"
 import CardMedia from "@mui/material/CardMedia"
 import CardContent from "@mui/material/CardContent"
-import Avatar from "@mui/material/Avatar"
 import Typography from "@mui/material/Typography"
-import { red } from "@mui/material/colors"
 
+//장소 상세 모달
 const SpotDetail = () => {
   const [expanded, setExpanded] = React.useState(false)
 
