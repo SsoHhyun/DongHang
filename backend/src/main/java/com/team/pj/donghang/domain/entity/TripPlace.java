@@ -15,7 +15,7 @@ public class TripPlace {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "trip_place_no")
-    private Long id;
+    private Long tripPlaceNo;
 
     @ManyToOne
     @JoinColumn(name = "common_no")

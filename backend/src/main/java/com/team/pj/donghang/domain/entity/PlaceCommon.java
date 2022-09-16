@@ -21,7 +21,7 @@ public class PlaceCommon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="common_no")
-    private Long id;
+    private Long commonNo;
 
     @Column(name="content_id")
     private String contentId;
