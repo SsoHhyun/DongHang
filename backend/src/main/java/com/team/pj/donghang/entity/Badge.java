@@ -31,8 +31,6 @@ public class Badge {
     private Long parts2;
     private Long parts3;
 
-
-    // FK임 추후 수정 예정
     // enum으로 서버에서 들고 있기로 함
     @NotNull
     @Column(name="badge_category_no")

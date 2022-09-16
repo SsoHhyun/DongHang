@@ -1,5 +1,4 @@
 package com.team.pj.donghang.entity;
-
 import javax.persistence.*;
 
 import lombok.*;
@@ -11,22 +10,19 @@ import lombok.*;
 @Entity
 @Builder
 @ToString
-@Table(name="user_badge")
-public class UserBadge {
+public class Mission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_badge_no")
-    private Long userBadgeNo;
-
-    @ManyToOne
-    @JoinColumn(name = "badge_no")
-    private Badge badge;
+    @Column(name = "mission_no")
+    private Long missionNo;
 
     @ManyToOne
     @JoinColumn(name = "user_no")
     private User user;
 
-    private boolean condition;
+    private String content;
+    private String season;
 
-    }
-
+    @Column(name = "mission_category_no")
+    private Long missionCategoryNo;
+}
