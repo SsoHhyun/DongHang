@@ -1,7 +1,9 @@
-package com.team.pj.donghang.entity;
+package com.team.pj.donghang.domain.entity;
 import javax.persistence.*;
 
 import lombok.*;
+
+import java.io.Serializable;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -10,7 +12,9 @@ import lombok.*;
 @Entity
 @Builder
 @ToString
-public class Mission {
+@Table(name="mission")
+
+public class Mission implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "mission_no")

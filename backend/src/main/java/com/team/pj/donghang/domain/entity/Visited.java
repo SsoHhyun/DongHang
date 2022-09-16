@@ -1,8 +1,9 @@
-package com.team.pj.donghang.entity;
+package com.team.pj.donghang.domain.entity;
 
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -11,8 +12,9 @@ import javax.persistence.*;
 @Entity
 @Builder
 @ToString
+@Table(name="visited")
 // 지역 코드 관련 의논 후 수정 예정
-public class Visited {
+public class Visited implements Serializable {
     @Id
     @OneToOne(cascade = CascadeType.ALL)
     @MapsId

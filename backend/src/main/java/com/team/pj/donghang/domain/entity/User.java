@@ -1,8 +1,9 @@
-package com.team.pj.donghang.entity;
+package com.team.pj.donghang.domain.entity;
 
 import com.sun.istack.NotNull;
 import lombok.*;
 import javax.persistence.*;
+import java.io.Serializable;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -11,7 +12,8 @@ import javax.persistence.*;
 @Entity
 @Builder
 @ToString
-public class User {
+@Table(name="user")
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="user_no")

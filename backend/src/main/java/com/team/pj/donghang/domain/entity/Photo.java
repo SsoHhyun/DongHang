@@ -1,11 +1,11 @@
-package com.team.pj.donghang.entity;
+package com.team.pj.donghang.domain.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 ;
 import lombok.*;
 
-import java.text.SimpleDateFormat;
+import java.io.Serializable;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,7 +14,9 @@ import java.text.SimpleDateFormat;
 @Entity
 @Builder
 @ToString
-public class Photo {
+@Table(name="photo")
+
+public class Photo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "photo_no")
@@ -25,6 +27,6 @@ public class Photo {
     private String photoPath;
 
     @ManyToOne
-    @Column(name = "trip_no")
+    @JoinColumn(name = "trip_no")
     private Trip trip;
 }

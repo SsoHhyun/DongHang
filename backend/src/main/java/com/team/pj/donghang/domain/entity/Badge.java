@@ -1,9 +1,11 @@
-package com.team.pj.donghang.entity;
+package com.team.pj.donghang.domain.entity;
 
 import javax.persistence.*;
 
 import com.sun.istack.NotNull;
 import lombok.*;
+
+import java.io.Serializable;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -11,7 +13,9 @@ import lombok.*;
 @Getter
 @Entity
 @Builder
-public class Badge {
+@Table(name="badge")
+
+public class Badge implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "badge_no")

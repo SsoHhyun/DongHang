@@ -1,10 +1,11 @@
-package com.team.pj.donghang.entity;
+package com.team.pj.donghang.domain.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 ;
 import lombok.*;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 
 @NoArgsConstructor
@@ -14,8 +15,9 @@ import java.text.SimpleDateFormat;
 @Entity
 @Builder
 @ToString
+@Table(name="trip")
 
-public class Trip {
+public class Trip implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="trip_no")
@@ -30,7 +32,7 @@ public class Trip {
     private SimpleDateFormat endDate;
 
     @ManyToOne
-    @Column(name = "user_no")
+    @JoinColumn(name = "user_no")
     private User user;
 
     @NotNull
