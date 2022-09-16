@@ -4,64 +4,62 @@ import lombok.*;
 
 import javax.persistence.*;
 
-/**
- * common _no : a뭐뭐다?
- */
-
 @Entity
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class ShoppingDetail {
+public class RestaurantDetail {
     @Id
     @OneToOne(cascade = CascadeType.ALL)
     @MapsId
     @JoinColumn(name = "common_no")
     private PlaceCommon common;
 
-    @Column(name="chk_babycarriage")
-    private String chkBabycarriage;
-
-    @Column(name="chk_creditcard")
+    @Column(name = "chk_creditcard")
     private String chkCreditcard;
 
-    @Column(name="chk_pet")
-    private String checkPet;
-
-    @Column(name="culture_center")
-    private String cultureCenter;
-
-    @Column(name="fair_day")
-    private String fairDay;
+    @Column(name = "discount_info")
+    private String discountInfo;
 
     @Column(name = "info_center")
     private String infoCenter;
 
+    @Column(name = "fist_menu")
+    private String firstMenu;
+
+    @Column(name = "kids_facility")
+    private String kidsFacility;
+
     @Column(name = "open_date")
     private String openDate;
+
+    @Column(name = "open_time")
+    private String openTime;
+
+    @Column(name = "packing")
+    private String packing;
 
     @Column(name = "parking")
     private String parking;
 
+    @Column(name = "reservation")
+    private String reservation;
+
     @Column(name = "rest_date")
     private String restDate;
-
-    @Column(name = "rest_room")
-    private String restRoom;
-
-    @Column(name = "sale_item")
-    private String saleItem;
-
-    @Column(name = "sale_item_cost")
-    private String saleItemCost;
 
     @Column(name = "scale")
     private String scale;
 
-    @Column(name = "shop_guide")
-    private String shopGuide;
+    @Column(name = "seat")
+    private String seat;
 
+    @Column(name = "smoking")
+    private String smoking;
+
+    @Column(name = "treat_menu")
+    private String treatMenu;
 
 }
