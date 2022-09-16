@@ -77,8 +77,12 @@ WSGI_APPLICATION = 'donghang.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'dev',
+        'USER': 'a504',
+        'PASSWORD': 'dev@1202',
+        'HOST': 'j7a504.p.ssafy.io',
+        'PORT': '3306'
     }
 }
 
