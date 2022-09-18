@@ -1,8 +1,9 @@
-package com.team.pj.donghang.entity;
+package com.team.pj.donghang.domain.entity;
 
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * common _no : a뭐뭐다?
@@ -14,7 +15,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class ShoppingDetail {
+public class ShoppingDetail implements Serializable {
     @Id
     @OneToOne(cascade = CascadeType.ALL)
     @MapsId
@@ -28,7 +29,7 @@ public class ShoppingDetail {
     private String chkCreditcard;
 
     @Column(name="chk_pet")
-    private String checkPet;
+    private String chkPet;
 
     @Column(name="culture_center")
     private String cultureCenter;
@@ -41,6 +42,10 @@ public class ShoppingDetail {
 
     @Column(name = "open_date")
     private String openDate;
+
+    @Column(name = "open_time")
+    private String openTime;
+
 
     @Column(name = "parking")
     private String parking;

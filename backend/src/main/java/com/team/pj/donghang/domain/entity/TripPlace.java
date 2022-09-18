@@ -1,9 +1,10 @@
-package com.team.pj.donghang.entity;
+package com.team.pj.donghang.domain.entity;
 
 
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Getter
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class TripPlace {
+public class TripPlace implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "trip_place_no")

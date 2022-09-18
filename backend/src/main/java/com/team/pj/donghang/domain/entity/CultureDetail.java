@@ -1,8 +1,9 @@
-package com.team.pj.donghang.entity;
+package com.team.pj.donghang.domain.entity;
 
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Getter
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class CultureDetail {
+public class CultureDetail implements Serializable {
     @Id
     @OneToOne(cascade = CascadeType.ALL)
     @MapsId
@@ -32,7 +33,7 @@ public class CultureDetail {
     @Column(name = "use_fee")
     private String useFee;
 
-    @Column(name = "use_tiem")
+    @Column(name = "use_time")
     private String useTime;
 
     @Column(name = "scale")

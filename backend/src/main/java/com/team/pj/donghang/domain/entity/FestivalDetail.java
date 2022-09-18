@@ -1,8 +1,9 @@
-package com.team.pj.donghang.entity;
+package com.team.pj.donghang.domain.entity;
 
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Getter
@@ -10,16 +11,18 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class FestivalDetail {
+public class FestivalDetail implements Serializable {
     @Id
-    @OneToOne(cascade = CascadeType.ALL)
     @MapsId
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "common_no")
     private PlaceCommon common;
 
 
     @Column(name = "end_date")
     private String endDate;
+
+    private String place;
 
     @Column(name = "start_date")
     private String startDate;

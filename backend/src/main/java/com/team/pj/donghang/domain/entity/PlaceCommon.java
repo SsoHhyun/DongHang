@@ -1,9 +1,11 @@
-package com.team.pj.donghang.entity;
+package com.team.pj.donghang.domain.entity;
 
 import lombok.*;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
+
 /**
  *
  *
@@ -17,7 +19,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class PlaceCommon {
+public class PlaceCommon implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="common_no")
@@ -47,11 +49,8 @@ public class PlaceCommon {
     private String mapx;
     private String mapy;
     private String mlevel;
+
+    @Column(name = "area_code")
     private String areacode;
-
-//    @OneToOne(mappedBy = "common",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-//    ShoppingDetail shoppingDetail;
-
-
 
 }

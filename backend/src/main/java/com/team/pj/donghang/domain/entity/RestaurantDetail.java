@@ -1,8 +1,9 @@
-package com.team.pj.donghang.entity;
+package com.team.pj.donghang.domain.entity;
 
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Getter
@@ -10,10 +11,10 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class RestaurantDetail {
+public class RestaurantDetail implements Serializable {
     @Id
-    @OneToOne(cascade = CascadeType.ALL)
     @MapsId
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "common_no")
     private PlaceCommon common;
 
