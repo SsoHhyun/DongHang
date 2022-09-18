@@ -1,34 +1,34 @@
 import React from "react"
-import { Box } from "@material-ui/core"
+import { Box, Paper } from "@material-ui/core"
 import RecommTripCard from "../components/main/recommTrip"
 import Grid from "@mui/material/Grid/Grid"
 import Container from "@mui/material/Container/Container"
+import NowCourse from "../components/main/nowCourse"
+import Mission from "../components/main/mission"
 
 const MainPage = () => {
   return (
-    <Container fixed>
+    <Container display direction="column" alignItems="center">
       <h1>Main Page</h1>
 
+      {/* 여행지 추천 */}
       <Box>
-        {/* 여행지 추천 */}
-        <Grid container>
-          <RecommTripCard></RecommTripCard>
-          <RecommTripCard></RecommTripCard>
+        <Grid container justifyContent="center">
           <RecommTripCard></RecommTripCard>
           <RecommTripCard></RecommTripCard>
           <RecommTripCard></RecommTripCard>
         </Grid>
-
-        {/* 현재 진행중인 일정 */}
-        <Box>
-          <p>여행일정</p>
-        </Box>
-
-        {/* 미션 */}
-        <Box>
-          <p>미션</p>
-        </Box>
       </Box>
+
+      {/* 현재 진행중인 일정 */}
+      <Paper>
+        <NowCourse></NowCourse>
+      </Paper>
+
+      {/* 미션 */}
+      <Paper>
+        <Mission></Mission>
+      </Paper>
     </Container>
   )
 }

@@ -1,17 +1,25 @@
 import * as React from "react"
-import Box from "@mui/material/Box/Box"
-import Avatar from "@mui/material/Avatar"
-import Stack from "@mui/material/Stack"
+import { Container, Box, Grid, styled } from "@material-ui/core"
+
+const CoursePoint = styled(Box)({
+  background: "tomato",
+  borderRadius: 100,
+  width: 20,
+  height: 20,
+  margin: 10,
+})
 
 const NowCourse = () => {
   return (
-    <Box>
-      <Stack direction="row" spacing={2}>
-        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-        <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
-        <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
-      </Stack>
-    </Box>
+    <Container>
+      <Grid container justifyContent="center">
+        <CoursePoint></CoursePoint>
+        <CoursePoint></CoursePoint>
+        <CoursePoint></CoursePoint>
+        <CoursePoint></CoursePoint>
+        <CoursePoint></CoursePoint>
+      </Grid>
+    </Container>
   )
 }
 
