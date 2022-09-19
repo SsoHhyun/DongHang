@@ -17,7 +17,7 @@ import java.text.SimpleDateFormat;
 @ToString
 @Table(name="trip")
 
-public class Trip implements Serializable {
+public class Trip {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="trip_no")

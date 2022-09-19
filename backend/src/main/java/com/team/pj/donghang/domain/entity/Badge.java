@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Builder
 @Table(name="badge")
 
-public class Badge implements Serializable {
+public class Badge {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "badge_no")

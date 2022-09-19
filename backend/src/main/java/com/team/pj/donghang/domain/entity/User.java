@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Builder
 @ToString
 @Table(name="user")
-public class User implements Serializable {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="user_no")
@@ -34,9 +34,5 @@ public class User implements Serializable {
 
     @Column(name ="profile_image")
     private String profileImage;
-
-    // @OneToOne
-    // visited, survey => 추후에 진행
-
 
 }
