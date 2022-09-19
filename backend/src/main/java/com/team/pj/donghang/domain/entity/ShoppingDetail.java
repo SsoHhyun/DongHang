@@ -15,8 +15,10 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class ShoppingDetail implements Serializable {
+//public class ShoppingDetail implements Serializable {
+public class ShoppingDetail {
     @Id
+    private Long id;
     @OneToOne(cascade = CascadeType.ALL)
     @MapsId
     @JoinColumn(name = "common_no")

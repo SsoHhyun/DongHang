@@ -11,8 +11,10 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class RestaurantDetail implements Serializable {
+//public class RestaurantDetail implements Serializable {
+public class RestaurantDetail  {
     @Id
+    private Long id;
     @MapsId
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "common_no")

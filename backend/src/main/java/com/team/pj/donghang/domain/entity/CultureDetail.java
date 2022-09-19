@@ -11,10 +11,12 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class CultureDetail implements Serializable {
+//public class CultureDetail implements Serializable {
+public class CultureDetail  {
     @Id
-    @OneToOne(cascade = CascadeType.ALL)
+    private Long id;
     @MapsId
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "common_no")
     private PlaceCommon common;
 
