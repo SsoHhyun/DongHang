@@ -1,14 +1,20 @@
 import React from "react"
-import { Box, Paper } from "@material-ui/core"
+import { Box, Paper, styled } from "@material-ui/core"
 import RecommTripCard from "../components/main/recommTrip"
 import Grid from "@mui/material/Grid/Grid"
-import Container from "@mui/material/Container/Container"
 import NowCourse from "../components/main/nowCourse"
 import Mission from "../components/main/mission"
 
+const MainBox = styled(Box)({
+  display: "flex",
+  flexDirection: "column",
+  alignContent: "center",
+  height: "100%",
+})
+
 const MainPage = () => {
   return (
-    <Container display direction="column" alignItems="center">
+    <MainBox>
       <h1>Main Page</h1>
 
       {/* 여행지 추천 */}
@@ -29,7 +35,7 @@ const MainPage = () => {
       <Paper>
         <Mission></Mission>
       </Paper>
-    </Container>
+    </MainBox>
   )
 }
 export default MainPage
