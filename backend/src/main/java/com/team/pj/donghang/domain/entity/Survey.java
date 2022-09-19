@@ -16,11 +16,12 @@ import java.io.Serializable;
 @Table(name="survey")
 
 // 문항 선정 후 수정 예정
-public class Survey implements Serializable {
+public class Survey {
     @Id
+    private Long id;
     @OneToOne(cascade = CascadeType.ALL)
     @MapsId
-    @JoinColumn(name = "user_no")
+    @JoinColumn(name = "user_no", fetch = FetchType.LAZY)
     private User user;
 
     @NotNull

@@ -14,9 +14,10 @@ import java.io.Serializable;
 @ToString
 @Table(name="visited")
 // 지역 코드 관련 의논 후 수정 예정
-public class Visited implements Serializable {
+public class Visited {
     @Id
-    @OneToOne(cascade = CascadeType.ALL)
+    private Long id;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @MapsId
     @JoinColumn(name = "user_no")
     private User user;
