@@ -16,13 +16,12 @@ const RecommandBar = () => {
   return (
     <Box
       style={{
-        width: "100%",
-        height: "30%",
+        height: "35%",
         backgroundColor: "white",
         position: "absolute",
-        overflowX: "auto",
+        overflow: "auto",
         bottom: 0,
-        display: "inline-block",
+        width: "100%",
       }}
     >
       <TabContext value={value}>
@@ -32,9 +31,65 @@ const RecommandBar = () => {
             <Tab label="근처음식점" value="2" />
           </TabList>
         </Box>
-        <TabPanel value="1">
-          <Box style={{ overflowX: "auto" }}>
-            <RecommandContents></RecommandContents>
+        <Box>
+          <TabPanel value="1">
+            <ul
+              id="recommandul"
+              style={{
+                overflowX: "scroll",
+                overflowY: "hidden",
+                width: "100%",
+                flexDirection: "row",
+                whiteSpace: "nowrap",
+                listStyle: "none",
+                textAlign: "center",
+              }}
+            >
+              <li>
+                <RecommandContents></RecommandContents>
+              </li>
+              <li>
+                <RecommandContents></RecommandContents>
+              </li>
+              <li>
+                <RecommandContents></RecommandContents>
+              </li>
+              <li>
+                <RecommandContents></RecommandContents>
+              </li>
+              <li>
+                <RecommandContents></RecommandContents>
+              </li>
+              <li>
+                <RecommandContents></RecommandContents>
+              </li>
+              <li>
+                <RecommandContents></RecommandContents>
+              </li>
+              <li>
+                <RecommandContents></RecommandContents>
+              </li>
+              <li>
+                <RecommandContents></RecommandContents>
+              </li>
+              <li>
+                <RecommandContents></RecommandContents>
+              </li>
+              <li>
+                <RecommandContents></RecommandContents>
+              </li>
+            </ul>
+          </TabPanel>
+        </Box>
+        <TabPanel value="2">
+          <Box
+            style={{
+              overflowX: "auto",
+              width: "300%",
+              flexDirection: "row",
+              whiteSpace: "nowrap",
+            }}
+          >
             <RecommandContents></RecommandContents>
             <RecommandContents></RecommandContents>
             <RecommandContents></RecommandContents>
@@ -43,13 +98,6 @@ const RecommandBar = () => {
             <RecommandContents></RecommandContents>
             <RecommandContents></RecommandContents>
           </Box>
-        </TabPanel>
-        <TabPanel value="2" style={{ float: "left" }}>
-          <RecommandContents></RecommandContents>
-          <RecommandContents></RecommandContents>
-          <RecommandContents></RecommandContents>
-          <RecommandContents></RecommandContents>
-          <RecommandContents></RecommandContents>
         </TabPanel>
       </TabContext>
     </Box>

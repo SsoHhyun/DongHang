@@ -9,13 +9,20 @@ import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
 import { Modal } from "@mui/material"
 import SpotDetail from "./spotdetail"
+import { styled } from "@mui/material"
 
 const RecommandContents = () => {
   const [open, setOpen] = React.useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
+  const StyledCard = styled(Card)({
+    float: "left",
+    width: "240px",
+    display: "inline-block",
+  })
+
   return (
-    <Card sx={{ maxWidth: 345 }} style={{ float: "left" }}>
+    <StyledCard>
       <CardMedia
         component="img"
         image="/static/images/cards/contemplative-reptile.jpg"
@@ -25,9 +32,6 @@ const RecommandContents = () => {
       <CardContent>
         <Typography gutterBottom variant="h7" component="div">
           여행지이름
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          상세설명상세설명상세설명상세설명상세설명상세설명상세설명상세설명상세설명상세설명상세설명
         </Typography>
       </CardContent>
       <CardActions>
@@ -41,7 +45,7 @@ const RecommandContents = () => {
           <SpotDetail></SpotDetail>
         </Modal>
       </CardActions>
-    </Card>
+    </StyledCard>
   )
 }
 export default RecommandContents
