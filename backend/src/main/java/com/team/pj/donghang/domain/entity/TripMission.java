@@ -15,7 +15,7 @@ import java.util.List;
 @Builder
 @ToString
 @Table(name="trip_mission")
-public class TripMission implements Serializable {
+public class TripMission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "trip_mission_no")
@@ -25,9 +25,9 @@ public class TripMission implements Serializable {
     @JoinColumn(name = "trip_no")
     private Trip trip;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @Column(name = "mission_no")
-    private List<Mission> mission = new LinkedList<>();
+    @ManyToOne
+    @JoinColumn(name = "mission_no")
+    private Mission mission;
 
     @OneToOne
     @JoinColumn(name = "user_badge_no")

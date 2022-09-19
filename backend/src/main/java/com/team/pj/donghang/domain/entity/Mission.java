@@ -14,7 +14,7 @@ import java.io.Serializable;
 @ToString
 @Table(name="mission")
 
-public class Mission implements Serializable {
+public class Mission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "mission_no")

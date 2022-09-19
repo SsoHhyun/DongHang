@@ -16,7 +16,7 @@ import java.io.Serializable;
 @ToString
 @Table(name="photo")
 
-public class Photo implements Serializable {
+public class Photo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "photo_no")

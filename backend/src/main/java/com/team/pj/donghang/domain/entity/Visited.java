@@ -21,21 +21,54 @@ public class Visited implements Serializable {
     @JoinColumn(name = "user_no")
     private User user;
 
+    @Column(name = "seoul")
     private Long Seoul;
 
-    private Long Busan;
-    private Long Daegu;
-    private Long Gwangju;
-    private Long Incheon;
+    @Column(name = "kyeonggi")
+    private Long Kyeonggi;
+
+    @Column(name = "daejeon")
     private Long Daejeon;
+
+    @Column(name = "busan")
+    private Long Busan;
+
+    @Column(name = "ulsan")
     private Long Ulsan;
-    private Long Gyeonggi;
-    private Long Gangwon;
-    private Long Chungcheongnam_do;
-    private Long Chungcheongbuk_do;
-    private Long Jeollanam_do;
-    private Long Jeollabuk_do;
-    private Long Gyeongsangnam_do;
-    private Long Gyeongsangbuk_do;
+
+    @Column(name = "daegu")
+    private Long Daegu;
+
+    @Column(name = "gwangju")
+    private Long Gwangju;
+
+    @Column(name = "incheon")
+    private Long Incheon;
+
+    @Column(name = "jeju")
     private Long Jeju;
+
+    @Column(name = "kyeong_buk")
+    private Long Kyeong_buk;
+
+    @Column(name = "kyeong_nam")
+    private Long kyeong_nam;
+
+    @Column(name = "jeon_nam")
+    private Long Jeon_nam;
+
+    @Column(name = "jeon_buk")
+    private Long Jeon_buk;
+
+    @Column(name = "kangwon")
+    private Long Kangwon;
+
+    @Column(name = "chung_buk")
+    private Long Chung_buk;
+
+    @Column(name = "chung_nam")
+    private Long Chung_nam;
+
+
+
 }
