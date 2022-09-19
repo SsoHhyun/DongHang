@@ -6,7 +6,7 @@ const Navbar = () => {
   return (
     <Box
       style={{
-        position: "sticky",
+        position: "fixed",
         height: "60px",
         width: "100%",
         backgroundColor: "white",
