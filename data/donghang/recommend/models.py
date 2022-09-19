@@ -20,6 +20,7 @@ class PlaceCommon(models.Model):
     area_code = models.TextField(null=True, blank=True)
 
 
+
 class ShoppingDetail(models.Model):
     common_no = models.ForeignKey(PlaceCommon, primary_key=True, on_delete=models.CASCADE)
     overview = models.TextField(null=True, blank=True)
