@@ -1,11 +1,10 @@
-import * as React from "react"
-import Card from "@mui/material/Card"
-import CardActions from "@mui/material/CardActions"
-import CardContent from "@mui/material/CardContent"
-import CardMedia from "@mui/material/CardMedia"
-import Button from "@mui/material/Button"
-import Typography from "@mui/material/Typography"
-import multicampus from "../../assets/image/multicampus.jpg"
+import * as React from "react";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
 const RecommTripCard = () => {
   return (
@@ -14,7 +13,7 @@ const RecommTripCard = () => {
         component="img"
         alt="multicampus"
         height="140"
-        image={multicampus}
+        image="img/d1.jpg"
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
@@ -29,7 +28,7 @@ const RecommTripCard = () => {
         <Button size="small">Learn More</Button>
       </CardActions>
     </Card>
-  )
-}
+  );
+};
 
-export default RecommTripCard
+export default RecommTripCard;
