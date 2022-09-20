@@ -5,7 +5,6 @@ import { Tab } from "@material-ui/core"
 import { TabPanel } from "@mui/lab"
 import { TabContext } from "@mui/lab"
 import { TabList } from "@mui/lab"
-import SideContents from "./sidecontents"
 import RecommandContents from "./recommandcontents"
 //코스관련 사이드바
 const RecommandBar = () => {
@@ -16,12 +15,13 @@ const RecommandBar = () => {
   return (
     <Box
       style={{
-        height: "35%",
+        width: "100%",
+        height: "30%",
         backgroundColor: "white",
         position: "absolute",
-        overflow: "auto",
+        overflowX: "auto",
         bottom: 0,
-        width: "100%",
+        display: "inline-block",
       }}
     >
       <TabContext value={value}>
@@ -31,74 +31,12 @@ const RecommandBar = () => {
             <Tab label="근처음식점" value="2" />
           </TabList>
         </Box>
-        <Box>
-          <TabPanel value="1">
-            <ul
-              id="recommandul"
-              style={{
-                overflowX: "scroll",
-                overflowY: "hidden",
-                width: "100%",
-                flexDirection: "row",
-                whiteSpace: "nowrap",
-                listStyle: "none",
-                textAlign: "center",
-              }}
-            >
-              <li>
-                <RecommandContents></RecommandContents>
-              </li>
-              <li>
-                <RecommandContents></RecommandContents>
-              </li>
-              <li>
-                <RecommandContents></RecommandContents>
-              </li>
-              <li>
-                <RecommandContents></RecommandContents>
-              </li>
-              <li>
-                <RecommandContents></RecommandContents>
-              </li>
-              <li>
-                <RecommandContents></RecommandContents>
-              </li>
-              <li>
-                <RecommandContents></RecommandContents>
-              </li>
-              <li>
-                <RecommandContents></RecommandContents>
-              </li>
-              <li>
-                <RecommandContents></RecommandContents>
-              </li>
-              <li>
-                <RecommandContents></RecommandContents>
-              </li>
-              <li>
-                <RecommandContents></RecommandContents>
-              </li>
-            </ul>
-          </TabPanel>
-        </Box>
-        <TabPanel value="2">
-          <Box
-            style={{
-              overflowX: "auto",
-              width: "300%",
-              flexDirection: "row",
-              whiteSpace: "nowrap",
-            }}
-          >
-            <RecommandContents></RecommandContents>
-            <RecommandContents></RecommandContents>
-            <RecommandContents></RecommandContents>
-            <RecommandContents></RecommandContents>
-            <RecommandContents></RecommandContents>
-            <RecommandContents></RecommandContents>
+        <TabPanel value="1">
+          <Box style={{ overflowX: "auto" }}>
             <RecommandContents></RecommandContents>
           </Box>
         </TabPanel>
+        <TabPanel value="2" style={{ float: "left" }}></TabPanel>
       </TabContext>
     </Box>
   )

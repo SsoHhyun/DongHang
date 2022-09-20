@@ -5,14 +5,20 @@ import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
 import React from "react"
 import SpotDetail from "./spotdetail"
-import { Modal } from "@mui/material"
+import { Dialog } from "@mui/material"
 
 //코스관련 사이드바 내부 컨텐츠
 
 const SideContents = () => {
   const [open, setOpen] = React.useState(false)
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
+
+  const handleClickOpen = () => {
+    setOpen(true)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
@@ -27,15 +33,15 @@ const SideContents = () => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button onClick={handleOpen}>자세히 보기</Button>
-        <Modal
+        <Button onClick={handleClickOpen}>자세히 보기</Button>
+        <Dialog
           open={open}
           onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
         >
           <SpotDetail></SpotDetail>
-        </Modal>
+        </Dialog>
       </CardActions>
     </Card>
   )

@@ -7,12 +7,6 @@ import Typography from "@mui/material/Typography"
 
 //장소 상세 모달
 const SpotDetail = () => {
-  const [expanded, setExpanded] = React.useState(false)
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded)
-  }
-
   return (
     <Card
       style={{
