@@ -1,10 +1,41 @@
 import React from "react"
+import { Box, Paper, styled } from "@material-ui/core"
+import RecommTripCard from "../components/main/recommTrip"
+import Grid from "@mui/material/Grid/Grid"
+import NowCourse from "../components/main/nowCourse"
+import Mission from "../components/main/mission"
+
+const MainBox = styled(Box)({
+  display: "flex",
+  flexDirection: "column",
+  alignContent: "center",
+  height: "100%",
+})
 
 const MainPage = () => {
   return (
-    <div>
+    <MainBox>
       <h1>Main Page</h1>
-    </div>
+
+      {/* 여행지 추천 */}
+      <Box>
+        <Grid container justifyContent="center">
+          <RecommTripCard></RecommTripCard>
+          <RecommTripCard></RecommTripCard>
+          <RecommTripCard></RecommTripCard>
+        </Grid>
+      </Box>
+
+      {/* 현재 진행중인 일정 */}
+      <Paper>
+        <NowCourse></NowCourse>
+      </Paper>
+
+      {/* 미션 */}
+      <Paper>
+        <Mission></Mission>
+      </Paper>
+    </MainBox>
   )
 }
 export default MainPage
