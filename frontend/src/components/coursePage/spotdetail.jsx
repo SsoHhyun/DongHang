@@ -23,7 +23,7 @@ const SpotDetail = () => {
       <CardMedia
         component="img"
         height="194"
-        image="/static/images/cards/paella.jpg"
+        image="img/d1.jpg"
         alt="여행지 소개 사진"
       />
       <CardContent>
