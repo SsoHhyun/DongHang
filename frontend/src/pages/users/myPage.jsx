@@ -1,6 +1,8 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import Album from "../../components/myPage/album";
+import React, { useState } from "react"
+import PropTypes from "prop-types"
+import Album from "../../components/myPage/album"
+import Badge from "../../components/myPage/badge"
+import Info from "../../components/myPage/userInfo"
 import {
   Box,
   Button,
@@ -9,10 +11,11 @@ import {
   Tab,
   Tabs,
   Typography,
-} from "@mui/material";
+} from "@mui/material"
+import { Avatar, fullname } from "react-lorem-ipsum"
 
 function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+  const { children, value, index, ...other } = props
 
   return (
     <div
@@ -23,32 +26,33 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box>
           <Typography>{children}</Typography>
         </Box>
       )}
     </div>
-  );
+  )
 }
 
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.number.isRequired,
   value: PropTypes.number.isRequired,
-};
+}
 
 const MyPage = () => {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(1)
   const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+    setValue(newValue)
+  }
 
   return (
-    <Container>
-      <SideBar>
+    // <BackImg >
+    <Container src="img/d4.jpg">
+      <SideBar elevation={2}>
         <Profile>
-          <Photo></Photo>
-          <Name>윤석열</Name>
+          <Photo />
+          <Name>{fullname()}</Name>
         </Profile>
         <MyTabs orientation="vertical" value={value} onChange={handleChange}>
           <MyTab label="내 정보" value={1} />
@@ -57,19 +61,25 @@ const MyPage = () => {
         </MyTabs>
       </SideBar>
       <TabPanel value={value} index={1}>
-        <Album></Album>
+        <Info />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        hi
+        <Badge />
       </TabPanel>
       <TabPanel value={value} index={3}>
-        hello
+        <Album />
       </TabPanel>
     </Container>
-  );
-};
+    // </BackImg>
+  )
+}
 
-export default MyPage;
+export default MyPage
+
+// const BackImg = styled(Image)({
+//   width: "100vw",
+//   height: "100vh",
+// })
 
 const Container = styled(Box)({
   display: "flex",
@@ -77,7 +87,7 @@ const Container = styled(Box)({
   alignItems: "center",
   width: "100vw",
   height: "100vh",
-});
+})
 
 const SideBar = styled(Paper)({
   height: "100vh",
@@ -86,36 +96,41 @@ const SideBar = styled(Paper)({
   flexDirection: "column",
   justifyContent: "space-evenly",
   alignItems: "space-evenly",
-});
+  background: "linear-gradient(135deg, ivory, beige)",
+})
 
 const Profile = styled(Box)({
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
-});
+})
 
-const Photo = styled(Box)({
-  backgroundColor: "gold",
+export const Photo = styled(Avatar)({
   borderRadius: 100,
   width: "200px",
   height: "200px",
   margin: "2rem",
-});
+})
 
-const Name = styled(Typography)({
+export const Name = styled(Typography)({
   color: "#c19a6b",
   fontWeight: "bold",
-  fontSize: 25,
-});
+  fontSize: 30,
+})
 
 const MyTabs = styled(Tabs)({
   // height: "50vh",
-});
+})
 
 const MyTab = styled(Tab)({
   margin: "1rem",
-  color: "#c19a6b",
-});
+  color: "white",
+  fontSize: 16,
+  fontWeight: "bold",
+  border: "solid",
+  borderRadius: 10,
+  backgroundColor: "#c19a6b",
+})
 
 // const MyTabPanel = styled(Box)({});
