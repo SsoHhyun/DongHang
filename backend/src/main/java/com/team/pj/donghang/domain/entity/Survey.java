@@ -19,9 +19,9 @@ import java.io.Serializable;
 public class Survey {
     @Id
     private Long id;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @MapsId
-    @JoinColumn(name = "user_no", fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_no")
     private User user;
 
     @NotNull
