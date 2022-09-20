@@ -12,7 +12,7 @@ VOLUME /tmp
 EXPOSE 8080
 
 # The application's jar file
-ARG JAR_FILE=build/libs/*.jar
+ARG JAR_FILE=./build/libs/DongHang-0.0.1-SNAPSHOT.jar
 # Add the application's jar to the container
 COPY ${JAR_FILE} a504.jar
 
