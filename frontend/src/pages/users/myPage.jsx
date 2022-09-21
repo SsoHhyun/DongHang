@@ -111,6 +111,7 @@ export const Photo = styled(Avatar)({
   width: "200px",
   height: "200px",
   margin: "2rem",
+  position: "relative",
 })
 
 export const Name = styled(Typography)({
