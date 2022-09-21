@@ -1,5 +1,8 @@
 import React from "react"
 import { Box, styled, Button } from "@material-ui/core"
+import Question from "./question"
+
+//취향설문 대답
 
 const Answer = () => {
   return (
