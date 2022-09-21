@@ -72,6 +72,7 @@ const InfoContainer = styled(Box)({
 
 const MyInfo = styled(Typography)({
   fontSize: 30,
+  color: "brown",
   fontWeight: "bold",
   textAlign: "center",
   marginBottom: "2rem",

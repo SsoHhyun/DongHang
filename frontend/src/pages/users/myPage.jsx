@@ -1,8 +1,8 @@
 import React, { useState } from "react"
 import PropTypes from "prop-types"
-import Album from "../../components/myPage/album"
 import Badge from "../../components/myPage/badge"
 import Info from "../../components/myPage/userInfo"
+import LastTrip from "../../components/myPage/lastTrip"
 import {
   Box,
   Button,
@@ -67,7 +67,7 @@ const MyPage = () => {
         <Badge />
       </TabPanel>
       <TabPanel value={value} index={3}>
-        <Album />
+        <LastTrip />
       </TabPanel>
     </Container>
     // </BackImg>
