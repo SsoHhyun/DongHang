@@ -22,8 +22,8 @@ const SpotDetail = () => {
       <CardHeader title="여행일정장소" subheader="여행상세주소" />
       <CardMedia
         component="img"
-        height="194"
-        image="img/d1.jpg"
+        height="400"
+        image={process.env.PUBLIC_URL + `/img/d4.jpg`}
         alt="여행지 소개 사진"
       />
       <CardContent>

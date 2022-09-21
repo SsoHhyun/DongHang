@@ -6,6 +6,7 @@ import { TabPanel } from "@mui/lab"
 import { TabContext } from "@mui/lab"
 import { TabList } from "@mui/lab"
 import RecommandContents from "./recommandcontents"
+import { styled } from "@mui/material"
 //코스관련 사이드바
 const RecommandBar = () => {
   const [value, setValue] = useState("1")
@@ -16,12 +17,10 @@ const RecommandBar = () => {
     <Box
       style={{
         width: "100%",
-        height: "30%",
+        height: "35%",
         backgroundColor: "white",
         position: "absolute",
-        overflowX: "auto",
         bottom: 0,
-        display: "inline-block",
       }}
     >
       <TabContext value={value}>
@@ -32,13 +31,60 @@ const RecommandBar = () => {
           </TabList>
         </Box>
         <TabPanel value="1">
-          <Box style={{ overflowX: "auto" }}>
+          <StyledRecommandSlide>
             <RecommandContents></RecommandContents>
-          </Box>
+            <RecommandContents></RecommandContents>
+            <RecommandContents></RecommandContents>
+            <RecommandContents></RecommandContents>
+            <RecommandContents></RecommandContents>
+            <RecommandContents></RecommandContents>
+            <RecommandContents></RecommandContents>
+            <RecommandContents></RecommandContents>
+            <RecommandContents></RecommandContents>
+            <RecommandContents></RecommandContents>
+            <RecommandContents></RecommandContents>
+            <RecommandContents></RecommandContents>
+            <RecommandContents></RecommandContents>
+            <RecommandContents></RecommandContents>
+            <RecommandContents></RecommandContents>
+            <RecommandContents></RecommandContents>
+            <RecommandContents></RecommandContents>
+            <RecommandContents></RecommandContents>
+            <RecommandContents></RecommandContents>
+          </StyledRecommandSlide>
         </TabPanel>
-        <TabPanel value="2" style={{ float: "left" }}></TabPanel>
+        <TabPanel value="2">
+          <StyledRecommandSlide>
+            <RecommandContents></RecommandContents>
+            <RecommandContents></RecommandContents>
+            <RecommandContents></RecommandContents>
+            <RecommandContents></RecommandContents>
+            <RecommandContents></RecommandContents>
+            <RecommandContents></RecommandContents>
+            <RecommandContents></RecommandContents>
+            <RecommandContents></RecommandContents>
+            <RecommandContents></RecommandContents>
+            <RecommandContents></RecommandContents>
+            <RecommandContents></RecommandContents>
+            <RecommandContents></RecommandContents>
+            <RecommandContents></RecommandContents>
+            <RecommandContents></RecommandContents>
+            <RecommandContents></RecommandContents>
+            <RecommandContents></RecommandContents>
+            <RecommandContents></RecommandContents>
+            <RecommandContents></RecommandContents>
+            <RecommandContents></RecommandContents>
+          </StyledRecommandSlide>
+        </TabPanel>
       </TabContext>
     </Box>
   )
 }
 export default RecommandBar
+
+const StyledRecommandSlide = styled(Box)({
+  whiteSpace: "nowrap",
+  overflowX: "scroll",
+  overflowY: "hidden",
+  display: "flex",
+})

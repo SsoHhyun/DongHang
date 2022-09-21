@@ -20,6 +20,9 @@ const CourseSide = () => {
       <SideContents></SideContents>
       <SideContents></SideContents>
       <SideContents></SideContents>
+      <SideContents></SideContents>
+      <SideContents></SideContents>
+      <SideContents></SideContents>
     </StyledCourseSide>
   )
 }
