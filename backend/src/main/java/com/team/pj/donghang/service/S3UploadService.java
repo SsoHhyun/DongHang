@@ -1,26 +1,26 @@
 package com.team.pj.donghang.service;
 
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.model.ObjectMetadata;
+//import com.amazonaws.services.s3.AmazonS3;
+//import com.amazonaws.services.s3.AmazonS3Client;
+//import com.amazonaws.services.s3.model.ObjectMetadata;
+//
+//import com.team.pj.donghang.domain.dto.TripDto;
+//import com.team.pj.donghang.domain.entity.Photo;
+//import com.team.pj.donghang.domain.entity.User;
+//import com.team.pj.donghang.repository.PhotoRepository;
+//
+//import lombok.RequiredArgsConstructor;
+//import org.springframework.beans.factory.annotation.Value;
+//import org.springframework.stereotype.Service;
+//import org.springframework.transaction.annotation.Transactional;
+//import org.springframework.web.multipart.MultipartFile;
+//
+//import java.io.IOException;
+//import java.util.UUID;
 
-import com.team.pj.donghang.domain.dto.TripDto;
-import com.team.pj.donghang.domain.entity.Photo;
-import com.team.pj.donghang.domain.entity.User;
-import com.team.pj.donghang.repository.PhotoRepository;
-
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-import java.util.UUID;
-
-@RequiredArgsConstructor
-@Service
-@Transactional
+//@RequiredArgsConstructor
+//@Service
+//@Transactional
 public class S3UploadService {
 //    @Value("${cloud.aws.s3.bucket}")
 //    private String bucket;
