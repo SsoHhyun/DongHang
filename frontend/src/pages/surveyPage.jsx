@@ -47,6 +47,7 @@ const SurveyPage = () => {
           <PageBox>{number} / 8</PageBox>
           {page === 0 ? (
             <Box>
+              <Box width="20%" marginRight="2%"></Box>
               <NextButton onClick={nextPage}>Next</NextButton>
             </Box>
           ) : null}
@@ -78,6 +79,7 @@ const Background = styled(Box)({
   width: "100wh",
   height: "100vh",
   // padding: " 0 0 0",
+  flexWrap: "wrap",
 })
 
 const SurveyBox = styled(Box)({
