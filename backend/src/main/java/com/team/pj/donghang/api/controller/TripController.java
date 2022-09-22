@@ -1,6 +1,7 @@
 package com.team.pj.donghang.api.controller;
 
 import com.team.pj.donghang.api.request.TripCreateRequestDto;
+import com.team.pj.donghang.api.response.TripResponseDto;
 import com.team.pj.donghang.domain.dto.PlaceCommonDto;
 import com.team.pj.donghang.domain.dto.UserSchedule;
 import com.team.pj.donghang.domain.entity.PlaceCommon;
@@ -30,26 +31,24 @@ import java.util.List;
 @CrossOrigin("*")
 @Controller
 @RequestMapping("/api/trip")
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class TripController {
     private final Logger log = LoggerFactory.getLogger(TripController.class);
     @Autowired
-    private final TripService tripService;
+    TripService tripService;
 
     @PostMapping
-    @ApiOperation(value = "")
+    @ApiOperation(value = "일정 생성")
     @ApiResponses({
 
     })
     public ResponseEntity tripScheduleCreate(
             @ApiIgnore Authentication authentication,
-            @ApiParam(value = "일정 생성을 위한 정보",required = true)  TripCreateRequestDto tripCreateRequestDto,
-            @ApiParam(value = "상세 장소들")  List<Long> commonNoList) {
-//        User user = new User
+            @ApiParam(value = "일정 생성을 위한 정보",required = true) @RequestBody TripCreateRequestDto tripCreateRequestDto
+            ) {
         UserSchedule user = new UserSchedule(1L);
-        tripService.createTrip(user, tripCreateRequestDto, commonNoList);
+        tripService.createTrip(user, tripCreateRequestDto);
 
-//        tripService.createTrip(tripCreateRequestDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -63,19 +62,26 @@ public class TripController {
         List<Long> temp =Arrays.asList(commonNoList);
        return ResponseEntity.status(200).body(tripService.recommendPlaceList(temp));
     }
-//    @GetMapping("/recommendList")
-//    @ApiOperation(value = "추천 일정 리스트")
-//    @ApiResponses({
-//
-//    })
-//    public ResponseEntity<List<PlaceCommon>> getTripList(@ApiIgnore Authentication authentication,
-//                                                              @ApiParam(value = "일정 정보들을 가져오기 위한 userno",required = true)Long userNo){
-////        for (Long num:commonNoList) {
-////            System.out.println(num);
-////        }
-////        List<Long> temp =Arrays.asList(commonNoList);
-////        List<PlaceCommon> list = tripService.recommendPlaceList(temp);
-////        return ResponseEntity.status(200).body(list);
-//    }
+    @GetMapping("/getMyTripList")
+    @ApiOperation(value = "내 일정 리스트")
+    @ApiResponses({
+
+    })
+    public ResponseEntity<List<TripResponseDto>> getTripList(@ApiIgnore Authentication authentication,
+                                                             @ApiParam(value = "일정 정보들을 가져오기 위한 userno",required = true)Long userNo){
+        List<TripResponseDto> list = tripService.getUserTripList(userNo);
+        return ResponseEntity.status(200).body(list);
+    }
+    @GetMapping("/getMyTrip")
+    @ApiOperation(value = "내 일정 리스트")
+    @ApiResponses({
+
+    })
+    public ResponseEntity<TripResponseDto> getTripList(@ApiIgnore Authentication authentication,
+                                                             @ApiParam(value = "일정 정보들을 가져오기 위한 userno",required = true)Long userNo,
+                                                             @ApiParam(value = "내 일정 정보 1개",required = true)Long tripNo){
+        TripResponseDto result = tripService.getUserTrip(userNo,tripNo);
+        return ResponseEntity.status(200).body(result);
+    }
 
 }

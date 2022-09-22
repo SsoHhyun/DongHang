@@ -20,4 +20,7 @@ public class TripCreateRequestDto {
 
     @ApiModelProperty(name = "일정 끝 날짜",example = "20220915")
     private String endDate;
+
+    @ApiModelProperty(name = "일정 장소 common no list",example = "[1,2,3]")
+    private Long[] commonNoList;
 }

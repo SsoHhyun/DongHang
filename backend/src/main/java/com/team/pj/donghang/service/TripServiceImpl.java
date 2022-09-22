@@ -1,8 +1,7 @@
 package com.team.pj.donghang.service;
 
 import com.team.pj.donghang.api.request.TripCreateRequestDto;
-import com.team.pj.donghang.domain.dto.PlaceCommonDto;
-import com.team.pj.donghang.domain.dto.TripDto;
+import com.team.pj.donghang.api.response.TripResponseDto;
 import com.team.pj.donghang.domain.dto.UserSchedule;
 import com.team.pj.donghang.domain.entity.PlaceCommon;
 import com.team.pj.donghang.domain.entity.Trip;
@@ -11,7 +10,6 @@ import com.team.pj.donghang.domain.entity.User;
 import com.team.pj.donghang.repository.PlaceCommonRepository;
 import com.team.pj.donghang.repository.TripPlaceRepository;
 import com.team.pj.donghang.repository.TripRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,13 +19,15 @@ import java.util.List;
 
 
 @Service
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class TripServiceImpl implements TripService{
-    private final TripRepository  tripRepository;
+    @Autowired
+     TripRepository  tripRepository;
+    @Autowired
+    TripPlaceRepository tripPlaceRepository;
 
-    private final TripPlaceRepository tripPlaceRepository;
-
-    private final PlaceCommonRepository placeCommonRepository;
+    @Autowired
+    PlaceCommonRepository placeCommonRepository;
     @Transactional
     @Override
     public List<PlaceCommon> recommendPlaceList(List<Long> commonNoList) {
@@ -59,7 +59,7 @@ public class TripServiceImpl implements TripService{
 
     @Transactional
     @Override
-    public void createTrip(UserSchedule userSchedule, TripCreateRequestDto tripCreateRequestDto, List<Long> commonNoList) {
+    public void createTrip(UserSchedule userSchedule, TripCreateRequestDto tripCreateRequestDto) {
         User user = new User(userSchedule.getUserNo(),"test","test1234","test","test@test.com","");
         Trip trip = Trip.builder().tripName(tripCreateRequestDto.getTripName())
                 .startDate(tripCreateRequestDto.getStartDate())
@@ -67,6 +67,7 @@ public class TripServiceImpl implements TripService{
                 .endDate(tripCreateRequestDto.getEndDate()).build();
         Long num = tripRepository.save(trip).getTripNo();
         List<TripPlace> tripPlaceList = new ArrayList<>();
+        Long[] commonNoList = tripCreateRequestDto.getCommonNoList();
         for (Long commonNo:commonNoList) {
             PlaceCommon common = placeCommonRepository.findByCommonNo(commonNo);
 
@@ -90,12 +91,54 @@ public class TripServiceImpl implements TripService{
     }
 
     @Override
-    public TripDto getUserTrip(Long userNo,Long TripNo) {
-        return null;
+    public TripResponseDto getUserTrip(Long userNo,Long TripNo) {
+        Trip trip = tripRepository.findByTripNo(TripNo);
+        List<PlaceCommon> placeCommonList =new ArrayList<>();
+        List<TripPlace> tripPlaceList =new ArrayList<>();
+        tripPlaceList=tripPlaceRepository.findAllByTrip_TripNo(trip.getTripNo());
+
+        for (TripPlace tripPlace:tripPlaceList) {
+            placeCommonList.add(tripPlace.getCommon());
+        }
+        TripResponseDto tripResponseDto = TripResponseDto
+                .builder()
+                .placeList(placeCommonList)
+                .tripNo(trip.getTripNo())
+                .userNo(trip.getUser().getUserNo())
+                .endDate(trip.getEndDate())
+                .startDate(trip.getStartDate())
+                .tripName(trip.getTripName())
+                .build();
+        return tripResponseDto;
     }
 
     @Override
-    public List<TripDto> getUserTripList(Long userNo) {
-        return null;
+    public List<TripResponseDto> getUserTripList(Long userNo) {
+        List<TripResponseDto> result = new ArrayList<>();
+
+        List<Trip> list = tripRepository.findAllByUser_UserNo(userNo);
+        List<PlaceCommon> placeCommonList;
+        List<TripPlace> tripPlaceList ;
+
+        for (Trip trip:list) {
+            tripPlaceList = new ArrayList<>();
+            placeCommonList = new ArrayList<>();
+            tripPlaceList=tripPlaceRepository.findAllByTrip_TripNo(trip.getTripNo());
+            for (TripPlace tripPlace:tripPlaceList) {
+                placeCommonList.add(tripPlace.getCommon());
+            }
+            TripResponseDto tripResponseDto = TripResponseDto
+                    .builder()
+                    .placeList(placeCommonList)
+                    .tripNo(trip.getTripNo())
+                    .userNo(trip.getUser().getUserNo())
+                    .endDate(trip.getEndDate())
+                    .startDate(trip.getStartDate())
+                    .tripName(trip.getTripName())
+                    .build();
+            result.add(tripResponseDto);
+
+        }
+        return result;
     }
 }

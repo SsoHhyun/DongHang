@@ -2,6 +2,7 @@ package com.team.pj.donghang.api.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.team.pj.donghang.domain.dto.PlaceCommonDto;
+import com.team.pj.donghang.domain.entity.PlaceCommon;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -31,6 +32,6 @@ public class TripResponseDto {
     @ApiModelProperty(name ="일정 제목")
     String tripName;
 
-    @ApiModelProperty(name = "일정")
-    private List<PlaceCommonDto> placeList;
+    @ApiModelProperty(name = "일정 장소 리스트")
+    private List<PlaceCommon> placeList;
 }

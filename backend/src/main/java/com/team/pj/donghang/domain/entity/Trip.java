@@ -23,7 +23,7 @@ public class Trip {
     @Column(name ="trip_no")
     private Long tripNo;
 
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYYMMDD");
+//    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYYMMDD");
 
 //    @Column(name = "start_date")
 //    private SimpleDateFormat startDate;
