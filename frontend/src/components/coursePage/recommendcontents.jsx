@@ -25,16 +25,18 @@ const RecommendContents = () => {
   }
   const test = () => {
     interceptor({
-      url: "/user/",
+      url: "/api/trip/getMyTripList?userNo=1",
       method: "get",
     })
-      .then((res) => {})
+      .then((res) => {
+        console.log(res.data)
+      })
       .catch((err) => {
         alert(err)
       })
   }
   return (
-    <StyledCard>
+    <StyledCard onClick={test}>
       <CardMedia
         component="img"
         image={process.env.PUBLIC_URL + `/img/d4.jpg`}
