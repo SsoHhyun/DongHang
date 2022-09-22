@@ -63,19 +63,19 @@ public class TripController {
         List<Long> temp =Arrays.asList(commonNoList);
        return ResponseEntity.status(200).body(tripService.recommendPlaceList(temp));
     }
-    @GetMapping("/recommendList")
-    @ApiOperation(value = "추천 일정 리스트")
-    @ApiResponses({
-
-    })
-    public ResponseEntity<List<PlaceCommon>> getTripList(@ApiIgnore Authentication authentication,
-                                                              @ApiParam(value = "일정 정보들을 가져오기 위한 userno",required = true)Long userNo){
-//        for (Long num:commonNoList) {
-//            System.out.println(num);
-//        }
-//        List<Long> temp =Arrays.asList(commonNoList);
-//        List<PlaceCommon> list = tripService.recommendPlaceList(temp);
-//        return ResponseEntity.status(200).body(list);
-    }
+//    @GetMapping("/recommendList")
+//    @ApiOperation(value = "추천 일정 리스트")
+//    @ApiResponses({
+//
+//    })
+//    public ResponseEntity<List<PlaceCommon>> getTripList(@ApiIgnore Authentication authentication,
+//                                                              @ApiParam(value = "일정 정보들을 가져오기 위한 userno",required = true)Long userNo){
+////        for (Long num:commonNoList) {
+////            System.out.println(num);
+////        }
+////        List<Long> temp =Arrays.asList(commonNoList);
+////        List<PlaceCommon> list = tripService.recommendPlaceList(temp);
+////        return ResponseEntity.status(200).body(list);
+//    }
 
 }
