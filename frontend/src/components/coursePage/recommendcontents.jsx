@@ -25,7 +25,7 @@ const RecommendContents = () => {
   }
   const test = () => {
     interceptor({
-      url: "/api/trip/getMyTripList?userNo=1",
+      url: "/api/trip/getMyTrip?tripNo=1&userNo=1",
       method: "get",
     })
       .then((res) => {
