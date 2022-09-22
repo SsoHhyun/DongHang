@@ -32,7 +32,7 @@ const RecommendBar = () => {
             width: "80%",
             height: "45%",
             position: "absolute",
-            backgroundColor: "white",
+
             bottom: 0,
             left: "20%",
           }}
@@ -42,7 +42,7 @@ const RecommendBar = () => {
             style={{ left: "37.5%", position: "absolute", color: "#121212" }}
           ></ArrowCircleDownIcon>
           <br></br>
-          <Box>
+          <Box style={{ backgroundColor: "white" }}>
             <TabContext value={value}>
               <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                 <TabList

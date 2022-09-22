@@ -12,6 +12,7 @@ import {
   Button,
 } from "@mui/material"
 import SpotDetail from "./spotdetail"
+import interceptor from "../../api/interceptor"
 
 const RecommendContents = () => {
   const [open, setOpen] = React.useState(false)
@@ -22,7 +23,16 @@ const RecommendContents = () => {
   const handleClose = () => {
     setOpen(false)
   }
-
+  const test = () => {
+    interceptor({
+      url: "/user/",
+      method: "get",
+    })
+      .then((res) => {})
+      .catch((err) => {
+        alert(err)
+      })
+  }
   return (
     <StyledCard>
       <CardMedia
