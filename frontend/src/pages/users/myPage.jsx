@@ -1,8 +1,9 @@
-import React, { useState } from "react"
-import PropTypes from "prop-types"
-import Badge from "../../components/myPage/badge"
-import Info from "../../components/myPage/userInfo"
-import LastTrip from "../../components/myPage/lastTrip"
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import Badge from "../../components/myPage/badge";
+import Info from "../../components/myPage/userInfo";
+import LastTrip from "../../components/myPage/lastTrip";
+import Album from "../../components/myPage/album";
 import {
   Box,
   Button,
@@ -11,11 +12,11 @@ import {
   Tab,
   Tabs,
   Typography,
-} from "@mui/material"
-import { Avatar, fullname } from "react-lorem-ipsum"
+} from "@mui/material";
+import { Avatar, fullname } from "react-lorem-ipsum";
 
 function TabPanel(props) {
-  const { children, value, index, ...other } = props
+  const { children, value, index, ...other } = props;
 
   return (
     <div
@@ -31,20 +32,20 @@ function TabPanel(props) {
         </Box>
       )}
     </div>
-  )
+  );
 }
 
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.number.isRequired,
   value: PropTypes.number.isRequired,
-}
+};
 
 const MyPage = () => {
-  const [value, setValue] = useState(1)
+  const [value, setValue] = useState(1);
   const handleChange = (event, newValue) => {
-    setValue(newValue)
-  }
+    setValue(newValue);
+  };
 
   return (
     // <BackImg >
@@ -67,14 +68,14 @@ const MyPage = () => {
         <Badge />
       </TabPanel>
       <TabPanel value={value} index={3}>
-        <LastTrip />
+        <Album />
       </TabPanel>
     </Container>
     // </BackImg>
-  )
-}
+  );
+};
 
-export default MyPage
+export default MyPage;
 
 // const BackImg = styled(Image)({
 //   width: "100vw",
@@ -87,7 +88,7 @@ const Container = styled(Box)({
   alignItems: "center",
   width: "100vw",
   height: "100vh",
-})
+});
 
 const SideBar = styled(Paper)({
   height: "100vh",
@@ -97,14 +98,14 @@ const SideBar = styled(Paper)({
   justifyContent: "space-evenly",
   alignItems: "space-evenly",
   background: "linear-gradient(135deg, ivory, beige)",
-})
+});
 
 const Profile = styled(Box)({
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
-})
+});
 
 export const Photo = styled(Avatar)({
   borderRadius: 100,
@@ -112,17 +113,17 @@ export const Photo = styled(Avatar)({
   height: "200px",
   margin: "2rem",
   position: "relative",
-})
+});
 
 export const Name = styled(Typography)({
   color: "#c19a6b",
   fontWeight: "bold",
   fontSize: 30,
-})
+});
 
 const MyTabs = styled(Tabs)({
   // height: "50vh",
-})
+});
 
 const MyTab = styled(Tab)({
   margin: "1rem",
@@ -132,6 +133,6 @@ const MyTab = styled(Tab)({
   border: "solid",
   borderRadius: 10,
   backgroundColor: "#c19a6b",
-})
+});
 
 // const MyTabPanel = styled(Box)({});
