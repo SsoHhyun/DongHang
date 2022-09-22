@@ -1,5 +1,5 @@
 import React from "react"
-import { Box, Paper, styled } from "@material-ui/core"
+import { Box, styled } from "@material-ui/core"
 import RecommTripCard from "../components/main/recommTrip"
 import Grid from "@mui/material/Grid/Grid"
 import NowCourse from "../components/main/nowCourse"
@@ -27,14 +27,14 @@ const MainPage = () => {
       </Box>
 
       {/* 현재 진행중인 일정 */}
-      <Paper>
+      <Box>
         <NowCourse></NowCourse>
-      </Paper>
+      </Box>
 
       {/* 미션 */}
-      <Paper>
+      <Box>
         <Mission></Mission>
-      </Paper>
+      </Box>
     </MainBox>
   )
 }
