@@ -5,12 +5,12 @@ import { Box } from "@mui/system"
 const Navbar = () => {
   return (
     <Box
-      style={{
-        position: "fixed",
-        height: "60px",
-        width: "100%",
-        backgroundColor: "white",
-      }}
+    // style={{
+    //   position: "fixed",
+    //   height: "60px",
+    //   width: "100%",
+    //   backgroundColor: "white",
+    // }}
     ></Box>
   )
 }

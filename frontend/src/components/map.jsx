@@ -29,7 +29,7 @@ const Map = () => {
           width: "100%",
           height: "100%",
           position: "absolute",
-          zIndex: -1,
+          zIndex: -3,
         }}
       ></div>
     </div>

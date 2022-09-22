@@ -13,9 +13,8 @@ import {
 } from "@mui/material"
 import SpotDetail from "./spotdetail"
 
-const RecommandContents = () => {
+const RecommendContents = () => {
   const [open, setOpen] = React.useState(false)
-
   const handleClickOpen = () => {
     setOpen(true)
   }
@@ -51,7 +50,7 @@ const RecommandContents = () => {
     </StyledCard>
   )
 }
-export default RecommandContents
+export default RecommendContents
 
 const StyledCard = styled(Card)({
   width: "200px",

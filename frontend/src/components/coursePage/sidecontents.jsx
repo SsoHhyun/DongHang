@@ -8,8 +8,9 @@ import {
   Button,
   Typography,
 } from "@mui/material"
-
+import AdjustIcon from "@mui/icons-material/Adjust"
 //코스관련 사이드바 내부 컨텐츠
+import interceptor from "../../api/interceptor"
 
 const SideContents = () => {
   const [open, setOpen] = React.useState(false)
@@ -22,6 +23,16 @@ const SideContents = () => {
 
   const handleClickOpen = () => {
     setOpen(true)
+    interceptor({
+      url: "/user/",
+      method: "get",
+    })
+      .then((res) => {
+        console.log(res.data)
+      })
+      .catch((err) => {
+        alert(err)
+      })
   }
 
   const handleClose = () => {
@@ -30,7 +41,8 @@ const SideContents = () => {
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
-        <Typography variant="h5" component="div">
+        <AdjustIcon></AdjustIcon>
+        <Typography variant="h7" component="div">
           {spot.name}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
