@@ -1,7 +1,8 @@
 // 지난 여행
-import React from "react"
+import React, { useState } from "react";
 import {
   Box,
+  Paper,
   styled,
   Typography,
   Card,
@@ -9,24 +10,34 @@ import {
   CardMedia,
   CardActionArea,
   Grid,
-} from "@mui/material"
+} from "@mui/material";
 
 function ActionAreaCard() {
   return (
     <MyCard sx={{ maxWidth: 345 }} onClick={() => {}}>
       <CardActionArea>
-        <CardMedia component="img" image="/img/imgimg.jpg" alt="green iguana" />
+        <CardImg>
+          <CardMedia
+            component="img"
+            image="/img/imgimg.jpg"
+            alt="green iguana"
+            style={{
+              width: "12vw",
+              height: "15vh",
+            }}
+          />
+        </CardImg>
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            제주도
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <CardText gutterBottom variant="h5" component="div">
+            나의 여행
+          </CardText>
+          <CardText variant="body2" color="text.secondary">
             2022-09-06 ~ 2022-09-09
-          </Typography>
+          </CardText>
         </CardContent>
       </CardActionArea>
     </MyCard>
-  )
+  );
 }
 
 function FormRow() {
@@ -42,7 +53,7 @@ function FormRow() {
         <ActionAreaCard />
       </Grid>
     </React.Fragment>
-  )
+  );
 }
 
 const LastTrip = () => {
@@ -63,12 +74,12 @@ const LastTrip = () => {
         </Grid>
       </Trips>
     </TripContainer>
-  )
-}
+  );
+};
 
-export default LastTrip
+export default LastTrip;
 
-const TripContainer = styled(Box)({
+const TripContainer = styled(Paper)({
   borderRadius: 20,
   width: "53vw",
   height: "95vh",
@@ -78,18 +89,34 @@ const TripContainer = styled(Box)({
   flexDirection: "column",
   justifyContent: "center",
   alignContent: "center",
-})
+});
 
 const Title = styled(Typography)({
   fontSize: 30,
   color: "brown",
   fontWeight: "bold",
   textAlign: "center",
-  marginBottom: "2rem",
-})
+  margin: "2rem",
+});
 
-const Trips = styled(Box)({})
+const Trips = styled(Box)({
+  overflowY: "auto",
+  marginBottom: "2rem",
+  marginLeft: "4rem",
+  marginRight: "4rem",
+});
 
 const MyCard = styled(Card)({
   margin: "1rem",
-})
+});
+
+const CardImg = styled(Box)({
+  display: "flex",
+  justifyContent: "center",
+  alignContent: "center",
+  paddingTop: 10,
+});
+
+const CardText = styled(Typography)({
+  textAlign: "right",
+});
