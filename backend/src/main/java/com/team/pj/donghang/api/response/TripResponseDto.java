@@ -1,6 +1,7 @@
 package com.team.pj.donghang.api.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.team.pj.donghang.domain.dto.PlaceCommonDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Map;
 
 @Getter
@@ -29,6 +31,6 @@ public class TripResponseDto {
     @ApiModelProperty(name ="일정 제목")
     String tripName;
 
-    @ApiModelProperty(name = "사진 list")
-    private Map<String,String> files;
+    @ApiModelProperty(name = "일정")
+    private List<PlaceCommonDto> placeList;
 }

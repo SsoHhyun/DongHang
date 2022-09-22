@@ -1,13 +1,13 @@
 package com.team.pj.donghang.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class PhotoDto {
     @JsonProperty(value = "photo_no")
     private long photoNo;

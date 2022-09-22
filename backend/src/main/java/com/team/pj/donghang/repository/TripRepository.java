@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface TripRepository extends JpaRepository<Trip,Long> {
-    List<TripDto> findByuser_no(Long userNo);
+//    List<TripDto> findByuser_no(Long userNo);
 
 }

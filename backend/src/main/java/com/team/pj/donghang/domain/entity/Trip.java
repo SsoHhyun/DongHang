@@ -25,11 +25,17 @@ public class Trip {
 
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYYMMDD");
 
-    @Column(name = "start_date")
-    private SimpleDateFormat startDate;
+//    @Column(name = "start_date")
+//    private SimpleDateFormat startDate;
 
+
+    @Column(name = "start_date")
+    private String startDate;
+//
+//    @Column(name = "end_date")
+//    private SimpleDateFormat endDate;
     @Column(name = "end_date")
-    private SimpleDateFormat endDate;
+    private String endDate;
 
     @ManyToOne
     @JoinColumn(name = "user_no")

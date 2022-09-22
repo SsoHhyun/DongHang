@@ -8,13 +8,16 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel("Trip Create Regester Dto")
+@ApiModel(value = "Trip Create register Dto" ,description = "일정 제목 , 일정 시작 날짜, 일정 끝날짜")
 @Builder
 
 public class TripCreateRequestDto {
-    @ApiModelProperty(name = "일정 제목")
+    @ApiModelProperty(name = "일정 제목",example = "2022 엄마 아빠와 함께하는 강원도 여행")
     private String tripName;
 
-    @ApiModelProperty(name = "일정 시작 날짜")
+    @ApiModelProperty(name = "일정 시작 날짜",example = "20220912")
     private String startDate;
+
+    @ApiModelProperty(name = "일정 끝 날짜",example = "20220915")
+    private String endDate;
 }
