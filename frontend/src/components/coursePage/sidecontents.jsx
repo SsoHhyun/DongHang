@@ -1,41 +1,64 @@
-import Card from "@mui/material/Card"
-import CardActions from "@mui/material/CardActions"
-import CardContent from "@mui/material/CardContent"
-import Button from "@mui/material/Button"
-import Typography from "@mui/material/Typography"
 import React from "react"
 import SpotDetail from "./spotdetail"
-import { Modal } from "@mui/material"
-
+import {
+  Dialog,
+  Card,
+  CardActions,
+  CardContent,
+  Button,
+  Typography,
+} from "@mui/material"
+import AdjustIcon from "@mui/icons-material/Adjust"
 //코스관련 사이드바 내부 컨텐츠
+import interceptor from "../../api/interceptor"
 
 const SideContents = () => {
   const [open, setOpen] = React.useState(false)
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
+  const spot = {
+    name: "여행일정장소",
+    adress: "어쩌구구어쩌구동",
+    lat: "34.11231",
+    lng: "121.547874",
+  }
+
+  const handleClickOpen = () => {
+    setOpen(true)
+    interceptor({
+      url: "/user/",
+      method: "get",
+    })
+      .then((res) => {
+        console.log(res.data)
+      })
+      .catch((err) => {
+        alert(err)
+      })
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
-        <Typography variant="h5" component="div">
-          여행일정장소
+        <AdjustIcon></AdjustIcon>
+        <Typography variant="h7" component="div">
+          {spot.name}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          주소
-        </Typography>
-        <Typography variant="body2">
-          상세설명상세설명상세설명상세설명상세설명상세설명상세설명상세설명상세설명상세설명상세설명상세설명
+          {spot.adress}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button onClick={handleOpen}>자세히 보기</Button>
-        <Modal
+        <Button onClick={handleClickOpen}>자세히 보기</Button>
+        <Dialog
           open={open}
           onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
         >
           <SpotDetail></SpotDetail>
-        </Modal>
+        </Dialog>
       </CardActions>
     </Card>
   )
