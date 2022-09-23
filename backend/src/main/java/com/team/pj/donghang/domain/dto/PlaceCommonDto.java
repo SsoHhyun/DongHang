@@ -5,40 +5,38 @@ import lombok.*;
 
 import javax.persistence.Column;
 
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public abstract class PlaceCommonDto {
+public class PlaceCommonDto {
     @JsonProperty(value="common_no")
-    private Long commonNo;
+    public Long commonNo;
 
     @JsonProperty(value="content_id")
-    private String contentId;
+    public String contentId;
 
     @JsonProperty(value="content_type_id")
-    private String contentTypeId;
+    public String contentTypeId;
 
-    private String tel;
+    public String tel;
 
-    private String title;
+    public String title;
 
     @JsonProperty(value="first_image1")
-    private String firstImage1;
+    public String firstImage1;
 
     @JsonProperty(value="first_image2")
-    private String firstImage2;
+    public String firstImage2;
 
-    private String cat1;
-    private String cat2;
-    private String cat3;
-    private String addr1;
-    private String addr2;
-    private String mapx;
-    private String mapy;
-    private String mlevel;
+    public String cat1;
+    public String cat2;
+    public String cat3;
+    public String addr1;
+    public String addr2;
+    public String mapx;
+    public String mapy;
+    public String mlevel;
 
     @JsonProperty(value = "area_code")
-    private String areacode;
+    public String areacode;
 
 }

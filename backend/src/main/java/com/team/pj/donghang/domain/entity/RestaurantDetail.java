@@ -22,7 +22,6 @@ public class RestaurantDetail  {
     @Column(name = "chk_creditcard")
     private String chkCreditcard;
 
-
     @Column(name = "info_center")
     private String infoCenter;
 

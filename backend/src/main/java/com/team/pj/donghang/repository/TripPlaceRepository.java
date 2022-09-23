@@ -8,5 +8,6 @@ import java.util.List;
 @Repository
 public interface TripPlaceRepository extends JpaRepository<TripPlace,Long> {
     List<TripPlace> findAllByTrip_TripNo(Long trip_no);
+    void deleteByTrip_TripNo(Long trip_no);
 }
 //findByTeam_TeamIdx
