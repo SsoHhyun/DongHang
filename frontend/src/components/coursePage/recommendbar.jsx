@@ -9,10 +9,25 @@ import RecommendContents from "./recommendcontents"
 import { styled } from "@mui/material"
 import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown"
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp"
+import interceptor from "../../api/interceptor"
 //코스관련 사이드바
 const RecommendBar = () => {
   const [value, setValue] = useState("1")
   const [open, setOpen] = useState(false)
+  const [recommendspot, setRecommendspot] = useState()
+
+  interceptor({
+    url: "/api/trip?tripNo=2&userNo=1",
+    method: "get",
+  })
+    .then((res) => {
+      setRecommendspot(res.data.placeList[0].title)
+      console.log("")
+    })
+    .catch((err) => {
+      alert(err)
+    })
+
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
@@ -55,47 +70,11 @@ const RecommendBar = () => {
               </Box>
               <TabPanel value="1">
                 <StyledRecommendSlide>
-                  <RecommendContents></RecommendContents>
-                  <RecommendContents></RecommendContents>
-                  <RecommendContents></RecommendContents>
-                  <RecommendContents></RecommendContents>
-                  <RecommendContents></RecommendContents>
-                  <RecommendContents></RecommendContents>
-                  <RecommendContents></RecommendContents>
-                  <RecommendContents></RecommendContents>
-                  <RecommendContents></RecommendContents>
-                  <RecommendContents></RecommendContents>
-                  <RecommendContents></RecommendContents>
-                  <RecommendContents></RecommendContents>
-                  <RecommendContents></RecommendContents>
-                  <RecommendContents></RecommendContents>
-                  <RecommendContents></RecommendContents>
-                  <RecommendContents></RecommendContents>
-                  <RecommendContents></RecommendContents>
-                  <RecommendContents></RecommendContents>
-                  <RecommendContents></RecommendContents>
+                  <RecommendContents title={recommendspot}></RecommendContents>
                 </StyledRecommendSlide>
               </TabPanel>
               <TabPanel value="2">
                 <StyledRecommendSlide>
-                  <RecommendContents></RecommendContents>
-                  <RecommendContents></RecommendContents>
-                  <RecommendContents></RecommendContents>
-                  <RecommendContents></RecommendContents>
-                  <RecommendContents></RecommendContents>
-                  <RecommendContents></RecommendContents>
-                  <RecommendContents></RecommendContents>
-                  <RecommendContents></RecommendContents>
-                  <RecommendContents></RecommendContents>
-                  <RecommendContents></RecommendContents>
-                  <RecommendContents></RecommendContents>
-                  <RecommendContents></RecommendContents>
-                  <RecommendContents></RecommendContents>
-                  <RecommendContents></RecommendContents>
-                  <RecommendContents></RecommendContents>
-                  <RecommendContents></RecommendContents>
-                  <RecommendContents></RecommendContents>
-                  <RecommendContents></RecommendContents>
                   <RecommendContents></RecommendContents>
                 </StyledRecommendSlide>
               </TabPanel>

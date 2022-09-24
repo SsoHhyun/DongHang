@@ -12,10 +12,10 @@ import {
   Button,
 } from "@mui/material"
 import SpotDetail from "./spotdetail"
-import interceptor from "../../api/interceptor"
 
-const RecommendContents = () => {
+const RecommendContents = (props) => {
   const [open, setOpen] = React.useState(false)
+
   const handleClickOpen = () => {
     setOpen(true)
   }
@@ -23,20 +23,9 @@ const RecommendContents = () => {
   const handleClose = () => {
     setOpen(false)
   }
-  const test = () => {
-    interceptor({
-      url: "/api/trip/getMyTrip?tripNo=1&userNo=1",
-      method: "get",
-    })
-      .then((res) => {
-        console.log(res.data)
-      })
-      .catch((err) => {
-        alert(err)
-      })
-  }
+
   return (
-    <StyledCard onClick={test}>
+    <StyledCard>
       <CardMedia
         component="img"
         image={process.env.PUBLIC_URL + `/img/d4.jpg`}
@@ -45,7 +34,7 @@ const RecommendContents = () => {
       />
       <CardContent>
         <Typography gutterBottom variant="h7" component="div">
-          여행지이름
+          {props.title}
         </Typography>
       </CardContent>
       <CardActions>
