@@ -10,23 +10,31 @@ import { styled } from "@mui/material"
 import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown"
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp"
 import interceptor from "../../api/interceptor"
+import { useEffect } from "react"
 //코스관련 사이드바
 const RecommendBar = () => {
   const [value, setValue] = useState("1")
   const [open, setOpen] = useState(false)
-  const [recommendspot, setRecommendspot] = useState()
+  const [recommendspot, setRecommendspot] = useState([])
 
-  interceptor({
-    url: "/api/trip?tripNo=2&userNo=1",
-    method: "get",
-  })
-    .then((res) => {
-      setRecommendspot(res.data.placeList[0].title)
-      console.log("")
+  useEffect(() => {
+    interceptor({
+      url: "/api/trip?tripNo=2&userNo=1",
+      method: "get",
     })
-    .catch((err) => {
-      alert(err)
-    })
+      .then((res) => {
+        for (let i = 0; i < res.data.placeList.length; i++) {
+          setRecommendspot((recommendspot) => [
+            ...recommendspot,
+            res.data.placeList[i],
+          ])
+        }
+        console.log(recommendspot)
+      })
+      .catch((err) => {
+        alert(err)
+      })
+  }, [])
 
   const handleChange = (event, newValue) => {
     setValue(newValue)
@@ -47,17 +55,29 @@ const RecommendBar = () => {
             width: "80%",
             height: "45%",
             position: "absolute",
-
             bottom: 0,
             left: "20%",
           }}
         >
           <ArrowCircleDownIcon
             onClick={RecommendOpen}
-            style={{ left: "37.5%", position: "absolute", color: "#121212" }}
+            style={{
+              left: "37.5%",
+              position: "absolute",
+              color: "#121212",
+              bottom: "80%",
+            }}
           ></ArrowCircleDownIcon>
           <br></br>
-          <Box style={{ backgroundColor: "white" }}>
+          <Box
+            style={{
+              backgroundColor: "white",
+              bottom: 0,
+              position: "absolute",
+              width: "100%",
+              height: "80%",
+            }}
+          >
             <TabContext value={value}>
               <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                 <TabList
@@ -70,7 +90,11 @@ const RecommendBar = () => {
               </Box>
               <TabPanel value="1">
                 <StyledRecommendSlide>
-                  <RecommendContents title={recommendspot}></RecommendContents>
+                  {recommendspot.map((user, index) => (
+                    <RecommendContents
+                      title={recommendspot[index].title}
+                    ></RecommendContents>
+                  ))}
                 </StyledRecommendSlide>
               </TabPanel>
               <TabPanel value="2">
