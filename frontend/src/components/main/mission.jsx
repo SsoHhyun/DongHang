@@ -83,10 +83,9 @@ const Mission = () => {
 function Item(props) {
   return (
     <CarouselPaper>
-      <h2>{props.item.name}</h2>
+      <Box>{props.item.name}</Box>
       <ContentBox>
-        <p>{props.item.description}</p>
-
+        <Box>{props.item.description}</Box>
         <IconButton>
           <CameraAltIcon />
         </IconButton>
@@ -99,7 +98,7 @@ export default Mission
 
 const CarouselPaper = styled(Paper)({
   background: "#f4b37b",
-  padding: "3%",
+  padding: "2px",
 })
 
 const ContentBox = styled(Box)({
@@ -108,4 +107,5 @@ const ContentBox = styled(Box)({
   alignItems: "center",
   justifyContent: "center",
   fontSize: "1.2em",
+  height: "100px",
 })

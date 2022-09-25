@@ -1,7 +1,7 @@
 import { React, useState } from "react"
-import { Box, Button, styled } from "@material-ui/core"
-// import Question from "../components/survey/question"
-// import Answer from "../components/survey/answer"
+import { Box, Button, styled, Typography } from "@material-ui/core"
+import SurveyEnd from "../components/survey/surveyEnd"
+import SurveyStart from "../components/survey/surveyStart"
 
 // 취향설문 페이지
 
@@ -20,6 +20,8 @@ const questionList = [
 const SurveyPage = () => {
   const [page, setPage] = useState(0)
   const [number, setNumber] = useState(1)
+  const [end, setEnd] = useState(false)
+  const [start, setStart] = useState(false)
 
   const nextPage = () => {
     setPage(page + 1)
@@ -31,41 +33,62 @@ const SurveyPage = () => {
     setNumber(number - 1)
   }
 
+  const surveyEnd = () => {
+    setEnd(true)
+  }
+
+  const surveyStart = () => {
+    setStart(true)
+  }
+
   return (
     <Background>
-      <SurveyBox>
-        <h1>Survey page</h1>
-        <QuestionBox>
-          {number}. {questionList[page]}
-        </QuestionBox>
-        <ButtonBox>
-          <SurveyButton>예</SurveyButton>
-          <SurveyButton>아니오</SurveyButton>
-        </ButtonBox>
+      {start === false ? (
+        <Box>
+          <SurveyStart></SurveyStart>
+          <Button onClick={surveyStart}>시작하기!</Button>
+        </Box>
+      ) : (
+        <SurveyBox>
+          {end === false ? (
+            <Box>
+              <h1>Survey page</h1>
+              <QuestionBox>
+                {number}. {questionList[page]}
+              </QuestionBox>
+              <ButtonBox>
+                <SurveyButton>예</SurveyButton>
+                <SurveyButton>아니오</SurveyButton>
+              </ButtonBox>
 
-        <FooterBox>
-          <PageBox>{number} / 8</PageBox>
-          {page === 0 ? (
-            <Box>
-              <Box width="20%" marginRight="2%"></Box>
-              <NextButton onClick={nextPage}>Next</NextButton>
-            </Box>
-          ) : null}
-          {page > 0 && page < 7 ? (
-            <Box>
-              <PrevButton onClick={prevPage}>Prev</PrevButton>
-              <NextButton onClick={nextPage}>Next</NextButton>
-            </Box>
-          ) : null}
+              <FooterBox>
+                <PageBox>{number} / 8</PageBox>
+                {page === 0 ? (
+                  <Box>
+                    <Box width="20%" marginRight="2%"></Box>
+                    <NextButton onClick={nextPage}>Next</NextButton>
+                  </Box>
+                ) : null}
+                {page > 0 && page < 7 ? (
+                  <Box>
+                    <PrevButton onClick={prevPage}>Prev</PrevButton>
+                    <NextButton onClick={nextPage}>Next</NextButton>
+                  </Box>
+                ) : null}
 
-          {page === 7 ? (
-            <Box>
-              <PrevButton onClick={prevPage}>Prev</PrevButton>
-              <CompleteButton>완료</CompleteButton>
+                {page === 7 ? (
+                  <Box>
+                    <PrevButton onClick={prevPage}>Prev</PrevButton>
+                    <CompleteButton onClick={surveyEnd}>완료</CompleteButton>
+                  </Box>
+                ) : null}
+              </FooterBox>
             </Box>
-          ) : null}
-        </FooterBox>
-      </SurveyBox>
+          ) : (
+            <Typography>설문에 참여해주셔서 감사합니다.</Typography>
+          )}
+        </SurveyBox>
+      )}
     </Background>
   )
 }

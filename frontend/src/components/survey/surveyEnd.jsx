@@ -1,16 +1,11 @@
 import React from "react"
 import { Box, styled, Button } from "@material-ui/core"
-import Question from "./question"
 
-//취향설문 대답
-
-const Answer = () => {
+const SurveyEnd = () => {
   return (
     <Box>
-      <Button>예</Button>
-      <Button>아니오</Button>
-      <Button>상관없음</Button>
+      <p>설문에 참여해주셔서 감사합니다.</p>
     </Box>
   )
 }
-export default Answer
+export default SurveyEnd

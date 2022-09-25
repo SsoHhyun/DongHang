@@ -1,34 +1,66 @@
-import * as React from "react";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
+import React, { Component } from "react"
+import Slider from "react-slick"
+import { Box, styled } from "@material-ui/core"
+import "slick-carousel/slick/slick.css"
+import "slick-carousel/slick/slick-theme.css"
 
-const RecommTripCard = () => {
-  return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardMedia
-        component="img"
-        alt="multicampus"
-        height="140"
-        image="img/d1.jpg"
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          멀티캠퍼스 역삼
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          싸피인들의 애환이 담긴 곳
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
-      </CardActions>
-    </Card>
-  );
-};
+export default class RecommTrip extends Component {
+  render() {
+    const settings = {
+      dots: false,
+      arrows: false,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      autoplay: true,
+      autoplaySpeed: 3000,
+      fade: true,
+      pauseOnDotsHover: true,
+      responsive: [
+        {
+          breakpoint: 960,
+          settings: {
+            slidesToShow: 3,
+          },
+        },
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 2,
+          },
+        },
+      ],
+    }
+    return (
+      <SliderBox>
+        <Slider {...settings} maxWidth="100%" overflow="hidden">
+          <ImgBox>
+            <Img src="img/d1.jpg" alt="" />
+          </ImgBox>
+          <ImgBox>
+            <Img src="img/d2.jpg" alt="" />
+          </ImgBox>
+          <ImgBox>
+            <Img src="img/d3.jpg" alt="" />
+          </ImgBox>
+        </Slider>
+      </SliderBox>
+    )
+  }
+}
 
-export default RecommTripCard;
+const Img = styled("img")({
+  maxWidth: "100%",
+  height: "100%",
+})
+
+const ImgBox = styled(Box)({
+  width: "100vw",
+  height: "100vh",
+})
+
+const SliderBox = styled(Box)({
+  width: "40vw",
+  height: "100vh",
+})
