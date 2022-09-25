@@ -1,16 +1,15 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
 import {
   Box,
-  Button,
   Paper,
   styled,
   Tab,
   Typography,
-  Grid,
   ImageList,
   ImageListItem,
-} from "@mui/material";
-import { TabContext, TabList, TabPanel } from "@mui/lab";
+} from "@mui/material"
+import { TabContext, TabList, TabPanel } from "@mui/lab"
+import LastCourse from "./lastCourse"
 
 const itemData = [
   {
@@ -61,7 +60,7 @@ const itemData = [
     img: "https://images.unsplash.com/photo-1589118949245-7d38baf380d6",
     title: "Bike",
   },
-];
+]
 
 const Photos = () => {
   return (
@@ -77,21 +76,21 @@ const Photos = () => {
             srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
             alt={item.title}
             loading="lazy"
-            style={{ borderRadius: 8 }}
+            style={{ borderRadius: 4 }}
             onClick={() => {}}
           />
         </MyPhoto>
       ))}
     </ImageList>
-  );
-};
+  )
+}
 
 function LabTabs() {
-  const [value, setValue] = useState("1");
+  const [value, setValue] = useState("1")
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+    setValue(newValue)
+  }
 
   return (
     <Box sx={{ width: "100%", typography: "body1" }}>
@@ -109,10 +108,12 @@ function LabTabs() {
         <TabPanel value="1">
           <Photos />
         </TabPanel>
-        <TabPanel value="2">Item Two</TabPanel>
+        <TabPanel value="2">
+          <LastCourse />
+        </TabPanel>
       </TabContext>
     </Box>
-  );
+  )
 }
 
 const Album = () => {
@@ -120,10 +121,10 @@ const Album = () => {
     <AlbumContainer>
       <LabTabs />
     </AlbumContainer>
-  );
-};
+  )
+}
 
-export default Album;
+export default Album
 
 const AlbumContainer = styled(Paper)({
   borderRadius: 20,
@@ -135,28 +136,28 @@ const AlbumContainer = styled(Paper)({
   flexDirection: "column",
   justifyContent: "center",
   alignContent: "center",
-});
+})
 
 const AlbumTitle = styled(Box)({
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
-});
+})
 
 const AlbumName = styled(Typography)({
   textAlign: "center",
   fontSize: 30,
   color: "brown",
   fontWeight: "bold",
-});
+})
 
 const Period = styled(Typography)({
   textAlign: "center",
   fontSize: 16,
   color: "grey",
-});
+})
 
 const MyPhoto = styled(ImageListItem)({
   margin: 3,
-});
+})
