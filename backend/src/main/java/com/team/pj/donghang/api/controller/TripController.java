@@ -9,10 +9,7 @@ import com.team.pj.donghang.domain.dto.UserSchedule;
 import com.team.pj.donghang.domain.entity.PlaceCommon;
 import com.team.pj.donghang.domain.entity.User;
 import com.team.pj.donghang.service.TripService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -43,7 +40,7 @@ public class TripController {
     @PostMapping
     @ApiOperation(value = "일정 생성")
     @ApiResponses({
-
+            @ApiResponse(code = 201,message = "일정이 성공적으로 생성되었습니다.")
     })
     public ResponseEntity tripScheduleCreate(
             @ApiIgnore Authentication authentication,
@@ -53,7 +50,7 @@ public class TripController {
         UserSchedule user = new UserSchedule(1L);
         tripService.createTrip(user, tripCreateRequestDto);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/recommendList")
@@ -73,40 +70,59 @@ public class TripController {
             "api/trip/recommendList?category=tourist&commonNoList=5,9,10,16,21,23,24,25,26,28\n"
     )
     @ApiResponses({
-
+            @ApiResponse(code = 200,message = "성공적으로 반환하였습니다."),
+            @ApiResponse(code =400, message = "같은 타입인 데이터들로 보내주세요")
     })
     public ResponseEntity<List<? extends PlaceCommonDto>> getRecommendList(
             @ApiIgnore Authentication authentication,
             @ApiParam(value = "장소 추천을 위한 commonNo 리스트" ,example ="15,50,151,198,215,256 ",required = true)Long[] commonNoList,
             @ApiParam(value = "장소 추천을 위한 category ",example = "culture",required = true)String category){
         List<Long> list =Arrays.asList(commonNoList);
+        List<? extends  PlaceCommonDto> result =tripService.recommendPlaceList(list,category);
+        if(result==null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        }else{
+            return ResponseEntity.status(200).body(result);
+
+        }
 
 
-        return ResponseEntity.status(200).body(tripService.recommendPlaceList(list,category));
 
     }
     @GetMapping("/getMyTripList")
     @ApiOperation(value = "내 일정 리스트")
     @ApiResponses({
-
+            @ApiResponse(code=200, message = "일정 리스드를 정상적으로 반환했습니다."),
+            @ApiResponse(code = 204, message = "일정이 없습니다 생성해주세요!")
     })
     public ResponseEntity<List<TripResponseDto>> getTripList(
             @ApiIgnore Authentication authentication,
             @ApiParam(value = "일정 정보들을 가져오기 위한 userno",required = true)Long userNo){
         List<TripResponseDto> list = tripService.getUserTripList(userNo);
-        return ResponseEntity.status(200).body(list);
+        if(list==null){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }else{
+
+            return ResponseEntity.status(200).body(list);
+        }
     }
     @GetMapping("")
     @ApiOperation(value = "특정 일정 1개")
     @ApiResponses({
-
+            @ApiResponse(code=200, message = "일정을 정상적으로 반환했습니다."),
+            @ApiResponse(code = 404, message = "없는 일정입니다.")
     })
     public ResponseEntity<TripResponseDto> getMyOneTrip(
             @ApiIgnore Authentication authentication,
             @ApiParam(value = "일정 정보들을 가져오기 위한 userno",required = true)Long userNo,
             @ApiParam(value = "갖고올 일정 번호",required = true)Long tripNo){
         TripResponseDto result = tripService.getUserTrip(userNo,tripNo);
-        return ResponseEntity.status(200).body(result);
+        if(result==null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else{
+            return ResponseEntity.status(200).body(result);
+        }
     }
 
     //궁금한 사항 여행 중에도 업데이트 가능한지
@@ -114,29 +130,40 @@ public class TripController {
     @PutMapping
     @ApiOperation(value = "내 일정 수정")
     @ApiResponses({
-
+            @ApiResponse(code = 200,message = "일정이 잘 수정되었습니다"),
+            @ApiResponse(code = 400,message = "잘못된 요청입니다.")
     })
     public ResponseEntity updateTrip(
             @ApiIgnore Authentication authentication,
             @ApiParam(value = "일정 수정을 위한 정보",required = true) @RequestBody TripUpdateRequestDto tripUpdateRequestDto
     ){
         UserSchedule user = new UserSchedule(1L);
-        tripService.updateTrip(user,tripUpdateRequestDto);
-        return new ResponseEntity<>(HttpStatus.OK) ;
+        boolean result = tripService.updateTrip(user,tripUpdateRequestDto);
+        if(result) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @DeleteMapping("/{tripNo}")
     @ApiOperation(value = "내 일정 1개 삭제")
     @ApiResponses({
-
+            @ApiResponse(code = 200,message = "일정이 잘 삭제되었습니다."),
+            @ApiResponse(code = 404,message = "일정이 없습니다")
     })
     public ResponseEntity deleteTrip(
             @ApiIgnore Authentication authentication,
             @PathVariable(value = "tripNo", required = true)Long tripNo
     ){
         UserSchedule user = new UserSchedule(1L);
-        tripService.deleteTrip(user,tripNo);
-        return new ResponseEntity<>( HttpStatus.OK);
+        boolean flag =tripService.deleteTrip(user,tripNo);
+        if(flag){
+            return new ResponseEntity<>( HttpStatus.OK);
+
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
 }

@@ -44,37 +44,61 @@ public class TripServiceImpl implements TripService{
         if (category.equals("shopping")) {
             List<ShoppingDetailDto> list = new ArrayList<>();
             for (Long commonNo : commonNoList) {
-                list.add(getShoppingDetail(commonNo));
+                if(shoppingRepository.existsById(commonNo)) {
+                    list.add(getShoppingDetail(commonNo));
+                }else {
+                    return null;
+                }
             }
             return list;
         } else if (category.equals("culture")) {
             List<CultureDetailDto> list = new ArrayList<>();
             for (Long commonNo : commonNoList) {
-                list.add(getCultureDetail(commonNo));
+                if(cultureRepository.existsById(commonNo)) {
+                    list.add(getCultureDetail(commonNo));
+                }else {
+                    return null;
+                }
             }
             return list;
         } else if (category.equals("festival")) {
             List<FestivalDetailDto> list = new ArrayList<>();
             for (Long commonNo : commonNoList) {
-                list.add(getFestivalDetail(commonNo));
+                if(festivalRepository.existsById(commonNo)) {
+                    list.add(getFestivalDetail(commonNo));
+                }else {
+                    return null;
+                }
             }
             return list;
         } else if (category.equals("restaurant")) {
             List <RestaurantDetailDto> list = new ArrayList<>();
             for (Long commonNo : commonNoList) {
-                list.add(getRestaurantDetail(commonNo));
+                if(restaurantRepository.existsById(commonNo)) {
+                    list.add(getRestaurantDetail(commonNo));
+                }else {
+                    return null;
+                }
             }
             return list;
         } else if (category.equals("tourist")) {
             List<TouristSpotDetailDto> list = new ArrayList<>();
             for (Long commonNo : commonNoList) {
-                list.add(getTourSpotDetail(commonNo));
+                if(touristRepository.existsById(commonNo)) {
+                    list.add(getTourSpotDetail(commonNo));
+                }else {
+                    return null;
+                }
             }
             return list;
         } else {
             List<LeisureDetailDto> list = new ArrayList<>();
             for (Long commonNo : commonNoList) {
-                list.add(getLeisureDetail(commonNo));
+                if(leisureRepository.existsById(commonNo)) {
+                    list.add(getLeisureDetail(commonNo));
+                }else {
+                    return null;
+                }
             }
             return list;
         }
@@ -106,26 +130,36 @@ public class TripServiceImpl implements TripService{
     }
     @Transactional
     @Override
-    public void deleteTrip(UserSchedule userSchedule, Long tripNo) {
+    public boolean deleteTrip(UserSchedule userSchedule, Long tripNo) {
         User user = new User(userSchedule.getUserNo(),"test","test1234","test","test@test.com","");
         Trip trip = tripRepository.findByTripNo(tripNo);
+        if(trip==null){
+            return false;
+        }
 
-        if(user.getUserNo()!= trip.getUser().getUserNo())
-            return ;
+        if(user.getUserNo()!= trip.getUser().getUserNo()) {
+            return false;
+        }
+
 
         tripPlaceRepository.deleteByTrip_TripNo(tripNo);
         tripRepository.delete(trip);
+        return true;
     }
 
     @Transactional
     @Override
-    public void updateTrip(UserSchedule userSchedule, TripUpdateRequestDto tripUpdateRequestDto) {
+    public boolean updateTrip(UserSchedule userSchedule, TripUpdateRequestDto tripUpdateRequestDto) {
         User user = new User(userSchedule.getUserNo(),"test","test1234","test","test@test.com","");
 
         Trip trip = tripRepository.findByTripNo(tripUpdateRequestDto.getTripNo());
 
-        if(user.getUserNo()!= trip.getUser().getUserNo())
-            return ;
+        if(trip==null){
+            return false;
+        }
+        if(user.getUserNo()!= trip.getUser().getUserNo()) {
+            return false;
+        }
 
 
         trip.setTripName(tripUpdateRequestDto.getTripName());
@@ -147,14 +181,20 @@ public class TripServiceImpl implements TripService{
             tripPlaceList.add(tripPlace);
         }
         tripPlaceRepository.saveAll(tripPlaceList);
+        return true;
     }
     @Transactional
     @Override
     public TripResponseDto getUserTrip(Long userNo,Long TripNo) {
         Trip trip = tripRepository.findByTripNo(TripNo);
+        if(trip==null){
+            return null;
+        }
         List<PlaceCommon> placeCommonList =new ArrayList<>();
         List<TripPlace> tripPlaceList =new ArrayList<>();
+//        if(tripPlaceRepository.existsById(t)
         tripPlaceList=tripPlaceRepository.findAllByTrip_TripNo(trip.getTripNo());
+
 
         for (TripPlace tripPlace:tripPlaceList) {
             placeCommonList.add(tripPlace.getCommon());
@@ -177,6 +217,9 @@ public class TripServiceImpl implements TripService{
         List<TripResponseDto> result = new ArrayList<>();
 
         List<Trip> list = tripRepository.findAllByUser_UserNo(userNo);
+        if(list ==null){
+            return null;
+        }
         List<PlaceCommon> placeCommonList;
         List<TripPlace> tripPlaceList ;
 
