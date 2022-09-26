@@ -22,7 +22,7 @@ public class Photo {
     @Column(name = "photo_no")
     private long photoNo;
 
-    @NotNull
+//    @NotNull
     @Column(name = "photo_path")
     private String photoPath;
 
@@ -33,6 +33,11 @@ public class Photo {
     //동이라한 이름을 가진 파일이 업로드가 된다면 오류가 생기기에 이를 해결하기 위해서
     @Column(name = "file_size")
     private Long fileSize;
+
+    @Column(name = "file_name")
+    private String fileName;
+    @Column(name="original_name")
+    private String originalName;
 
 
 }

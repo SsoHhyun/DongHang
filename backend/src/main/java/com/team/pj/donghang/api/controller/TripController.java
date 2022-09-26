@@ -137,6 +137,7 @@ public class TripController {
             @ApiIgnore Authentication authentication,
             @ApiParam(value = "일정 수정을 위한 정보",required = true) @RequestBody TripUpdateRequestDto tripUpdateRequestDto
     ){
+        //수정해야함.
         UserSchedule user = new UserSchedule(1L);
         boolean result = tripService.updateTrip(user,tripUpdateRequestDto);
         if(result) {
@@ -156,6 +157,7 @@ public class TripController {
             @ApiIgnore Authentication authentication,
             @PathVariable(value = "tripNo", required = true)Long tripNo
     ){
+        //수정해야함.
         UserSchedule user = new UserSchedule(1L);
         boolean flag =tripService.deleteTrip(user,tripNo);
         if(flag){

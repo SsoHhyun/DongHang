@@ -44,8 +44,8 @@ dependencies {
     implementation("com.auth0:java-jwt:4.0.0")
 
 //    aws s3 bucket upload
-//    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
-
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+//    implementation 'com.amazonaws:aws-java-sdk:1.11.404'
 }
 
 tasks.named('test') {
