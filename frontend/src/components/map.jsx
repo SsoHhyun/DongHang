@@ -59,19 +59,7 @@ const Map = () => {
     markers.setMap(map)
   }, [])
 
-  return (
-    <div>
-      <div
-        id="map"
-        style={{
-          width: "100%",
-          height: "100%",
-          position: "absolute",
-          zIndex: -3,
-        }}
-      ></div>
-    </div>
-  )
+  return <div id="map"></div>
 }
 
 export default Map

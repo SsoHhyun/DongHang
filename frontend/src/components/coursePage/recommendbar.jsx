@@ -29,7 +29,6 @@ const RecommendBar = () => {
             res.data.placeList[i],
           ])
         }
-        console.log(recommendspot)
       })
       .catch((err) => {
         alert(err)

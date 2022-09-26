@@ -23,7 +23,6 @@ const RecommendContents = (props) => {
   const handleClose = () => {
     setOpen(false)
   }
-
   return (
     <StyledCard>
       <CardMedia
