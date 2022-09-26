@@ -9,6 +9,7 @@ const LastCourse = () => {
       <MapContainer id="map">
         <Map />
       </MapContainer>
+      <MySpots></MySpots>
     </LastCourseContainer>
   );
 };
@@ -20,10 +21,17 @@ const LastCourseContainer = styled(Box)({
   flexDirection: "column",
   justifyContent: "center",
   alignItem: "center",
+  width: "50vw",
+  height: "74vh",
 });
 
-const MapContainer = styled(Map)({
+const MapContainer = styled(Box)({
   position: "absolute",
+  width: "50%",
+  height: "40%",
+});
+
+const MySpots = styled(Box)({
   width: "100%",
   height: "100%",
 });

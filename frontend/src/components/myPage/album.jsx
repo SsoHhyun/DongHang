@@ -1,4 +1,5 @@
-import React, { useState } from "react"
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux/es/exports";
 import {
   Box,
   Paper,
@@ -7,9 +8,11 @@ import {
   Typography,
   ImageList,
   ImageListItem,
-} from "@mui/material"
-import { TabContext, TabList, TabPanel } from "@mui/lab"
-import LastCourse from "./lastCourse"
+  Modal,
+} from "@mui/material";
+import { TabContext, TabList, TabPanel } from "@mui/lab";
+import LastCourse from "./lastCourse";
+import { setClose, setOpen } from "../../app/store";
 
 const itemData = [
   {
@@ -60,9 +63,12 @@ const itemData = [
     img: "https://images.unsplash.com/photo-1589118949245-7d38baf380d6",
     title: "Bike",
   },
-]
+];
 
 const Photos = () => {
+  const dispatch = useDispatch();
+  const handleOpen = () => dispatch(setOpen());
+
   return (
     <ImageList
       sx={{ width: "100%", height: "70vh" }}
@@ -77,20 +83,33 @@ const Photos = () => {
             alt={item.title}
             loading="lazy"
             style={{ borderRadius: 4 }}
-            onClick={() => {}}
+            onClick={handleOpen}
           />
         </MyPhoto>
       ))}
     </ImageList>
-  )
-}
+  );
+};
+
+const BasicModal = () => {
+  const open = useSelector((state) => state.open);
+  const dispatch = useDispatch();
+  const handleClose = () => dispatch(setClose());
+  return (
+    <div>
+      <Modal open={open} onClose={handleClose}>
+        <PhotoModal src="https://images.unsplash.com/photo-1589118949245-7d38baf380d6" />
+      </Modal>
+    </div>
+  );
+};
 
 function LabTabs() {
-  const [value, setValue] = useState("1")
-
+  const [value, setValue] = useState("1");
+  const open = useSelector((state) => state.open);
   const handleChange = (event, newValue) => {
-    setValue(newValue)
-  }
+    setValue(newValue);
+  };
 
   return (
     <Box sx={{ width: "100%", typography: "body1" }}>
@@ -107,13 +126,14 @@ function LabTabs() {
         </AlbumTitle>
         <TabPanel value="1">
           <Photos />
+          {open === true ? <BasicModal /> : undefined}
         </TabPanel>
         <TabPanel value="2">
           <LastCourse />
         </TabPanel>
       </TabContext>
     </Box>
-  )
+  );
 }
 
 const Album = () => {
@@ -121,10 +141,10 @@ const Album = () => {
     <AlbumContainer>
       <LabTabs />
     </AlbumContainer>
-  )
-}
+  );
+};
 
-export default Album
+export default Album;
 
 const AlbumContainer = styled(Paper)({
   borderRadius: 20,
@@ -136,28 +156,35 @@ const AlbumContainer = styled(Paper)({
   flexDirection: "column",
   justifyContent: "center",
   alignContent: "center",
-})
+});
 
 const AlbumTitle = styled(Box)({
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
-})
+});
 
 const AlbumName = styled(Typography)({
   textAlign: "center",
   fontSize: 30,
   color: "brown",
   fontWeight: "bold",
-})
+});
 
 const Period = styled(Typography)({
   textAlign: "center",
   fontSize: 16,
   color: "grey",
-})
+});
 
 const MyPhoto = styled(ImageListItem)({
   margin: 3,
-})
+});
+
+const PhotoModal = styled("img")({
+  width: 800,
+  height: 600,
+  top: "50%",
+  left: "50%",
+});
