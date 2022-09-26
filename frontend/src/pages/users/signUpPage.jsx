@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import axios from "axios"
 import {
   Avatar,
   Button,
@@ -13,11 +14,32 @@ import {
   Typography,
   Container,
   styled,
+  Paper,
 } from "@mui/material/"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
-import { Paper } from "@material-ui/core"
+import { Navigate } from "react-router-dom"
 
 const Register = () => {
+  const DOMAIN = "http://localhost:8080/"
+  const registerRequest = (method, url, data) => {
+    return axios({
+      method,
+      url: url,
+      data: data,
+    })
+      .then((res) => {
+        console.log(res.data)
+        if (res.data.message === "true") {
+          Navigate("/login")
+        } else {
+          alert("이미 가입되어 있는 유저입니다!")
+        }
+      })
+      .catch((err) => {
+        console.error(err.response.data)
+      })
+  }
+
   const theme = createTheme({
     palette: {
       primary: {
