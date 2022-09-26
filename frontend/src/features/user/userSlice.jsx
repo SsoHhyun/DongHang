@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit/dist/createSlice"
 import { createAsyncThunk } from "@reduxjs/toolkit/dist/createAsyncThunk"
+import { request } from "../../utils/axios"
 
 // const userData = {
 //     userId,
@@ -32,7 +33,7 @@ const userSlice = createSlice({
 export const sendRegisterrequest = createAsyncThunk(
   "sendRegisterRequest",
   async (data) => {
-    return requestAnimationFrame("POST", "/api" + "/user/register", data)
+    return request("POST", "/api" + "/user/register", data)
   }
 )
 

@@ -21,7 +21,7 @@ import { Navigate } from "react-router-dom"
 
 const Register = () => {
   const DOMAIN = "http://localhost:8080/"
-  const registerRequest = (method, url, data) => {
+  const registerReq = (method, url, data) => {
     return axios({
       method,
       url: url,
