@@ -23,13 +23,19 @@ public class Trip {
     @Column(name ="trip_no")
     private Long tripNo;
 
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYYMMDD");
+//    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYYMMDD");
+
+//    @Column(name = "start_date")
+//    private SimpleDateFormat startDate;
+
 
     @Column(name = "start_date")
-    private SimpleDateFormat startDate;
-
+    private String startDate;
+//
+//    @Column(name = "end_date")
+//    private SimpleDateFormat endDate;
     @Column(name = "end_date")
-    private SimpleDateFormat endDate;
+    private String endDate;
 
     @ManyToOne
     @JoinColumn(name = "user_no")

@@ -15,7 +15,6 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-//public class ShoppingDetail implements Serializable {
 public class ShoppingDetail {
     @Id
     private Long id;
@@ -24,8 +23,6 @@ public class ShoppingDetail {
     @JoinColumn(name = "common_no")
     private PlaceCommon common;
 
-    @Column(name="chk_babycarriage")
-    private String chkBabycarriage;
 
     @Column(name="chk_creditcard")
     private String chkCreditcard;
