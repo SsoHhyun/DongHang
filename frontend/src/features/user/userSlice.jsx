@@ -10,11 +10,10 @@ import { request } from "../../utils/axios"
 // }
 
 export const initialState = {
-  userId: "",
-  userPw: "",
-  userEmail: "",
-  userName: "",
-  usercode: localStorage.getIte("userCode"),
+  id: "",
+  password: "",
+  email: "",
+  nickname: "",
 }
 
 const userSlice = createSlice({
@@ -22,10 +21,10 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     fetchProfile: (state, action) => {
-      state.userEmail = action.payload.userEmail
-      state.userName = action.payload.userName
-      state.userId = action.payload.userId
-      state.userPw = action.payload.userPw
+      state.email = action.payload.email
+      state.nickname = action.payload.nickname
+      state.id = action.payload.id
+      state.password = action.payload.password
     },
   },
 })
