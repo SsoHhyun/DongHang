@@ -38,28 +38,15 @@ const RecommendBar = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
-  const RecommendOpen = () => {
-    if (open === true) {
-      setOpen(false)
-    } else {
-      setOpen(true)
-    }
-  }
 
   return (
     <Box>
       {open === true ? (
-        <Box
-          style={{
-            width: "80%",
-            height: "45%",
-            position: "absolute",
-            bottom: 0,
-            left: "20%",
-          }}
-        >
+        <WrapRecommendBar>
           <ArrowCircleDownIcon
-            onClick={RecommendOpen}
+            onClick={() => {
+              setOpen((open) => !open)
+            }}
             style={{
               left: "37.5%",
               position: "absolute",
@@ -68,15 +55,7 @@ const RecommendBar = () => {
             }}
           ></ArrowCircleDownIcon>
           <br></br>
-          <Box
-            style={{
-              backgroundColor: "white",
-              bottom: 0,
-              position: "absolute",
-              width: "100%",
-              height: "80%",
-            }}
-          >
+          <WrapTab>
             <TabContext value={value}>
               <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                 <TabList
@@ -102,12 +81,14 @@ const RecommendBar = () => {
                 </StyledRecommendSlide>
               </TabPanel>
             </TabContext>
-          </Box>
-        </Box>
+          </WrapTab>
+        </WrapRecommendBar>
       ) : (
         <Box>
           <ArrowCircleUpIcon
-            onClick={RecommendOpen}
+            onClick={() => {
+              setOpen((open) => !open)
+            }}
             style={{
               left: "50%",
               position: "absolute",
@@ -127,4 +108,19 @@ const StyledRecommendSlide = styled(Box)({
   overflowX: "scroll",
   overflowY: "hidden",
   display: "flex",
+})
+
+const WrapTab = styled(Box)({
+  backgroundColor: "white",
+  bottom: 0,
+  position: "absolute",
+  width: "100%",
+  height: "80%",
+})
+const WrapRecommendBar = styled(Box)({
+  width: "80%",
+  height: "45%",
+  position: "absolute",
+  bottom: 0,
+  left: "20%",
 })

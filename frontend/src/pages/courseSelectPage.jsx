@@ -4,16 +4,25 @@ import Map from "../components/map"
 import React from "react"
 import Navbar from "../components/navbar"
 import CourseSide from "../components/coursePage/courseside"
-
+import { styled } from "@mui/material"
 const CourseSelectPage = () => {
   return (
     <Box>
       <Navbar></Navbar>
       <Box>
-        <Map></Map>
+        <MapWrapper id="map">
+          <Map></Map>
+        </MapWrapper>
         <CourseSide></CourseSide>
       </Box>
     </Box>
   )
 }
 export default CourseSelectPage
+
+const MapWrapper = styled(Box)({
+  width: "100%",
+  height: "100%",
+  position: "absolute",
+  zIndex: -1,
+})
