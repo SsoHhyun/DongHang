@@ -6,7 +6,7 @@ import axios from "axios"
     https://github.com/axios/axios 의 Request Config 챕터 확인
 */
 const interceptor = axios.create({
-  baseURL: "https://j7a504.p.ssafy.io:3306",
+  baseURL: "http://j7a504.p.ssafy.io:8888",
   timeout: 1000,
   // 해커 뉴스 API는 커스텀 헤더 넣으면 CORS걸려서 주석처리했습니다.
   // headers: {'X-Custom-Header': 'foobar'}

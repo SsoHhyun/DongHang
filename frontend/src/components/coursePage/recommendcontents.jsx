@@ -12,26 +12,16 @@ import {
   Button,
 } from "@mui/material"
 import SpotDetail from "./spotdetail"
-import interceptor from "../../api/interceptor"
 
-const RecommendContents = () => {
+const RecommendContents = (props) => {
   const [open, setOpen] = React.useState(false)
+
   const handleClickOpen = () => {
     setOpen(true)
   }
 
   const handleClose = () => {
     setOpen(false)
-  }
-  const test = () => {
-    interceptor({
-      url: "/user/",
-      method: "get",
-    })
-      .then((res) => {})
-      .catch((err) => {
-        alert(err)
-      })
   }
   return (
     <StyledCard>
@@ -43,7 +33,7 @@ const RecommendContents = () => {
       />
       <CardContent>
         <Typography gutterBottom variant="h7" component="div">
-          여행지이름
+          {props.title}
         </Typography>
       </CardContent>
       <CardActions>
