@@ -9,30 +9,14 @@ import {
   Typography,
 } from "@mui/material"
 import AdjustIcon from "@mui/icons-material/Adjust"
+import ClearIcon from "@mui/icons-material/Clear"
 //코스관련 사이드바 내부 컨텐츠
-import interceptor from "../../api/interceptor"
 
-const SideContents = () => {
+const SideContents = (props) => {
   const [open, setOpen] = React.useState(false)
-  const spot = {
-    name: "여행일정장소",
-    adress: "어쩌구구어쩌구동",
-    lat: "34.11231",
-    lng: "121.547874",
-  }
 
   const handleClickOpen = () => {
     setOpen(true)
-    interceptor({
-      url: "/user/",
-      method: "get",
-    })
-      .then((res) => {
-        console.log(res.data)
-      })
-      .catch((err) => {
-        alert(err)
-      })
   }
 
   const handleClose = () => {
@@ -42,11 +26,16 @@ const SideContents = () => {
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
         <AdjustIcon></AdjustIcon>
+        <ClearIcon></ClearIcon>
         <Typography variant="h7" component="div">
-          {spot.name}
+          {props.spot.title}
         </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          {spot.adress}
+        <Typography
+          sx={{ mb: 1.5 }}
+          color="text.secondary"
+          style={{ fontSize: "13px" }}
+        >
+          {props.spot.addr1 + " " + props.spot.addr2}
         </Typography>
       </CardContent>
       <CardActions>

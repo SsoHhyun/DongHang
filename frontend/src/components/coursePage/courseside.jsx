@@ -2,39 +2,52 @@ import { Box } from "@material-ui/core"
 import React from "react"
 import SideContents from "./sidecontents"
 import { styled } from "@mui/material"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft"
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight"
+import interceptor from "../../api/interceptor"
 // 사이드바
 
 const CourseSide = () => {
   const [open, setOpen] = useState(false)
-  const sideOpen = () => {
-    if (open === true) {
-      setOpen(false)
-    } else {
-      setOpen(true)
-    }
-  }
+  const [recommendspot, setRecommendspot] = useState([])
+
+  useEffect(() => {
+    interceptor({
+      url: "/api/trip?tripNo=2&userNo=1",
+      method: "get",
+    })
+      .then((res) => {
+        for (let i = 0; i < res.data.placeList.length; i++) {
+          setRecommendspot((recommendspot) => [
+            ...recommendspot,
+            res.data.placeList[i],
+          ])
+          console.log(res.data)
+        }
+      })
+      .catch((err) => {
+        alert(err)
+      })
+  }, [])
 
   return (
     <Box>
       {open === true ? (
-        <SideBox>
+        <Box>
           <StyledCourseSide>
-            <SideContents></SideContents>
-            <SideContents></SideContents>
-            <SideContents></SideContents>
-            <SideContents></SideContents>
-            <SideContents></SideContents>
-            <SideContents></SideContents>
-            <SideContents></SideContents>
-            <SideContents></SideContents>
-            <SideContents></SideContents>
+            {recommendspot.map((placeList, index) => (
+              <SideContents
+                key={index}
+                spot={recommendspot[index]}
+              ></SideContents>
+            ))}
           </StyledCourseSide>
 
           <ArrowCircleLeftIcon
-            onClick={sideOpen}
+            onClick={() => {
+              setOpen((open) => !open)
+            }}
             style={{
               color: "#121212",
               position: "absolute",
@@ -42,11 +55,13 @@ const CourseSide = () => {
               left: "20%",
             }}
           ></ArrowCircleLeftIcon>
-        </SideBox>
+        </Box>
       ) : (
         <Box>
           <ArrowCircleRightIcon
-            onClick={sideOpen}
+            onClick={() => {
+              setOpen((open) => !open)
+            }}
             style={{
               position: "absolute",
               top: "50%",
@@ -62,11 +77,9 @@ export default CourseSide
 
 const StyledCourseSide = styled(Box)({
   width: "20vw",
-  height: "100vh",
+  height: "100%",
   // backgroundColor: "white",
   position: "absolute",
   overflow: "auto",
   left: "0%",
 })
-
-const SideBox = styled(Box)({})
