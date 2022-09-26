@@ -29,7 +29,7 @@ const Background = styled(Box)({
   // alignItems: "center",
   width: "100vw",
   height: "100vh",
-  background: "#faf8f7",
+  background: "white",
 })
 
 const MainBox = styled(Box)({
@@ -39,7 +39,7 @@ const MainBox = styled(Box)({
   alignItems: "center",
   width: "50vw",
   height: "80vh",
-  background: "#faf8f7",
+  background: "white",
 })
 
 // const RecommBox = styled(Box)({
