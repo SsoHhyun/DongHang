@@ -1,18 +1,19 @@
-import React from "react"
-import SpotDetail from "./spotdetail"
-import {
-  Dialog,
-  Card,
-  CardActions,
-  CardContent,
-  Button,
-  Typography,
-} from "@mui/material"
-import AdjustIcon from "@mui/icons-material/Adjust"
-import ClearIcon from "@mui/icons-material/Clear"
-//코스관련 사이드바 내부 컨텐츠
+//코스관련 추천(하단)바 내부 컨텐츠
 
-const SideContents = (props) => {
+import React from "react"
+import {
+  Card,
+  CardContent,
+  CardActions,
+  CardMedia,
+  styled,
+  Dialog,
+  Typography,
+  Button,
+} from "@mui/material"
+import SpotDetail from "./spotdetail"
+
+const RecommendContents = (props) => {
   const [open, setOpen] = React.useState(false)
 
   const handleClickOpen = () => {
@@ -23,19 +24,16 @@ const SideContents = (props) => {
     setOpen(false)
   }
   return (
-    <Card sx={{ minWidth: 275 }}>
+    <StyledCard>
+      <CardMedia
+        component="img"
+        image={process.env.PUBLIC_URL + `/img/d4.jpg`}
+        alt="green iguana"
+        height="100"
+      />
       <CardContent>
-        <AdjustIcon></AdjustIcon>
-        <ClearIcon></ClearIcon>
-        <Typography variant="h7" component="div">
-          {props.spot.title}
-        </Typography>
-        <Typography
-          sx={{ mb: 1.5 }}
-          color="text.secondary"
-          style={{ fontSize: "13px" }}
-        >
-          {props.spot.addr1 + " " + props.spot.addr2}
+        <Typography gutterBottom variant="h7" component="div">
+          {props.title}
         </Typography>
       </CardContent>
       <CardActions>
@@ -49,7 +47,13 @@ const SideContents = (props) => {
           <SpotDetail></SpotDetail>
         </Dialog>
       </CardActions>
-    </Card>
+    </StyledCard>
   )
 }
-export default SideContents
+export default RecommendContents
+
+const StyledCard = styled(Card)({
+  width: "200px",
+  marginRight: "1rem",
+  flex: "0 0 auto",
+})

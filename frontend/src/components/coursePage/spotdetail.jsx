@@ -7,12 +7,6 @@ import Typography from "@mui/material/Typography"
 
 //장소 상세 모달
 const SpotDetail = () => {
-  const [expanded, setExpanded] = React.useState(false)
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded)
-  }
-
   return (
     <Card
       style={{
@@ -28,8 +22,8 @@ const SpotDetail = () => {
       <CardHeader title="여행일정장소" subheader="여행상세주소" />
       <CardMedia
         component="img"
-        height="194"
-        image="/static/images/cards/paella.jpg"
+        height="400"
+        image={process.env.PUBLIC_URL + `/img/d4.jpg`}
         alt="여행지 소개 사진"
       />
       <CardContent>

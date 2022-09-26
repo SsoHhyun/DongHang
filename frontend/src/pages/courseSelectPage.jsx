@@ -5,8 +5,7 @@ import React from "react"
 import Navbar from "../components/navbar"
 import CourseSide from "../components/coursePage/courseside"
 import { styled } from "@mui/material"
-
-const CourseDetailPage = () => {
+const CourseSelectPage = () => {
   return (
     <Box>
       <Navbar></Navbar>
@@ -19,7 +18,7 @@ const CourseDetailPage = () => {
     </Box>
   )
 }
-export default CourseDetailPage
+export default CourseSelectPage
 
 const MapWrapper = styled(Box)({
   width: "100%",

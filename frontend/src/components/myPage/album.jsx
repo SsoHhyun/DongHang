@@ -1,137 +1,190 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Button from '@mui/material/Button';
-import CameraIcon from '@mui/icons-material/PhotoCamera';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import CssBaseline from '@mui/material/CssBaseline';
-import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux/es/exports";
+import {
+  Box,
+  Paper,
+  styled,
+  Tab,
+  Typography,
+  ImageList,
+  ImageListItem,
+  Modal,
+} from "@mui/material";
+import { TabContext, TabList, TabPanel } from "@mui/lab";
+import LastCourse from "./lastCourse";
+import { setClose, setOpen } from "../../app/store";
 
-function Copyright() {
+const itemData = [
+  {
+    img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
+    title: "Breakfast",
+  },
+  {
+    img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
+    title: "Burger",
+  },
+  {
+    img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
+    title: "Camera",
+  },
+  {
+    img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
+    title: "Coffee",
+  },
+  {
+    img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
+    title: "Hats",
+  },
+  {
+    img: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62",
+    title: "Honey",
+  },
+  {
+    img: "https://images.unsplash.com/photo-1516802273409-68526ee1bdd6",
+    title: "Basketball",
+  },
+  {
+    img: "https://images.unsplash.com/photo-1518756131217-31eb79b20e8f",
+    title: "Fern",
+  },
+  {
+    img: "https://images.unsplash.com/photo-1597645587822-e99fa5d45d25",
+    title: "Mushrooms",
+  },
+  {
+    img: "https://images.unsplash.com/photo-1567306301408-9b74779a11af",
+    title: "Tomato basil",
+  },
+  {
+    img: "https://images.unsplash.com/photo-1471357674240-e1a485acb3e1",
+    title: "Sea star",
+  },
+  {
+    img: "https://images.unsplash.com/photo-1589118949245-7d38baf380d6",
+    title: "Bike",
+  },
+];
+
+const Photos = () => {
+  const dispatch = useDispatch();
+  const handleOpen = () => dispatch(setOpen());
+
   return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
+    <ImageList
+      sx={{ width: "100%", height: "70vh" }}
+      cols={4}
+      rowHeight={"auto"}
+    >
+      {itemData.map((item) => (
+        <MyPhoto key={item.img}>
+          <img
+            src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
+            srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+            alt={item.title}
+            loading="lazy"
+            style={{ borderRadius: 4 }}
+            onClick={handleOpen}
+          />
+        </MyPhoto>
+      ))}
+    </ImageList>
   );
-}
+};
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-const theme = createTheme();
-
-export default function Album() {
+const BasicModal = () => {
+  const open = useSelector((state) => state.open);
+  const dispatch = useDispatch();
+  const handleClose = () => dispatch(setClose());
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <AppBar position="relative">
-        <Toolbar>
-          <CameraIcon sx={{ mr: 2 }} />
-          <Typography variant="h6" color="inherit" noWrap>
-            Album layout
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <main>
-        {/* Hero unit */}
-        <Box
-          sx={{
-            bgcolor: 'background.paper',
-            pt: 8,
-            pb: 6,
-          }}
-        >
-          <Container maxWidth="sm">
-            <Typography
-              component="h1"
-              variant="h2"
-              align="center"
-              color="text.primary"
-              gutterBottom
-            >
-              Album layout
-            </Typography>
-            <Typography variant="h5" align="center" color="text.secondary" paragraph>
-              Something short and leading about the collection below—its contents,
-              the creator, etc. Make it short and sweet, but not too short so folks
-              don&apos;t simply skip over it entirely.
-            </Typography>
-            <Stack
-              sx={{ pt: 4 }}
-              direction="row"
-              spacing={2}
-              justifyContent="center"
-            >
-              <Button variant="contained">Main call to action</Button>
-              <Button variant="outlined">Secondary action</Button>
-            </Stack>
-          </Container>
+    <div>
+      <Modal open={open} onClose={handleClose}>
+        <PhotoModal src="https://images.unsplash.com/photo-1589118949245-7d38baf380d6" />
+      </Modal>
+    </div>
+  );
+};
+
+function LabTabs() {
+  const [value, setValue] = useState("1");
+  const open = useSelector((state) => state.open);
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  return (
+    <Box sx={{ width: "100%", typography: "body1" }}>
+      <TabContext value={value}>
+        <Box>
+          <TabList onChange={handleChange}>
+            <Tab label="앨범" value="1" />
+            <Tab label="여행기록" value="2" />
+          </TabList>
         </Box>
-        <Container sx={{ py: 8 }} maxWidth="md">
-          {/* End hero unit */}
-          <Grid container spacing={4}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
-                <Card
-                  sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
-                >
-                  <CardMedia
-                    component="img"
-                    sx={{
-                      // 16:9
-                      pt: '56.25%',
-                    }}
-                    image="https://source.unsplash.com/random"
-                    alt="random"
-                  />
-                  <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      Heading
-                    </Typography>
-                    <Typography>
-                      This is a media card. You can use this section to describe the
-                      content.
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small">View</Button>
-                    <Button size="small">Edit</Button>
-                  </CardActions>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </main>
-      {/* Footer */}
-      <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
-        <Typography variant="h6" align="center" gutterBottom>
-          Footer
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          align="center"
-          color="text.secondary"
-          component="p"
-        >
-          Something here to give the footer a purpose!
-        </Typography>
-        <Copyright />
-      </Box>
-      {/* End footer */}
-    </ThemeProvider>
+        <AlbumTitle>
+          <AlbumName>나의 여행</AlbumName>
+          <Period>2022년 09월 22일 ~ 2022년 09월 25일</Period>
+        </AlbumTitle>
+        <TabPanel value="1">
+          <Photos />
+          {open === true ? <BasicModal /> : undefined}
+        </TabPanel>
+        <TabPanel value="2">
+          <LastCourse />
+        </TabPanel>
+      </TabContext>
+    </Box>
   );
 }
+
+const Album = () => {
+  return (
+    <AlbumContainer>
+      <LabTabs />
+    </AlbumContainer>
+  );
+};
+
+export default Album;
+
+const AlbumContainer = styled(Paper)({
+  borderRadius: 20,
+  width: "53vw",
+  height: "95vh",
+  backgroundColor: "beige",
+  marginLeft: "1.5rem",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignContent: "center",
+});
+
+const AlbumTitle = styled(Box)({
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+});
+
+const AlbumName = styled(Typography)({
+  textAlign: "center",
+  fontSize: 30,
+  color: "brown",
+  fontWeight: "bold",
+});
+
+const Period = styled(Typography)({
+  textAlign: "center",
+  fontSize: 16,
+  color: "grey",
+});
+
+const MyPhoto = styled(ImageListItem)({
+  margin: 3,
+});
+
+const PhotoModal = styled("img")({
+  width: 800,
+  height: 600,
+  top: "50%",
+  left: "50%",
+});
