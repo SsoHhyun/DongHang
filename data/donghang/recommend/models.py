@@ -1,7 +1,10 @@
 from django.db import models
 
-# Create your models here.
+
 class PlaceCommon(models.Model):
+    class Meta:
+        db_table = 'place_common'
+
     common_no = models.BigAutoField(primary_key=True)
     content_id = models.TextField(null=True, blank=True)
     content_type_id = models.TextField(null=True, blank=True)
@@ -18,13 +21,14 @@ class PlaceCommon(models.Model):
     mapy = models.TextField(null=True, blank=True)
     mlevel = models.TextField(null=True, blank=True)
     area_code = models.TextField(null=True, blank=True)
-
+    sigungu_code = models.TextField(null=True, blank=True)
 
 
 class ShoppingDetail(models.Model):
-    common_no = models.ForeignKey(PlaceCommon, primary_key=True, on_delete=models.CASCADE)
-    overview = models.TextField(null=True, blank=True)
-    chk_babycarriage = models.TextField(null=True, blank=True)
+    class Meta:
+        db_table = 'shopping_detail'
+
+    common_no = models.ForeignKey(PlaceCommon, primary_key=True, on_delete=models.CASCADE, db_column='common_no')
     chk_creditcard = models.TextField(null=True, blank=True)
     chk_pet = models.TextField(null=True, blank=True)
     culture_center = models.TextField(null=True, blank=True)
@@ -42,13 +46,13 @@ class ShoppingDetail(models.Model):
 
 
 class RestaurantDetail(models.Model):
-    common_no = models.ForeignKey(PlaceCommon, primary_key=True, on_delete=models.CASCADE)
-    overview = models.TextField(null=True, blank=True)
+    class Meta:
+        db_table = 'restaurant_detail'
+
+    common_no = models.ForeignKey(PlaceCommon, primary_key=True, on_delete=models.CASCADE, db_column='common_no')
     chk_creditcard = models.TextField(null=True, blank=True)
-    discount_info = models.TextField(null=True, blank=True)
     info_center = models.TextField(null=True, blank=True)
     first_menu = models.TextField(null=True, blank=True)
-    kids_facility = models.TextField(null=True, blank=True)
     open_date = models.TextField(null=True, blank=True)
     open_time = models.TextField(null=True, blank=True)
     packing = models.TextField(null=True, blank=True)
@@ -62,20 +66,26 @@ class RestaurantDetail(models.Model):
 
 
 class FestivalDetail(models.Model):
-    common_no = models.ForeignKey(PlaceCommon, primary_key=True, on_delete=models.CASCADE)
+    class Meta:
+        db_table = 'festival_detail'
+
+    common_no = models.ForeignKey(PlaceCommon, primary_key=True, on_delete=models.CASCADE, db_column='common_no')
     start_date = models.TextField(null=True, blank=True)
     end_date = models.TextField(null=True, blank=True)
     place = models.TextField(null=True, blank=True)
     festival_grade = models.TextField(null=True, blank=True)
     place_info = models.TextField(null=True, blank=True)
-    discount_info = models.TextField(null=True, blank=True)
     program = models.TextField(null=True, blank=True)
     play_time = models.TextField(null=True, blank=True)
     spend_time = models.TextField(null=True, blank=True)
     use_time = models.TextField(null=True, blank=True)
 
+
 class CultureDetail(models.Model):
-    common_no = models.ForeignKey(PlaceCommon, primary_key=True, on_delete=models.CASCADE)
+    class Meta:
+        db_table = 'culture_detail'
+
+    common_no = models.ForeignKey(PlaceCommon, primary_key=True, on_delete=models.CASCADE, db_column='common_no')
     chk_creditcard = models.TextField(null=True, blank=True)
     chk_pet = models.TextField(null=True, blank=True)
     parking = models.TextField(null=True, blank=True)
@@ -86,39 +96,33 @@ class CultureDetail(models.Model):
     spend_time = models.TextField(null=True, blank=True)
 
 
-class AcommodationDetail(models.Model):
-    common_no = models.ForeignKey(PlaceCommon, primary_key=True, on_delete=models.CASCADE)
-    size = models.TextField(null=True, blank=True)
-    count = models.TextField(null=True, blank=True)
-    base_count = models.TextField(null=True, blank=True)
-    max_count = models.TextField(null=True, blank=True)
-    bath_facility = models.TextField(null=True, blank=True)
-    bath = models.TextField(null=True, blank=True)
-    home_theater = models.TextField(null=True, blank=True)
-    air_condition = models.TextField(null=True, blank=True)
-    tv = models.TextField(null=True, blank=True)
-    pc = models.TextField(null=True, blank=True)
-    cable = models.TextField(null=True, blank=True)
-    internet = models.TextField(null=True, blank=True)
-    refrigerator = models.TextField(null=True, blank=True)
-    toiletries = models.TextField(null=True, blank=True)
-    sofa = models.TextField(null=True, blank=True)
-    cook = models.TextField(null=True, blank=True)
-    table = models.TextField(null=True, blank=True)
-    hairdryer = models.TextField(null=True, blank=True)
-    sauna = models.TextField(null=True, blank=True)
+class TouristSpotDetail(models.Model):
+    class Meta:
+        db_table = 'tourist_spot_detail'
+
+    common_no = models.ForeignKey(PlaceCommon, primary_key=True, on_delete=models.CASCADE, db_column='common_no')
     accom_count = models.TextField(null=True, blank=True)
-    chk_cooking = models.TextField(null=True, blank=True)
-    pickup = models.TextField(null=True, blank=True)
-    scale = models.TextField(null=True, blank=True)
-    barbeque = models.TextField(null=True, blank=True)
-    beauty = models.TextField(null=True, blank=True)
-    beverage = models.TextField(null=True, blank=True)
-    bicycle = models.TextField(null=True, blank=True)
-    campfire = models.TextField(null=True, blank=True)
-    fitness = models.TextField(null=True, blank=True)
-    karaoke = models.TextField(null=True, blank=True)
-    public_bath = models.TextField(null=True, blank=True)
-    reservation = models.TextField(null=True, blank=True)
-    reservation_url = models.TextField(null=True, blank=True)
+    chk_creditcard = models.TextField(null=True, blank=True)
+    chk_pet = models.TextField(null=True, blank=True)
+    heritage1 = models.TextField(null=True, blank=True)
+    heritage2 = models.TextField(null=True, blank=True)
+    heritage3 = models.TextField(null=True, blank=True)
+    open_date = models.TextField(null=True, blank=True)
     parking = models.TextField(null=True, blank=True)
+    rest_date = models.TextField(null=True, blank=True)
+    use_season = models.TextField(null=True, blank=True)
+    use_time = models.TextField(null=True, blank=True)
+
+
+class LeisureDetail(models.Model):
+    class Meta:
+        db_table = 'leisure_detail'
+
+    common_no = models.ForeignKey(PlaceCommon, primary_key=True, on_delete=models.CASCADE, db_column='common_no')
+    accom_count = models.TextField(null=True, blank=True)
+    chk_creditcard = models.TextField(null=True, blank=True)
+    chk_pet = models.TextField(null=True, blank=True)
+    info_center = models.TextField(null=True, blank=True)
+    open_period = models.TextField(null=True, blank=True)
+    parking = models.TextField(null=True, blank=True)
+    use_time = models.TextField(null=True, blank=True)

@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -76,13 +76,14 @@ WSGI_APPLICATION = 'donghang.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
+    # AWS
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'dev',
-        'USER': 'a504',
-        'PASSWORD': 'dev@1202',
+        'USER': 'a504@dong',
+        'PASSWORD': 'haeng@1202',
         'HOST': 'j7a504.p.ssafy.io',
-        'PORT': '3306'
+        'PORT': '5055'
     }
 }
 
