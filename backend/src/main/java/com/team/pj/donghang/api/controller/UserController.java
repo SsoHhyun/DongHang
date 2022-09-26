@@ -1,7 +1,9 @@
 package com.team.pj.donghang.api.controller;
 
-import com.team.pj.donghang.api.request.UserRegisterReq;
+import com.team.pj.donghang.api.request.UserLoginRequestDto;
+import com.team.pj.donghang.api.request.UserRegisterRequestDto;
 import com.team.pj.donghang.domain.entity.User;
+import com.team.pj.donghang.service.AuthService;
 import com.team.pj.donghang.service.UserService;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
@@ -26,11 +28,11 @@ public class UserController {
     public ResponseEntity<?> register(
             @RequestBody
             @ApiParam(value = "회원가입 필수 정보", required = true)
-            UserRegisterReq userRegisterReq
+            UserRegisterRequestDto userRegisterRequestDto
     ) {
-        log.debug("user register request body: "+userRegisterReq.toString());
+        log.debug("user register request body: "+ userRegisterRequestDto.toString());
 
-        User user = userService.createUser(userRegisterReq);
+        User user = userService.createUser(userRegisterRequestDto);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
