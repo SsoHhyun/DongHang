@@ -10,7 +10,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @ApiModel("UserRegisterRequest")
-public class UserRegisterReq {
+public class UserRegisterRequestDto {
     @ApiModelProperty(name="사용자 아이디")
     String id;
 

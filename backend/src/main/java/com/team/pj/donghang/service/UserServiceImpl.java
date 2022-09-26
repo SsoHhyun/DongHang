@@ -1,10 +1,14 @@
 package com.team.pj.donghang.service;
 
-import com.team.pj.donghang.api.request.UserRegisterReq;
+import com.team.pj.donghang.api.request.UserRegisterRequestDto;
 import com.team.pj.donghang.domain.entity.User;
 import com.team.pj.donghang.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -31,12 +35,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User createUser(UserRegisterReq userRegisterReq) {
+    public User createUser(UserRegisterRequestDto userRegisterRequestDto) {
         User user = User.builder()
-                .id(userRegisterReq.getId())
-                .password(userRegisterReq.getPassword()) // TODO: password must be encrypted
-                .email(userRegisterReq.getEmail())
-                .nickname(userRegisterReq.getNickname())
+                .id(userRegisterRequestDto.getId())
+                .password(new BCryptPasswordEncoder().encode(
+                        userRegisterRequestDto.getPassword())
+                )
+                .email(userRegisterRequestDto.getEmail())
+                .nickname(userRegisterRequestDto.getNickname())
                 .build();
 
         log.debug("created user: "+user.toString());
@@ -45,7 +51,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> getUserByUserNo(Long userNo) {
-        return userRepository.findUserByUserNo(userNo);
+    public User getUserByUserId(String userId) {
+        return userRepository.findUserById(userId);
     }
 }
