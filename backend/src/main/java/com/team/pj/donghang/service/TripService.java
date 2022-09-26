@@ -5,6 +5,7 @@ import com.team.pj.donghang.api.request.TripUpdateRequestDto;
 import com.team.pj.donghang.api.response.TripResponseDto;
 import com.team.pj.donghang.domain.dto.PlaceCommonDto;
 import com.team.pj.donghang.domain.dto.UserSchedule;
+import com.team.pj.donghang.domain.entity.Trip;
 
 import java.util.List;
 
@@ -25,6 +26,7 @@ public interface TripService {
     public boolean updateTrip(UserSchedule user, TripUpdateRequestDto tripUpdateRequestDto);
     public TripResponseDto getUserTrip (Long userNo,Long tripNo);
     //일정 한개 가져오기
+    public Trip getTripInfo(Long tripNo);
     public List<TripResponseDto> getUserTripList(Long userNo);
     //일정 검색??? ????
 }

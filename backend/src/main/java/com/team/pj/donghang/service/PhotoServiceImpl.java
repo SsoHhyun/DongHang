@@ -2,15 +2,19 @@ package com.team.pj.donghang.service;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.team.pj.donghang.domain.dto.UserSchedule;
 import com.team.pj.donghang.domain.entity.Photo;
 import com.team.pj.donghang.domain.entity.Trip;
 import com.team.pj.donghang.domain.entity.User;
 import com.team.pj.donghang.repository.PhotoRepository;
 
+import com.team.pj.donghang.repository.UserScheduleRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -20,6 +24,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -34,30 +39,32 @@ public class PhotoServiceImpl implements PhotoService{
 
     private final AmazonS3Client amazonS3Client;
 
+    @Autowired
     private final PhotoRepository photoRepository;
+    @Autowired
+    private final UserScheduleRepository userRepository;
 
 
     @Override
     @Transactional
-    public String uploadPhoto(UserSchedule user, Trip tripDto, MultipartFile multipartFile)  {
+    public String uploadTripPhoto(UserSchedule user, Trip tripDto, MultipartFile multipartFile)  {
         String s3FileName = UUID.randomUUID() + "-" + multipartFile.getOriginalFilename();
 
         ObjectMetadata objMeta = new ObjectMetadata();
         objMeta.setContentLength(multipartFile.getSize());
         objMeta.setContentType(multipartFile.getContentType());
+
         try(InputStream inputStream = multipartFile.getInputStream()) {
-//            objMeta.setContentLength(multipartFile.getInputStream().available());
             amazonS3.putObject(bucket, s3FileName, inputStream, objMeta);
         } catch (IOException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,"파일 업로드에 실패했습니다. ");
         }
 
-//        amazonS3.putObject(bucket, s3FileName, multipartFile.getInputStream(), objMeta);
-
         //원본 파일 이름과 변경된 이름 저장
         Photo photo = Photo.builder()
                 .fileName(s3FileName)
                 .trip(tripDto)
+                .photoPath(amazonS3.getUrl(bucket, s3FileName).toString())
                 .build();
 
         photoRepository.save(photo);
@@ -65,15 +72,11 @@ public class PhotoServiceImpl implements PhotoService{
         return amazonS3.getUrl(bucket, s3FileName).toString();
     }
 
-//    @Override
-//    public String uploadPhoto(MultipartFile multipartFile) {
-//        return null;
-//    }
 
 
     @Override
-    public String createFileName(String fileName) {
-        return UUID.randomUUID().toString().concat(getFileExtension(fileName));
+    public String createProfileImageName(String fileName) {
+        return fileName.concat("_profileImage");
     }
 
     @Override
@@ -84,6 +87,7 @@ public class PhotoServiceImpl implements PhotoService{
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "잘못된 형식의 파일(" + fileName + ") 입니다.");
         }
     }
+
 
     @Transactional
     @Override
@@ -97,7 +101,72 @@ public class PhotoServiceImpl implements PhotoService{
         List<Photo> list = photoRepository.findByTrip(trip);
 
         list.forEach(file ->{
+            DeleteObjectRequest deleteObjectRequest = new DeleteObjectRequest(bucket,file.getFileName());
+            amazonS3.deleteObject(deleteObjectRequest);
             photoRepository.delete(file);
         });
+    }
+
+    @Override
+    @Transactional
+    public String updateProfileImg(String accessToken, MultipartFile multipartFile) {
+        User user = userRepository.findByUserNo(1L);//수정해야함.
+        DeleteObjectRequest deleteObjectRequest = new DeleteObjectRequest(bucket,user.getProfileImage());
+
+        String fileName = createProfileImageName(user.getNickname());
+        ObjectMetadata objectMetadata = new ObjectMetadata();
+        objectMetadata.setContentLength(multipartFile.getSize());
+        objectMetadata.setContentType(multipartFile.getContentType());
+
+        try(InputStream inputStream = multipartFile.getInputStream()){
+            amazonS3Client.putObject(new PutObjectRequest(bucket,fileName,inputStream,objectMetadata));
+        }catch (IOException e){
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,"파일 업로드에 실패하였습니다.");
+        }
+        String url = amazonS3.getUrl(bucket, fileName).toString();
+
+        String path = user.getProfileImage();
+
+        user.setProfileImage(url);
+        userRepository.save(user);
+
+        return url;
+    }
+
+
+    @Override
+    @Transactional
+    public String createProfileImage(String accessToken, MultipartFile multipartFile) {
+        User user = userRepository.findByUserNo(1L);//수정해야함.
+//        User user = jwtTokenService.convertTokenToUser(accessToken);
+        String fileName = createProfileImageName(user.getNickname());
+
+        ObjectMetadata objectMetadata = new ObjectMetadata();
+        objectMetadata.setContentLength(multipartFile.getSize());
+        objectMetadata.setContentType(multipartFile.getContentType());
+
+        try(InputStream inputStream = multipartFile.getInputStream()){
+            amazonS3Client.putObject(new PutObjectRequest(bucket,fileName,inputStream,objectMetadata));
+        }catch (IOException e){
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,"파일 업로드에 실패하였습니다.");
+        }
+        String url = amazonS3.getUrl(bucket, fileName).toString();
+
+        user.setProfileImage(url);
+        userRepository.save(user);
+
+        return url;
+
+    }
+
+    @Override
+    @Transactional
+    public List<String> getImageUrlList(Trip trip) {
+        List<Photo> list = photoRepository.findByTrip(trip);
+        List<String>result = new ArrayList<>();
+        list.forEach(photo ->{
+            result.add(photo.getPhotoPath());
+        });
+        return result;
     }
 }

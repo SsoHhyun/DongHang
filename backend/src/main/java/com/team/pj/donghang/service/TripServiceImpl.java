@@ -7,6 +7,7 @@ import com.team.pj.donghang.domain.dto.*;
 import com.team.pj.donghang.domain.entity.*;
 import com.team.pj.donghang.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -209,6 +210,16 @@ public class TripServiceImpl implements TripService{
                 .tripName(trip.getTripName())
                 .build();
         return tripResponseDto;
+    }
+
+    @Override
+    public Trip getTripInfo(Long tripNo) {
+        Trip trip = tripRepository.findByTripNo(tripNo);
+        if(trip==null){
+            return null;
+        }else {
+            return trip;
+        }
     }
 
     @Transactional
