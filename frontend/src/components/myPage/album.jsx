@@ -9,10 +9,19 @@ import {
   ImageList,
   ImageListItem,
   Modal,
+  Button,
 } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import LastCourse from "./lastCourse";
-import { setClose, setOpen } from "../../app/store";
+import {
+  setClose,
+  setImgIndex,
+  setOpen,
+  nextImg,
+  previousImg,
+} from "../../app/store";
 
 const itemData = [
   {
@@ -67,7 +76,6 @@ const itemData = [
 
 const Photos = () => {
   const dispatch = useDispatch();
-  const handleOpen = () => dispatch(setOpen());
 
   return (
     <ImageList
@@ -75,7 +83,7 @@ const Photos = () => {
       cols={4}
       rowHeight={"auto"}
     >
-      {itemData.map((item) => (
+      {itemData.map((item, i) => (
         <MyPhoto key={item.img}>
           <img
             src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
@@ -83,7 +91,10 @@ const Photos = () => {
             alt={item.title}
             loading="lazy"
             style={{ borderRadius: 4 }}
-            onClick={handleOpen}
+            onClick={() => {
+              dispatch(setOpen());
+              dispatch(setImgIndex(i));
+            }}
           />
         </MyPhoto>
       ))}
@@ -93,12 +104,36 @@ const Photos = () => {
 
 const BasicModal = () => {
   const open = useSelector((state) => state.open);
+  const imgIndex = useSelector((state) => state.imgIndex);
   const dispatch = useDispatch();
   const handleClose = () => dispatch(setClose());
+  const handleNext = () => dispatch(nextImg());
+  const handleBack = () => dispatch(previousImg());
   return (
     <div>
       <Modal open={open} onClose={handleClose}>
-        <PhotoModal src="https://images.unsplash.com/photo-1589118949245-7d38baf380d6" />
+        <ModalContainer>
+          <PhotoQuit onClick={handleClose}>✖</PhotoQuit>
+          <PhotoModal src={itemData[imgIndex].img} />
+          {imgIndex === 0 || imgIndex === itemData.length ? (
+            imgIndex === 0 ? (
+              <SlideArrow>
+                <BackArrow sx={{ color: "disabled" }} />
+                <NextArrow onClick={handleNext} />
+              </SlideArrow>
+            ) : (
+              <SlideArrow>
+                <BackArrow onClick={handleBack} />
+                <NextArrow sx={{ color: "disabled" }} />
+              </SlideArrow>
+            )
+          ) : (
+            <SlideArrow>
+              <BackArrow onClick={handleBack} />
+              <NextArrow onClick={handleNext} />
+            </SlideArrow>
+          )}
+        </ModalContainer>
       </Modal>
     </div>
   );
@@ -126,7 +161,7 @@ function LabTabs() {
         </AlbumTitle>
         <TabPanel value="1">
           <Photos />
-          {open === true ? <BasicModal /> : undefined}
+          {open === false ? undefined : <BasicModal />}
         </TabPanel>
         <TabPanel value="2">
           <LastCourse />
@@ -182,9 +217,43 @@ const MyPhoto = styled(ImageListItem)({
   margin: 3,
 });
 
+const ModalContainer = styled(Box)({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+});
+
+const PhotoQuit = styled(Button)({
+  color: "white",
+  fontSize: 36,
+  position: "absolute",
+  top: "4%",
+  right: "2%",
+});
+
 const PhotoModal = styled("img")({
-  width: 800,
-  height: 600,
-  top: "50%",
-  left: "50%",
+  width: 1163,
+  height: 700,
+  top: "7%",
+  left: "16%",
+  position: "absolute",
+  objectFit: "scale-down",
+});
+
+const SlideArrow = styled(Box)({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  height: "100vh",
+  width: "95vw",
+});
+
+const NextArrow = styled(ArrowForwardIosIcon)({
+  color: "white",
+  fontSize: 48,
+});
+
+const BackArrow = styled(ArrowBackIosIcon)({
+  color: "white",
+  fontSize: 48,
 });
