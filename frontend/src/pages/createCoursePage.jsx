@@ -16,6 +16,8 @@ const CreateCoursePage = () => {
     setRecommendspot([...recommendspot, spotdata])
     console.log(recommendspot)
   }
+  const [startDate, setStartdate] = useState("") //시작날짜
+  const [endDate, setEnddate] = useState("") //끝날짜
   const deleteCourse = (index) => {
     const temp = recommendspot.slice(0, index)
     const temp2 = recommendspot.slice(index + 1)
@@ -24,14 +26,17 @@ const CreateCoursePage = () => {
   }
   useEffect(() => {
     interceptor({
-      url: "/api/trip?tripNo=2&userNo=1",
+      url: "/api/trip/getMyTripList",
       method: "get",
+      Authorization:
+        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMDA0IiwiaXNzIjoiZG9uZ2hhbmcuY29tIiwiZXhwIjoxNjY0MzY5MTQ5LCJpYXQiOjE2NjQyODI3NDl9.x3usXeSLjI-FhIq8B4DyZkK_CDFBlgsfoXKyzMW_VtLn-RWuI0Orb2-AEZ1Zbqq5XwxFuowIdV-a66EQYF159Q",
     })
       .then((res) => {
         for (let i = 0; i < res.data.placeList.length; i++) {
           setRecommendspot((recommendspot) => [
             ...recommendspot,
             res.data.placeList[i],
+            console.log("dd"),
           ])
         }
         console.log(res.data)
@@ -47,6 +52,10 @@ const CreateCoursePage = () => {
         <CourseSide
           recommendspot={recommendspot}
           deleteCourse={deleteCourse}
+          setStartDate={setStartdate}
+          setEnddate={setEnddate}
+          startDate={startDate}
+          endDate={endDate}
         ></CourseSide>
         <MapWrapper id="map">
           <Map></Map>

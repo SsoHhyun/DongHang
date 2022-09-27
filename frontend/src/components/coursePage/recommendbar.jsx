@@ -105,4 +105,5 @@ const WrapRecommendBar = styled(Box)({
   bottom: 0,
   left: "20%",
   paddingBottom: 60,
+  zIndex: -1,
 })

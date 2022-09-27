@@ -14,6 +14,12 @@ import { useState } from "react"
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft"
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight"
 import interceptor from "../../api/interceptor"
+import Timeline from "@mui/lab/Timeline"
+import TimelineItem from "@mui/lab/TimelineItem"
+import TimelineSeparator from "@mui/lab/TimelineSeparator"
+import TimelineConnector from "@mui/lab/TimelineConnector"
+import TimelineContent from "@mui/lab/TimelineContent"
+import TimelineDot from "@mui/lab/TimelineDot"
 
 // 사이드바
 
@@ -53,14 +59,34 @@ const CourseSide = (props) => {
       {open === true ? (
         <Box>
           <StyledCourseSide>
-            {props.recommendspot.map((placeList, index) => (
+            {/* {props.recommendspot.map((placeList, index) => (
               <SideContents
                 key={index}
                 spotIndex={index}
                 spot={props.recommendspot[index]}
                 deleteCourse={props.deleteCourse}
               ></SideContents>
-            ))}
+            ))} */}
+            <Timeline>
+              {props.recommendspot.map((placeList, index) => (
+                <TimelineItem
+                  key={index}
+                  spotIndex={index}
+                  spot={props.recommendspot[index]}
+                  deleteCourse={props.deleteCourse}
+                >
+                  <TimelineSeparator>
+                    <TimelineDot />
+                    {props.recommendspot.length !== index ? (
+                      <TimelineConnector />
+                    ) : undefined}
+                  </TimelineSeparator>
+                  <TimelineContent>
+                    {props.recommendspot[index].title}
+                  </TimelineContent>
+                </TimelineItem>
+              ))}
+            </Timeline>
             <div>
               <Button
                 variant="contained"
