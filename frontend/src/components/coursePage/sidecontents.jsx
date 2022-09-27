@@ -8,7 +8,6 @@ import {
   Button,
   Typography,
 } from "@mui/material"
-import AdjustIcon from "@mui/icons-material/Adjust"
 import ClearIcon from "@mui/icons-material/Clear"
 //코스관련 사이드바 내부 컨텐츠
 
@@ -23,10 +22,16 @@ const SideContents = (props) => {
     setOpen(false)
   }
   return (
-    <Card sx={{ minWidth: 275 }}>
+    <Card sx={{ minWidth: 275, marginBottom: "2px" }}>
+      <Button
+        style={{ float: "right", marginTop: "2px" }}
+        onClick={() => {
+          props.deleteCourse(props.spotIndex)
+        }}
+      >
+        <ClearIcon style={{ color: "red" }}></ClearIcon>
+      </Button>
       <CardContent>
-        <AdjustIcon></AdjustIcon>
-        <ClearIcon></ClearIcon>
         <Typography variant="h7" component="div">
           {props.spot.title}
         </Typography>

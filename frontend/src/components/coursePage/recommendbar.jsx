@@ -9,31 +9,10 @@ import RecommendContents from "./recommendcontents"
 import { styled } from "@mui/material"
 import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown"
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp"
-import interceptor from "../../api/interceptor"
-import { useEffect } from "react"
 //코스관련 사이드바
-const RecommendBar = () => {
+const RecommendBar = (props) => {
   const [value, setValue] = useState("1")
   const [open, setOpen] = useState(false)
-  const [recommendspot, setRecommendspot] = useState([])
-
-  useEffect(() => {
-    interceptor({
-      url: "/api/trip?tripNo=2&userNo=1",
-      method: "get",
-    })
-      .then((res) => {
-        for (let i = 0; i < res.data.placeList.length; i++) {
-          setRecommendspot((recommendspot) => [
-            ...recommendspot,
-            res.data.placeList[i],
-          ])
-        }
-      })
-      .catch((err) => {
-        alert(err)
-      })
-  }, [])
 
   const handleChange = (event, newValue) => {
     setValue(newValue)
@@ -68,10 +47,11 @@ const RecommendBar = () => {
               </Box>
               <TabPanel value="1">
                 <StyledRecommendSlide>
-                  {recommendspot.map((user, index) => (
+                  {props.recommendspot.map((user, index) => (
                     <RecommendContents
-                      title={recommendspot[index].title}
+                      spot={props.recommendspot[index]}
                       key={index}
+                      addCourseList={props.addCourseList}
                     ></RecommendContents>
                   ))}
                 </StyledRecommendSlide>
@@ -124,4 +104,5 @@ const WrapRecommendBar = styled(Box)({
   position: "absolute",
   bottom: 0,
   left: "20%",
+  paddingBottom: 60,
 })

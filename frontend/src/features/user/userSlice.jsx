@@ -9,17 +9,17 @@ import { createAsyncThunk } from "@reduxjs/toolkit"
 // }
 
 export const initialState = {
-  id: "",
+  id: [""],
   password: "",
   email: "",
   nickname: "",
 }
 
-const userSlice = createSlice({
-  name: "user",
+const courseListSlice = createSlice({
+  name: "courseList",
   initialState,
   reducers: {
-    fetchProfile: (state, action) => {
+    fetchCourseList: (state, action) => {
       state.email = action.payload.email
       state.nickname = action.payload.nickname
       state.id = action.payload.id
@@ -28,6 +28,6 @@ const userSlice = createSlice({
   },
 })
 
-const actions = userSlice
+const actions = courseListSlice
 export const fetchProfile = actions
-export default userSlice.reducer
+export default courseListSlice.reducer

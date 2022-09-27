@@ -10,73 +10,55 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@mui/material"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft"
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight"
 import interceptor from "../../api/interceptor"
 
 // 사이드바
 
-const CourseSide = () => {
+const CourseSide = (props) => {
   const [open, setOpen] = useState(false)
-  const [recommendspot, setRecommendspot] = useState([])
-
   const [opendialog, setOpendialo] = React.useState(false)
 
   const handleClickOpen = () => {
     setOpendialo(true)
   }
-
   const handleClose = () => {
     setOpendialo(false)
   }
   const clickCreateCourse = () => {
+    const commonNoList = []
+    for (let i = 0; i < props.recommendspot.length; i++) {
+      commonNoList.push(props.recommendspot[i].commonNo)
+    }
     interceptor({
       url: "/api/trip",
       method: "post",
       data: {
-        commonNoList: [1, 2, 3],
+        commonNoList: commonNoList,
         endDate: "20181112",
         startDate: "20181113",
         tripName: "test",
       },
     })
-      .then((res) => {
-        console.log("")
-      })
+      .then((res) => {})
       .catch((err) => {
         alert(err)
       })
   }
-
-  useEffect(() => {
-    interceptor({
-      url: "/api/trip?tripNo=2&userNo=1",
-      method: "get",
-    })
-      .then((res) => {
-        for (let i = 0; i < res.data.placeList.length; i++) {
-          setRecommendspot((recommendspot) => [
-            ...recommendspot,
-            res.data.placeList[i],
-          ])
-          console.log(res.data)
-        }
-      })
-      .catch((err) => {
-        alert(err)
-      })
-  }, [])
 
   return (
     <Box>
       {open === true ? (
         <Box>
           <StyledCourseSide>
-            {recommendspot.map((placeList, index) => (
+            {props.recommendspot.map((placeList, index) => (
               <SideContents
                 key={index}
-                spot={recommendspot[index]}
+                spotIndex={index}
+                spot={props.recommendspot[index]}
+                deleteCourse={props.deleteCourse}
               ></SideContents>
             ))}
             <div>
@@ -86,7 +68,7 @@ const CourseSide = () => {
                 style={{
                   position: "sticky",
                   bottom: 0,
-                  marginLeft: 132,
+                  marginLeft: "35%",
                 }}
                 onClick={handleClickOpen}
               >
