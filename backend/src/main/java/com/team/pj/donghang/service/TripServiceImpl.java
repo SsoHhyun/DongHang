@@ -133,9 +133,8 @@ public class TripServiceImpl implements TripService{
     }
     @Transactional
     @Override
-    public boolean deleteTrip(User getUser, Long tripNo) {
+    public boolean deleteTrip(User user, Long tripNo) {
         Trip trip = tripRepository.findByTripNo(tripNo);
-        User user = userRepository.findUserById(getUser.getId());
         if(trip==null){
             return false;
         }
@@ -152,10 +151,9 @@ public class TripServiceImpl implements TripService{
 
     @Transactional
     @Override
-    public boolean updateTrip(User getUser, TripUpdateRequestDto tripUpdateRequestDto) {
+    public boolean updateTrip(User user, TripUpdateRequestDto tripUpdateRequestDto) {
 
         Trip trip = tripRepository.findByTripNo(tripUpdateRequestDto.getTripNo());
-        User user = userRepository.findUserById(getUser.getId());
 
         if(trip==null){
             return false;
