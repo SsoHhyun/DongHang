@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux/es/exports";
+import React, { useState } from "react"
+import { useSelector, useDispatch } from "react-redux/es/exports"
 import {
   Box,
   Paper,
@@ -10,18 +10,18 @@ import {
   ImageListItem,
   Modal,
   Button,
-} from "@mui/material";
-import { TabContext, TabList, TabPanel } from "@mui/lab";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import LastCourse from "./lastCourse";
+} from "@mui/material"
+import { TabContext, TabList, TabPanel } from "@mui/lab"
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos"
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos"
+import LastCourse from "./lastCourse"
 import {
   setClose,
   setImgIndex,
   setOpen,
   nextImg,
   previousImg,
-} from "../../app/store";
+} from "../../app/store"
 
 const itemData = [
   {
@@ -72,10 +72,10 @@ const itemData = [
     img: "https://images.unsplash.com/photo-1589118949245-7d38baf380d6",
     title: "Bike",
   },
-];
+]
 
 const Photos = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   return (
     <ImageList
@@ -92,59 +92,59 @@ const Photos = () => {
             loading="lazy"
             style={{ borderRadius: 4 }}
             onClick={() => {
-              dispatch(setOpen());
-              dispatch(setImgIndex(i));
+              dispatch(setOpen())
+              dispatch(setImgIndex(i))
             }}
           />
         </MyPhoto>
       ))}
     </ImageList>
-  );
-};
+  )
+}
 
 const BasicModal = () => {
-  const open = useSelector((state) => state.open);
-  const imgIndex = useSelector((state) => state.imgIndex);
-  const dispatch = useDispatch();
-  const handleClose = () => dispatch(setClose());
-  const handleNext = () => dispatch(nextImg());
-  const handleBack = () => dispatch(previousImg());
+  const open = useSelector((state) => state.open)
+  const imgIndex = useSelector((state) => state.imgIndex)
+  const dispatch = useDispatch()
+  const handleClose = () => dispatch(setClose())
+  const handleNext = () => dispatch(nextImg())
+  const handleBack = () => dispatch(previousImg())
   return (
     <div>
       <Modal open={open} onClose={handleClose}>
         <ModalContainer>
           <PhotoQuit onClick={handleClose}>✖</PhotoQuit>
           <PhotoModal src={itemData[imgIndex].img} />
-          {imgIndex === 0 || imgIndex === itemData.length ? (
+          {imgIndex === 0 || imgIndex === itemData.length - 1 ? (
             imgIndex === 0 ? (
               <SlideArrow>
-                <BackArrow sx={{ color: "disabled" }} />
-                <NextArrow onClick={handleNext} />
+                <BackArrow color="disabled" />
+                <NextArrow sx={{ color: "white" }} onClick={handleNext} />
               </SlideArrow>
             ) : (
               <SlideArrow>
-                <BackArrow onClick={handleBack} />
-                <NextArrow sx={{ color: "disabled" }} />
+                <BackArrow sx={{ color: "white" }} onClick={handleBack} />
+                <NextArrow color="disabled" />
               </SlideArrow>
             )
           ) : (
             <SlideArrow>
-              <BackArrow onClick={handleBack} />
-              <NextArrow onClick={handleNext} />
+              <BackArrow sx={{ color: "white" }} onClick={handleBack} />
+              <NextArrow sx={{ color: "white" }} onClick={handleNext} />
             </SlideArrow>
           )}
         </ModalContainer>
       </Modal>
     </div>
-  );
-};
+  )
+}
 
 function LabTabs() {
-  const [value, setValue] = useState("1");
-  const open = useSelector((state) => state.open);
+  const [value, setValue] = useState("1")
+  const open = useSelector((state) => state.open)
   const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+    setValue(newValue)
+  }
 
   return (
     <Box sx={{ width: "100%", typography: "body1" }}>
@@ -168,7 +168,7 @@ function LabTabs() {
         </TabPanel>
       </TabContext>
     </Box>
-  );
+  )
 }
 
 const Album = () => {
@@ -176,10 +176,10 @@ const Album = () => {
     <AlbumContainer>
       <LabTabs />
     </AlbumContainer>
-  );
-};
+  )
+}
 
-export default Album;
+export default Album
 
 const AlbumContainer = styled(Paper)({
   borderRadius: 20,
@@ -191,37 +191,37 @@ const AlbumContainer = styled(Paper)({
   flexDirection: "column",
   justifyContent: "center",
   alignContent: "center",
-});
+})
 
 const AlbumTitle = styled(Box)({
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
-});
+})
 
 const AlbumName = styled(Typography)({
   textAlign: "center",
   fontSize: 30,
   color: "brown",
   fontWeight: "bold",
-});
+})
 
 const Period = styled(Typography)({
   textAlign: "center",
   fontSize: 16,
   color: "grey",
-});
+})
 
 const MyPhoto = styled(ImageListItem)({
   margin: 3,
-});
+})
 
 const ModalContainer = styled(Box)({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-});
+})
 
 const PhotoQuit = styled(Button)({
   color: "white",
@@ -229,7 +229,7 @@ const PhotoQuit = styled(Button)({
   position: "absolute",
   top: "4%",
   right: "2%",
-});
+})
 
 const PhotoModal = styled("img")({
   width: 1163,
@@ -238,7 +238,7 @@ const PhotoModal = styled("img")({
   left: "16%",
   position: "absolute",
   objectFit: "scale-down",
-});
+})
 
 const SlideArrow = styled(Box)({
   display: "flex",
@@ -246,14 +246,12 @@ const SlideArrow = styled(Box)({
   alignItems: "center",
   height: "100vh",
   width: "95vw",
-});
+})
 
 const NextArrow = styled(ArrowForwardIosIcon)({
-  color: "white",
   fontSize: 48,
-});
+})
 
 const BackArrow = styled(ArrowBackIosIcon)({
-  color: "white",
   fontSize: 48,
-});
+})
