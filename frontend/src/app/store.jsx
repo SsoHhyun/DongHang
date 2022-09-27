@@ -1,12 +1,6 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit"
 import userReducer from "../features/user/userSlice"
 
-export const store = configureStore({
-  reducer: {
-    user: userReducer,
-  },
-  devTools: process.env.NODE_ENV !== "production",
-})
 const open = createSlice({
   name: "open",
   initialState: false,
@@ -20,10 +14,30 @@ const open = createSlice({
   },
 })
 
+const imgIndex = createSlice({
+  name: "imgIndex",
+  initialState: -1,
+  reducers: {
+    setImgIndex(state, action) {
+      return action.payload
+    },
+    nextImg(state) {
+      return state + 1
+    },
+    previousImg(state) {
+      return state - 1
+    },
+  },
+})
+
 export let { setOpen, setClose } = open.actions
+export let { setImgIndex, nextImg, previousImg } = imgIndex.actions
 
 export default configureStore({
   reducer: {
     open: open.reducer,
+    imgIndex: imgIndex.reducer,
+    user: userReducer,
   },
+  devTools: process.env.NODE_ENV !== "production",
 })
