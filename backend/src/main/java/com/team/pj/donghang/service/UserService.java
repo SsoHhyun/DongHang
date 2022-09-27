@@ -14,4 +14,6 @@ public interface UserService {
     User createUser(UserRegisterRequestDto userRegisterReq); // 사용자 회원 가입
 
     User getUserByUserId(String userId); // 사용자 id로 사용자 정보 조회
+    
+    User getUserByUserNo(Long userno); // 사용자 userno로 사용자 정보 조회
 }
