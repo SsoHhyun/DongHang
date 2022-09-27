@@ -21,7 +21,7 @@ import { Navigate } from "react-router-dom"
 
 const Register = () => {
   const DOMAIN = "http://localhost:8080/"
-  const registerReq = (method, url, data) => {
+  const registerRequest = (method, url, data) => {
     return axios({
       method,
       url: url,
@@ -52,16 +52,21 @@ const Register = () => {
       },
     },
   })
-  const [checked, setChecked] = useState(false)
-
-  // 동의 체크
-  const handleAgree = (event) => {
-    setChecked(event.target.checked)
-  }
 
   // form 전송
   const handleSubmit = (e) => {
     e.preventDefault()
+  }
+
+  const handleClick = async () => {
+    await axios
+      .post("api/createUser")
+      .then((Response) => {
+        alert(Response.data)
+      })
+      .catch((Error) => {
+        console.log("통신 실패 +\n" + Error)
+      })
   }
 
   return (
@@ -70,10 +75,10 @@ const Register = () => {
         <ThemeProvider theme={theme}>
           <Box align="center">
             <Avatar sx={{ m: 1, bgcolor: "secondary.main" }} />
+            <Typography align="center" variant="h4">
+              Signup
+            </Typography>
           </Box>
-          <Typography align="center">
-            <h1>Signup</h1>
-          </Typography>
           <Box
             component="form"
             noValidate

@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit/dist/createSlice"
-import { createAsyncThunk } from "@reduxjs/toolkit/dist/createAsyncThunk"
-import { request } from "../../utils/axios"
+import { createSlice } from "@reduxjs/toolkit"
+import { createAsyncThunk } from "@reduxjs/toolkit"
+// import { request } from "../../utils/axios"
 
 // const userData = {
 //     userId,
@@ -28,13 +28,6 @@ const userSlice = createSlice({
     },
   },
 })
-
-export const sendRegisterrequest = createAsyncThunk(
-  "sendRegisterRequest",
-  async (data) => {
-    return request("POST", "/api" + "/user/register", data)
-  }
-)
 
 const actions = userSlice
 export const fetchProfile = actions
