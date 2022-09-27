@@ -94,7 +94,6 @@ public class TripController {
     })
     public ResponseEntity<List<TripResponseDto>> getTripList(
             @ApiIgnore  Authentication authentication
-//            @ApiParam(value = "일정 정보들을 가져오기 위한 userno",required = true)Long userNo
     ){
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getDetails();
         User user = userDetails.getUser();
@@ -114,7 +113,6 @@ public class TripController {
     })
     public ResponseEntity<TripResponseDto> getMyOneTrip(
             @ApiIgnore Authentication authentication,
-//            @ApiParam(value = "일정 정보들을 가져오기 위한 userno",required = true)Long userNo,
             @ApiParam(value = "갖고올 일정 번호",required = true)Long tripNo){
         CustomUserDetails userDetails = (CustomUserDetails)authentication.getDetails();
         TripResponseDto result = tripService.getUserTrip(userDetails.getUser().getUserNo(),tripNo);

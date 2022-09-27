@@ -11,6 +11,7 @@ import com.team.pj.donghang.domain.entity.Trip;
 import com.team.pj.donghang.domain.entity.User;
 import com.team.pj.donghang.repository.PhotoRepository;
 
+import com.team.pj.donghang.repository.UserRepository;
 import com.team.pj.donghang.repository.UserScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +41,9 @@ public class PhotoServiceImpl implements PhotoService{
 
     @Autowired
     private final PhotoRepository photoRepository;
-    @Autowired
-    private final UserScheduleRepository userRepository;
 
+    @Autowired
+    private final UserRepository userRepository;
 
     @Override
     @Transactional
@@ -108,9 +109,8 @@ public class PhotoServiceImpl implements PhotoService{
 
     @Override
     @Transactional
-    public String updateProfileImg(User getUser, MultipartFile multipartFile) {
-        User user = userRepository.findByUserNo(getUser.getUserNo());
-        DeleteObjectRequest deleteObjectRequest = new DeleteObjectRequest(bucket,getUser.getProfileImage());
+    public String updateProfileImg(User user, MultipartFile multipartFile) {
+        DeleteObjectRequest deleteObjectRequest = new DeleteObjectRequest(bucket,user.getProfileImage());
 
         String fileName = createProfileImageName(user.getNickname());
         ObjectMetadata objectMetadata = new ObjectMetadata();
@@ -126,8 +126,8 @@ public class PhotoServiceImpl implements PhotoService{
 
         String path = user.getProfileImage();
 
-        getUser.setProfileImage(url);
-        userRepository.save(getUser);
+        user.setProfileImage(url);
+        userRepository.save(user);
 
         return url;
     }
@@ -135,9 +135,8 @@ public class PhotoServiceImpl implements PhotoService{
 
     @Override
     @Transactional
-    public String createProfileImage(User getUser, MultipartFile multipartFile) {
+    public String createProfileImage(User user, MultipartFile multipartFile) {
 
-        User user = userRepository.findByUserNo(getUser.getUserNo());
 
         String fileName = createProfileImageName(user.getNickname());
 
