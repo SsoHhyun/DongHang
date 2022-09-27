@@ -54,10 +54,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 토큰 기반 인증이므로 세션 사용 하지않음
                 .and()
-                .addFilter(new JwtAuthenticationFilter(authenticationManager(), userService)) //HTTP 요청에 JWT 토큰 인증 필터를 거치도록 필터를 추가
-                .authorizeRequests()
+//                // TODO: test용으로 jwt 필터 해제하였음. 나중에 주석 풀어야 함
+//                .addFilter(new JwtAuthenticationFilter(authenticationManager(), userService)) //HTTP 요청에 JWT 토큰 인증 필터를 거치도록 필터를 추가
+//                .authorizeRequests()
 //                .antMatchers(new String[]{"/"}).authenticated()       //인증이 필요한 URL과 필요하지 않은 URL에 대하여 설정
-                .anyRequest().permitAll()
-                .and().cors();
+//                .anyRequest().permitAll()
+//                .and()
+                .cors();
     }
 }
