@@ -23,7 +23,7 @@ public class AuthController {
     AuthService authService;
 
     @PostMapping("")
-    @ApiOperation(value = "로그인")
+    @ApiOperation(value = "로그인", notes = "로컬 스토리지에 토큰을 저장한 후 로그인이 필요한 request의 경우 header에 \"Authorization\" : \"access-token\"을 담아 사용하면 됨")
     @ApiResponses({
             @ApiResponse(code = 200, message = "로그인 성공", response = UserLoginRequestDto.class),
             @ApiResponse(code = 401, message = "이메일 또는 비밀번호가 공백", response = UserLoginRequestDto.class),
