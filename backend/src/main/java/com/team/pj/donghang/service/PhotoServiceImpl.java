@@ -6,7 +6,6 @@ import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.team.pj.donghang.domain.dto.UserSchedule;
 import com.team.pj.donghang.domain.entity.Photo;
 import com.team.pj.donghang.domain.entity.Trip;
 import com.team.pj.donghang.domain.entity.User;
@@ -47,7 +46,7 @@ public class PhotoServiceImpl implements PhotoService{
 
     @Override
     @Transactional
-    public String uploadTripPhoto(UserSchedule user, Trip tripDto, MultipartFile multipartFile)  {
+    public String uploadTripPhoto(User user, Trip tripDto, MultipartFile multipartFile)  {
         String s3FileName = UUID.randomUUID() + "-" + multipartFile.getOriginalFilename();
 
         ObjectMetadata objMeta = new ObjectMetadata();
@@ -62,7 +61,7 @@ public class PhotoServiceImpl implements PhotoService{
 
         //원본 파일 이름과 변경된 이름 저장
         Photo photo = Photo.builder()
-                .fileName(s3FileName)
+//                .fileName(s3FileName)
                 .trip(tripDto)
                 .photoPath(amazonS3.getUrl(bucket, s3FileName).toString())
                 .build();
@@ -109,9 +108,9 @@ public class PhotoServiceImpl implements PhotoService{
 
     @Override
     @Transactional
-    public String updateProfileImg(String accessToken, MultipartFile multipartFile) {
-        User user = userRepository.findByUserNo(1L);//수정해야함.
-        DeleteObjectRequest deleteObjectRequest = new DeleteObjectRequest(bucket,user.getProfileImage());
+    public String updateProfileImg(User getUser, MultipartFile multipartFile) {
+        User user = userRepository.findByUserNo(getUser.getUserNo());
+        DeleteObjectRequest deleteObjectRequest = new DeleteObjectRequest(bucket,getUser.getProfileImage());
 
         String fileName = createProfileImageName(user.getNickname());
         ObjectMetadata objectMetadata = new ObjectMetadata();
@@ -127,8 +126,8 @@ public class PhotoServiceImpl implements PhotoService{
 
         String path = user.getProfileImage();
 
-        user.setProfileImage(url);
-        userRepository.save(user);
+        getUser.setProfileImage(url);
+        userRepository.save(getUser);
 
         return url;
     }
@@ -136,9 +135,10 @@ public class PhotoServiceImpl implements PhotoService{
 
     @Override
     @Transactional
-    public String createProfileImage(String accessToken, MultipartFile multipartFile) {
-        User user = userRepository.findByUserNo(1L);//수정해야함.
-//        User user = jwtTokenService.convertTokenToUser(accessToken);
+    public String createProfileImage(User getUser, MultipartFile multipartFile) {
+
+        User user = userRepository.findByUserNo(getUser.getUserNo());
+
         String fileName = createProfileImageName(user.getNickname());
 
         ObjectMetadata objectMetadata = new ObjectMetadata();

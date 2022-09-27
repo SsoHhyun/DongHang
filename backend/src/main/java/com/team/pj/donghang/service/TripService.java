@@ -6,6 +6,7 @@ import com.team.pj.donghang.api.response.TripResponseDto;
 import com.team.pj.donghang.domain.dto.PlaceCommonDto;
 import com.team.pj.donghang.domain.dto.UserSchedule;
 import com.team.pj.donghang.domain.entity.Trip;
+import com.team.pj.donghang.domain.entity.User;
 
 import java.util.List;
 
@@ -17,13 +18,13 @@ public interface TripService {
     //사진 삭제
     // 장소 상세 정보들 list 조회
     public List<? extends PlaceCommonDto> recommendPlaceList(List<Long> commonNoList, String category);
-    public void createTrip(UserSchedule user, TripCreateRequestDto tripCreateRequestDto);
+    public void createTrip(User user, TripCreateRequestDto tripCreateRequestDto);
     //일정 생성하기
 
     //일정 삭제하기
-    public boolean deleteTrip(UserSchedule user, Long tripNo);
+    public boolean deleteTrip(User user, Long tripNo);
     //일정 수정하기
-    public boolean updateTrip(UserSchedule user, TripUpdateRequestDto tripUpdateRequestDto);
+    public boolean updateTrip(User user, TripUpdateRequestDto tripUpdateRequestDto);
     public TripResponseDto getUserTrip (Long userNo,Long tripNo);
     //일정 한개 가져오기
     public Trip getTripInfo(Long tripNo);

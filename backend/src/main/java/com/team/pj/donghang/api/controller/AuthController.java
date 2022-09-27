@@ -34,12 +34,14 @@ public class AuthController {
             UserLoginRequestDto userLoginRequestDto
     ) {
         try {
+            log.debug("user login request: {}", userLoginRequestDto.toString());
             String token = authService.login(userLoginRequestDto);
             log.debug("auth token: "+token);
 
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(token, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
         }
     }
 }
+

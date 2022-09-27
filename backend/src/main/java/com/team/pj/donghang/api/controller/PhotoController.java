@@ -1,6 +1,6 @@
 package com.team.pj.donghang.api.controller;
 
-import com.team.pj.donghang.domain.dto.UserSchedule;
+import com.team.pj.donghang.domain.entity.CustomUserDetails;
 import com.team.pj.donghang.domain.entity.Trip;
 import com.team.pj.donghang.service.PhotoService;
 import com.team.pj.donghang.service.TripService;
@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
-@Api(value = "사진 업로드와 관련된 API" ,tags = {"Photo"})
+@Api(value = "사진 업로드와 관련된 API  Auth 필수" ,tags = {"photo : auth 필"})
 @RestController("upload")
 @Controller
 @CrossOrigin("*")
@@ -39,11 +39,11 @@ public class PhotoController {
             @RequestParam("images")MultipartFile multipartFile,
             @RequestParam("tripNo")Long tripNo
             ){
-        //user는 추후 수정
-        UserSchedule user = new UserSchedule(1L);
+        CustomUserDetails userDetails = (CustomUserDetails)authentication.getDetails();
+
         Trip trip=tripService.getTripInfo(tripNo);
 
-        String result =photoService.uploadTripPhoto(user,trip,multipartFile);
+        String result =photoService.uploadTripPhoto(userDetails.getUser(),trip,multipartFile);
 
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -57,7 +57,8 @@ public class PhotoController {
             @ApiIgnore Authentication authentication,
             @RequestParam("profileImage")MultipartFile multipartFile
     ){
-        String result = photoService.createProfileImage("accessToken이 들어갈자리",multipartFile);
+        CustomUserDetails userDetails = (CustomUserDetails)authentication.getDetails();
+        String result = photoService.createProfileImage(userDetails.getUser(),multipartFile);
         return new ResponseEntity(HttpStatus.OK);
     }
 
@@ -70,7 +71,9 @@ public class PhotoController {
             @ApiIgnore Authentication authentication,
             @RequestParam("profileImage")MultipartFile multipartFile
     ){
-        String result = photoService.updateProfileImg("accessToken이 들어갈자리",multipartFile);
+        CustomUserDetails userDetails = (CustomUserDetails)authentication.getDetails();
+
+        String result = photoService.updateProfileImg(userDetails.getUser(),multipartFile);
         return new ResponseEntity(HttpStatus.OK);
     }
 
@@ -107,6 +110,8 @@ public class PhotoController {
             @ApiIgnore Authentication authentication,
             @ApiParam(value = "여행기록 사진들 가져오기",required = true) @RequestParam(value = "tripNo", required = true)Long tripNo
     ){
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getDetails();
+
         Trip trip = tripService.getTripInfo(tripNo);
         List<String> photoUrlList=photoService.getImageUrlList(trip);
         if(photoUrlList==null){
