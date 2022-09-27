@@ -34,11 +34,11 @@ public class JwtTokenUtil {
         return new Date(now.getTime()+expirationTime);
     }
 
-    public static String getToken(String userid) {
+    public static String getToken(String userNoIntoString) {
         Date expires = JwtTokenUtil.makeTokenExpiration(expirationTime);
 
         return JWT.create()
-                .withSubject(userid)
+                .withSubject(userNoIntoString)
                 .withExpiresAt(expires)
                 .withIssuer(ISSUER)
                 .withIssuedAt(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()))
