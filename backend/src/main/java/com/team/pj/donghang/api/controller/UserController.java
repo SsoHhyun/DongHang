@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
+@CrossOrigin("*")
 @Api(value = "사용자 관련 API")
 @RestController
 @RequestMapping("/user")
