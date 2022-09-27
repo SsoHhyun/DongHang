@@ -33,7 +33,7 @@ public class AuthServiceImpl implements AuthService {
 
         checkPassword(userLoginRequestDto.getPassword(), user.getPassword());
 
-        return JwtTokenUtil.getToken(user.getId());
+        return JwtTokenUtil.getToken(String.valueOf(user.getUserNo()));
     }
 
     @Override
