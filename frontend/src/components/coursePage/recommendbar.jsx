@@ -71,6 +71,7 @@ const RecommendBar = () => {
                   {recommendspot.map((user, index) => (
                     <RecommendContents
                       title={recommendspot[index].title}
+                      key={index}
                     ></RecommendContents>
                   ))}
                 </StyledRecommendSlide>

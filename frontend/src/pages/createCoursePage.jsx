@@ -4,8 +4,8 @@ import { Box } from "@mui/system"
 import Navbar from "../components/navbar"
 import CourseSide from "../components/coursePage/courseside"
 import Map from "../components/map"
-import RecommendBar from "../components/coursePage/recommendbar"
 import { styled } from "@mui/material"
+import RecommendBar from "../components/coursePage/recommendbar"
 
 const CreateCoursePage = () => {
   return (
