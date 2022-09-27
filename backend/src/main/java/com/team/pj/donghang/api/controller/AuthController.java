@@ -34,6 +34,7 @@ public class AuthController {
             UserLoginRequestDto userLoginRequestDto
     ) {
         try {
+            log.debug("user login request: {}", userLoginRequestDto.toString());
             String token = authService.login(userLoginRequestDto);
             log.debug("auth token: "+token);
 

@@ -34,7 +34,7 @@ public class UserController {
 
         User user = userService.createUser(userRegisterRequestDto);
 
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>("CREATED", HttpStatus.CREATED);
     }
 
     @GetMapping("/id")
@@ -51,9 +51,9 @@ public class UserController {
         log.debug("check user id duplicated: "+id);
 
         if(userService.isIdExist(id)) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            return new ResponseEntity<>("DUPLICATED USER ID", HttpStatus.CONFLICT);
         } else {
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>("OK", HttpStatus.OK);
         }
     }
 
@@ -71,9 +71,9 @@ public class UserController {
         log.debug("check user nickname duplicated: "+nickname);
 
         if(userService.isNickNameExist(nickname)) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            return new ResponseEntity<>("DUPLICATED USER NICKNAME", HttpStatus.CONFLICT);
         } else {
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>("OK", HttpStatus.OK);
         }
     }
 
@@ -91,9 +91,9 @@ public class UserController {
         log.debug("check email duplicated: "+email);
 
         if(userService.isEmailExist(email)) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            return new ResponseEntity<>("DUPLICATED USER EMAIL", HttpStatus.CONFLICT);
         } else {
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>("OK", HttpStatus.OK);
         }
     }
 }
