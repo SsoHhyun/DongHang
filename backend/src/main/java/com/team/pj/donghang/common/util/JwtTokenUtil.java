@@ -15,7 +15,7 @@ import java.util.Date;
 public class JwtTokenUtil {
     private static String secretKey = "dyAeHubOOc8KaOfYB6XEQoEj1QzRlVgtjNL8PYs1A1tymZvvqkcEU7L1imkKHeDa";
 
-    private static long expirationTime = 1000 * 60 * 60; // 1시간
+    private static long expirationTime = 1000 * 60 * 60 * 24; // 1시간 TODO: 테스트 용으로 24시간임.
 
     public static final String TOKEN_PREFIX = "Bearer ";
 
