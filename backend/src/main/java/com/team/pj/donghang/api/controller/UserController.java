@@ -45,8 +45,7 @@ public class UserController {
     })
     public ResponseEntity<?> checkIdDuplicated(
             @RequestParam
-            @ApiParam(value = "사용자 아이디", required = true)
-            String id
+            @ApiParam(value = "사용자 아이디", required = true) String id
     ) {
         log.debug("check user id duplicated: "+id);
 
@@ -65,8 +64,7 @@ public class UserController {
     })
     public ResponseEntity<?> checkNickNameDuplicated(
             @RequestParam
-            @ApiParam(value = "사용자 닉네임", required = true)
-            String nickname
+            @ApiParam(value = "사용자 닉네임", required = true) String nickname
     ) {
         log.debug("check user nickname duplicated: "+nickname);
 
@@ -85,8 +83,7 @@ public class UserController {
     })
     public ResponseEntity<?> checkEmailDuplicated(
             @RequestParam
-            @ApiParam(value = "사용자 이메일", required = true)
-            String email
+            @ApiParam(value = "사용자 이메일", required = true) String email
     ) {
         log.debug("check email duplicated: "+email);
 
@@ -97,3 +94,4 @@ public class UserController {
         }
     }
 }
+

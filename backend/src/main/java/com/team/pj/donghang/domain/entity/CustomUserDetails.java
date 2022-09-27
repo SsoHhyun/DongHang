@@ -10,22 +10,27 @@ import java.util.List;
 
 public class CustomUserDetails implements UserDetails {
 
+    @Autowired
     User user;
     boolean accountNonExpired;
     boolean accountNonLocked;
     boolean credentialNonExpired;
     boolean enabled = false;
+    List<GrantedAuthority> roles = new ArrayList<>();
 
     public CustomUserDetails(User user) {
         super();
         this.user = user;
     }
 
-    List<GrantedAuthority> roles = new ArrayList<>();
+    public User getUser() {
+        return this.user;
+    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles;
+        return this.roles;
     }
 
     @Override
