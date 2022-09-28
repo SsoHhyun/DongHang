@@ -65,57 +65,58 @@ var missions = [
   },
 ]
 
-const recommendMisson = function (arr) {
-  const randomSet = new Set()
-  let flag = true
-  const resultArr = []
-
-  // 랜덤한 숫자 뽑아오기
-  function rand(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min
-  }
-
-  while (flag) {
-    randomSet.add(rand(0, arr.length - 1))
-    if (randomSet.size == 3) {
-      flag = false
-    }
-  }
-
-  for (let item of randomSet) {
-    resultArr.push(arr[item])
-  }
-
-  return resultArr
-}
-
 const Mission = () => {
-  console.log(recommendMisson(missions))
+  const recommendMission = function (arr) {
+    const randomSet = new Set()
+    let flag = true
+    const resultArr = []
+
+    // 랜덤한 숫자 뽑아오기
+    function rand(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min
+    }
+
+    while (flag) {
+      randomSet.add(rand(0, arr.length - 1))
+      if (randomSet.size == 3) {
+        flag = false
+      }
+    }
+
+    for (let item of randomSet) {
+      resultArr.push(arr[item])
+    }
+
+    return resultArr
+  }
+
+  // const missionPaper = userRef()
+
+  const [mission, setMission] = useState(recommendMission(missions))
+
+  const rerollMission = () => {
+    setMission(recommendMission(missions))
+  }
+
   return (
     <Box>
-      <IconButton>
+      <IconButton onClick={() => rerollMission()}>
         <RefreshIcon />
       </IconButton>
-      <Carousel background="#f4b37b">
-        {missions.map((item, i) => (
-          <Item key={i} item={item} />
+      <Paper>
+        {mission.map((item, i) => (
+          <Paper key={i} item={item}>
+            <Box>{item.name}</Box>
+            <ContentBox>
+              <Box>{item.description}</Box>
+              <IconButton>
+                <CameraAltIcon />
+              </IconButton>
+            </ContentBox>
+          </Paper>
         ))}
-      </Carousel>
+      </Paper>
     </Box>
-  )
-}
-
-function Item(props) {
-  return (
-    <CarouselPaper>
-      <Box>{props.item.name}</Box>
-      <ContentBox>
-        <Box>{props.item.description}</Box>
-        <IconButton>
-          <CameraAltIcon />
-        </IconButton>
-      </ContentBox>
-    </CarouselPaper>
   )
 }
 
