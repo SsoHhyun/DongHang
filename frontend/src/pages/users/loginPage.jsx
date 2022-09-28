@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import axios from "axios"
 
 import {
@@ -10,9 +10,7 @@ import {
   TextField,
   Typography,
   InputAdornment,
-  FormControl,
   FormHelperText,
-  Input,
 } from "@mui/material"
 import RecommTrip from "../../components/main/recommTrip"
 import AccountCircle from "@mui/icons-material/AccountCircle"
@@ -20,8 +18,6 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
 import Swal from "sweetalert2"
 
 const LoginPage = () => {
-  const BE_URL = process.env.REACT_APP_BACKEND_URL
-
   const [values, setValues] = useState({
     id: "string",
     password: "",
@@ -43,7 +39,7 @@ const LoginPage = () => {
   // 로그인 버튼 클릭
   const onLogin = () => {
     axios
-      .post(`${BE_URL}/auth/login`, {
+      .post("http://j7a504.p.ssafy.io:8080/auth/", {
         id: values.id,
         password: values.password,
       })
@@ -89,7 +85,7 @@ const LoginPage = () => {
       setIsId(false)
       setIsId(true)
     } else {
-      setIdError("")
+      setIdError(" ")
       setIsId(true)
       setIsId(false)
     }
@@ -107,7 +103,7 @@ const LoginPage = () => {
       setIsPassword(false)
       setIsEmpty(true)
     } else {
-      setPasswordError("")
+      setPasswordError(" ")
       setIsPassword(true)
       setIsEmpty(false)
     }
@@ -144,7 +140,7 @@ const LoginPage = () => {
               placeholder="아이디를 입력하세요"
               onChange={handleChangeId}
               required
-              autoFocus="true"
+              autoFocus={true}
               variant="outlined"
               InputProps={{
                 startAdornment: (
