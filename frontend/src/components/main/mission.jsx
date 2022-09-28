@@ -22,7 +22,7 @@ import RefreshIcon from "@mui/icons-material/Refresh"
 // 그 숫자를 다시 인덱스로 넣어줌
 
 // mission 임시로 넣어둔 리스트
-var items = [
+var missions = [
   {
     name: "Special Mission",
     description: "부모님과 단풍잎 주워서 책갈피 만들기",
@@ -65,14 +65,39 @@ var items = [
   },
 ]
 
+const recommendMisson = function (arr) {
+  const randomSet = new Set()
+  let flag = true
+  const resultArr = []
+
+  // 랜덤한 숫자 뽑아오기
+  function rand(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min
+  }
+
+  while (flag) {
+    randomSet.add(rand(0, arr.length - 1))
+    if (randomSet.size == 3) {
+      flag = false
+    }
+  }
+
+  for (let item of randomSet) {
+    resultArr.push(arr[item])
+  }
+
+  return resultArr
+}
+
 const Mission = () => {
+  console.log(recommendMisson(missions))
   return (
     <Box>
       <IconButton>
         <RefreshIcon />
       </IconButton>
       <Carousel background="#f4b37b">
-        {items.map((item, i) => (
+        {missions.map((item, i) => (
           <Item key={i} item={item} />
         ))}
       </Carousel>
