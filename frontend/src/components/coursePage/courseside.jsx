@@ -22,8 +22,8 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker"
 
 const CourseSide = (props) => {
   const [opendialog, setOpendialo] = React.useState(false)
-  const [startDate, setEnddate] = React.useState(null)
-  const [endDate, setStartDate] = React.useState(null)
+  const [startDate, setStartDate] = React.useState(null)
+  const [endDate, setEndDate] = React.useState(null)
 
   const handleClickOpen = () => {
     setOpendialo(true)
@@ -69,6 +69,7 @@ const CourseSide = (props) => {
             value={startDate}
             onChange={(newValue) => {
               setStartDate(newValue)
+              console.log(startDate)
             }}
             renderInput={(params) => <TextField {...params} fullWidth />}
           />
@@ -78,7 +79,8 @@ const CourseSide = (props) => {
             label="마지막 날짜"
             value={endDate}
             onChange={(newValue) => {
-              setEnddate(newValue)
+              setEndDate(newValue)
+              console.log(endDate)
             }}
             renderInput={(params) => <TextField {...params} fullWidth />}
           />

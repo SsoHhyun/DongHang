@@ -27,7 +27,7 @@ const RecommendBar = (props) => {
                 aria-label="lab API tabs example"
               >
                 <Tab label="추천여행지" value="1" />
-                <Tab label="근처음식점" value="2" />
+                <Tab label="음식점" value="2" />
               </TabList>
             </Box>
             <TabPanel value="1">
