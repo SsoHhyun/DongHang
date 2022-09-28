@@ -38,6 +38,7 @@ const SideContents = (props) => {
       </Button>
       <CardContent>
         <Typography variant="h7" component="div">
+          <p style={{ fontSize: "12px" }}>{props.spotIndex + 1}번째 여행지</p>
           {props.spot.title}
         </Typography>
         <Typography

@@ -13,11 +13,17 @@ import {
 import { useState } from "react"
 
 import interceptor from "../../api/interceptor"
+import TextField from "@mui/material/TextField"
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
+import { DatePicker } from "@mui/x-date-pickers/DatePicker"
 
 // 사이드바
 
 const CourseSide = (props) => {
   const [opendialog, setOpendialo] = React.useState(false)
+  const [startDate, setEnddate] = React.useState(null)
+  const [endDate, setStartDate] = React.useState(null)
 
   const handleClickOpen = () => {
     setOpendialo(true)
@@ -56,6 +62,27 @@ const CourseSide = (props) => {
           position: "absolute",
         }}
       >
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DatePicker
+            Fullwidth
+            label="출발 날짜"
+            value={startDate}
+            onChange={(newValue) => {
+              setStartDate(newValue)
+            }}
+            renderInput={(params) => <TextField {...params} fullWidth />}
+          />
+        </LocalizationProvider>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DatePicker
+            label="마지막 날짜"
+            value={endDate}
+            onChange={(newValue) => {
+              setEnddate(newValue)
+            }}
+            renderInput={(params) => <TextField {...params} fullWidth />}
+          />
+        </LocalizationProvider>
         <StyledCourseSide>
           {props.recommendspot.map((placeList, index) => (
             <SideContents
@@ -116,7 +143,7 @@ export default CourseSide
 
 const StyledCourseSide = styled(Box)({
   width: "20vw",
-  height: "85vh",
+  height: "70vh",
   backgroundColor: "white",
   overflow: "auto",
   left: "0%",

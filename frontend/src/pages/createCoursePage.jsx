@@ -84,4 +84,5 @@ const MapWrapper = styled(Box)({
   position: "absolute",
   top: 0,
   right: 0,
+  zIndex: -1,
 })
