@@ -72,6 +72,7 @@ const CourseSide = (props) => {
                 spotIndex={index}
                 spot={props.recommendspot[index]}
                 deleteCourse={props.deleteCourse}
+                setSelectedSpot={props.setSelectedSpot}
               ></SideContents>
             ))}
             {/* <Timeline>

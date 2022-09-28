@@ -16,6 +16,7 @@ const CreateCoursePage = () => {
     setRecommendspot([...recommendspot, spotdata])
     console.log(recommendspot)
   }
+  const [selectedSpot, setSelectedSpot] = useState()
   const [startDate, setStartdate] = useState("") //시작날짜
   const [endDate, setEnddate] = useState("") //끝날짜
   const deleteCourse = (index) => {
@@ -33,12 +34,8 @@ const CreateCoursePage = () => {
     })
       .then((res) => {
         for (let i = 0; i < res.data.placeList.length; i++) {
-          setRecommendspot((recommendspot) => [
-            ...recommendspot,
-            res.data.placeList[i],
-          ])
+          setRecommendspot([...recommendspot, res.data.placeList[i]])
         }
-        console.log(res.data)
       })
       .catch((err) => {
         alert(err)
@@ -55,13 +52,15 @@ const CreateCoursePage = () => {
           setEnddate={setEnddate}
           startDate={startDate}
           endDate={endDate}
+          setSelectedSpot={setSelectedSpot}
         ></CourseSide>
         <MapWrapper id="map">
-          <Map></Map>
+          <Map selectedSpot={selectedSpot} recommendspot={recommendspot}></Map>
         </MapWrapper>
         <RecommendBar
           recommendspot={recommendspot}
           addCourseList={addCourseList}
+          setSelectedSpot={setSelectedSpot}
         ></RecommendBar>
       </Box>
     </Box>

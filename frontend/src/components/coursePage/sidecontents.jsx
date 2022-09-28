@@ -22,7 +22,12 @@ const SideContents = (props) => {
     setOpen(false)
   }
   return (
-    <Card sx={{ minWidth: 275, marginBottom: "2px" }}>
+    <Card
+      sx={{ minWidth: 275, marginBottom: "2px" }}
+      onClick={() => {
+        props.setSelectedSpot(props.spot)
+      }}
+    >
       <Button
         style={{ float: "right", marginTop: "2px" }}
         onClick={() => {

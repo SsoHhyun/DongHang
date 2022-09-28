@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react"
 //지도
-const Map = () => {
+const Map = (props) => {
   useEffect(() => {
     let container = document.getElementById("map")
     let options = {
@@ -11,6 +11,7 @@ const Map = () => {
     }
 
     let map = new kakao.maps.Map(container, options)
+    console.log(props.selectedSpot)
 
     var positions = [
       {
@@ -30,7 +31,15 @@ const Map = () => {
         latlng: new kakao.maps.LatLng(33.451393, 126.570738),
       },
     ]
-
+    // for (let i = 0; i < props.recommendspot.length; i++) {
+    //   positions.push({
+    //     title: props.recommendspot[i].title,
+    //     latlng: new kakao.maps.LatLng(
+    //       props.recommendspot[i].mapy,
+    //       props.recommendspot[i].mapx
+    //     ),
+    //   })
+    // }
     // 마커 이미지의 이미지 주소입니다
     var imageSrc =
       "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"
