@@ -1,7 +1,7 @@
 package com.team.pj.donghang.service;
 
-import com.team.pj.donghang.domain.dto.UserSchedule;
 import com.team.pj.donghang.domain.entity.Trip;
+import com.team.pj.donghang.domain.entity.User;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -15,7 +15,7 @@ public interface PhotoService {
      * @param multipartFile
      * @return : 이미지 경로
      */
-    public String uploadTripPhoto(UserSchedule user, Trip tripDto, MultipartFile multipartFile);
+    public String uploadTripPhoto(User user, Trip tripDto, MultipartFile multipartFile);
 
     String createProfileImageName(String UserName);
 
@@ -25,9 +25,9 @@ public interface PhotoService {
 
     void deletePhoto(Trip trip);
 
-    String updateProfileImg(String accessToken, MultipartFile multipartFile);
+    String updateProfileImg(User user, MultipartFile multipartFile);
 
-    String createProfileImage(String accessToken, MultipartFile multipartFile);
+    String createProfileImage(User user, MultipartFile multipartFile);
 
     List<String> getImageUrlList(Trip trip);
 }

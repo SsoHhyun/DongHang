@@ -2,7 +2,7 @@ package com.team.pj.donghang.service;
 
 import com.team.pj.donghang.domain.dto.SurveyUrlDto;
 import com.team.pj.donghang.domain.entity.User;
-import com.team.pj.donghang.repository.SurveyTestUrlRepository;
+import com.team.pj.donghang.repository.UrlRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UrlServiceImpl implements UrlService{
     @Autowired
-    private SurveyTestUrlRepository surveyTestUrlRepository;
+    private UrlRepository urlRepository;
 
     @Autowired
     private RedisTemplate<String,Object> redisTemplate;
@@ -32,7 +32,7 @@ public class UrlServiceImpl implements UrlService{
                 .id(key)
                 .build();
 
-        surveyTestUrlRepository.save(surveyUrlDto);
+        urlRepository.save(surveyUrlDto);
 
         return key;
     }
@@ -49,7 +49,7 @@ public class UrlServiceImpl implements UrlService{
 
     @Override
     public User getUrlUser(String url) {
-        SurveyUrlDto surveyUrlDto = surveyTestUrlRepository.findById(url).orElseGet(SurveyUrlDto::new);;
+        SurveyUrlDto surveyUrlDto = urlRepository.findById(url).orElseGet(SurveyUrlDto::new);;
         if(surveyUrlDto.getUser()!=null){
             return surveyUrlDto.getUser();
         }else {

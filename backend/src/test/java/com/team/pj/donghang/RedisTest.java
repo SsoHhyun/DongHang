@@ -2,7 +2,7 @@ package com.team.pj.donghang;
 
 import com.team.pj.donghang.domain.dto.SurveyUrlDto;
 import com.team.pj.donghang.domain.entity.User;
-import com.team.pj.donghang.repository.SurveyTestUrlRepository;
+import com.team.pj.donghang.repository.UrlRepository;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 public class RedisTest {
     @Autowired
-    private SurveyTestUrlRepository surveyTestUrlRepository;
+    private UrlRepository urlRepository;
     Logger logger =(Logger) LoggerFactory.getLogger(RedisTest.class);
 //
 //    @Autowired
@@ -64,11 +64,11 @@ public class RedisTest {
         SurveyUrlDto surveyUrlDto = new SurveyUrlDto();
         surveyUrlDto.setId("test");
         surveyUrlDto.setUser(user);
-        surveyTestUrlRepository.save(surveyUrlDto);
+        urlRepository.save(surveyUrlDto);
     }
     @Test
     void testfindById(){
-        SurveyUrlDto surveyUrlDto = surveyTestUrlRepository.findById("test")
+        SurveyUrlDto surveyUrlDto = urlRepository.findById("test")
                 .orElseGet(SurveyUrlDto::new);
         logger.debug("url = {}",surveyUrlDto);
     }

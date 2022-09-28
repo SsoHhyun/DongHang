@@ -37,6 +37,9 @@ public class TripServiceImpl implements TripService{
     TouristRepository touristRepository;
 
     @Autowired
+    UserRepository userRepository;
+
+    @Autowired
     PlaceCommonRepository placeCommonRepository;
     @Transactional
     @Override
@@ -109,8 +112,7 @@ public class TripServiceImpl implements TripService{
 
     @Transactional
     @Override
-    public void createTrip(UserSchedule userSchedule, TripCreateRequestDto tripCreateRequestDto) {
-        User user = new User(userSchedule.getUserNo(),"test","test1234","test","test@test.com","");
+    public void createTrip(User user, TripCreateRequestDto tripCreateRequestDto) {
         Trip trip = Trip.builder().tripName(tripCreateRequestDto.getTripName())
                 .startDate(tripCreateRequestDto.getStartDate())
                 .user(user)
@@ -131,8 +133,7 @@ public class TripServiceImpl implements TripService{
     }
     @Transactional
     @Override
-    public boolean deleteTrip(UserSchedule userSchedule, Long tripNo) {
-        User user = new User(userSchedule.getUserNo(),"test","test1234","test","test@test.com","");
+    public boolean deleteTrip(User user, Long tripNo) {
         Trip trip = tripRepository.findByTripNo(tripNo);
         if(trip==null){
             return false;
@@ -150,8 +151,7 @@ public class TripServiceImpl implements TripService{
 
     @Transactional
     @Override
-    public boolean updateTrip(UserSchedule userSchedule, TripUpdateRequestDto tripUpdateRequestDto) {
-        User user = new User(userSchedule.getUserNo(),"test","test1234","test","test@test.com","");
+    public boolean updateTrip(User user, TripUpdateRequestDto tripUpdateRequestDto) {
 
         Trip trip = tripRepository.findByTripNo(tripUpdateRequestDto.getTripNo());
 

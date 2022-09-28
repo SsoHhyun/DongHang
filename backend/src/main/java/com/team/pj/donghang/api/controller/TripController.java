@@ -3,15 +3,12 @@ package com.team.pj.donghang.api.controller;
 import com.team.pj.donghang.api.request.TripCreateRequestDto;
 import com.team.pj.donghang.api.request.TripUpdateRequestDto;
 import com.team.pj.donghang.api.response.TripResponseDto;
-import com.team.pj.donghang.domain.dto.CultureDetailDto;
 import com.team.pj.donghang.domain.dto.PlaceCommonDto;
-import com.team.pj.donghang.domain.dto.UserSchedule;
-import com.team.pj.donghang.domain.entity.PlaceCommon;
+import com.team.pj.donghang.domain.entity.CustomUserDetails;
 import com.team.pj.donghang.domain.entity.User;
 import com.team.pj.donghang.service.TripService;
 import io.swagger.annotations.*;
 import io.swagger.v3.oas.annotations.Operation;
-import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +17,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.Arrays;
 import java.util.List;
 
-@Api(value = "일정 생성과 관련된 API" ,tags = {"schedule,plan"})
+@Api(value = "일정 생성과 관련된 API Auth 필수" ,tags = {"schedule,plan : auth 필수"})
 @RestController("api/schedules")
 @CrossOrigin("*")
 @Controller
@@ -46,8 +42,8 @@ public class TripController {
             @ApiIgnore Authentication authentication,
             @ApiParam(value = "일정 생성을 위한 정보",required = true) @RequestBody TripCreateRequestDto tripCreateRequestDto
             ) {
-        //임시유저로 추후에 로그인과 user 완성 되면 수정해야함.
-        UserSchedule user = new UserSchedule(1L);
+        CustomUserDetails customUserDetails = (CustomUserDetails)authentication.getDetails();
+        User user = customUserDetails.getUser();
         tripService.createTrip(user, tripCreateRequestDto);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -74,9 +70,9 @@ public class TripController {
             @ApiResponse(code =400, message = "같은 타입인 데이터들로 보내주세요")
     })
     public ResponseEntity<List<? extends PlaceCommonDto>> getRecommendList(
-            @ApiIgnore Authentication authentication,
             @ApiParam(value = "장소 추천을 위한 commonNo 리스트" ,example ="15,50,151,198,215,256 ",required = true)Long[] commonNoList,
             @ApiParam(value = "장소 추천을 위한 category ",example = "culture",required = true)String category){
+
         List<Long> list =Arrays.asList(commonNoList);
         List<? extends  PlaceCommonDto> result =tripService.recommendPlaceList(list,category);
         if(result==null){
@@ -97,9 +93,11 @@ public class TripController {
             @ApiResponse(code = 204, message = "일정이 없습니다 생성해주세요!")
     })
     public ResponseEntity<List<TripResponseDto>> getTripList(
-            @ApiIgnore Authentication authentication,
-            @ApiParam(value = "일정 정보들을 가져오기 위한 userno",required = true)Long userNo){
-        List<TripResponseDto> list = tripService.getUserTripList(userNo);
+            @ApiIgnore  Authentication authentication
+    ){
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getDetails();
+        User user = userDetails.getUser();
+        List<TripResponseDto> list = tripService.getUserTripList(userDetails.getUser().getUserNo());
         if(list==null){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }else{
@@ -115,9 +113,9 @@ public class TripController {
     })
     public ResponseEntity<TripResponseDto> getMyOneTrip(
             @ApiIgnore Authentication authentication,
-            @ApiParam(value = "일정 정보들을 가져오기 위한 userno",required = true)Long userNo,
             @ApiParam(value = "갖고올 일정 번호",required = true)Long tripNo){
-        TripResponseDto result = tripService.getUserTrip(userNo,tripNo);
+        CustomUserDetails userDetails = (CustomUserDetails)authentication.getDetails();
+        TripResponseDto result = tripService.getUserTrip(userDetails.getUser().getUserNo(),tripNo);
         if(result==null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else{
@@ -138,8 +136,8 @@ public class TripController {
             @ApiParam(value = "일정 수정을 위한 정보",required = true) @RequestBody TripUpdateRequestDto tripUpdateRequestDto
     ){
         //수정해야함.
-        UserSchedule user = new UserSchedule(1L);
-        boolean result = tripService.updateTrip(user,tripUpdateRequestDto);
+        CustomUserDetails userDetails = (CustomUserDetails)authentication.getDetails();
+        boolean result = tripService.updateTrip(userDetails.getUser(),tripUpdateRequestDto);
         if(result) {
             return new ResponseEntity<>(HttpStatus.OK);
         }else{
@@ -158,8 +156,8 @@ public class TripController {
             @PathVariable(value = "tripNo", required = true)Long tripNo
     ){
         //수정해야함.
-        UserSchedule user = new UserSchedule(1L);
-        boolean flag =tripService.deleteTrip(user,tripNo);
+        CustomUserDetails userDetails = (CustomUserDetails)authentication.getDetails();
+        boolean flag =tripService.deleteTrip(userDetails.getUser(),tripNo);
         if(flag){
             return new ResponseEntity<>( HttpStatus.OK);
 

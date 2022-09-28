@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
 
-public interface SurveyTestUrlRepository extends CrudRepository<SurveyUrlDto,String> {
+public interface UrlRepository extends CrudRepository<SurveyUrlDto,String> {
     @Override
     Optional<SurveyUrlDto> findById(String s);
 }

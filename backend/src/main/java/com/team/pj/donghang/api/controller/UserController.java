@@ -1,7 +1,9 @@
 package com.team.pj.donghang.api.controller;
 
-import com.team.pj.donghang.api.request.UserRegisterReq;
+import com.team.pj.donghang.api.request.UserLoginRequestDto;
+import com.team.pj.donghang.api.request.UserRegisterRequestDto;
 import com.team.pj.donghang.domain.entity.User;
+import com.team.pj.donghang.service.AuthService;
 import com.team.pj.donghang.service.UserService;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
+@CrossOrigin("*")
 @Api(value = "사용자 관련 API")
 @RestController
 @RequestMapping("/user")
@@ -26,13 +29,13 @@ public class UserController {
     public ResponseEntity<?> register(
             @RequestBody
             @ApiParam(value = "회원가입 필수 정보", required = true)
-            UserRegisterReq userRegisterReq
+            UserRegisterRequestDto userRegisterRequestDto
     ) {
-        log.debug("user register request body: "+userRegisterReq.toString());
+        log.debug("user register request body: "+ userRegisterRequestDto.toString());
 
-        User user = userService.createUser(userRegisterReq);
+        User user = userService.createUser(userRegisterRequestDto);
 
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>("CREATED", HttpStatus.CREATED);
     }
 
     @GetMapping("/id")
@@ -43,15 +46,14 @@ public class UserController {
     })
     public ResponseEntity<?> checkIdDuplicated(
             @RequestParam
-            @ApiParam(value = "사용자 아이디", required = true)
-            String id
+            @ApiParam(value = "사용자 아이디", required = true) String id
     ) {
         log.debug("check user id duplicated: "+id);
 
         if(userService.isIdExist(id)) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            return new ResponseEntity<>("DUPLICATED USER ID", HttpStatus.CONFLICT);
         } else {
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>("OK", HttpStatus.OK);
         }
     }
 
@@ -63,15 +65,14 @@ public class UserController {
     })
     public ResponseEntity<?> checkNickNameDuplicated(
             @RequestParam
-            @ApiParam(value = "사용자 닉네임", required = true)
-            String nickname
+            @ApiParam(value = "사용자 닉네임", required = true) String nickname
     ) {
         log.debug("check user nickname duplicated: "+nickname);
 
         if(userService.isNickNameExist(nickname)) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            return new ResponseEntity<>("DUPLICATED USER NICKNAME", HttpStatus.CONFLICT);
         } else {
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>("OK", HttpStatus.OK);
         }
     }
 
@@ -83,15 +84,15 @@ public class UserController {
     })
     public ResponseEntity<?> checkEmailDuplicated(
             @RequestParam
-            @ApiParam(value = "사용자 이메일", required = true)
-            String email
+            @ApiParam(value = "사용자 이메일", required = true) String email
     ) {
         log.debug("check email duplicated: "+email);
 
         if(userService.isEmailExist(email)) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            return new ResponseEntity<>("DUPLICATED USER EMAIL", HttpStatus.CONFLICT);
         } else {
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>("OK", HttpStatus.OK);
         }
     }
 }
+
