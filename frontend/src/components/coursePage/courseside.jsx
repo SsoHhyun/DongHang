@@ -25,6 +25,20 @@ const CourseSide = (props) => {
   const [startDate, setStartDate] = React.useState(null)
   const [endDate, setEndDate] = React.useState(null)
 
+  const parseDate = (newValue) => {
+    let temp = newValue.$d.getFullYear().toString()
+    if (newValue.$d.getMonth() < 10) {
+      temp = temp + "0" + (newValue.$d.getMonth() + 1).toString()
+    } else {
+      temp = temp + (newValue.$d.getMonth() + 1).toString()
+    }
+    if (newValue.$d.getDate() < 10) {
+      temp = temp + "0" + newValue.$d.getDate().toString()
+    } else {
+      temp = temp + newValue.$d.getDate().toString()
+    }
+    return temp
+  }
   const handleClickOpen = () => {
     setOpendialo(true)
   }
@@ -41,8 +55,8 @@ const CourseSide = (props) => {
       method: "post",
       data: {
         commonNoList: commonNoList,
-        endDate: "20181112",
-        startDate: "20181113",
+        endDate: endDate,
+        startDate: startDate,
         tripName: "test",
       },
     })
@@ -68,10 +82,16 @@ const CourseSide = (props) => {
             label="출발 날짜"
             value={startDate}
             onChange={(newValue) => {
-              setStartDate(newValue)
+              setStartDate(parseDate(newValue))
               console.log(startDate)
             }}
-            renderInput={(params) => <TextField {...params} fullWidth />}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                fullWidth
+                style={{ marginTop: "15px", marginBottom: "15px" }}
+              />
+            )}
           />
         </LocalizationProvider>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -79,7 +99,7 @@ const CourseSide = (props) => {
             label="마지막 날짜"
             value={endDate}
             onChange={(newValue) => {
-              setEndDate(newValue)
+              setEndDate(parseDate(newValue))
               console.log(endDate)
             }}
             renderInput={(params) => <TextField {...params} fullWidth />}
