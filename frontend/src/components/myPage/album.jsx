@@ -238,6 +238,7 @@ const PhotoModal = styled("img")({
   left: "16%",
   position: "absolute",
   objectFit: "scale-down",
+  borderRadius: 5,
 })
 
 const SlideArrow = styled(Box)({
