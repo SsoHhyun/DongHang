@@ -1,166 +1,146 @@
-import React, { useState } from "react"
 import axios from "axios"
-import {
-  Avatar,
-  Button,
-  CssBaseline,
-  TextField,
-  FormControl,
-  FormControlLabel,
-  Checkbox,
-  FormHelperText,
-  Grid,
-  Box,
-  Typography,
-  Container,
-  styled,
-  Paper,
-} from "@mui/material/"
-import { createTheme, ThemeProvider } from "@mui/material/styles"
-import { Navigate } from "react-router-dom"
+import { toast, ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+import { Formik } from "formik"
+import * as Yup from "yup"
+import { Button, TextField } from "@mui/material"
+import { useNavigate } from "react-router-dom"
+import { initialState } from "../../features/user/userSlice"
 
-const Register = () => {
-  const DOMAIN = "http://localhost:8080/"
-  const registerRequest = (method, url, data) => {
-    return axios({
-      method,
-      url: url,
-      data: data,
-    })
-      .then((res) => {
-        console.log(res.data)
-        if (res.data.message === "true") {
-          Navigate("/login")
-        } else {
-          alert("이미 가입되어 있는 유저입니다!")
-        }
-      })
-      .catch((err) => {
-        console.error(err.response.data)
-      })
-  }
-
-  const theme = createTheme({
-    palette: {
-      primary: {
-        main: "#b59b89",
-        darker: "#322725",
-      },
-      secondary: {
-        main: "#b59b89",
-        contrastText: "#b59b89",
-      },
-    },
+const SignUp = () => {
+  const navigate = useNavigate()
+  const validationSchema = Yup.object().shape({
+    id: Yup.string()
+      .min(2, "닉네임은 최소 2글자 이상입니다!")
+      .max(10, "닉네임은 최대 10글자입니다!")
+      .required("아이디를 입력하세요!"),
+    email: Yup.string()
+      .email("올바른 이메일 형식이 아닙니다!")
+      .required("이메일을 입력하세요!"),
+    nickname: Yup.string()
+      .min(2, "닉네임은 최소 2글자 이상입니다!")
+      .max(10, "닉네임은 최대 10글자입니다!")
+      .required("닉네임을 입력하세요!"),
+    password: Yup.string()
+      .min(8, "비밀번호는 최소 8자리 이상입니다")
+      .max(16, "비밀번호는 최대 16자리입니다!")
+      .required("패스워드를 입력하세요!"),
+    // password2: Yup.string()
+    //   .oneOf([Yup.ref("password"), null], "비밀번호가 일치하지 않습니다!")
+    //   .required("필수 입력 값입니다!"),
   })
 
-  // form 전송
-  const handleSubmit = (e) => {
-    e.preventDefault()
-  }
-
-  const handleClick = async () => {
-    await axios
-      .post("api/createUser")
-      .then((Response) => {
-        alert(Response.data)
+  const submit = async (values) => {
+    const { email, id, nickname, password } = values
+    try {
+      console.log(email, id, nickname, password)
+      await axios.post("http://j7a504.p.ssafy.io:8080/user", {
+        email: "",
+        id: "",
+        nickname: "",
+        password: "",
       })
-      .catch((Error) => {
-        console.log("통신 실패 +\n" + Error)
+      toast.success(
+        <h3>
+          회원가입이 완료되었습니다.
+          <br />
+          로그인 하세요😎
+        </h3>,
+        {
+          position: "top-center",
+          autoClose: 2000,
+        }
+      )
+      setTimeout(() => {
+        navigate("/login")
+      }, 2000)
+    } catch (e) {
+      // 서버에서 받은 에러 메시지 출력
+      console.log(e)
+      toast.error(e.response.data.message + "😭", {
+        position: "top-center",
       })
+    }
   }
 
   return (
-    <SignupContainer>
-      <SignupPaper>
-        <ThemeProvider theme={theme}>
-          <Box align="center">
-            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }} />
-            <Typography align="center" variant="h4">
-              Signup
-            </Typography>
-          </Box>
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 3 }}
-          >
-            <FormControl component="fieldset" variant="standard">
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <TextField
-                    required
-                    autoFocus
-                    fullWidth
-                    type="email"
-                    id="email"
-                    name="email"
-                    label="이메일 주소"
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    required
-                    fullWidth
-                    type="password"
-                    id="password"
-                    name="password"
-                    label="비밀번호 (숫자+영문자+특수문자 8자리 이상)"
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    required
-                    fullWidth
-                    type="password"
-                    id="rePassword"
-                    name="rePassword"
-                    label="비밀번호 재입력"
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    required
-                    fullWidth
-                    id="name"
-                    name="name"
-                    label="이름"
-                  />
-                </Grid>
-              </Grid>
+    <Formik
+      initialValues={initialState}
+      validationSchema={validationSchema}
+      onSubmit={submit}
+      validateOnMount={true}
+    >
+      {({ values, handleSubmit, handleChange, errors }) => (
+        <div className="signup-wrapper">
+          <ToastContainer />
+          <form onSubmit={handleSubmit} autoComplete="off">
+            <div className="input-forms">
+              <div className="input-forms-item">
+                <div className="input-label">id</div>
+                <TextField
+                  value={values.id}
+                  name="id"
+                  variant="outlined"
+                  onChange={handleChange}
+                />
+                <div className="error-message">{errors.id}</div>
+              </div>
+              <div className="input-forms-item">
+                <div className="input-label">이메일</div>
+                <TextField
+                  value={values.email}
+                  name="email"
+                  variant="outlined"
+                  onChange={handleChange}
+                />
+                <div className="error-message">{errors.email}</div>
+              </div>
+              <div className="input-forms-item">
+                <div className="input-label">닉네임</div>
+                <TextField
+                  value={values.nickname}
+                  name="nickname"
+                  variant="outlined"
+                  onChange={handleChange}
+                />
+                <div className="error-message">{errors.nickname}</div>
+              </div>
+              <div className="input-forms-item">
+                <div className="input-label">비밀번호</div>
+                <TextField
+                  value={values.password}
+                  name="password"
+                  variant="outlined"
+                  type="password"
+                  onChange={handleChange}
+                />
+                <div className="error-message">{errors.password}</div>
+              </div>
+              {/* <div className="input-forms-item">
+                <div className="input-label">비밀번호 확인</div>
+                <TextField
+                  value={values.password2}
+                  name="password2"
+                  variant="outlined"
+                  type="password"
+                  onChange={handleChange}
+                />
+                <div className="error-message">{errors.password2}</div>
+              </div> */}
               <Button
-                type="submit"
-                fullWidth
+                color="primary"
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-                size="large"
+                fullWidth
+                type="submit"
               >
                 회원가입
               </Button>
-            </FormControl>
-          </Box>
-        </ThemeProvider>
-      </SignupPaper>
-    </SignupContainer>
+            </div>
+          </form>
+        </div>
+      )}
+    </Formik>
   )
 }
-export default Register
 
-const SignupContainer = styled(Container)({
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  alignContent: "center",
-  height: "100vh",
-  width: "40vw",
-})
-
-const SignupPaper = styled(Paper)({
-  width: "30vw",
-  height: "60vh",
-  padding: "5%",
-  justifyContent: "center",
-  borderRadius: "10px",
-  // component: "main",
-  // maxWidth: "xs",
-})
+export default SignUp
