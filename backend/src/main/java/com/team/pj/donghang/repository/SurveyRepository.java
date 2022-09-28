@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface SurveyRepository extends JpaRepository<Survey,Long> {
     Survey findByUser(User user);
     Survey findByUser_UserNo(Long userNo);
+    Survey save(Survey survey);
 }

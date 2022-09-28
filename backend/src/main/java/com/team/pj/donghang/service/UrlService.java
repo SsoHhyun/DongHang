@@ -4,7 +4,7 @@ import com.team.pj.donghang.domain.entity.User;
 
 public interface UrlService {
     String generateUrl (User user);
-    boolean idUrlExist (String url);
+    boolean isUrlExist(String url);
     void urlDelete(String url);
 
     User getUrlUser(String url);

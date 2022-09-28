@@ -18,15 +18,19 @@ public class UrlServiceImpl implements UrlService{
     private int length =20;
     private String baseUrl = "http://j7a504.p.ssafy.io/survey/key=?";
 
-    //    private boolean useLetters = true;true
-//    private boolean useNumbers = true;
     @Override
     public String generateUrl(User user) {
-        String generate = RandomStringUtils.randomAlphabetic(length);
+        StringBuilder builder ;
+        String key,generate;
 
-        StringBuilder builder = new StringBuilder();
-        String key =builder.append(baseUrl).append(generate).toString();
-
+        while (true) {
+            builder= new StringBuilder();
+            generate = RandomStringUtils.randomAlphabetic(length);
+            key =builder.append(baseUrl).append(generate).toString();
+            if(!isUrlExist(key)){
+                break;
+            }
+        }
         SurveyUrlDto surveyUrlDto =SurveyUrlDto.builder()
                 .user(user)
                 .id(key)
@@ -38,7 +42,7 @@ public class UrlServiceImpl implements UrlService{
     }
 
     @Override
-    public boolean idUrlExist(String url) {
+    public boolean isUrlExist(String url) {
         return redisTemplate.hasKey(url);
     }
 
