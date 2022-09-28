@@ -19,7 +19,7 @@ import java.io.Serializable;
 public class Survey {
     @Id
     private Long id;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL)
     @MapsId
     @JoinColumn(name = "user_no")
     private User user;
@@ -52,8 +52,23 @@ public class Survey {
     @Column(name = "survey_7")
     private Long survey7;
 
+
+
     @NotNull
     @Column(name = "survey_8")
     private Long survey8;
+
+    public Survey(User user, Long survey1, Long survey2, Long survey3, Long survey4, Long survey5, Long survey6, Long survey7, Long survey8) {
+        this.user = user;
+        this.survey1 = survey1;
+        this.survey2 = survey2;
+        this.survey3 = survey3;
+        this.survey4 = survey4;
+        this.survey5 = survey5;
+        this.survey6 = survey6;
+        this.survey7 = survey7;
+        this.survey8 = survey8;
+    }
+
 
 }
