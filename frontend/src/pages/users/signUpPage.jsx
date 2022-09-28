@@ -1,11 +1,10 @@
 import axios from "axios"
 import { toast, ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-import { Formik } from "formik"
+import { Formik, ErrorMessage } from "formik"
 import * as Yup from "yup"
 import { Button, TextField } from "@mui/material"
 import { useNavigate } from "react-router-dom"
-import { initialState } from "../../features/user/userSlice"
 
 const SignUp = () => {
   const navigate = useNavigate()
@@ -32,13 +31,13 @@ const SignUp = () => {
 
   const submit = async (values) => {
     const { email, id, nickname, password } = values
+    console.log(email, id, nickname, password)
     try {
-      console.log(email, id, nickname, password)
       await axios.post("http://j7a504.p.ssafy.io:8080/user", {
-        email: "",
-        id: "",
-        nickname: "",
-        password: "",
+        email: email,
+        id: id,
+        nickname: nickname,
+        password: password,
       })
       toast.success(
         <h3>
@@ -56,7 +55,6 @@ const SignUp = () => {
       }, 2000)
     } catch (e) {
       // 서버에서 받은 에러 메시지 출력
-      console.log(e)
       toast.error(e.response.data.message + "😭", {
         position: "top-center",
       })
@@ -65,7 +63,12 @@ const SignUp = () => {
 
   return (
     <Formik
-      initialValues={initialState}
+      initialValues={{
+        email: "",
+        nickname: "",
+        id: "",
+        password: "",
+      }}
       validationSchema={validationSchema}
       onSubmit={submit}
       validateOnMount={true}
