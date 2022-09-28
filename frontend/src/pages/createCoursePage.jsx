@@ -16,7 +16,9 @@ const CreateCoursePage = () => {
     setRecommendspot([...recommendspot, spotdata])
     console.log(recommendspot)
   }
-  const [selectedSpot, setSelectedSpot] = useState()
+  const [selectedSpot, setSelectedSpot] = useState({
+    title: "",
+  })
   const [startDate, setStartdate] = useState("") //시작날짜
   const [endDate, setEnddate] = useState("") //끝날짜
   const deleteCourse = (index) => {
@@ -69,8 +71,9 @@ const CreateCoursePage = () => {
 export default CreateCoursePage
 
 const MapWrapper = styled(Box)({
-  width: "100%",
-  height: "100%",
-  position: "fixed",
-  zIndex: -5,
+  width: "80vw",
+  height: "55vh",
+  position: "absolute",
+  top: 0,
+  right: 0,
 })
