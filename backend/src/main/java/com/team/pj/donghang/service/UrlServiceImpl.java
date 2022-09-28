@@ -43,12 +43,13 @@ public class UrlServiceImpl implements UrlService{
 
     @Override
     public boolean isUrlExist(String url) {
-        return redisTemplate.hasKey(url);
+        boolean result = urlRepository.existsById(url);
+        return result;
     }
 
     @Override
     public void urlDelete(String url) {
-        redisTemplate.delete(url);
+        urlRepository.deleteById(url);
     }
 
     @Override
