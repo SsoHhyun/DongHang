@@ -20,65 +20,40 @@ const RecommendBar = (props) => {
 
   return (
     <Box>
-      {open === true ? (
-        <WrapRecommendBar>
-          <ArrowCircleDownIcon
-            onClick={() => {
-              setOpen((open) => !open)
-            }}
-            style={{
-              left: "37.5%",
-              position: "absolute",
-              color: "#121212",
-              bottom: "80%",
-            }}
-          ></ArrowCircleDownIcon>
-          <br></br>
-          <WrapTab>
-            <TabContext value={value}>
-              <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                <TabList
-                  onChange={handleChange}
-                  aria-label="lab API tabs example"
-                >
-                  <Tab label="추천여행지" value="1" />
-                  <Tab label="근처음식점" value="2" />
-                </TabList>
-              </Box>
-              <TabPanel value="1">
-                <StyledRecommendSlide>
-                  {props.recommendspot.map((user, index) => (
-                    <RecommendContents
-                      spot={props.recommendspot[index]}
-                      key={index}
-                      addCourseList={props.addCourseList}
-                    ></RecommendContents>
-                  ))}
-                </StyledRecommendSlide>
-              </TabPanel>
-              <TabPanel value="2">
-                <StyledRecommendSlide>
-                  <RecommendContents></RecommendContents>
-                </StyledRecommendSlide>
-              </TabPanel>
-            </TabContext>
-          </WrapTab>
-        </WrapRecommendBar>
-      ) : (
-        <Box>
-          <ArrowCircleUpIcon
-            onClick={() => {
-              setOpen((open) => !open)
-            }}
-            style={{
-              left: "50%",
-              position: "absolute",
-              bottom: 0,
-              color: "#121212",
-            }}
-          ></ArrowCircleUpIcon>
-        </Box>
-      )}
+      <WrapRecommendBar>
+        <br></br>
+        <WrapTab>
+          <TabContext value={value}>
+            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+              <TabList
+                onChange={handleChange}
+                aria-label="lab API tabs example"
+              >
+                <Tab label="추천여행지" value="1" />
+                <Tab label="근처음식점" value="2" />
+              </TabList>
+            </Box>
+            <TabPanel value="1">
+              <StyledRecommendSlide>
+                {props.recommendspot.map((user, index) => (
+                  <RecommendContents
+                    spot={props.recommendspot[index]}
+                    key={index}
+                    addCourseList={props.addCourseList}
+                    setSelectedSpot={props.setSelectedSpot}
+                    selectedSpot={props.selectedSpot}
+                  ></RecommendContents>
+                ))}
+              </StyledRecommendSlide>
+            </TabPanel>
+            <TabPanel value="2">
+              <StyledRecommendSlide>
+                <RecommendContents></RecommendContents>
+              </StyledRecommendSlide>
+            </TabPanel>
+          </TabContext>
+        </WrapTab>
+      </WrapRecommendBar>
     </Box>
   )
 }
@@ -96,14 +71,14 @@ const WrapTab = styled(Box)({
   bottom: 0,
   position: "absolute",
   width: "100%",
-  height: "80%",
+  height: "100%",
 })
 const WrapRecommendBar = styled(Box)({
+  backgroundColor: "white",
   width: "80%",
-  height: "45%",
+  height: "30vh",
   position: "absolute",
   bottom: 0,
   left: "20%",
   paddingBottom: 60,
-  zIndex: -1,
 })

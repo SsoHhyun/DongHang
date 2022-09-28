@@ -55,6 +55,7 @@ const CreateCoursePage = () => {
           startDate={startDate}
           endDate={endDate}
           setSelectedSpot={setSelectedSpot}
+          selectedSpot={selectedSpot}
         ></CourseSide>
         <MapWrapper id="map">
           <Map selectedSpot={selectedSpot} recommendspot={recommendspot}></Map>
@@ -72,7 +73,7 @@ export default CreateCoursePage
 
 const MapWrapper = styled(Box)({
   width: "80vw",
-  height: "55vh",
+  height: "62vh",
   position: "absolute",
   top: 0,
   right: 0,

@@ -23,6 +23,8 @@ const RecommendContents = (props) => {
     <StyledCard
       onClick={() => {
         props.addCourseList(props.spot)
+        props.setSelectedSpot(props.spot)
+        console.log(props.selectedSpot)
       }}
     >
       <CardActionArea>
