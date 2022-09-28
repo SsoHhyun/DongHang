@@ -26,7 +26,7 @@ const CreateCoursePage = () => {
   }
   useEffect(() => {
     interceptor({
-      url: "/api/trip/getMyTripList",
+      url: "/api/trip?tripNo=9",
       method: "get",
       Authorization:
         "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMDA0IiwiaXNzIjoiZG9uZ2hhbmcuY29tIiwiZXhwIjoxNjY0MzY5MTQ5LCJpYXQiOjE2NjQyODI3NDl9.x3usXeSLjI-FhIq8B4DyZkK_CDFBlgsfoXKyzMW_VtLn-RWuI0Orb2-AEZ1Zbqq5XwxFuowIdV-a66EQYF159Q",
@@ -36,7 +36,6 @@ const CreateCoursePage = () => {
           setRecommendspot((recommendspot) => [
             ...recommendspot,
             res.data.placeList[i],
-            console.log("dd"),
           ])
         }
         console.log(res.data)
@@ -73,6 +72,6 @@ export default CreateCoursePage
 const MapWrapper = styled(Box)({
   width: "100%",
   height: "100%",
-  position: "absolute",
-  zIndex: -1,
+  position: "fixed",
+  zIndex: -5,
 })
