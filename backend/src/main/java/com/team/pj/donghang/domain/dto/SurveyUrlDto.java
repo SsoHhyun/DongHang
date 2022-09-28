@@ -9,8 +9,7 @@ import javax.persistence.Id;
 
 @Getter
 @Setter
-@RedisHash(value = "url")
-//url 유효 시간 물어봐야지
+@RedisHash(value = "url",timeToLive = -1L)
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
