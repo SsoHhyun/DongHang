@@ -23,7 +23,8 @@ interceptor.interceptors.request.use(
   function (config) {
     // 요청 바로 직전
     // axios 설정값에 대해 작성합니다.
-    config.headers["Authorization"] = localStorage.getItem("access-token")
+    config.headers["Authorization"] =
+      "Bearer " + localStorage.getItem("access-token")
     // config.headers["accessToken"] = localStorage.getItem("access-token")
     return config
   },

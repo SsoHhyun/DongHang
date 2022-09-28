@@ -11,14 +11,12 @@ import {
   DialogTitle,
 } from "@mui/material"
 import { useState } from "react"
-import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft"
-import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight"
+
 import interceptor from "../../api/interceptor"
 
 // 사이드바
 
 const CourseSide = (props) => {
-  const [open, setOpen] = useState(false)
   const [opendialog, setOpendialo] = React.useState(false)
 
   const handleClickOpen = () => {
