@@ -1,5 +1,5 @@
 import { Box } from "@material-ui/core"
-import React from "react"
+import React, { useEffect } from "react"
 import { useState } from "react"
 import { Tab } from "@material-ui/core"
 import { TabPanel } from "@mui/lab"
@@ -7,17 +7,14 @@ import { TabContext } from "@mui/lab"
 import { TabList } from "@mui/lab"
 import RecommendContents from "./recommendcontents"
 import { styled } from "@mui/material"
-import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown"
-import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp"
 //코스관련 사이드바
 const RecommendBar = (props) => {
   const [value, setValue] = useState("1")
-  const [open, setOpen] = useState(false)
 
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
-
+  useEffect(() => {})
   return (
     <Box>
       <WrapRecommendBar>

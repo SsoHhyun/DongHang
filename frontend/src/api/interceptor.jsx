@@ -24,7 +24,7 @@ interceptor.interceptors.request.use(
     // 요청 바로 직전
     // axios 설정값에 대해 작성합니다.
     config.headers["Authorization"] =
-      "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMDA0IiwiaXNzIjoiZG9uZ2hhbmcuY29tIiwiZXhwIjoxNjY0Mzc1NDEyLCJpYXQiOjE2NjQyODkwMTJ9.Y9CNaBV7KrQ6pdLOWMqAdSPadn_yO4Eze4eUDAUxGgcvanriykTiBnb1xNs8eL7QLoSFGoGg0np0Uq_qH8KNkg"
+      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMDA0IiwiaXNzIjoiZG9uZ2hhbmcuY29tIiwiZXhwIjoxNjY0NDI2Mjg5LCJpYXQiOjE2NjQzMzk4ODl9.UvLsVTVSgZ31w5DKWF4jrWrJvUBbyoyYEAbAiqHOnIUqSwDkov767EEeuM4liY_DuEyQZ6Auj9w5wHpcrLpggg"
     // config.headers["accessToken"] = localStorage.getItem("access-token")
     return config
   },

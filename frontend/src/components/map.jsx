@@ -6,7 +6,7 @@ const Map = (props) => {
   useEffect(() => {
     let container = document.getElementById("map")
     let options = {
-      center: new kakao.maps.LatLng(33.450936, 126.569477),
+      center: new kakao.maps.LatLng(props.center.lat, props.center.lng), //mapy,mapx
       level: 3,
     }
 
@@ -60,7 +60,7 @@ const Map = (props) => {
       })
     }
     markers.setMap(map)
-  }, [])
+  }, [props])
 
   return <div id="map"></div>
 }
