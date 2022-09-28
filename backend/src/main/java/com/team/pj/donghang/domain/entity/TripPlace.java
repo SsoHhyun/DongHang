@@ -21,4 +21,7 @@ public class TripPlace  {
     @ManyToOne
     @JoinColumn(name = "common_no")
     private PlaceCommon common;
+    @ManyToOne
+    @JoinColumn(name = "trip_no")
+    private Trip trip;
 }

@@ -11,7 +11,6 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-//public class CultureDetail implements Serializable {
 public class CultureDetail  {
     @Id
     private Long id;

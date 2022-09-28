@@ -11,7 +11,6 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-//public class FestivalDetail implements Serializable {
 public class FestivalDetail  {
     @Id
     private Long id;
@@ -20,14 +19,14 @@ public class FestivalDetail  {
     @JoinColumn(name = "common_no")
     private PlaceCommon common;
 
+    @Column(name = "start_date")
+    private String startDate;
 
     @Column(name = "end_date")
     private String endDate;
 
     private String place;
 
-    @Column(name = "start_date")
-    private String startDate;
 
     @Column(name = "festival_grade")
     private String festivalGrade;

@@ -19,7 +19,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class PlaceCommon implements Serializable {
+public class PlaceCommon{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="common_no")
@@ -52,5 +52,8 @@ public class PlaceCommon implements Serializable {
 
     @Column(name = "area_code")
     private String areacode;
+
+    @Column(name = "sigungu_code")
+    private String sigunguCode;
 
 }

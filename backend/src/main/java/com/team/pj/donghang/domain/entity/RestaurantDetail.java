@@ -11,7 +11,6 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-//public class RestaurantDetail implements Serializable {
 public class RestaurantDetail  {
     @Id
     private Long id;
@@ -23,17 +22,12 @@ public class RestaurantDetail  {
     @Column(name = "chk_creditcard")
     private String chkCreditcard;
 
-    @Column(name = "discount_info")
-    private String discountInfo;
-
     @Column(name = "info_center")
     private String infoCenter;
 
     @Column(name = "fist_menu")
     private String firstMenu;
-
-    @Column(name = "kids_facility")
-    private String kidsFacility;
+;
 
     @Column(name = "open_date")
     private String openDate;
