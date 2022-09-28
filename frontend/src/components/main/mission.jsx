@@ -90,10 +90,8 @@ const Mission = () => {
     return resultArr
   }
 
-  // const missionPaper = userRef()
-
+  // 미션 새로고침
   const [mission, setMission] = useState(recommendMission(missions))
-
   const rerollMission = () => {
     setMission(recommendMission(missions))
   }
