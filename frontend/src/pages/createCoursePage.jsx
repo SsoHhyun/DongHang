@@ -31,7 +31,7 @@ const CreateCoursePage = () => {
   }
   useEffect(() => {
     interceptor({
-      url: "/api/trip?tripNo=11",
+      url: "/api/trip?tripNo=2019",
       method: "get",
     })
       .then((res) => {
@@ -40,6 +40,7 @@ const CreateCoursePage = () => {
             ...recommendspot,
             res.data.placeList[i],
           ])
+          console.log(res.data)
         }
       })
       .catch((err) => {
@@ -63,6 +64,7 @@ const CreateCoursePage = () => {
         <MapWrapper id="map">
           <Map
             // center={{ lat: selectedSpot.mapy, lng: selectedSpot.mapx }}
+            recommendspot={recommendspot}
             selectedSpot={selectedSpot}
           ></Map>
         </MapWrapper>

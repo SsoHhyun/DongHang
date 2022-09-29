@@ -26,6 +26,7 @@ const CourseSide = (props) => {
   const [endDate, setEndDate] = React.useState(null)
 
   const parseDate = (newValue) => {
+    if (newValue == null) return "0"
     let temp = newValue.$d.getFullYear().toString()
     if (newValue.$d.getMonth() < 10) {
       temp = temp + "0" + (newValue.$d.getMonth() + 1).toString()

@@ -22,12 +22,7 @@ const SideContents = (props) => {
     setOpen(false)
   }
   return (
-    <Card
-      sx={{ minWidth: 275, marginBottom: "2px" }}
-      onClick={() => {
-        props.setSelectedSpot(props.spot)
-      }}
-    >
+    <Card sx={{ minWidth: 275, marginBottom: "2px" }}>
       <Button
         style={{ float: "right", marginTop: "2px" }}
         onClick={() => {
@@ -36,7 +31,11 @@ const SideContents = (props) => {
       >
         <ClearIcon style={{ color: "red" }}></ClearIcon>
       </Button>
-      <CardContent>
+      <CardContent
+        onClick={() => {
+          props.setSelectedSpot(props.spot)
+        }}
+      >
         <Typography variant="h7" component="div">
           <p style={{ fontSize: "12px" }}>{props.spotIndex + 1}번째 여행지</p>
           {props.spot.title}

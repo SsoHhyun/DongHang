@@ -34,8 +34,8 @@ const RecommendContents = (props) => {
       <CardActionArea>
         <CardMedia
           component="img"
-          image={process.env.PUBLIC_URL + `/img/d4.jpg`}
-          alt="green iguana"
+          image={props.spot.firstImage1}
+          alt="image not found"
           height="100"
         />
         <CardContent>
