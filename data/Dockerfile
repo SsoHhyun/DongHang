@@ -8,7 +8,7 @@ LABEL maintainer="chj2171@gmail.com"
 #RUN apt-get install -y python-pip python-dev build-essential
 
 RUN pip install --upgrade pip
-RUN pip install django
+#RUN pip install django
 
 WORKDIR /usr/src/app
 
@@ -17,7 +17,7 @@ COPY . .
 WORKDIR ./donghang
 #manage.py를 실행할 수 있는 디렉토리로 이동합니다.
 
-#    & pip install -r requirements.txt
+RUN  pip install -r requirements.txt
 
 CMD ["python3", "manage.py", "runserver", "0.0.0.0:8080"]
 
