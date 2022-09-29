@@ -2,6 +2,7 @@ package com.team.pj.donghang.service;
 
 import com.team.pj.donghang.api.request.TripCreateRequestDto;
 import com.team.pj.donghang.api.request.TripUpdateRequestDto;
+import com.team.pj.donghang.api.response.LastTripResponseDto;
 import com.team.pj.donghang.api.response.TripResponseDto;
 import com.team.pj.donghang.domain.dto.PlaceCommonDto;
 import com.team.pj.donghang.domain.dto.UserSchedule;
@@ -27,4 +28,6 @@ public interface TripService {
     //일정 한개 가져오기
     public List<TripResponseDto> getUserTripList(Long userNo);
     //일정 검색??? ????
+     public List<LastTripResponseDto> getUserLastTripList(Long userNo);
+    public LastTripResponseDto getUserPastOneTrip(Long userNo,Long TripNo);
 }

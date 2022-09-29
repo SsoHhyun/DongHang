@@ -2,6 +2,7 @@ package com.team.pj.donghang.api.controller;
 
 import com.team.pj.donghang.api.request.TripCreateRequestDto;
 import com.team.pj.donghang.api.request.TripUpdateRequestDto;
+import com.team.pj.donghang.api.response.LastTripResponseDto;
 import com.team.pj.donghang.api.response.TripResponseDto;
 import com.team.pj.donghang.domain.dto.CultureDetailDto;
 import com.team.pj.donghang.domain.dto.PlaceCommonDto;
@@ -53,6 +54,17 @@ public class TripController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+//    @GetMapping ("/getDetail")
+//    @ApiResponses({
+//
+//    })
+//    public ResponseEntity getOneDetail(
+//            @ApiIgnore Authentication authentication,
+//            @ApiParam String category,
+//            @ApiParam  Long detailNo){
+//
+//    }
+
     @GetMapping("/recommendList")
     @Operation(summary = "장소 추천 리스트, 현재의 api는 django 에서 추천해주는 내용이 category 별로 날려준다고 생각하고 구현" ,
             description =
@@ -84,7 +96,6 @@ public class TripController {
 
         }else{
             return ResponseEntity.status(200).body(result);
-
         }
 
 
@@ -107,6 +118,25 @@ public class TripController {
             return ResponseEntity.status(200).body(list);
         }
     }
+
+    @GetMapping("/getMyLastTripList")
+    @ApiOperation(value = "내 과거 여행 일정 리스트")
+    @ApiResponses({
+            @ApiResponse(code=200, message = "일정 리스드를 정상적으로 반환했습니다."),
+            @ApiResponse(code = 204, message = "일정이 없습니다 생성해주세요!")
+    })
+    public ResponseEntity<List<LastTripResponseDto>> getLatTripList(
+            @ApiIgnore Authentication authentication,
+            @ApiParam(value = "일정 정보들을 가져오기 위한 userno",required = true)Long userNo){
+        List<LastTripResponseDto> list = tripService.getUserLastTripList(userNo);
+        if(list==null){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }else{
+
+            return ResponseEntity.status(200).body(list);
+        }
+    }
+
     @GetMapping("")
     @ApiOperation(value = "특정 일정 1개")
     @ApiResponses({

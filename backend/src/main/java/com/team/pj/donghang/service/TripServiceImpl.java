@@ -2,6 +2,7 @@ package com.team.pj.donghang.service;
 
 import com.team.pj.donghang.api.request.TripCreateRequestDto;
 import com.team.pj.donghang.api.request.TripUpdateRequestDto;
+import com.team.pj.donghang.api.response.LastTripResponseDto;
 import com.team.pj.donghang.api.response.TripResponseDto;
 import com.team.pj.donghang.domain.dto.*;
 import com.team.pj.donghang.domain.entity.*;
@@ -213,6 +214,34 @@ public class TripServiceImpl implements TripService{
 
     @Transactional
     @Override
+    public LastTripResponseDto getUserPastOneTrip(Long userNo,Long TripNo) {
+        Trip trip = tripRepository.findByTripNo(TripNo);
+        if(trip==null){
+            return null;
+        }
+        List<PlaceCommon> placeCommonList =new ArrayList<>();
+        List<TripPlace> tripPlaceList =new ArrayList<>();
+//        if(tripPlaceRepository.existsById(t)
+        tripPlaceList=tripPlaceRepository.findAllByTrip_TripNo(trip.getTripNo());
+
+
+        for (TripPlace tripPlace:tripPlaceList) {
+            placeCommonList.add(tripPlace.getCommon());
+        }
+        LastTripResponseDto tripResponseDto = LastTripResponseDto
+                .builder()
+//                .placeList(placeCommonList)
+//                .tripNo(trip.getTripNo())
+//                .userNo(trip.getUser().getUserNo())
+//                .endDate(trip.getEndDate())
+//                .startDate(trip.getStartDate())
+//                .tripName(trip.getTripName())
+                .build();
+        return tripResponseDto;
+    }
+
+    @Transactional
+    @Override
     public List<TripResponseDto> getUserTripList(Long userNo) {
         List<TripResponseDto> result = new ArrayList<>();
 
@@ -244,6 +273,43 @@ public class TripServiceImpl implements TripService{
         }
         return result;
     }
+
+
+    @Transactional
+    @Override
+    public List<LastTripResponseDto> getUserLastTripList(Long userNo) {
+        List<LastTripResponseDto> result = new ArrayList<>();
+
+        List<Trip> list = tripRepository.findAllByUser_UserNo(userNo);
+        if(list ==null){
+            return null;
+        }
+        List<PlaceCommon> placeCommonList;
+        List<TripPlace> tripPlaceList ;
+
+        for (Trip trip:list) {
+            tripPlaceList = new ArrayList<>();
+            placeCommonList = new ArrayList<>();
+            tripPlaceList=tripPlaceRepository.findAllByTrip_TripNo(trip.getTripNo());
+            for (TripPlace tripPlace:tripPlaceList) {
+                placeCommonList.add(tripPlace.getCommon());
+            }
+            LastTripResponseDto tripResponseDto = LastTripResponseDto
+                    .builder()
+                    .placeList(placeCommonList)
+                    .tripNo(trip.getTripNo())
+                    .userNo(trip.getUser().getUserNo())
+                    .endDate(trip.getEndDate())
+                    .startDate(trip.getStartDate())
+                    .tripName(trip.getTripName())
+                    .build();
+            result.add(tripResponseDto);
+
+        }
+        return result;
+    }
+
+
 
     //추후 어떻게 수정될지는 모르지만 확시나, table에 존재하는지 확인해야한다면... 일단 테스틑 필요함
     private String checkCommonNoTable(Long commonNo){
