@@ -11,7 +11,8 @@ WORKDIR /usr/src/app
 COPY . .
 
 #manage.py를 실행할 수 있는 디렉토리로 이동합니다.
-RUN pip install --upgrade pip & pip install -r requirements.txt
+RUN pip install --upgrade pip
+#    & pip install -r requirements.txt
 
 CMD ["python3", "manage.py", "runserver", "0.0.0.0:8080"]
 
