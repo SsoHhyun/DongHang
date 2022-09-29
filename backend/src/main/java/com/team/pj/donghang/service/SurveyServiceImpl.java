@@ -1,6 +1,7 @@
 package com.team.pj.donghang.service;
 
 import com.team.pj.donghang.api.request.SurveyRequestDto;
+import com.team.pj.donghang.api.response.SurveyResponseDto;
 import com.team.pj.donghang.domain.entity.Survey;
 import com.team.pj.donghang.domain.entity.User;
 import com.team.pj.donghang.repository.SurveyRepository;
@@ -52,5 +53,21 @@ public class SurveyServiceImpl implements SurveyService{
         System.out.println(num);
 
 
+    }
+    @Override
+    public SurveyResponseDto getSurveyResult(Long userNo) {
+        Survey survey=surveyRepository.findByUser_UserNo(userNo);
+
+        SurveyResponseDto responseDto = SurveyResponseDto.builder()
+                .survey_1(survey.getSurvey1())
+                .survey_2(survey.getSurvey2())
+                .survey_3(survey.getSurvey3())
+                .survey_4(survey.getSurvey4())
+                .survey_5(survey.getSurvey5())
+                .survey_6(survey.getSurvey6())
+                .survey_7(survey.getSurvey7())
+                .survey_8(survey.getSurvey8())
+                .build();
+        return responseDto;
     }
 }

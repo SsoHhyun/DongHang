@@ -1,5 +1,6 @@
 package com.team.pj.donghang.common.config;
 
+
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -49,6 +50,7 @@ public class S3config {
                 .build();
         return s3Builder;
     }
+
 
 
 

@@ -8,7 +8,8 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ShoppingDetailDto extends PlaceCommonDto{
+//public class ShoppingDetailDto extends PlaceCommonDto{
+public class ShoppingDetailDto {
 
     @JsonProperty(value="chk_creditcard")
     private String chkCreditcard;
@@ -55,7 +56,6 @@ public class ShoppingDetailDto extends PlaceCommonDto{
 
     @Builder
     public ShoppingDetailDto(Long commonNo, String contentId, String contentTypeId, String tel, String title, String firstImage1, String firstImage2, String cat1, String cat2, String cat3, String addr1, String addr2, String mapx, String mapy, String mlevel, String areacode, String chkCreditcard, String chkPet, String cultureCenter, String fairDay, String infoCenter, String openDate, String openTime, String parking, String restDate, String restRoom, String saleItem, String saleItemCost, String scale, String shopGuide) {
-        super(commonNo, contentId, contentTypeId, tel, title, firstImage1, firstImage2, cat1, cat2, cat3, addr1, addr2, mapx, mapy, mlevel, areacode);
         this.chkCreditcard = chkCreditcard;
         this.chkPet = chkPet;
         this.cultureCenter = cultureCenter;
