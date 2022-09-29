@@ -3,6 +3,7 @@ import { Box, styled, Grid, Paper, Button, IconButton } from "@material-ui/core"
 import Carousel from "react-material-ui-carousel"
 import CameraAltIcon from "@mui/icons-material/CameraAlt"
 import RefreshIcon from "@mui/icons-material/Refresh"
+import axios from "axios"
 
 // const MissionGrid = styled(Grid)({
 //   display: "flex",
@@ -96,6 +97,25 @@ const Mission = () => {
     setMission(recommendMission(missions))
   }
 
+  // 이미지 업로드 함수
+  const onChangeImg = async (e) => {
+    e.preventDefault()
+
+    if (e.target.files) {
+      const uploadFile = e.target.files[0]
+      // console.log(uploadFile, 1)
+      const formData = new FormData()
+      formData.append("files", uploadFile)
+      console.log(formData)
+
+      await axios({
+        method: "post",
+        url: "http://j7a504.p.ssafy.io:8080/upload/trip",
+        data: formData,
+      })
+    }
+  }
+
   return (
     <Box>
       <IconButton onClick={() => rerollMission()}>
@@ -107,6 +127,7 @@ const Mission = () => {
             <Box>{item.name}</Box>
             <ContentBox>
               <Box>{item.description}</Box>
+              <input type="file" accept="image/*" onChange={onChangeImg} />
               <IconButton>
                 <CameraAltIcon />
               </IconButton>
