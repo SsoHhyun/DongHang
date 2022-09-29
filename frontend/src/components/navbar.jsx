@@ -1,20 +1,20 @@
 //navbar 틀만
-import React, { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Box, styled, Paper } from "@mui/material";
-import Swal from "sweetalert2";
+import React, { useState, useEffect } from "react"
+import { Link, useLocation, useNavigate } from "react-router-dom"
+import { Box, styled, Paper } from "@mui/material"
+import Swal from "sweetalert2"
 
 const Navbar = () => {
-  const [isLogin, setIslogin] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isLogin, setIslogin] = useState(false)
+  const [isExpanded, setIsExpanded] = useState(false)
 
-  const location = useLocation();
-  const navigate = useNavigate();
+  const location = useLocation()
+  const navigate = useNavigate()
 
   const handleMenuClick = () => {
-    setIsExpanded(!isExpanded);
-    console.log(isExpanded);
-  };
+    setIsExpanded(!isExpanded)
+    console.log(isExpanded)
+  }
 
   useEffect(() => {
     //잘못된 접근 제한
@@ -23,22 +23,15 @@ const Navbar = () => {
         window.location.pathname === "/login" ||
         window.location.pathname === "/signup"
       )
-        navigate("/");
-    } else {
-      if (
-        window.location.pathname === "/logout" ||
-        window.location.pathname === "/mypage" ||
-        window.location.pathname === "/course/create"
-      )
-        navigate("/");
+        navigate("/")
     }
 
     if (localStorage.getItem("access-token")) {
-      setIslogin(true);
+      setIslogin(true)
     } else {
-      setIslogin(false);
+      setIslogin(false)
     }
-  }, [location]);
+  }, [location])
 
   return (
     <Container>
@@ -58,10 +51,10 @@ const Navbar = () => {
         )}
       </Navigate>
     </Container>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar
 
 const Container = styled(Box)({
   position: "fixed",
@@ -69,8 +62,8 @@ const Container = styled(Box)({
   height: "8vh",
   zIndex: 100,
   backgroundColor: "white",
-});
+})
 
-const Navigate = styled(Box)({});
+const Navigate = styled(Box)({})
 
-const PageLink = styled(Link)({});
+const PageLink = styled(Link)({})

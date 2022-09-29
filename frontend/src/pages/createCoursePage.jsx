@@ -11,10 +11,11 @@ import React from "react"
 import { useEffect, useState } from "react"
 
 const CreateCoursePage = () => {
+  const [courseSpot, setCourseSpot] = useState([])
   const [recommendspot, setRecommendspot] = useState([])
   const addCourseList = (spotdata) => {
-    setRecommendspot([...recommendspot, spotdata])
-    console.log(recommendspot)
+    setCourseSpot([...courseSpot, spotdata])
+    //console.log(courseSpotspot)
   }
   const [selectedSpot, setSelectedSpot] = useState({
     title: "삼성역",
@@ -24,10 +25,10 @@ const CreateCoursePage = () => {
   const [startDate, setStartdate] = useState("") //시작날짜
   const [endDate, setEnddate] = useState("") //끝날짜
   const deleteCourse = (index) => {
-    const temp = recommendspot.slice(0, index)
-    const temp2 = recommendspot.slice(index + 1)
-    setRecommendspot([...temp, ...temp2])
-    console.log(recommendspot)
+    const temp = courseSpot.slice(0, index)
+    const temp2 = courseSpot.slice(index + 1)
+    setCourseSpot([...temp, ...temp2])
+    // console.log(courseSpot)
   }
   useEffect(() => {
     interceptor({
@@ -52,7 +53,7 @@ const CreateCoursePage = () => {
       <Navbar></Navbar>
       <Box>
         <CourseSide
-          recommendspot={recommendspot}
+          recommendspot={courseSpot}
           selectedSpot={selectedSpot}
           deleteCourse={deleteCourse}
           setStartDate={setStartdate}
@@ -64,7 +65,7 @@ const CreateCoursePage = () => {
         <MapWrapper id="map">
           <Map
             // center={{ lat: selectedSpot.mapy, lng: selectedSpot.mapx }}
-            recommendspot={recommendspot}
+            recommendspot={courseSpot}
             selectedSpot={selectedSpot}
           ></Map>
         </MapWrapper>
