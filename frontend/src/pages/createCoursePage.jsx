@@ -17,7 +17,9 @@ const CreateCoursePage = () => {
     console.log(recommendspot)
   }
   const [selectedSpot, setSelectedSpot] = useState({
-    title: "",
+    title: "삼성역",
+    mapy: 37.50802,
+    mapx: 127.062835,
   })
   const [startDate, setStartdate] = useState("") //시작날짜
   const [endDate, setEnddate] = useState("") //끝날짜
@@ -29,14 +31,16 @@ const CreateCoursePage = () => {
   }
   useEffect(() => {
     interceptor({
-      url: "/api/trip?tripNo=9",
+      url: "/api/trip?tripNo=2019",
       method: "get",
-      Authorization:
-        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMDA0IiwiaXNzIjoiZG9uZ2hhbmcuY29tIiwiZXhwIjoxNjY0MzY5MTQ5LCJpYXQiOjE2NjQyODI3NDl9.x3usXeSLjI-FhIq8B4DyZkK_CDFBlgsfoXKyzMW_VtLn-RWuI0Orb2-AEZ1Zbqq5XwxFuowIdV-a66EQYF159Q",
     })
       .then((res) => {
         for (let i = 0; i < res.data.placeList.length; i++) {
-          setRecommendspot([...recommendspot, res.data.placeList[i]])
+          setRecommendspot((recommendspot) => [
+            ...recommendspot,
+            res.data.placeList[i],
+          ])
+          console.log(res.data)
         }
       })
       .catch((err) => {
@@ -49,6 +53,7 @@ const CreateCoursePage = () => {
       <Box>
         <CourseSide
           recommendspot={recommendspot}
+          selectedSpot={selectedSpot}
           deleteCourse={deleteCourse}
           setStartDate={setStartdate}
           setEnddate={setEnddate}
@@ -57,12 +62,17 @@ const CreateCoursePage = () => {
           setSelectedSpot={setSelectedSpot}
         ></CourseSide>
         <MapWrapper id="map">
-          <Map selectedSpot={selectedSpot} recommendspot={recommendspot}></Map>
+          <Map
+            // center={{ lat: selectedSpot.mapy, lng: selectedSpot.mapx }}
+            recommendspot={recommendspot}
+            selectedSpot={selectedSpot}
+          ></Map>
         </MapWrapper>
         <RecommendBar
           recommendspot={recommendspot}
           addCourseList={addCourseList}
           setSelectedSpot={setSelectedSpot}
+          selectedSpot={selectedSpot}
         ></RecommendBar>
       </Box>
     </Box>
@@ -72,8 +82,9 @@ export default CreateCoursePage
 
 const MapWrapper = styled(Box)({
   width: "80vw",
-  height: "55vh",
+  height: "62vh",
   position: "absolute",
   top: 0,
   right: 0,
+  zIndex: -1,
 })

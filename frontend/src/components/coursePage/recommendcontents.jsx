@@ -23,13 +23,19 @@ const RecommendContents = (props) => {
     <StyledCard
       onClick={() => {
         props.addCourseList(props.spot)
+        props.setSelectedSpot({
+          title: props.spot.title,
+          mapx: props.spot.mapx,
+          mapy: props.spot.mapy,
+        })
+        console.log(props.selectedSpot)
       }}
     >
       <CardActionArea>
         <CardMedia
           component="img"
-          image={process.env.PUBLIC_URL + `/img/d4.jpg`}
-          alt="green iguana"
+          image={props.spot.firstImage1}
+          alt="image not found"
           height="100"
         />
         <CardContent>

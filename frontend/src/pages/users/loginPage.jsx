@@ -43,13 +43,13 @@ const LoginPage = () => {
   // 로그인 버튼 클릭
   const onLogin = () => {
     axios
-      .post(`${BE_URL}/auth/login`, {
+      .post("http://j7a504.p.ssafy.io:8080/auth", {
         id: values.id,
         password: values.password,
       })
       .then((res) => {
-        if (res.data.accessToken) {
-          localStorage.setItem("access-token", res.data.accessToken)
+        if (res.data) {
+          localStorage.setItem("access-token", res.data)
         }
         Swal.fire({
           icon: "success",
