@@ -9,6 +9,7 @@ import com.team.pj.donghang.domain.dto.UserSchedule;
 import com.team.pj.donghang.domain.entity.Trip;
 import com.team.pj.donghang.domain.entity.User;
 
+import java.text.ParseException;
 import java.util.List;
 
 public interface TripService {
@@ -31,6 +32,6 @@ public interface TripService {
     public Trip getTripInfo(Long tripNo);
     public List<TripResponseDto> getUserTripList(Long userNo);
     //일정 검색??? ????
-     public List<LastTripResponseDto> getUserLastTripList(Long userNo);
+     public List<LastTripResponseDto> getUserLastTripList(Long userNo) throws ParseException;
     public LastTripResponseDto getUserPastOneTrip(Long userNo,Long TripNo);
 }

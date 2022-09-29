@@ -12,7 +12,10 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -42,6 +45,10 @@ public class TripServiceImpl implements TripService{
 
     @Autowired
     PlaceCommonRepository placeCommonRepository;
+    @Autowired
+    PhotoRepository photoRepository;
+
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
     @Transactional
     @Override
     public List<? extends PlaceCommonDto> recommendPlaceList(List<Long> commonNoList, String category) {
@@ -192,6 +199,10 @@ public class TripServiceImpl implements TripService{
         if(trip==null){
             return null;
         }
+        Long tripUserNo =trip.getUser().getUserNo();
+        if(tripUserNo.compareTo(userNo)!=0){
+            return null;
+        }
         List<PlaceCommon> placeCommonList =new ArrayList<>();
         List<TripPlace> tripPlaceList =new ArrayList<>();
 //        if(tripPlaceRepository.existsById(t)
@@ -230,23 +241,38 @@ public class TripServiceImpl implements TripService{
         if(trip==null){
             return null;
         }
+        Long tripUserNo =trip.getUser().getUserNo();
+        if(tripUserNo.compareTo(userNo)!=0){
+            return null;
+        }
         List<PlaceCommon> placeCommonList =new ArrayList<>();
         List<TripPlace> tripPlaceList =new ArrayList<>();
-//        if(tripPlaceRepository.existsById(t)
+        List<Photo> photoList;
         tripPlaceList=tripPlaceRepository.findAllByTrip_TripNo(trip.getTripNo());
 
+        photoList = photoRepository.findByTrip(trip);
+        List<String> urlList = new ArrayList<>();
+        String image="";
+        photoList.forEach(photo ->{
+            urlList.add(photo.getPhotoPath());
+        });
+        if(urlList!=null){
+            image = urlList.get(0);
+        }
 
         for (TripPlace tripPlace:tripPlaceList) {
             placeCommonList.add(tripPlace.getCommon());
         }
         LastTripResponseDto tripResponseDto = LastTripResponseDto
                 .builder()
-//                .placeList(placeCommonList)
-//                .tripNo(trip.getTripNo())
-//                .userNo(trip.getUser().getUserNo())
-//                .endDate(trip.getEndDate())
-//                .startDate(trip.getStartDate())
-//                .tripName(trip.getTripName())
+                .placeList(placeCommonList)
+                .tripNo(trip.getTripNo())
+                .userNo(trip.getUser().getUserNo())
+                .endDate(trip.getEndDate())
+                .startDate(trip.getStartDate())
+                .tripName(trip.getTripName())
+                .imageList(urlList)
+                .thumbnail(image)
                 .build();
         return tripResponseDto;
     }
@@ -288,7 +314,7 @@ public class TripServiceImpl implements TripService{
 
     @Transactional
     @Override
-    public List<LastTripResponseDto> getUserLastTripList(Long userNo) {
+    public List<LastTripResponseDto> getUserLastTripList(Long userNo) throws ParseException {
         List<LastTripResponseDto> result = new ArrayList<>();
 
         List<Trip> list = tripRepository.findAllByUser_UserNo(userNo);
@@ -297,24 +323,46 @@ public class TripServiceImpl implements TripService{
         }
         List<PlaceCommon> placeCommonList;
         List<TripPlace> tripPlaceList ;
+        List<Photo> photoList;
 
         for (Trip trip:list) {
-            tripPlaceList = new ArrayList<>();
-            placeCommonList = new ArrayList<>();
-            tripPlaceList=tripPlaceRepository.findAllByTrip_TripNo(trip.getTripNo());
-            for (TripPlace tripPlace:tripPlaceList) {
-                placeCommonList.add(tripPlace.getCommon());
+            String todayStr = new SimpleDateFormat("yyyyMMdd").format(new Date(System.currentTimeMillis()));
+
+            Date startDate = new Date(dateFormat.parse(trip.getStartDate()).getTime());
+            Date today = new Date(dateFormat.parse(todayStr).getTime());
+
+            int compare = startDate.compareTo(today);
+            if(compare<0) {
+                tripPlaceList = new ArrayList<>();
+                placeCommonList = new ArrayList<>();
+                tripPlaceList = tripPlaceRepository.findAllByTrip_TripNo(trip.getTripNo());
+                photoList = photoRepository.findByTrip(trip);
+                List<String> urlList = new ArrayList<>();
+                String image="";
+
+                photoList.forEach(photo ->{
+                    urlList.add(photo.getPhotoPath());
+                });
+                if(urlList!=null){
+                    image = urlList.get(0);
+                }
+
+                for (TripPlace tripPlace : tripPlaceList) {
+                    placeCommonList.add(tripPlace.getCommon());
+                }
+                LastTripResponseDto tripResponseDto = LastTripResponseDto
+                        .builder()
+                        .placeList(placeCommonList)
+                        .tripNo(trip.getTripNo())
+                        .userNo(trip.getUser().getUserNo())
+                        .endDate(trip.getEndDate())
+                        .startDate(trip.getStartDate())
+                        .tripName(trip.getTripName())
+                        .imageList(urlList)
+                        .thumbnail(image)
+                        .build();
+                result.add(tripResponseDto);
             }
-            LastTripResponseDto tripResponseDto = LastTripResponseDto
-                    .builder()
-                    .placeList(placeCommonList)
-                    .tripNo(trip.getTripNo())
-                    .userNo(trip.getUser().getUserNo())
-                    .endDate(trip.getEndDate())
-                    .startDate(trip.getStartDate())
-                    .tripName(trip.getTripName())
-                    .build();
-            result.add(tripResponseDto);
 
         }
         return result;

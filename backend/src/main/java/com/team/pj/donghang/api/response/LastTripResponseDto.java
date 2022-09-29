@@ -34,5 +34,5 @@ public class LastTripResponseDto {
     @ApiModelProperty(name = "이미지 url 리스트")
     private List<String> imageList;
     @ApiModelProperty(name = "썸네일")
-    private String thumnail;
+    private String thumbnail;
 }

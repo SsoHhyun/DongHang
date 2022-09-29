@@ -50,16 +50,7 @@ public class TripController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-//    @GetMapping ("/getDetail")
-//    @ApiResponses({
-//
-//    })
-//    public ResponseEntity getOneDetail(
-//            @ApiIgnore Authentication authentication,
-//            @ApiParam String category,
-//            @ApiParam  Long detailNo){
-//
-//    }
+
 
     @GetMapping("/recommendList")
     @Operation(summary = "장소 추천 리스트, 현재의 api는 django 에서 추천해주는 내용이 category 별로 날려준다고 생각하고 구현" ,
@@ -124,9 +115,11 @@ public class TripController {
             @ApiResponse(code = 204, message = "일정이 없습니다 생성해주세요!")
     })
     public ResponseEntity<List<LastTripResponseDto>> getLatTripList(
-            @ApiIgnore Authentication authentication,
-            @ApiParam(value = "일정 정보들을 가져오기 위한 userno",required = true)Long userNo){
-        List<LastTripResponseDto> list = tripService.getUserLastTripList(userNo);
+            @ApiIgnore Authentication authentication
+            )throws Exception{
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getDetails();
+        User user = userDetails.getUser();
+        List<LastTripResponseDto> list = tripService.getUserLastTripList(user.getUserNo());
         if(list==null){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }else{
@@ -136,7 +129,7 @@ public class TripController {
     }
 
     @GetMapping("")
-    @ApiOperation(value = "특정 일정 1개")
+    @ApiOperation(value = "진행중이거나 / 미래 특정 일정 1개")
     @ApiResponses({
             @ApiResponse(code=200, message = "일정을 정상적으로 반환했습니다."),
             @ApiResponse(code = 404, message = "없는 일정입니다.")
@@ -146,6 +139,23 @@ public class TripController {
             @ApiParam(value = "갖고올 일정 번호",required = true)Long tripNo){
         CustomUserDetails userDetails = (CustomUserDetails)authentication.getDetails();
         TripResponseDto result = tripService.getUserTrip(userDetails.getUser().getUserNo(),tripNo);
+        if(result==null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else{
+            return ResponseEntity.status(200).body(result);
+        }
+    }
+    @GetMapping("/past")
+    @ApiOperation(value = "과거 특정 일정 1개")
+    @ApiResponses({
+            @ApiResponse(code=200, message = "일정을 정상적으로 반환했습니다."),
+            @ApiResponse(code = 404, message = "없는 일정입니다.")
+    })
+    public ResponseEntity<LastTripResponseDto> getMyLastOneTrip(
+            @ApiIgnore Authentication authentication,
+            @ApiParam(value = "갖고올 일정 번호",required = true)Long tripNo){
+        CustomUserDetails userDetails = (CustomUserDetails)authentication.getDetails();
+        LastTripResponseDto result = tripService.getUserPastOneTrip(userDetails.getUser().getUserNo(),tripNo);
         if(result==null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else{
