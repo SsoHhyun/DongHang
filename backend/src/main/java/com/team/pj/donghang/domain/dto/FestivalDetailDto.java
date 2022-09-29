@@ -8,7 +8,8 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class FestivalDetailDto extends PlaceCommonDto{
+//public class FestivalDetailDto extends PlaceCommonDto{
+public class FestivalDetailDto {
 
     @JsonProperty(value = "start_date")
     private String startDate;
@@ -38,7 +39,6 @@ public class FestivalDetailDto extends PlaceCommonDto{
 
     @Builder
     public FestivalDetailDto(Long commonNo, String contentId, String contentTypeId, String tel, String title, String firstImage1, String firstImage2, String cat1, String cat2, String cat3, String addr1, String addr2, String mapx, String mapy, String mlevel, String areacode, String startDate, String endDate, String place, String festivalGrade, String placeInfo, String playTime, String program, String spendTime, String useTime) {
-        super(commonNo, contentId, contentTypeId, tel, title, firstImage1, firstImage2, cat1, cat2, cat3, addr1, addr2, mapx, mapy, mlevel, areacode);
         this.startDate = startDate;
         this.endDate = endDate;
         this.place = place;

@@ -8,7 +8,6 @@ import com.team.pj.donghang.domain.dto.*;
 import com.team.pj.donghang.domain.entity.*;
 import com.team.pj.donghang.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -51,68 +50,56 @@ public class TripServiceImpl implements TripService{
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
     @Transactional
     @Override
-    public List<? extends PlaceCommonDto> recommendPlaceList(List<Long> commonNoList, String category) {
+    public  List getPlaceDetail(Long commonNo, String category) {
 
         if (category.equals("shopping")) {
             List<ShoppingDetailDto> list = new ArrayList<>();
-            for (Long commonNo : commonNoList) {
-                if(shoppingRepository.existsById(commonNo)) {
-                    list.add(getShoppingDetail(commonNo));
-                }else {
-                    return null;
-                }
+            if(shoppingRepository.existsById(commonNo)) {
+                list.add(getShoppingDetail(commonNo));
+                return list;
+            }else {
+                return null;
             }
-            return list;
         } else if (category.equals("culture")) {
             List<CultureDetailDto> list = new ArrayList<>();
-            for (Long commonNo : commonNoList) {
-                if(cultureRepository.existsById(commonNo)) {
-                    list.add(getCultureDetail(commonNo));
-                }else {
-                    return null;
-                }
+            if(cultureRepository.existsById(commonNo)) {
+                list.add(getCultureDetail(commonNo));
+                return list;
+            }else {
+                return null;
             }
-            return list;
         } else if (category.equals("festival")) {
             List<FestivalDetailDto> list = new ArrayList<>();
-            for (Long commonNo : commonNoList) {
-                if(festivalRepository.existsById(commonNo)) {
-                    list.add(getFestivalDetail(commonNo));
-                }else {
-                    return null;
-                }
+            if(festivalRepository.existsById(commonNo)) {
+                list.add(getFestivalDetail(commonNo));
+                return list;
+            }else {
+                return null;
             }
-            return list;
         } else if (category.equals("restaurant")) {
             List <RestaurantDetailDto> list = new ArrayList<>();
-            for (Long commonNo : commonNoList) {
-                if(restaurantRepository.existsById(commonNo)) {
-                    list.add(getRestaurantDetail(commonNo));
-                }else {
-                    return null;
-                }
+            if(restaurantRepository.existsById(commonNo)) {
+                list.add(getRestaurantDetail(commonNo));
+                return list;
+            }else {
+                return null;
             }
-            return list;
         } else if (category.equals("tourist")) {
             List<TouristSpotDetailDto> list = new ArrayList<>();
-            for (Long commonNo : commonNoList) {
-                if(touristRepository.existsById(commonNo)) {
-                    list.add(getTourSpotDetail(commonNo));
-                }else {
-                    return null;
-                }
+            if(touristRepository.existsById(commonNo)) {
+                list.add(getTourSpotDetail(commonNo));
+                return list;
+            }else {
+                return null;
             }
-            return list;
         } else {
             List<LeisureDetailDto> list = new ArrayList<>();
-            for (Long commonNo : commonNoList) {
-                if(leisureRepository.existsById(commonNo)) {
-                    list.add(getLeisureDetail(commonNo));
-                }else {
-                    return null;
-                }
+            if(leisureRepository.existsById(commonNo)) {
+                list.add(getLeisureDetail(commonNo));
+                return list;
+            }else {
+                return null;
             }
-            return list;
         }
 
 
@@ -205,7 +192,6 @@ public class TripServiceImpl implements TripService{
         }
         List<PlaceCommon> placeCommonList =new ArrayList<>();
         List<TripPlace> tripPlaceList =new ArrayList<>();
-//        if(tripPlaceRepository.existsById(t)
         tripPlaceList=tripPlaceRepository.findAllByTrip_TripNo(trip.getTripNo());
 
 
@@ -311,6 +297,55 @@ public class TripServiceImpl implements TripService{
         return result;
     }
 
+    @Transactional
+    @Override
+    public TripResponseDto getTodayTrip(Long userNo){
+        List<Trip> list = tripRepository.findAllByUser_UserNo(userNo);
+        String todayStr = new SimpleDateFormat("yyyyMMdd").format(new Date(System.currentTimeMillis()));
+
+        Date today,startDate,endDate;
+
+        try {
+             today = new Date(dateFormat.parse(todayStr).getTime());
+        }catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        for(Trip trip :list) {
+            try {
+                startDate = new Date(dateFormat.parse(trip.getStartDate()).getTime());
+                endDate = new Date(dateFormat.parse(trip.getStartDate()).getTime());
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+
+            int compare = startDate.compareTo(today);
+            int compare_2 = endDate.compareTo(today);
+
+            if (compare >= 0 && compare_2 <= 0) {
+                List<PlaceCommon> placeCommonList =new ArrayList<>();
+                List<TripPlace> tripPlaceList =new ArrayList<>();
+                tripPlaceList=tripPlaceRepository.findAllByTrip_TripNo(trip.getTripNo());
+
+
+                for (TripPlace tripPlace:tripPlaceList) {
+                    placeCommonList.add(tripPlace.getCommon());
+                }
+                TripResponseDto tripResponseDto = TripResponseDto
+                        .builder()
+                        .placeList(placeCommonList)
+                        .tripNo(trip.getTripNo())
+                        .userNo(trip.getUser().getUserNo())
+                        .endDate(trip.getEndDate())
+                        .startDate(trip.getStartDate())
+                        .tripName(trip.getTripName())
+                        .build();
+                return tripResponseDto;
+            }
+        }
+        return null;
+
+    }
+
 
     @Transactional
     @Override
@@ -394,14 +429,7 @@ public class TripServiceImpl implements TripService{
         PlaceCommon common = placeCommonRepository.findByCommonNo(commonNo);
         CultureDetail culture = cultureRepository.findByCommon(common);
         CultureDetailDto detail = CultureDetailDto.builder()
-                .commonNo(common.getCommonNo()).cat1(common.getCat1())
-                .cat2(common.getCat2()).cat3(common.getCat3())
-                .addr1(common.getAddr1()).addr2(common.getAddr2())
-                .areacode(common.getAreacode()).contentId(common.getContentId())
-                .contentTypeId(common.getContentTypeId()).tel(common.getTel())
-                .title(common.getTitle()).firstImage1(common.getFirstImage1())
-                .firstImage2(common.getFirstImage2()).mapx(common.getMapx())
-                .mapy(common.getMapy()).mlevel(common.getMlevel())
+
 
                 .chkCreditcard(culture.getChkCreditcard()).chkPet(culture.getChkPet())
                 .parking(culture.getParking()).restDate(culture.getRestDate())
@@ -415,14 +443,7 @@ public class TripServiceImpl implements TripService{
         PlaceCommon common = placeCommonRepository.findByCommonNo(commonNo);
         FestivalDetail festival = festivalRepository.findByCommon(common);;
         FestivalDetailDto detail = FestivalDetailDto.builder()
-                .commonNo(common.getCommonNo()).cat1(common.getCat1())
-                .cat2(common.getCat2()).cat3(common.getCat3())
-                .addr1(common.getAddr1()).addr2(common.getAddr2())
-                .areacode(common.getAreacode()).contentId(common.getContentId())
-                .contentTypeId(common.getContentTypeId()).tel(common.getTel())
-                .title(common.getTitle()).firstImage1(common.getFirstImage1())
-                .firstImage2(common.getFirstImage2()).mapx(common.getMapx())
-                .mapy(common.getMapy()).mlevel(common.getMlevel())
+
 
                 .startDate(festival.getStartDate()).endDate(festival.getEndDate())
                 .place(festival.getPlace()).festivalGrade(festival.getFestivalGrade())
@@ -438,14 +459,7 @@ public class TripServiceImpl implements TripService{
         PlaceCommon common = placeCommonRepository.findByCommonNo(commonNo);
         LeisureDetail leisure = leisureRepository.findByCommon(common);;
         LeisureDetailDto detail = LeisureDetailDto.builder()
-                .commonNo(common.getCommonNo()).cat1(common.getCat1())
-                .cat2(common.getCat2()).cat3(common.getCat3())
-                .addr1(common.getAddr1()).addr2(common.getAddr2())
-                .areacode(common.getAreacode()).contentId(common.getContentId())
-                .contentTypeId(common.getContentTypeId()).tel(common.getTel())
-                .title(common.getTitle()).firstImage1(common.getFirstImage1())
-                .firstImage2(common.getFirstImage2()).mapx(common.getMapx())
-                .mapy(common.getMapy()).mlevel(common.getMlevel())
+
 
                 .accomCount(leisure.getAccomCount()).chkCreditcard(leisure.getChkCreditcard())
                 .chkPet(leisure.getChkPet()).infoCenter(leisure.getInfoCenter())
@@ -459,14 +473,7 @@ public class TripServiceImpl implements TripService{
         PlaceCommon common = placeCommonRepository.findByCommonNo(commonNo);
         RestaurantDetail restaurant = restaurantRepository.findByCommon(common);;
         RestaurantDetailDto detail = RestaurantDetailDto.builder()
-                .commonNo(common.getCommonNo()).cat1(common.getCat1())
-                .cat2(common.getCat2()).cat3(common.getCat3())
-                .addr1(common.getAddr1()).addr2(common.getAddr2())
-                .areacode(common.getAreacode()).contentId(common.getContentId())
-                .contentTypeId(common.getContentTypeId()).tel(common.getTel())
-                .title(common.getTitle()).firstImage1(common.getFirstImage1())
-                .firstImage2(common.getFirstImage2()).mapx(common.getMapx())
-                .mapy(common.getMapy()).mlevel(common.getMlevel())
+
 
                 .chkCreditcard(restaurant.getChkCreditcard()).infoCenter(restaurant.getInfoCenter())
                 .firstMenu(restaurant.getFirstMenu()).openDate(restaurant.getOpenDate())
@@ -482,14 +489,7 @@ public class TripServiceImpl implements TripService{
         PlaceCommon common = placeCommonRepository.findByCommonNo(commonNo);
         TouristSpotDetail tour = touristRepository.findByCommon(common);;
         TouristSpotDetailDto detail = TouristSpotDetailDto.builder()
-                .commonNo(common.getCommonNo()).cat1(common.getCat1())
-                .cat2(common.getCat2()).cat3(common.getCat3())
-                .addr1(common.getAddr1()).addr2(common.getAddr2())
-                .areacode(common.getAreacode()).contentId(common.getContentId())
-                .contentTypeId(common.getContentTypeId()).tel(common.getTel())
-                .title(common.getTitle()).firstImage1(common.getFirstImage1())
-                .firstImage2(common.getFirstImage2()).mapx(common.getMapx())
-                .mapy(common.getMapy()).mlevel(common.getMlevel())
+
 
                 .accomCount(tour.getAccomCount()).chkCreditcard(tour.getChkCreditcard())
                 .chkPet(tour.getChkPet()).heritage1(tour.getHeritage1())
@@ -505,14 +505,7 @@ public class TripServiceImpl implements TripService{
         PlaceCommon common = placeCommonRepository.findByCommonNo(commonNo);
         ShoppingDetail shoppingDetail  =shoppingRepository.findByCommon(common);
         ShoppingDetailDto placeCommonDto = ShoppingDetailDto.builder()
-                .commonNo(common.getCommonNo()).cat1(common.getCat1())
-                .cat2(common.getCat2()).cat3(common.getCat3())
-                .addr1(common.getAddr1()).addr2(common.getAddr2())
-                .areacode(common.getAreacode()).contentId(common.getContentId())
-                .contentTypeId(common.getContentTypeId()).tel(common.getTel())
-                .title(common.getTitle()).firstImage1(common.getFirstImage1())
-                .firstImage2(common.getFirstImage2()).mapx(common.getMapx())
-                .mapy(common.getMapy()).mlevel(common.getMlevel())
+
 
                 .chkCreditcard(shoppingDetail.getChkCreditcard()).chkPet(shoppingDetail.getChkPet())
                 .cultureCenter(shoppingDetail.getCultureCenter()).fairDay(shoppingDetail.getFairDay())

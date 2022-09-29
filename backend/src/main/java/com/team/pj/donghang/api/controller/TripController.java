@@ -4,7 +4,6 @@ import com.team.pj.donghang.api.request.TripCreateRequestDto;
 import com.team.pj.donghang.api.request.TripUpdateRequestDto;
 import com.team.pj.donghang.api.response.LastTripResponseDto;
 import com.team.pj.donghang.api.response.TripResponseDto;
-import com.team.pj.donghang.domain.dto.PlaceCommonDto;
 import com.team.pj.donghang.domain.entity.CustomUserDetails;
 import com.team.pj.donghang.domain.entity.User;
 import com.team.pj.donghang.service.TripService;
@@ -50,9 +49,23 @@ public class TripController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @GetMapping("/getTodayTrip")
+    @ApiOperation("오늘이 포함된 일정 가져오기")
+    @ApiResponses({
+            @ApiResponse(code = 200,message = "장소 detail 정보")
+    })
+    public ResponseEntity<TripResponseDto> getTodayTrip(
+            @ApiIgnore Authentication authentication
+    ){
+        CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getDetails();
+        TripResponseDto responseDto =tripService.getTodayTrip(customUserDetails.getUser().getUserNo());
+
+        return  ResponseEntity.status(HttpStatus.OK).body(responseDto);
+    }
 
 
-    @GetMapping("/recommendList")
+
+    @GetMapping("/getDetailPlace")
     @Operation(summary = "장소 추천 리스트, 현재의 api는 django 에서 추천해주는 내용이 category 별로 날려준다고 생각하고 구현" ,
             description =
             "예시 1. : 페스티벌" +
@@ -72,12 +85,12 @@ public class TripController {
             @ApiResponse(code = 200,message = "성공적으로 반환하였습니다."),
             @ApiResponse(code =400, message = "같은 타입인 데이터들로 보내주세요")
     })
-    public ResponseEntity<List<? extends PlaceCommonDto>> getRecommendList(
-            @ApiParam(value = "장소 추천을 위한 commonNo 리스트" ,example ="15,50,151,198,215,256 ",required = true)Long[] commonNoList,
+    public ResponseEntity<List> getPlaceDetail(
+            @ApiParam(value = "장소 추천을 위한 commonNo 리스트" ,required = true)Long commonNo,
             @ApiParam(value = "장소 추천을 위한 category ",example = "culture",required = true)String category){
 
-        List<Long> list =Arrays.asList(commonNoList);
-        List<? extends  PlaceCommonDto> result =tripService.recommendPlaceList(list,category);
+
+        List result =tripService.getPlaceDetail(commonNo,category);
         if(result==null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
