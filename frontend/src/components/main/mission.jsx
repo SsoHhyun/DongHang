@@ -103,7 +103,7 @@ const Mission = () => {
 
     if (e.target.files) {
       const uploadFile = e.target.files[0]
-      // console.log(uploadFile, 1)
+      console.log(uploadFile)
       const formData = new FormData()
       formData.append("files", uploadFile)
       console.log(formData)
@@ -127,8 +127,13 @@ const Mission = () => {
             <Box>{item.name}</Box>
             <ContentBox>
               <Box>{item.description}</Box>
-              <input type="file" accept="image/*" onChange={onChangeImg} />
               <IconButton>
+                <input
+                  type="file"
+                  id="imgupload"
+                  accept="image/*"
+                  onChange={onChangeImg}
+                />
                 <CameraAltIcon />
               </IconButton>
             </ContentBox>
