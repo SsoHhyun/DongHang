@@ -88,6 +88,7 @@ const Container = styled(Box)({
   alignItems: "center",
   width: "100vw",
   height: "100vh",
+  paddingTop: "8vh",
 });
 
 const SideBar = styled(Paper)({
