@@ -1,12 +1,14 @@
-FROM python:3.9.13-alpine
+FROM python:3.9.13.
 
 LABEL maintainer="chj2171@gmail.com"
 
+
+
+RUN apt-get update -y
+RUN apt-get install -y python-pip python-dev build-essential
+
 RUN pip install --upgrade pip
 RUN pip install django
-
-#RUN apt-get update -y
-#RUN apt-get install -y python-pip python-dev build-essential
 
 WORKDIR /usr/src/app
 
