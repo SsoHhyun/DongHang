@@ -25,6 +25,7 @@ public class Mission {
     private User user;
 
     private String content;
+
     private String season;
 
     @Column(name = "mission_category_no")
