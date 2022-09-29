@@ -4,7 +4,7 @@ import Carousel from "react-material-ui-carousel"
 import CameraAltIcon from "@mui/icons-material/CameraAlt"
 import RefreshIcon from "@mui/icons-material/Refresh"
 import axios from "axios"
-
+import interceptor from "../../api/interceptor"
 // const MissionGrid = styled(Grid)({
 //   display: "flex",
 //   flexDirection: "column",
@@ -107,12 +107,18 @@ const Mission = () => {
       const formData = new FormData()
       formData.append("files", uploadFile)
       console.log(formData)
-
-      await axios({
+      interceptor({
+        url: "​/upload​/trip?tripNo=",
+        // + tripno,
         method: "post",
-        url: "http://j7a504.p.ssafy.io:8080/upload/trip",
-        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       })
+        .then((res) => {})
+        .catch((err) => {
+          alert(err)
+        })
     }
   }
 
@@ -133,6 +139,7 @@ const Mission = () => {
                   id="imgupload"
                   accept="image/*"
                   onChange={onChangeImg}
+                  style={{ display: "none" }}
                 />
                 <CameraAltIcon />
               </IconButton>
