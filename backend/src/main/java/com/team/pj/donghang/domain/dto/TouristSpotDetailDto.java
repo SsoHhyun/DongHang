@@ -7,7 +7,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class TouristSpotDetailDto extends PlaceCommonDto{
+public class TouristSpotDetailDto {
 
     @JsonProperty(value = "accom_count")
     String accomCount;
@@ -44,7 +44,6 @@ public class TouristSpotDetailDto extends PlaceCommonDto{
 
     @Builder
     public TouristSpotDetailDto(Long commonNo, String contentId, String contentTypeId, String tel, String title, String firstImage1, String firstImage2, String cat1, String cat2, String cat3, String addr1, String addr2, String mapx, String mapy, String mlevel, String areacode, String accomCount, String chkCreditcard, String chkPet, String heritage1, String heritage2, String heritage3, String openDate, String parking, String restDate, String useSeason, String useTime) {
-        super(commonNo, contentId, contentTypeId, tel, title, firstImage1, firstImage2, cat1, cat2, cat3, addr1, addr2, mapx, mapy, mlevel, areacode);
         this.accomCount = accomCount;
         this.chkCreditcard = chkCreditcard;
         this.chkPet = chkPet;

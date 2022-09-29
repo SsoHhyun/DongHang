@@ -2,7 +2,6 @@ package com.team.pj.donghang.service;
 
 import com.team.pj.donghang.api.request.TripCreateRequestDto;
 import com.team.pj.donghang.api.response.TripResponseDto;
-import com.team.pj.donghang.domain.dto.UserSchedule;
 import com.team.pj.donghang.domain.entity.User;
 
 import java.util.List;
