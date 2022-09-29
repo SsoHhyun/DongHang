@@ -3,8 +3,8 @@ FROM python:3.9.13-alpine
 LABEL maintainer="chj2171@gmail.com"
 
 WORKDIR ./donghang
-RUN apt-get update -y
-RUN apt-get install -y python-pip python-dev build-essential
+#RUN apt-get update -y
+#RUN apt-get install -y python-pip python-dev build-essential
 
 WORKDIR /usr/src/app
 
