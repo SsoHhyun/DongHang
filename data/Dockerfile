@@ -2,11 +2,14 @@ FROM python:3.9.13-alpine
 
 LABEL maintainer="chj2171@gmail.com"
 
+WORKDIR ./donghang
+RUN apt-get update -y
+RUN apt-get install -y python-pip python-dev build-essential
+
 WORKDIR /usr/src/app
 
 COPY . .
 
-WORKDIR ./donghang
 
 #manage.py를 실행할 수 있는 디렉토리로 이동합니다.
 RUN pip install --upgrade pip & pip install -r requirements.txt
