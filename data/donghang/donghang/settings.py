@@ -83,7 +83,7 @@ DATABASES = {
         'USER': 'a504@dong',
         'PASSWORD': 'haeng@1202',
         'HOST': 'j7a504.p.ssafy.io',
-        'PORT': '5055'
+        'PORT': '3306'
     }
 }
 
