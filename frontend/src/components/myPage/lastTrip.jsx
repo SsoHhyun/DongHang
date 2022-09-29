@@ -1,5 +1,5 @@
 // 지난 여행
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Paper,
@@ -12,10 +12,10 @@ import {
   Grid,
 } from "@mui/material";
 
-function ActionAreaCard() {
+function ActionAreaCard(props) {
   return (
     <MyCard sx={{ maxWidth: 345 }} onClick={() => {}}>
-      <CardActionArea>
+      <CardActionArea onClick={props.setAlbumOpen()}>
         <CardImg>
           <CardMedia
             component="img"

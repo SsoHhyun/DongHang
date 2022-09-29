@@ -43,6 +43,7 @@ TabPanel.propTypes = {
 
 const MyPage = () => {
   const [value, setValue] = useState(1);
+  const [albumOpen, setAlbumOpen] = useState(false);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -68,7 +69,11 @@ const MyPage = () => {
         <Badge />
       </TabPanel>
       <TabPanel value={value} index={3}>
-        <Album />
+        {albumOpen === false ? (
+          <LastTrip albumOpen={albumOpen} setAlbumOpen={setAlbumOpen} />
+        ) : (
+          <Album />
+        )}
       </TabPanel>
     </Container>
     // </BackImg>
