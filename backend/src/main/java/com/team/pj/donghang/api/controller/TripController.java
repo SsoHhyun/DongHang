@@ -66,20 +66,8 @@ public class TripController {
 
 
     @GetMapping("/getDetailPlace")
-    @Operation(summary = "장소 추천 리스트, 현재의 api는 django 에서 추천해주는 내용이 category 별로 날려준다고 생각하고 구현" ,
-            description =
-            "예시 1. : 페스티벌" +
-            "api/trip/recommendList?category=festival&commonNoList=225,298,437\n" +
-            "예시 2. : 문화시설" +
-            "api/trip/recommendList?category=culture&commonNoList=15,50,151,198,215,256\n" +
-            "예시 3. : 레저" +
-            "api/trip/recommendList?category=leisure&commonNoList=13,44,47,52,53,59,62\n" +
-            "예시 4. :음식점" +
-            "api/trip/recommendList?category=restaurant&commonNoList=2,7,11,12,14,17,18\n" +
-            "예시 5. :쇼핑" +
-            "api/trip/recommendList?category=shopping&commonNoList=3,6,33,37,38,39,40\n" +
-            "예시 6. :투어장소" +
-            "api/trip/recommendList?category=tourist&commonNoList=5,9,10,16,21,23,24,25,26,28\n"
+    @Operation(summary = "장소 상세 정보들을 반환 리스트로 반환하게 함. " ,
+            description ="data 형식이 각각 다름\n"+"종류는 shopping : 1, culture :15, festival :226, leisure : 13, restaurant : 2, tourist :5"
     )
     @ApiResponses({
             @ApiResponse(code = 200,message = "성공적으로 반환하였습니다."),
