@@ -8,6 +8,7 @@ import com.team.pj.donghang.domain.dto.*;
 import com.team.pj.donghang.domain.entity.*;
 import com.team.pj.donghang.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -35,6 +36,9 @@ public class TripServiceImpl implements TripService{
 
     @Autowired
     TouristRepository touristRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @Autowired
     PlaceCommonRepository placeCommonRepository;
@@ -109,8 +113,7 @@ public class TripServiceImpl implements TripService{
 
     @Transactional
     @Override
-    public void createTrip(UserSchedule userSchedule, TripCreateRequestDto tripCreateRequestDto) {
-        User user = new User(userSchedule.getUserNo(),"test","test1234","test","test@test.com","");
+    public void createTrip(User user, TripCreateRequestDto tripCreateRequestDto) {
         Trip trip = Trip.builder().tripName(tripCreateRequestDto.getTripName())
                 .startDate(tripCreateRequestDto.getStartDate())
                 .user(user)
@@ -131,8 +134,7 @@ public class TripServiceImpl implements TripService{
     }
     @Transactional
     @Override
-    public boolean deleteTrip(UserSchedule userSchedule, Long tripNo) {
-        User user = new User(userSchedule.getUserNo(),"test","test1234","test","test@test.com","");
+    public boolean deleteTrip(User user, Long tripNo) {
         Trip trip = tripRepository.findByTripNo(tripNo);
         if(trip==null){
             return false;
@@ -150,8 +152,7 @@ public class TripServiceImpl implements TripService{
 
     @Transactional
     @Override
-    public boolean updateTrip(UserSchedule userSchedule, TripUpdateRequestDto tripUpdateRequestDto) {
-        User user = new User(userSchedule.getUserNo(),"test","test1234","test","test@test.com","");
+    public boolean updateTrip(User user, TripUpdateRequestDto tripUpdateRequestDto) {
 
         Trip trip = tripRepository.findByTripNo(tripUpdateRequestDto.getTripNo());
 
@@ -210,6 +211,16 @@ public class TripServiceImpl implements TripService{
                 .tripName(trip.getTripName())
                 .build();
         return tripResponseDto;
+    }
+
+    @Override
+    public Trip getTripInfo(Long tripNo) {
+        Trip trip = tripRepository.findByTripNo(tripNo);
+        if(trip==null){
+            return null;
+        }else {
+            return trip;
+        }
     }
 
     @Transactional
