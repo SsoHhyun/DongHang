@@ -121,6 +121,7 @@ public class TripController {
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getDetails();
         User user = userDetails.getUser();
         List<LastTripResponseDto> list = tripService.getUserLastTripList(user.getUserNo());
+
         if(list==null){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }else{

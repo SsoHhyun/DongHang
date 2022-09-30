@@ -242,9 +242,6 @@ public class TripServiceImpl implements TripService{
         photoList.forEach(photo ->{
             urlList.add(photo.getPhotoPath());
         });
-        if(urlList!=null){
-            image = urlList.get(0);
-        }
 
         for (TripPlace tripPlace:tripPlaceList) {
             placeCommonList.add(tripPlace.getCommon());
@@ -258,7 +255,6 @@ public class TripServiceImpl implements TripService{
                 .startDate(trip.getStartDate())
                 .tripName(trip.getTripName())
                 .imageList(urlList)
-                .thumbnail(image)
                 .build();
         return tripResponseDto;
     }
@@ -359,9 +355,11 @@ public class TripServiceImpl implements TripService{
         List<PlaceCommon> placeCommonList;
         List<TripPlace> tripPlaceList ;
         List<Photo> photoList;
+        String todayStr = new SimpleDateFormat("yyyyMMdd").format(new Date(System.currentTimeMillis()));
+
 
         for (Trip trip:list) {
-            String todayStr = new SimpleDateFormat("yyyyMMdd").format(new Date(System.currentTimeMillis()));
+//            if(trip!=null)
 
             Date startDate = new Date(dateFormat.parse(trip.getStartDate()).getTime());
             Date today = new Date(dateFormat.parse(todayStr).getTime());
@@ -378,9 +376,6 @@ public class TripServiceImpl implements TripService{
                 photoList.forEach(photo ->{
                     urlList.add(photo.getPhotoPath());
                 });
-                if(urlList!=null){
-                    image = urlList.get(0);
-                }
 
                 for (TripPlace tripPlace : tripPlaceList) {
                     placeCommonList.add(tripPlace.getCommon());
@@ -394,11 +389,16 @@ public class TripServiceImpl implements TripService{
                         .startDate(trip.getStartDate())
                         .tripName(trip.getTripName())
                         .imageList(urlList)
-                        .thumbnail(image)
                         .build();
                 result.add(tripResponseDto);
+            }else {
+                continue;
             }
-
+            System.out.println("temp");
+        }
+        for (LastTripResponseDto l:
+             result) {
+            System.out.println(l.getTripNo());
         }
         return result;
     }
