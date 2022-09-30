@@ -72,14 +72,13 @@ const CourseSide = (props) => {
       <Box
         style={{
           backgroundColor: "white",
-          height: "100vh",
+          height: "92vh",
           width: "20vw",
           position: "absolute",
         }}
       >
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
-            Fullwidth
             label="출발 날짜"
             value={startDate}
             onChange={(newValue) => {
@@ -90,7 +89,10 @@ const CourseSide = (props) => {
               <TextField
                 {...params}
                 fullWidth
-                style={{ marginTop: "15px", marginBottom: "15px" }}
+                style={{
+                  marginTop: "6px",
+                  marginBottom: "6px",
+                }}
               />
             )}
           />
@@ -166,7 +168,7 @@ export default CourseSide
 
 const StyledCourseSide = styled(Box)({
   width: "20vw",
-  height: "70vh",
+  height: "65vh",
   backgroundColor: "white",
   overflow: "auto",
   left: "0%",

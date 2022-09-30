@@ -67,15 +67,15 @@ const WrapTab = styled(Box)({
   backgroundColor: "white",
   bottom: 0,
   position: "absolute",
-  width: "100%",
+  width: "61.5vw",
   height: "100%",
 })
 const WrapRecommendBar = styled(Box)({
   backgroundColor: "white",
-  width: "80%",
+  width: "62vw",
   height: "35vh",
   position: "absolute",
   bottom: 0,
-  left: "20%",
-  paddingBottom: 40,
+  left: "30vw",
+  paddingBottom: 12,
 })

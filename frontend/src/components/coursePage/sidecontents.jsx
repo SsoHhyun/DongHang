@@ -22,9 +22,9 @@ const SideContents = (props) => {
     setOpen(false)
   }
   return (
-    <Card sx={{ minWidth: 275, marginBottom: "2px" }}>
+    <Card sx={{ minWidth: 275, marginBottom: "1px", borderRadius: "1rem" }}>
       <Button
-        style={{ float: "right", marginTop: "2px" }}
+        style={{ float: "right", marginTop: "10px" }}
         onClick={() => {
           props.deleteCourse(props.spotIndex)
         }}

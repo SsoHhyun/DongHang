@@ -63,4 +63,5 @@ const StyledCard = styled(Card)({
   width: "200px",
   marginRight: "1rem",
   flex: "0 0 auto",
+  borderRadius: "1rem",
 })

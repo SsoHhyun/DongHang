@@ -1,7 +1,6 @@
 //여행 일정 생성 페이지
 //http://localhost:3000/course/create
 import { Box } from "@mui/system"
-import Navbar from "../components/navbar"
 import CourseSide from "../components/coursePage/courseside"
 import Map from "../components/map"
 import { styled } from "@mui/material"
@@ -49,8 +48,7 @@ const CreateCoursePage = () => {
       })
   }, [])
   return (
-    <Box>
-      <Navbar></Navbar>
+    <Box style={{ paddingTop: "8vh", width: "80vw", margin: "auto" }}>
       <Box>
         <CourseSide
           recommendspot={courseSpot}
@@ -70,6 +68,7 @@ const CreateCoursePage = () => {
           ></Map>
         </MapWrapper>
         <RecommendBar
+          style={{ left: "20%", bottom: "0", position: "absolute" }}
           recommendspot={recommendspot}
           addCourseList={addCourseList}
           setSelectedSpot={setSelectedSpot}
@@ -82,10 +81,11 @@ const CreateCoursePage = () => {
 export default CreateCoursePage
 
 const MapWrapper = styled(Box)({
-  width: "80vw",
-  height: "62vh",
+  width: "60vw",
+  height: "55vh",
   position: "absolute",
   top: 0,
-  right: 0,
+  left: "30vw",
   zIndex: -1,
+  paddingTop: "9vh",
 })
