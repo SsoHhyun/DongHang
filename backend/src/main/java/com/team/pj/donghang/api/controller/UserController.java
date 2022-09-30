@@ -2,6 +2,8 @@ package com.team.pj.donghang.api.controller;
 
 import com.team.pj.donghang.api.request.UserLoginRequestDto;
 import com.team.pj.donghang.api.request.UserRegisterRequestDto;
+import com.team.pj.donghang.api.response.UserInfoResponseDto;
+import com.team.pj.donghang.domain.entity.CustomUserDetails;
 import com.team.pj.donghang.domain.entity.User;
 import com.team.pj.donghang.service.AuthService;
 import com.team.pj.donghang.service.UserService;
@@ -10,7 +12,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 @Slf4j
 @CrossOrigin("*")
@@ -35,7 +39,7 @@ public class UserController {
 
         User user = userService.createUser(userRegisterRequestDto);
 
-        return new ResponseEntity<>("CREATED", HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body("CREATED");
     }
 
     @GetMapping("/id")
@@ -51,9 +55,9 @@ public class UserController {
         log.debug("check user id duplicated: "+id);
 
         if(userService.isIdExist(id)) {
-            return new ResponseEntity<>("DUPLICATED USER ID", HttpStatus.CONFLICT);
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("DUPLICATED USER ID");
         } else {
-            return new ResponseEntity<>("OK", HttpStatus.OK);
+            return ResponseEntity.status(HttpStatus.OK).body("OK");
         }
     }
 
@@ -70,9 +74,9 @@ public class UserController {
         log.debug("check user nickname duplicated: "+nickname);
 
         if(userService.isNickNameExist(nickname)) {
-            return new ResponseEntity<>("DUPLICATED USER NICKNAME", HttpStatus.CONFLICT);
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("DUPLICATED USER NICKNAME");
         } else {
-            return new ResponseEntity<>("OK", HttpStatus.OK);
+            return ResponseEntity.status(HttpStatus.OK).body("OK");
         }
     }
 
@@ -89,9 +93,34 @@ public class UserController {
         log.debug("check email duplicated: "+email);
 
         if(userService.isEmailExist(email)) {
-            return new ResponseEntity<>("DUPLICATED USER EMAIL", HttpStatus.CONFLICT);
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("DUPLICATED USER EMAIL");
         } else {
-            return new ResponseEntity<>("OK", HttpStatus.OK);
+            return ResponseEntity.status(HttpStatus.OK).body("OK");
+        }
+    }
+
+    @GetMapping("/info")
+    @ApiOperation(value = "사용자 정보 조회")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "사용자 정보 조회 완료"),
+            @ApiResponse(code = 401, message = "인증되지 않은 사용자")
+    })
+    public ResponseEntity<?> getUserInfo(@ApiIgnore Authentication authentication) {
+        CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getDetails();
+
+        User user = customUserDetails.getUser();
+        if(user == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED USER");
+        } else {
+            UserInfoResponseDto res =
+                    UserInfoResponseDto.builder()
+                            .id(user.getId())
+                            .nickname(user.getNickname())
+                            .email(user.getEmail())
+                            .profileImage(user.getProfileImage())
+                            .phoneNumber(user.getPhoneNumber())
+                            .build();
+            return ResponseEntity.status(HttpStatus.OK).body(res);
         }
     }
 }
