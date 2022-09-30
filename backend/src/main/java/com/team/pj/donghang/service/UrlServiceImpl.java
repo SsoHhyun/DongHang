@@ -17,7 +17,7 @@ public class UrlServiceImpl implements UrlService{
     private RedisTemplate<String,Object> redisTemplate;
     private int length =20;
     private String baseUrl = "http://j7a504.p.ssafy.io/survey/key=?";
-
+//user num..
     @Override
     public String generateUrl(User user) {
         StringBuilder builder ;
