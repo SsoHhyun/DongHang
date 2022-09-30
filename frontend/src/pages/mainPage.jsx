@@ -1,14 +1,28 @@
-import React from "react";
-import { Box, styled } from "@material-ui/core";
-import RecommTrip from "../components/main/recommTrip";
-import Grid from "@mui/material/Grid/Grid";
-import NowCourse from "../components/main/nowCourse";
-import Mission from "../components/main/mission";
+import React from "react"
+import { Box, styled } from "@material-ui/core"
+import RecommTrip from "../components/main/recommTrip"
+import Grid from "@mui/material/Grid/Grid"
+import NowCourse from "../components/main/nowCourse"
+import Mission from "../components/main/mission"
+import Fade from "react-reveal/Fade" // Import react-reveal(Fade)
 
 const MainPage = () => {
   return (
     <Background>
-      <RecommTrip></RecommTrip>
+      <Fade
+        bottom
+        sx={{
+          width: "100%",
+          height: "50%",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <RecomImg>
+          <Img src="img/water.jpg" alt="" />
+        </RecomImg>
+      </Fade>
+
       <MainBox>
         {/* 현재 진행중인 일정 */}
         <CourseBox>현재 진행중인 일정이 없습니다.</CourseBox>
@@ -18,9 +32,9 @@ const MainPage = () => {
         </MissionBox>
       </MainBox>
     </Background>
-  );
-};
-export default MainPage;
+  )
+}
+export default MainPage
 
 const Background = styled(Box)({
   display: "flex",
@@ -31,7 +45,7 @@ const Background = styled(Box)({
   height: "100vh",
   background: "white",
   paddingTop: "8vh",
-});
+})
 
 const MainBox = styled(Box)({
   display: "flex",
@@ -41,7 +55,7 @@ const MainBox = styled(Box)({
   width: "50vw",
   height: "80vh",
   background: "white",
-});
+})
 
 // const RecommBox = styled(Box)({
 //   display: "flex",
@@ -62,8 +76,18 @@ const CourseBox = styled(Box)({
   alignItems: "center",
   fontSize: "2em",
   margin: "3% 0",
-});
+})
 
 const MissionBox = styled(Box)({
   width: "50%",
-});
+})
+
+const Img = styled("img")({
+  maxWidth: "100%",
+  height: "100%",
+})
+
+const RecomImg = styled(Box)({
+  width: "100vw",
+  height: "50vh",
+})
