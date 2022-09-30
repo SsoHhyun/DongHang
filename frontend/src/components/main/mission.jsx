@@ -1,10 +1,12 @@
 import { React, useState } from "react"
-import { Box, styled, Grid, Paper, Button, IconButton } from "@material-ui/core"
+import { Box, styled, Grid, Paper, Button, IconButton, DialogTitle, DialogContent, DialogContentText, TextField,DialogActions } from "@material-ui/core"
 import Carousel from "react-material-ui-carousel"
 import CameraAltIcon from "@mui/icons-material/CameraAlt"
 import RefreshIcon from "@mui/icons-material/Refresh"
 import axios from "axios"
 import interceptor from "../../api/interceptor"
+import { FlashlightOnTwoTone } from "@mui/icons-material"
+import { Dialog } from "@mui/material"
 // const MissionGrid = styled(Grid)({
 //   display: "flex",
 //   flexDirection: "column",
@@ -66,6 +68,8 @@ var missions = [
   },
 ]
 
+//custom mission을 위한 리스트
+
 const Mission = () => {
   const recommendMission = function (arr) {
     const randomSet = new Set()
@@ -122,11 +126,77 @@ const Mission = () => {
     }
   }
 
+  //커스텀 미션 생성 모달 열기
+  const [modalOpen, setModalOpen] = useState(false);
+  
+  const handleOpenCustomMission =() =>{
+    setModalOpen(true);
+  }
+  const handleCloseCustomMission =()=>{
+    setCumstonMission("");
+    setModalOpen(false);
+  }
+  //커스텀 미션 생성
+  const [customMission, setCumstonMission] = useState();
+  
+  const customMissionSubmit = async() =>{
+    handleCloseCustomMission();
+    interceptor({
+      url: "",
+      // url: "/mission",
+      method: "post",
+      data:{
+        content:customMission,
+        type:"custom"
+      }
+    })
+      .then((res) => {
+
+        handleCloseCustomMission();
+      })
+      .catch((err) => {
+        alert(err)
+      })
+
+  }
+
   return (
     <Box>
       <IconButton onClick={() => rerollMission()}>
         <RefreshIcon />
       </IconButton>
+      
+      <Button onClick={()=>handleOpenCustomMission()}>
+        커스텀 미션 생성하기
+      </Button>
+
+      <Dialog open={modalOpen} onClose={handleCloseCustomMission}>
+        <DialogTitle>커스텀 미션 </DialogTitle>
+        <DialogContent
+        style={{width:'400px'}}
+        >
+          {/* <DialogContentText></DialogContentText> */}
+
+          <from onSubmit={customMissionSubmit} id="createCustom">
+          <TextField
+          autoFocus
+          margin="dense"
+          id="description"
+          label="미션 설정"
+          type="text"
+          fullWidth
+          variant="standard"
+          value={customMission}
+          onChange={(e)=>setCumstonMission(e.target.value)}
+          />
+          </from>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseCustomMission}>Cancel</Button>
+          <Button onClick={customMissionSubmit}>Submit</Button>
+        </DialogActions>
+      </Dialog>
+
       <Paper>
         {mission.map((item, i) => (
           <Paper key={i} item={item}>
@@ -146,6 +216,24 @@ const Mission = () => {
             </ContentBox>
           </Paper>
         ))}
+        {/* {newCustomMission.map((item, i) => (
+          <Paper key={i} item={item}>
+            <Box>{item.name}</Box>
+            <ContentBox>
+              <Box>{item.description}</Box>
+              <IconButton>
+                <input
+                  type="file"
+                  id="imgupload"
+                  accept="image/*"
+                  onChange={onChangeImg}
+                  style={{ display: "none" }}
+                />
+                <CameraAltIcon />
+              </IconButton>
+            </ContentBox>
+          </Paper>
+        ))} */}
       </Paper>
     </Box>
   )
