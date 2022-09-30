@@ -3,7 +3,6 @@ package com.team.pj.donghang.domain.entity;
 import com.sun.istack.NotNull;
 import lombok.*;
 import javax.persistence.*;
-import java.io.Serializable;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -34,5 +33,8 @@ public class User {
 
     @Column(name ="profile_image")
     private String profileImage;
+
+    @Column(name = "phone_number")
+    private String phoneNumber;
 
 }

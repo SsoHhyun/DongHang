@@ -22,4 +22,7 @@ public class UserRegisterRequestDto {
 
     @ApiModelProperty(name="사용자 이메일")
     String email;
+
+    @ApiModelProperty(name = "사용자 연락처")
+    String phoneNumber;
 }
