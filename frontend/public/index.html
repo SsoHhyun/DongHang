@@ -19,6 +19,7 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css"
     />
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
 
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
@@ -39,6 +40,7 @@
       type="text/javascript"
       src="//dapi.kakao.com/v2/maps/sdk.js?appkey=12f1169eca8c033d32682a5c4649ddc6"
     ></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -49,5 +51,12 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <script>
+      AOS.init({
+        easing: "ease-out-back",
+        startEvent: "DOMContentLoaded",
+        duration: 400,
+      })
+    </script>
   </body>
 </html>
