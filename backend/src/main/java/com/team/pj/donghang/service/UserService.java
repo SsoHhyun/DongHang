@@ -1,5 +1,6 @@
 package com.team.pj.donghang.service;
 
+import com.team.pj.donghang.api.request.UserModifyRequestDto;
 import com.team.pj.donghang.api.request.UserRegisterRequestDto;
 import com.team.pj.donghang.domain.entity.User;
 
@@ -11,7 +12,9 @@ public interface UserService {
 
     boolean isEmailExist(String email); // 이메일 중복 확인
 
-    User createUser(UserRegisterRequestDto userRegisterReq); // 사용자 회원 가입
+    User createUser(UserRegisterRequestDto userRegisterRequestDto); // 사용자 회원 가입
+
+    User modifyUser(User currentUser, UserModifyRequestDto newUser);
 
     User getUserByUserId(String userId); // 사용자 id로 사용자 정보 조회
     
