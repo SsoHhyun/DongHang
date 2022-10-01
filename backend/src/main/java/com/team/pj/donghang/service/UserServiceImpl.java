@@ -1,5 +1,6 @@
 package com.team.pj.donghang.service;
 
+import com.team.pj.donghang.api.request.UserModifyRequestDto;
 import com.team.pj.donghang.api.request.UserRegisterRequestDto;
 import com.team.pj.donghang.domain.entity.User;
 import com.team.pj.donghang.repository.UserRepository;
@@ -39,14 +40,31 @@ public class UserServiceImpl implements UserService {
         User user = User.builder()
                 .id(userRegisterRequestDto.getId())
                 .password(new BCryptPasswordEncoder().encode(
-                        userRegisterRequestDto.getPassword())
-                )
-                .email(userRegisterRequestDto.getEmail())
+                        userRegisterRequestDto.getPassword()
+                ))
                 .nickname(userRegisterRequestDto.getNickname())
+                .email(userRegisterRequestDto.getEmail())
+                .phoneNumber(userRegisterRequestDto.getPhoneNumber())
                 .build();
+        return userRepository.save(user);
+    }
 
-        log.debug("created user: "+user.toString());
-
+    @Override
+    public User modifyUser(User currentUser, UserModifyRequestDto newUser) {
+        log.debug("----modify user----");
+        log.debug("current user : {}", currentUser.toString());
+        log.debug("new user : {}", newUser.toString());
+        User user = User.builder()
+                .userNo(currentUser.getUserNo())
+                .id(newUser.getId())
+                .password(new BCryptPasswordEncoder().encode(
+                        newUser.getPassword()
+                ))
+                .nickname(newUser.getNickname())
+                .email(newUser.getEmail())
+                .phoneNumber(newUser.getPhoneNumber())
+                .profileImage(currentUser.getProfileImage())
+                .build();
         return userRepository.save(user);
     }
 

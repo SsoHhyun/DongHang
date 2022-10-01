@@ -1,6 +1,7 @@
 package com.team.pj.donghang.api.controller;
 
 import com.team.pj.donghang.api.request.UserLoginRequestDto;
+import com.team.pj.donghang.api.request.UserModifyRequestDto;
 import com.team.pj.donghang.api.request.UserRegisterRequestDto;
 import com.team.pj.donghang.api.response.UserInfoResponseDto;
 import com.team.pj.donghang.domain.entity.CustomUserDetails;
@@ -28,7 +29,8 @@ public class UserController {
     @PostMapping("")
     @ApiOperation(value = "회원 가입")
     @ApiResponses({
-            @ApiResponse(code = 201, message = "회원 가입되었습니다")
+            @ApiResponse(code = 201, message = "회원 가입되었습니다"),
+            @ApiResponse(code = 409, message = "중복된 값입니다")
     })
     public ResponseEntity<?> register(
             @RequestBody
@@ -37,10 +39,49 @@ public class UserController {
     ) {
         log.debug("user register request body: "+ userRegisterRequestDto.toString());
 
-        User user = userService.createUser(userRegisterRequestDto);
+        if(userService.isIdExist(userRegisterRequestDto.getId())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("DUPLICATED USER ID");
+        }
+        
+        if(userService.isEmailExist(userRegisterRequestDto.getEmail())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("DUPLICATED USER EMAIL");
+        }
+        
+        if(userService.isNickNameExist(userRegisterRequestDto.getNickname())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("DUPLICATED USER NICKNAME");
+        }
+        
+        userService.createUser(userRegisterRequestDto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body("CREATED");
     }
+
+    @PutMapping("")
+    @ApiOperation(value = "사용자 정보 수정", notes = "변경하지 않은 값 모두 요청에 담아야 함")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "수정되었습니다"),
+            @ApiResponse(code = 401, message = "인증되지 않은 사용자입니다")
+    })
+    public ResponseEntity<?> modify(
+            @ApiIgnore
+            Authentication authentication,
+            @RequestBody
+            @ApiParam(value = "사용자 정보", required = true) 
+            UserModifyRequestDto userModifyRequestDto
+    ) {
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getDetails();
+
+        if(userDetails == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED USER");
+        }
+
+        User currentUser = userDetails.getUser();
+
+        userService.modifyUser(currentUser, userModifyRequestDto);
+
+        return ResponseEntity.status(HttpStatus.OK).body("MODIFIED");
+    }
+
 
     @GetMapping("/id")
     @ApiOperation(value = "아이디 중복 체크")
@@ -109,19 +150,18 @@ public class UserController {
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getDetails();
 
         User user = customUserDetails.getUser();
-        if(user == null) {
+        if(user == null)
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED USER");
-        } else {
-            UserInfoResponseDto res =
-                    UserInfoResponseDto.builder()
-                            .id(user.getId())
-                            .nickname(user.getNickname())
-                            .email(user.getEmail())
-                            .profileImage(user.getProfileImage())
-                            .phoneNumber(user.getPhoneNumber())
-                            .build();
-            return ResponseEntity.status(HttpStatus.OK).body(res);
-        }
+
+        UserInfoResponseDto res = UserInfoResponseDto.builder()
+                .id(user.getId())
+                .nickname(user.getNickname())
+                .email(user.getEmail())
+                .profileImage(user.getProfileImage())
+                .phoneNumber(user.getPhoneNumber())
+                .build();
+
+        return ResponseEntity.status(HttpStatus.OK).body(res);
     }
 }
 
