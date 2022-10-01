@@ -57,7 +57,7 @@ public class UserController {
     }
 
     @PutMapping("")
-    @ApiOperation(value = "사용자 정보 수정", notes = "변경하지 않은 값 모두 요청에 담아야 함")
+    @ApiOperation(value = "사용자 정보 수정 : 로그인 필요", notes = "변경하지 않은 값 모두 요청에 담아야 함")
     @ApiResponses({
             @ApiResponse(code = 200, message = "수정되었습니다"),
             @ApiResponse(code = 401, message = "인증되지 않은 사용자입니다")
@@ -141,7 +141,7 @@ public class UserController {
     }
 
     @GetMapping("/info")
-    @ApiOperation(value = "사용자 정보 조회")
+    @ApiOperation(value = "사용자 정보 조회 : 로그인 필요")
     @ApiResponses({
             @ApiResponse(code = 200, message = "사용자 정보 조회 완료"),
             @ApiResponse(code = 401, message = "인증되지 않은 사용자")
