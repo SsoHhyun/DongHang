@@ -6,49 +6,64 @@ import Grid from "@mui/material/Grid/Grid"
 import NowCourse from "../components/main/nowCourse"
 import Mission from "../components/main/mission"
 // import Fade from "react-reveal/Fade"
-import { useScrollFadeIn } from "../app/hooks"
+import AOS from "aos"
+import "aos/dist/aos.css"
 
 const MainPage = () => {
   // 섹션 넘어가는 애니메이션
-  window.addEventListener(
-    "wheel",
-    (e) => {
-      e.preventDefault()
-    },
-    { passive: false }
-  )
+  // window.addEventListener(
+  //   "wheel",
+  //   (e) => {
+  //     e.preventDefault()
+  //   },
+  //   { passive: true }
+  // )
 
-  var mBackground = $("html")
-  var page = 1
+  // var mBackground = $("html")
+  // var page = 1
 
-  mBackground.animate({ scrollTop: 0 }, 10)
+  // mBackground.animate({ scrollTop: 0.1 }, 10)
 
-  $(window).on("wheel", function (e) {
-    if (mBackground.is(":animated")) return
-    if (e.originalEvent.deltaY > 0) {
-      if (page == 2) return
-      page++
-    } else if (e.originalEvent.deltaY < 0) {
-      if (page == 1) return
-      page--
-    }
-    var posTop = (page - 1) * $(window).height()
-    mBackground.animate({ scrollTop: posTop })
-  })
+  // $(window).on("wheel", function (e) {
+  //   if (mBackground.is(":animated")) return
+  //   if (e.originalEvent.deltaY > 0) {
+  //     if (page === 2) return
+  //     page++
+  //   } else if (e.originalEvent.deltaY < 0) {
+  //     if (page === 1) return
+  //     page--
+  //   }
+  //   var posTop = (page - 1) * $(window).height()
+  //   mBackground.animate({ scrollTop: posTop })
+  // })
+
+  useEffect(() => {
+    AOS.init()
+  }, [])
 
   return (
     <Background>
       <RecomImg>
         <Img src="img/fall.jpg" alt="" />
       </RecomImg>
-      <MainBox>
-        {/* 현재 진행중인 일정 */}
-        <CourseBox>현재 진행중인 일정이 없습니다.</CourseBox>
-        {/* 미션 */}
-        <MissionBox>
-          <Mission></Mission>
-        </MissionBox>
-      </MainBox>
+      <MainBackground>
+        <MainBox>
+          {/* 현재 진행중인 일정 */}
+          <CourseBox
+            data-aos="fade-up"
+            data-aos-anchor-placement="center-center"
+          >
+            <NowCourse></NowCourse>
+          </CourseBox>
+          {/* 미션 */}
+          <MissionBox
+            data-aos="fade-up"
+            data-aos-anchor-placement="center-center"
+          >
+            <Mission></Mission>
+          </MissionBox>
+        </MainBox>
+      </MainBackground>
     </Background>
   )
 }
@@ -60,6 +75,7 @@ const Background = styled(Box)({
   // justifyContent: "center",
   // alignItems: "center",
   alignItems: "center",
+  background: "#d5c0b4",
 })
 
 const RecomImg = styled(Box)({
@@ -74,6 +90,10 @@ const Img = styled("img")({
   objectFit: "cover",
 })
 
+const MainBackground = styled(Box)({
+  background: "#d5c0b4",
+})
+
 const MainBox = styled(Box)({
   display: "flex",
   flexDirection: "row",
@@ -85,19 +105,21 @@ const MainBox = styled(Box)({
 })
 
 const CourseBox = styled(Box)({
-  width: "40%",
-  height: "5vh",
-  border: "2px solid #322725",
+  width: "20%",
+  height: "30vh",
+  overflowY: "auto",
+  background: "#faf8f7",
   borderRadius: "10px",
   padding: "5%",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
   fontSize: "2em",
-  margin: "3% 0",
+  margin: "3%",
 })
 
 const MissionBox = styled(Box)({
-  width: "40%",
+  width: "30%",
   justifyContent: "center",
+  background: "#faf8f7",
 })
