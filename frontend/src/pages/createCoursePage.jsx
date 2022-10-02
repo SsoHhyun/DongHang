@@ -13,6 +13,13 @@ import Swal from "sweetalert2"
 const CreateCoursePage = () => {
   const [courseSpot, setCourseSpot] = useState([])
   const [recommendspot, setRecommendspot] = useState([])
+  const [mapInfo, setMapInfo] = useState({
+    mapx1: "",
+    mapx2: "",
+    mapy1: "",
+    mapy2: "",
+  })
+
   const addCourseList = (spotdata) => {
     setCourseSpot([...courseSpot, spotdata])
     //console.log(courseSpotspot)
@@ -21,14 +28,6 @@ const CreateCoursePage = () => {
     title: "삼성역",
     mapy: 37.50802,
     mapx: 127.062835,
-  })
-  const [maplt, setMapLT] = useState({
-    mapx: "",
-    mapy: "",
-  })
-  const [maprb, setMapRB] = useState({
-    mapx: "",
-    mapy: "",
   })
   const [startDate, setStartdate] = useState("") //시작날짜
   const [endDate, setEnddate] = useState("") //끝날짜
@@ -39,25 +38,22 @@ const CreateCoursePage = () => {
     // console.log(courseSpot)
   }
   useEffect(() => {
-    if (recommendspot == null) {
-      Swal.fire(
-        "어서오세요!",
-        "추천 여행지를 클릭해 나만의 일정을 생성해주세요",
-        "info"
-      )
-    }
+    // if (recommendspot == null) {
+    //   Swal.fire(
+    //     "어서오세요!",
+    //     "추천 여행지를 클릭해 나만의 일정을 생성해주세요",
+    //     "info"
+    //   )
+    // }
     interceptor({
-      url: `/api/place/recommend?mapx1=${maplt.mapx}&mapx2=${maprb.mapx}&mapy1=${maplt.mapy}&mapy2=${maprb.mapy}`,
+      url: `/api/place/recommend?mapx1=${mapInfo.mapx1}&mapx2=${mapInfo.mapx2}&mapy1=${mapInfo.mapy1}&mapy2=${mapInfo.mapy2}`,
       method: "get",
     })
       .then((res) => {
-        for (let i = 0; i < res.data.placeList.length; i++) {
-          setRecommendspot((recommendspot) => [
-            ...recommendspot,
-            res.data.placeList[i],
-          ])
-          console.log(res.data)
+        for (let i = 0; i < res.data.length; i++) {
+          setRecommendspot((recommendspot) => [...recommendspot, res.data[i]])
         }
+        console.log(res.data)
       })
       .catch((err) => {
         alert(err)
@@ -82,6 +78,9 @@ const CreateCoursePage = () => {
             // center={{ lat: selectedSpot.mapy, lng: selectedSpot.mapx }}
             recommendspot={courseSpot}
             selectedSpot={selectedSpot}
+            setSelectedSpot={setSelectedSpot}
+            setMapInfo={setMapInfo}
+            mapInfo={mapInfo}
           ></Map>
         </MapWrapper>
         <RecommendBar

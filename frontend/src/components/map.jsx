@@ -10,21 +10,29 @@ const Map = (props) => {
         props.selectedSpot.mapy,
         props.selectedSpot.mapx
       ), //mapy=lat,mapx=lng
-      level: 3,
+      level: 7,
     }
     let map = new kakao.maps.Map(container, options)
-
+    kakao.maps.event.addListener(map, "center_changed", function () {
+      let centermap = map.getCenter()
+      props.setSelectedSpot({
+        title: "",
+        mapy: centermap.Ma,
+        mapx: centermap.La,
+      })
+      console.log(centermap)
+    })
     var positions = []
 
-    for (let i = 0; i < props.recommendspot.length; i++) {
-      positions.push({
-        title: props.recommendspot[i].title,
-        latlng: new kakao.maps.LatLng(
-          props.recommendspot[i].mapy,
-          props.recommendspot[i].mapx
-        ),
-      })
-    }
+    // for (let i = 0; i < props.recommendspot.length; i++) {
+    //   positions.push({
+    //     title: props.recommendspot[i].title,
+    //     latlng: new kakao.maps.LatLng(
+    //       props.recommendspot[i].mapy,
+    //       props.recommendspot[i].mapx
+    //     ),
+    //   })
+    // }
     // 마커 이미지의 이미지 주소입니다
     var imageSrc =
       "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"
@@ -35,25 +43,25 @@ const Map = (props) => {
     // 마커 이미지를 생성합니다
     var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize)
     var linePath = []
-    for (var i = 0; i < positions.length; i++) {
-      // 마커 이미지의 이미지 크기 입니다
+    // for (var i = 0; i < positions.length; i++) {
+    //   // 마커 이미지의 이미지 크기 입니다
 
-      // 마커 이미지를 생성합니다
-      // 마커를 생성합니다
-      var marker = new kakao.maps.Marker({
-        map: map, // 마커를 표시할 지도
-        position: positions[i].latlng, // 마커를 표시할 위치
-        title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-        image: markerImage, // 마커 이미지
-      })
-      linePath.push(
-        new kakao.maps.LatLng(
-          props.recommendspot[i].mapy,
-          props.recommendspot[i].mapx
-        )
-      )
-      marker.setMap(map)
-    }
+    //   // 마커 이미지를 생성합니다
+    //   // 마커를 생성합니다
+    //   var marker = new kakao.maps.Marker({
+    //     map: map, // 마커를 표시할 지도
+    //     position: positions[i].latlng, // 마커를 표시할 위치
+    //     title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+    //     image: markerImage, // 마커 이미지
+    //   })
+    //   linePath.push(
+    //     new kakao.maps.LatLng(
+    //       props.recommendspot[i].mapy,
+    //       props.recommendspot[i].mapx
+    //     )
+    //   )
+    //   marker.setMap(map)
+    // }
 
     // 지도에 표시할 선을 생성합니다
     var polyline = new kakao.maps.Polyline({
@@ -77,6 +85,18 @@ const Map = (props) => {
       image: markerImage, // 마커 이미지
     })
     markers.setMap(map)
+    kakao.maps.event.addListener(map, "bounds_changed", function () {
+      var bounds = map.getBounds()
+      var swLatlng = bounds.getSouthWest()
+      var neLatlng = bounds.getNorthEast()
+
+      props.setMapInfo({
+        mapx1: swLatlng.La.toString(),
+        mapx2: neLatlng.La.toString(),
+        mapy1: swLatlng.Ma.toString(),
+        mapy2: neLatlng.Ma.toString(),
+      })
+    })
   }, [props])
 
   return <div id="map"></div>
