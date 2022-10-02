@@ -1,12 +1,12 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import LoginPage from "../pages/users/loginPage";
-import SignUpPage from "../pages/users/signUpPage";
-import Mypage from "../pages/users/myPage";
-import CourseDetailPage from "../pages/courseDetailPage";
-import CreateCoursePage from "../pages/createCoursePage";
-import MainPage from "../pages/mainPage";
-import SurveyPage from "../pages/surveyPage";
-import Logout from "../pages/users/logout";
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import LoginPage from "../pages/users/loginPage"
+import SignUpPage from "../pages/users/signUpPage"
+import Mypage from "../pages/users/myPage"
+import CourseDetailPage from "../pages/courseDetailPage"
+import CreateCoursePage from "../pages/createCoursePage"
+import MainPage from "../pages/mainPage"
+import SurveyPage from "../pages/surveyPage"
+import Logout from "../pages/users/logout"
 
 const Router = () => {
   return (
@@ -20,7 +20,7 @@ const Router = () => {
       <Route path="/course/create" element={<CreateCoursePage />} />
       <Route path="/survey" element={<SurveyPage />} />
     </Routes>
-  );
-};
+  )
+}
 
-export default Router;
+export default Router

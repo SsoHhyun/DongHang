@@ -1,5 +1,47 @@
 import * as React from "react"
-import { Container, Box, Grid, styled } from "@material-ui/core"
+import { Box, styled } from "@material-ui/core"
+import Timeline from "@mui/lab/Timeline"
+import TimelineItem from "@mui/lab/TimelineItem"
+import TimelineSeparator from "@mui/lab/TimelineSeparator"
+import TimelineConnector from "@mui/lab/TimelineConnector"
+import TimelineContent from "@mui/lab/TimelineContent"
+import TimelineDot from "@mui/lab/TimelineDot"
+
+const NowCourse = () => {
+  return (
+    <Timeline position="left">
+      <TimelineItem>
+        <TimelineSeparator>
+          <TimelineDot />
+          <TimelineConnector />
+        </TimelineSeparator>
+        <TimelineContent>Eat</TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineSeparator>
+          <TimelineDot />
+          <TimelineConnector />
+        </TimelineSeparator>
+        <TimelineContent>Code</TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineSeparator>
+          <TimelineDot />
+          <TimelineConnector />
+        </TimelineSeparator>
+        <TimelineContent>Sleep</TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineSeparator>
+          <TimelineDot />
+        </TimelineSeparator>
+        <TimelineContent>Repeat</TimelineContent>
+      </TimelineItem>
+    </Timeline>
+  )
+}
+
+export default NowCourse
 
 const CoursePoint = styled(Box)({
   background: "tomato",
@@ -8,19 +50,3 @@ const CoursePoint = styled(Box)({
   height: 20,
   margin: 10,
 })
-
-const NowCourse = () => {
-  return (
-    <Container>
-      <Grid container justifyContent="center">
-        <CoursePoint></CoursePoint>
-        <CoursePoint></CoursePoint>
-        <CoursePoint></CoursePoint>
-        <CoursePoint></CoursePoint>
-        <CoursePoint></CoursePoint>
-      </Grid>
-    </Container>
-  )
-}
-
-export default NowCourse

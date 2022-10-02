@@ -4,7 +4,7 @@ import Carousel from "react-material-ui-carousel"
 import CameraAltIcon from "@mui/icons-material/CameraAlt"
 import RefreshIcon from "@mui/icons-material/Refresh"
 import axios from "axios"
-
+import interceptor from "../../api/interceptor"
 // const MissionGrid = styled(Grid)({
 //   display: "flex",
 //   flexDirection: "column",
@@ -103,45 +103,57 @@ const Mission = () => {
 
     if (e.target.files) {
       const uploadFile = e.target.files[0]
-      // console.log(uploadFile, 1)
+      console.log(uploadFile)
       const formData = new FormData()
       formData.append("files", uploadFile)
       console.log(formData)
-
-      await axios({
+      interceptor({
+        url: "​/upload​/trip?tripNo=",
+        // + tripno,
         method: "post",
-        url: "http://j7a504.p.ssafy.io:8080/upload/trip",
-        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       })
+        .then((res) => {})
+        .catch((err) => {
+          alert(err)
+        })
     }
   }
 
   return (
-    <Box>
+    <MissionBox>
       <IconButton onClick={() => rerollMission()}>
         <RefreshIcon />
       </IconButton>
-      <Paper>
+      <Box>
         {mission.map((item, i) => (
-          <Paper key={i} item={item}>
+          <Paper key={i} item={item} width="80%">
             <Box>{item.name}</Box>
             <ContentBox>
               <Box>{item.description}</Box>
-              <input type="file" accept="image/*" onChange={onChangeImg} />
               <IconButton>
+                <input
+                  type="file"
+                  id="imgupload"
+                  accept="image/*"
+                  onChange={onChangeImg}
+                  style={{ display: "none" }}
+                />
                 <CameraAltIcon />
               </IconButton>
             </ContentBox>
           </Paper>
         ))}
-      </Paper>
-    </Box>
+      </Box>
+    </MissionBox>
   )
 }
 
 export default Mission
 
-const CarouselPaper = styled(Paper)({
+const MissionBox = styled(Box)({
   background: "#f4b37b",
   padding: "2px",
 })
@@ -153,4 +165,5 @@ const ContentBox = styled(Box)({
   justifyContent: "center",
   fontSize: "1.2em",
   height: "100px",
+  width: "80%",
 })
