@@ -123,13 +123,13 @@ const Mission = () => {
   }
 
   return (
-    <Box>
+    <MissionBox>
       <IconButton onClick={() => rerollMission()}>
         <RefreshIcon />
       </IconButton>
-      <Paper>
+      <Box>
         {mission.map((item, i) => (
-          <Paper key={i} item={item}>
+          <Paper key={i} item={item} width="80%">
             <Box>{item.name}</Box>
             <ContentBox>
               <Box>{item.description}</Box>
@@ -146,14 +146,14 @@ const Mission = () => {
             </ContentBox>
           </Paper>
         ))}
-      </Paper>
-    </Box>
+      </Box>
+    </MissionBox>
   )
 }
 
 export default Mission
 
-const CarouselPaper = styled(Paper)({
+const MissionBox = styled(Box)({
   background: "#f4b37b",
   padding: "2px",
 })
@@ -165,4 +165,5 @@ const ContentBox = styled(Box)({
   justifyContent: "center",
   fontSize: "1.2em",
   height: "100px",
+  width: "80%",
 })
