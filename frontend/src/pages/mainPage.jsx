@@ -1,13 +1,16 @@
-import { React, useEffect } from "react"
-import $ from "jquery"
-import { Box, styled } from "@material-ui/core"
-import RecommTrip from "../components/main/recommTrip"
-import Grid from "@mui/material/Grid/Grid"
-import NowCourse from "../components/main/nowCourse"
-import Mission from "../components/main/mission"
+import { React, useEffect } from "react";
+import $ from "jquery";
+import { Box, styled } from "@material-ui/core";
+import RecommTrip from "../components/main/recommTrip";
+import Grid from "@mui/material/Grid/Grid";
+import NowCourse from "../components/main/nowCourse";
+import Mission from "../components/main/mission";
 // import Fade from "react-reveal/Fade"
-import AOS from "aos"
-import "aos/dist/aos.css"
+import AOS from "aos";
+import "aos/dist/aos.css";
+import interceptor from "../api/interceptor";
+import { setUserInfo } from "../features/user/userSlice";
+import { useSelector, useDispatch } from "react-redux/es/exports";
 
 const MainPage = () => {
   // 섹션 넘어가는 애니메이션
@@ -36,10 +39,17 @@ const MainPage = () => {
   //   var posTop = (page - 1) * $(window).height()
   //   mBackground.animate({ scrollTop: posTop })
   // })
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    AOS.init()
-  }, [])
+    AOS.init();
+    interceptor({
+      url: "/user/info",
+      method: "get",
+    }).then((res) => {
+      dispatch(setUserInfo(res.data));
+    });
+  }, []);
 
   return (
     <Background>
@@ -65,9 +75,9 @@ const MainPage = () => {
         </MainBox>
       </MainBackground>
     </Background>
-  )
-}
-export default MainPage
+  );
+};
+export default MainPage;
 
 const Background = styled(Box)({
   display: "flex",
@@ -76,23 +86,23 @@ const Background = styled(Box)({
   // alignItems: "center",
   alignItems: "center",
   background: "#d5c0b4",
-})
+});
 
 const RecomImg = styled(Box)({
   width: "100%",
   height: "100vh",
   overflow: "hidden",
-})
+});
 
 const Img = styled("img")({
   width: "100%",
   height: "100%",
   objectFit: "cover",
-})
+});
 
 const MainBackground = styled(Box)({
   background: "#d5c0b4",
-})
+});
 
 const MainBox = styled(Box)({
   display: "flex",
@@ -102,7 +112,7 @@ const MainBox = styled(Box)({
   width: "80vw",
   height: "100vh",
   background: "white",
-})
+});
 
 const CourseBox = styled(Box)({
   width: "20%",
@@ -116,10 +126,10 @@ const CourseBox = styled(Box)({
   alignItems: "center",
   fontSize: "2em",
   margin: "3%",
-})
+});
 
 const MissionBox = styled(Box)({
   width: "30%",
   justifyContent: "center",
   background: "#faf8f7",
-})
+});

@@ -1,8 +1,8 @@
 // 지난 여행
-import React, { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { setLastTrip } from "../../features/course/lastTripSlice"
-import interceptor from "../../api/interceptor"
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setLastTrip } from "../../features/course/lastTripSlice";
+import interceptor from "../../api/interceptor";
 import {
   Box,
   Paper,
@@ -13,14 +13,14 @@ import {
   CardMedia,
   CardActionArea,
   Grid,
-} from "@mui/material"
+} from "@mui/material";
 
 function ActionAreaCard(props) {
   return (
     <MyCard sx={{ maxWidth: 345 }}>
       <CardActionArea
         onClick={() => {
-          props.setAlbumOpen(props.i)
+          props.setAlbumOpen(props.i);
         }}
       >
         <CardImg>
@@ -35,7 +35,12 @@ function ActionAreaCard(props) {
           />
         </CardImg>
         <CardContent>
-          <CardText gutterBottom variant="h5" component="div">
+          <CardText
+            gutterBottom
+            variant="h5"
+            component="div"
+            style={{ textOverflow: "ellipsis" }}
+          >
             {props.item.tripName}
           </CardText>
           <CardText variant="body2" color="text.secondary">
@@ -44,21 +49,21 @@ function ActionAreaCard(props) {
         </CardContent>
       </CardActionArea>
     </MyCard>
-  )
+  );
 }
 
 const LastTrip = (props) => {
-  const tripInfo = useSelector((state) => state.lastTrips)
-  const dispatch = useDispatch()
+  const tripInfo = useSelector((state) => state.lastTrips);
+  const dispatch = useDispatch();
   useEffect(() => {
     interceptor({
       url: "/api/trip/getMyLastTripList",
       method: "get",
     }).then((res) => {
-      dispatch(setLastTrip(res.data))
-      console.log(tripInfo)
-    })
-  }, [])
+      dispatch(setLastTrip(res.data));
+      console.log(tripInfo);
+    });
+  }, []);
   return (
     <TripContainer>
       <Title>지난 여행</Title>
@@ -80,10 +85,10 @@ const LastTrip = (props) => {
         </Grid>
       </Trips>
     </TripContainer>
-  )
-}
+  );
+};
 
-export default LastTrip
+export default LastTrip;
 
 const TripContainer = styled(Paper)({
   borderRadius: 20,
@@ -95,7 +100,7 @@ const TripContainer = styled(Paper)({
   flexDirection: "column",
   justifyContent: "center",
   alignContent: "center",
-})
+});
 
 const Title = styled(Typography)({
   fontSize: 30,
@@ -103,26 +108,26 @@ const Title = styled(Typography)({
   fontWeight: "bold",
   textAlign: "center",
   margin: "2rem",
-})
+});
 
 const Trips = styled(Box)({
   overflowY: "auto",
   marginBottom: "2rem",
   marginLeft: "4rem",
   marginRight: "4rem",
-})
+});
 
 const MyCard = styled(Card)({
   margin: "1rem",
-})
+});
 
 const CardImg = styled(Box)({
   display: "flex",
   justifyContent: "center",
   alignContent: "center",
   paddingTop: 10,
-})
+});
 
 const CardText = styled(Typography)({
   textAlign: "right",
-})
+});
