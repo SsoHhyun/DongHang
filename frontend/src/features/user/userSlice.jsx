@@ -1,32 +1,25 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { createAsyncThunk } from "@reduxjs/toolkit";
-
-// const userData = {
-//     userId,
-//     userPw,
-//     userName,
-//     userEmail
-// }
+import { createSlice } from "@reduxjs/toolkit"
+import { createAsyncThunk } from "@reduxjs/toolkit"
 
 export const initialState = {
   id: "",
-  password: "",
   email: "",
   nickname: "",
-};
+  phone: "",
+}
 
-const courseListSlice = createSlice({
-  name: "user",
+const userSlice = createSlice({
+  name: "userSlice",
   initialState,
   reducers: {
-    login: (state, action) => {
-      state.email = action.payload.email;
-      state.nickname = action.payload.nickname;
-      state.id = action.payload.id;
+    setUserInfo: (state, action) => {
+      state.email = action.payload.email
+      state.nickname = action.payload.nickname
+      state.id = action.payload.id
+      state.phone = action.payload.phone
     },
   },
-});
+})
 
-const actions = courseListSlice;
-export const fetchProfile = actions;
-export default courseListSlice.reducer;
+export const { setUserInfo } = userSlice.actions
+export default userSlice.reducer
