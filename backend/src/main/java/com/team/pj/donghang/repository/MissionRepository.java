@@ -10,5 +10,8 @@ public interface MissionRepository extends JpaRepository<Mission, Long> {
 
     Mission findByMissionNo(Long missionNo);
 
+    // 여행 넘버로 미션 찾기
+    List<Mission> findByTripNo(Long tripNo);
+
     void deleteUserMadeMission(Long mission_no, Long mission_category_no);
 }
