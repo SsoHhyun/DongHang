@@ -8,6 +8,7 @@ import RecommendBar from "../components/coursePage/recommendbar"
 import interceptor from "../api/interceptor"
 import React from "react"
 import { useEffect, useState } from "react"
+import Swal from "sweetalert2"
 
 const CreateCoursePage = () => {
   const [courseSpot, setCourseSpot] = useState([])
@@ -21,6 +22,14 @@ const CreateCoursePage = () => {
     mapy: 37.50802,
     mapx: 127.062835,
   })
+  const [maplt, setMapLT] = useState({
+    mapx: "",
+    mapy: "",
+  })
+  const [maprb, setMapRB] = useState({
+    mapx: "",
+    mapy: "",
+  })
   const [startDate, setStartdate] = useState("") //시작날짜
   const [endDate, setEnddate] = useState("") //끝날짜
   const deleteCourse = (index) => {
@@ -30,8 +39,15 @@ const CreateCoursePage = () => {
     // console.log(courseSpot)
   }
   useEffect(() => {
+    if (recommendspot == null) {
+      Swal.fire(
+        "어서오세요!",
+        "추천 여행지를 클릭해 나만의 일정을 생성해주세요",
+        "info"
+      )
+    }
     interceptor({
-      url: "/api/trip?tripNo=2019",
+      url: `/api/place/recommend?mapx1=${maplt.mapx}&mapx2=${maprb.mapx}&mapy1=${maplt.mapy}&mapy2=${maprb.mapy}`,
       method: "get",
     })
       .then((res) => {
@@ -47,6 +63,7 @@ const CreateCoursePage = () => {
         alert(err)
       })
   }, [])
+
   return (
     <Box style={{ paddingTop: "8vh", width: "80vw", margin: "auto" }}>
       <Box>
@@ -81,11 +98,13 @@ const CreateCoursePage = () => {
 export default CreateCoursePage
 
 const MapWrapper = styled(Box)({
-  width: "60vw",
-  height: "55vh",
+  width: "61.5vw",
+  height: "54vh",
   position: "absolute",
   top: 0,
   left: "30vw",
   zIndex: -1,
   paddingTop: "9vh",
+  borderRadius: "1rem",
+  marginBottom: "2px",
 })

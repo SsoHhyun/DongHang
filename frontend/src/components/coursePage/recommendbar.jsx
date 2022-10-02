@@ -61,14 +61,17 @@ const StyledRecommendSlide = styled(Box)({
   overflowX: "scroll",
   overflowY: "hidden",
   display: "flex",
+  backgroundColor: "#D5C0B4",
+  borderRadius: "1rem",
 })
 
 const WrapTab = styled(Box)({
-  backgroundColor: "white",
-  bottom: 0,
+  backgroundColor: "#8D6248",
+  bottom: "1vh",
   position: "absolute",
   width: "61.5vw",
   height: "100%",
+  borderRadius: "1rem",
 })
 const WrapRecommendBar = styled(Box)({
   backgroundColor: "white",

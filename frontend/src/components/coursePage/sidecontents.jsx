@@ -22,7 +22,15 @@ const SideContents = (props) => {
     setOpen(false)
   }
   return (
-    <Card sx={{ minWidth: 275, marginBottom: "1px", borderRadius: "1rem" }}>
+    <Card
+      sx={{
+        minWidth: 275,
+        marginBottom: "1px",
+        borderRadius: "1rem",
+      }}
+      variant="outlined"
+      style={{ backgroundColor: "white" }}
+    >
       <Button
         style={{ float: "right", marginTop: "10px" }}
         onClick={() => {
@@ -56,7 +64,7 @@ const SideContents = (props) => {
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          <SpotDetail></SpotDetail>
+          <SpotDetail spot={props.spot}></SpotDetail>
         </Dialog>
       </CardActions>
     </Card>

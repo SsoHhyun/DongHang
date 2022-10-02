@@ -17,16 +17,25 @@ import TextField from "@mui/material/TextField"
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
 import { DatePicker } from "@mui/x-date-pickers/DatePicker"
-
+import Swal from "sweetalert2"
 // 사이드바
 
 const CourseSide = (props) => {
   const [opendialog, setOpendialo] = React.useState(false)
   const [startDate, setStartDate] = React.useState(null)
   const [endDate, setEndDate] = React.useState(null)
-
+  const createCourseAlert = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer)
+      toast.addEventListener("mouseleave", Swal.resumeTimer)
+    },
+  })
   const parseDate = (newValue) => {
-    if (newValue == null) return "0"
     let temp = newValue.$d.getFullYear().toString()
     if (newValue.$d.getMonth() < 10) {
       temp = temp + "0" + (newValue.$d.getMonth() + 1).toString()
@@ -61,7 +70,12 @@ const CourseSide = (props) => {
         tripName: "test",
       },
     })
-      .then((res) => {})
+      .then((res) => {
+        createCourseAlert.fire({
+          icon: "success",
+          title: "일정이 생성되었습니다.",
+        })
+      })
       .catch((err) => {
         alert(err)
       })
@@ -71,14 +85,30 @@ const CourseSide = (props) => {
     <Box>
       <Box
         style={{
-          backgroundColor: "white",
-          height: "92vh",
+          backgroundColor: "#8D6248",
+          height: "91vh",
           width: "20vw",
           position: "absolute",
+          borderRadius: "1rem",
         }}
       >
+        <h3
+          style={{
+            backgroundColor: "#D5C0B4",
+            textAlign: "center",
+            width: "40%",
+            margin: "auto",
+            marginTop: "4px",
+            marginBottom: "4px",
+            borderRadius: "1rem",
+            color: "#322725",
+          }}
+        >
+          일정생성
+        </h3>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
+            Fullwidth
             label="출발 날짜"
             value={startDate}
             onChange={(newValue) => {
@@ -90,8 +120,9 @@ const CourseSide = (props) => {
                 {...params}
                 fullWidth
                 style={{
-                  marginTop: "6px",
-                  marginBottom: "6px",
+                  marginBottom: "15px",
+                  backgroundColor: "white",
+                  borderRadius: "4px",
                 }}
               />
             )}
@@ -105,7 +136,17 @@ const CourseSide = (props) => {
               setEndDate(parseDate(newValue))
               console.log(endDate)
             }}
-            renderInput={(params) => <TextField {...params} fullWidth />}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                fullWidth
+                style={{
+                  backgroundColor: "white",
+                  borderRadius: "4px",
+                  marginBottom: "3px",
+                }}
+              />
+            )}
           />
         </LocalizationProvider>
         <StyledCourseSide>
@@ -168,9 +209,10 @@ export default CourseSide
 
 const StyledCourseSide = styled(Box)({
   width: "20vw",
-  height: "65vh",
-  backgroundColor: "white",
+  height: "62vh",
+  backgroundColor: "#D5C0B4",
   overflow: "auto",
   left: "0%",
   position: "absolute",
+  borderRadius: "1rem",
 })

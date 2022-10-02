@@ -61,7 +61,8 @@ export default RecommendContents
 
 const StyledCard = styled(Card)({
   width: "200px",
-  marginRight: "1rem",
+  marginRight: "1px",
   flex: "0 0 auto",
   borderRadius: "1rem",
+  backgroundColor: "white",
 })
