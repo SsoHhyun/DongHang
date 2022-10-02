@@ -1,4 +1,5 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
+import interceptor from "../../api/interceptor"
 import { useSelector, useDispatch } from "react-redux/es/exports"
 import {
   Box,
@@ -23,72 +24,28 @@ import {
   previousImg,
 } from "../../app/store"
 
-const itemData = [
-  {
-    img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
-    title: "Breakfast",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
-    title: "Burger",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
-    title: "Camera",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
-    title: "Coffee",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
-    title: "Hats",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62",
-    title: "Honey",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1516802273409-68526ee1bdd6",
-    title: "Basketball",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1518756131217-31eb79b20e8f",
-    title: "Fern",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1597645587822-e99fa5d45d25",
-    title: "Mushrooms",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1567306301408-9b74779a11af",
-    title: "Tomato basil",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1471357674240-e1a485acb3e1",
-    title: "Sea star",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1589118949245-7d38baf380d6",
-    title: "Bike",
-  },
-]
-
-const Photos = () => {
+const Photos = (props) => {
   const dispatch = useDispatch()
+  const [itemData, setItemData] = useState([])
+  const tripInfo = useSelector((state) => state.lastTrips)
+  useEffect(() => {
+    interceptor({
+      url: `/upload/getTripPhotoList?tripNo=${tripInfo[props.i].tripNo}`,
+      method: "get",
+    }).then((res) => {
+      setItemData(res.data)
+      console.log(res.data)
+    })
+  }, [])
 
   return (
-    <ImageList
-      sx={{ width: "100%", height: "70vh" }}
-      cols={4}
-      rowHeight={"auto"}
-    >
+    <ImageList sx={{ width: "100%", height: "70vh" }} cols={4} rowHeight={164}>
       {itemData.map((item, i) => (
-        <MyPhoto key={item.img}>
+        <MyPhoto key={i}>
           <img
-            src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-            srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-            alt={item.title}
+            src={`${itemData[i]}?w=164&h=164&fit=crop&auto=format`}
+            srcSet={`${itemData[i]}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+            alt={item}
             loading="lazy"
             style={{ borderRadius: 4 }}
             onClick={() => {
@@ -102,19 +59,30 @@ const Photos = () => {
   )
 }
 
-const BasicModal = () => {
+const BasicModal = (props) => {
   const open = useSelector((state) => state.open)
   const imgIndex = useSelector((state) => state.imgIndex)
+  const [itemData, setItemData] = useState([])
   const dispatch = useDispatch()
+  const tripInfo = useSelector((state) => state.lastTrips)
   const handleClose = () => dispatch(setClose())
   const handleNext = () => dispatch(nextImg())
   const handleBack = () => dispatch(previousImg())
+  useEffect(() => {
+    interceptor({
+      url: `/upload/getTripPhotoList?tripNo=${tripInfo[props.i].tripNo}`,
+      method: "get",
+    }).then((res) => {
+      console.log(res.data)
+      setItemData(res.data)
+    })
+  }, [])
   return (
     <div>
       <Modal open={open} onClose={handleClose}>
         <ModalContainer>
           <PhotoQuit onClick={handleClose}>✖</PhotoQuit>
-          <PhotoModal src={itemData[imgIndex].img} />
+          <PhotoModal src={itemData[imgIndex]} />
           {imgIndex === 0 || imgIndex === itemData.length - 1 ? (
             imgIndex === 0 ? (
               <SlideArrow>
@@ -139,9 +107,10 @@ const BasicModal = () => {
   )
 }
 
-function LabTabs() {
+function LabTabs(props) {
   const [value, setValue] = useState("1")
   const open = useSelector((state) => state.open)
+  const tripInfo = useSelector((state) => state.lastTrips)
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
@@ -156,12 +125,14 @@ function LabTabs() {
           </TabList>
         </Box>
         <AlbumTitle>
-          <AlbumName>나의 여행</AlbumName>
-          <Period>2022년 09월 22일 ~ 2022년 09월 25일</Period>
+          <AlbumName>{tripInfo[props.i].tripName}</AlbumName>
+          <Period>{`${tripInfo[props.i].startDate} ~ ${
+            tripInfo[props.i].endDate
+          }`}</Period>
         </AlbumTitle>
         <TabPanel value="1">
-          <Photos />
-          {open === false ? undefined : <BasicModal />}
+          <Photos i={props.i} />
+          {open === false ? undefined : <BasicModal i={props.i} />}
         </TabPanel>
         <TabPanel value="2">
           <LastCourse />
@@ -171,10 +142,10 @@ function LabTabs() {
   )
 }
 
-const Album = () => {
+const Album = (props) => {
   return (
     <AlbumContainer>
-      <LabTabs />
+      <LabTabs i={props.albumOpen} />
     </AlbumContainer>
   )
 }

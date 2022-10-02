@@ -1,33 +1,29 @@
-import { createSlice } from "@reduxjs/toolkit"
-import { createAsyncThunk } from "@reduxjs/toolkit"
-
-// const userData = {
-//     userId,
-//     userPw,
-//     userName,
-//     userEmail
-// }
+import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const initialState = {
   id: "",
-  password: "",
   email: "",
   nickname: "",
-}
+  phoneNumber: "",
+  profileImage: "http://www.gravatar.com/avatar/?d=mp",
+};
 
-const courseListSlice = createSlice({
-  name: "user",
+const userSlice = createSlice({
+  name: "userSlice",
   initialState,
   reducers: {
-    signup: (state, action) => {
-      state.email = action.payload.email
-      state.nickname = action.payload.nickname
-      state.id = action.payload.id
-      state.password = action.payload.password
+    setUserInfo: (state, { payload }) => {
+      state.email = payload.email;
+      state.nickname = payload.nickname;
+      state.id = payload.id;
+      state.phone = payload.phone;
+      if (payload.profileImage !== null) {
+        state.profileImage = payload.profileImage;
+      }
     },
   },
-})
+});
 
-const actions = courseListSlice
-export const fetchProfile = actions
-export default courseListSlice.reducer
+export const { setUserInfo } = userSlice.actions;
+export default userSlice.reducer;
