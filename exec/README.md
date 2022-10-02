@@ -489,4 +489,4 @@ docker run --name redis -d -p 6379:6379 -v redis:/data redis --requirepass "{비
 
 spring boot application-properties
 
-![Pasted image 20221002155303](/Users/minseocho/Desktop/tt/tewte/S07P22A504/exec/Pasted image 20221002155303.png)
+![Pasted image 20221002155303](./Pasted image 20221002155303.png)
