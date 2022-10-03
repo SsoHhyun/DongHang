@@ -12,9 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.logging.Logger;
@@ -38,12 +36,26 @@ public class MissionController {
             @ApiIgnore Authentication authentication,
             @ApiParam(value = "미션 관련 데이터", required = true)
             @RequestBody MissionCreateRequestDto missionCreateRequestDto
-            ){
-        CustomUserDetails customUserDetails = (CustomUserDetails)authentication.getDetails();
+    ) {
+        CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getDetails();
         User user = customUserDetails.getUser();
         missionService.createMission(user, missionCreateRequestDto);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-}
+
+    @DeleteMapping("/{MissionNo}")
+    @ApiOperation(value = "사용자 창작 미션 삭제")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "미션 삭제 완료"),
+            @ApiResponse(value = (code = 404, message = "삭제할 미션이 없습니다"))
+})
+public ResponseEntity deleteMission{
+@ApiIgnore Authentication authentication,
+@PathVariable(value = "missionNp") Long missionNo
+
+        }
+        CustomUserDetails userDetails=(CustomUserDetails)authen
+
+        }
