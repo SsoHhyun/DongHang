@@ -11,8 +11,8 @@ import lombok.*;
 @ApiModel(value = "Survey  Result  Dto" ,description = "부모님이 설문 조사 답한 결과 값 가져오기")
 @Builder
 public class SurveyResponseDto {
-    @ApiModelProperty(name = "1번결과",example = "")
-    private Long survey_1;
+    @ApiModelProperty(name = "1번결과",example = "부산")
+    private String survey_1;
 
     @ApiModelProperty(name = "2번 결과",example = "0,1,2,3")
     private Long survey_2;

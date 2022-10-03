@@ -26,7 +26,7 @@ public class Survey {
 
     @NotNull
     @Column(name = "survey_1")
-    private Long survey1;
+    private String survey1;
 
     @NotNull
     @Column(name = "survey_2")
@@ -58,7 +58,7 @@ public class Survey {
     @Column(name = "survey_8")
     private Long survey8;
 
-    public Survey(User user, Long survey1, Long survey2, Long survey3, Long survey4, Long survey5, Long survey6, Long survey7, Long survey8) {
+    public Survey(User user, String survey1, Long survey2, Long survey3, Long survey4, Long survey5, Long survey6, Long survey7, Long survey8) {
         this.user = user;
         this.survey1 = survey1;
         this.survey2 = survey2;
