@@ -4,7 +4,7 @@ import { Box, styled } from "@material-ui/core"
 import RecommTrip from "../components/main/recommTrip"
 import Grid from "@mui/material/Grid/Grid"
 import NowCourse from "../components/main/nowCourse"
-import Mission from "../components/main/mission"
+import Mission from "../components/mission/mission"
 // import Fade from "react-reveal/Fade"
 import AOS from "aos"
 import "aos/dist/aos.css"
@@ -50,15 +50,15 @@ const MainPage = () => {
         <MainBox>
           {/* 현재 진행중인 일정 */}
           <CourseBox
-            data-aos="fade-up"
-            data-aos-anchor-placement="center-center"
+          // data-aos="fade-up"
+          // data-aos-anchor-placement="center-center"
           >
             <NowCourse></NowCourse>
           </CourseBox>
           {/* 미션 */}
           <MissionBox
-            data-aos="fade-up"
-            data-aos-anchor-placement="center-center"
+          // data-aos="fade-up"
+          // data-aos-anchor-placement="center-center"
           >
             <Mission></Mission>
           </MissionBox>

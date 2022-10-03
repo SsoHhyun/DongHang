@@ -5,6 +5,10 @@ import CameraAltIcon from "@mui/icons-material/CameraAlt"
 import RefreshIcon from "@mui/icons-material/Refresh"
 import axios from "axios"
 import interceptor from "../../api/interceptor"
+import Typography from "@mui/material/Typography"
+import Modal from "@mui/material/Modal"
+import CreateMission from "./missionCreate"
+
 // const MissionGrid = styled(Grid)({
 //   display: "flex",
 //   flexDirection: "column",
@@ -67,6 +71,10 @@ var missions = [
 ]
 
 const Mission = () => {
+  const [open, setOpen] = useState(false)
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
+
   const recommendMission = function (arr) {
     const randomSet = new Set()
     let flag = true
@@ -129,7 +137,7 @@ const Mission = () => {
       </IconButton>
       <Box>
         {mission.map((item, i) => (
-          <Paper key={i} item={item} width="80%">
+          <Paper key={i} item={item}>
             <Box>{item.name}</Box>
             <ContentBox>
               <Box>{item.description}</Box>
@@ -147,6 +155,17 @@ const Mission = () => {
           </Paper>
         ))}
       </Box>
+      <Button onClick={handleOpen}>Create Custom Mission</Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <ModalBox>
+          <CreateMission></CreateMission>
+        </ModalBox>
+      </Modal>
     </MissionBox>
   )
 }
@@ -166,4 +185,17 @@ const ContentBox = styled(Box)({
   fontSize: "1.2em",
   height: "100px",
   width: "80%",
+})
+
+const ModalBox = styled(Box)({
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: "24",
+  p: "4",
+  background: "white",
 })
