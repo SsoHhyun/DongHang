@@ -60,31 +60,32 @@ public class MissionServiceImpl implements MissionService {
     public Mission refreshMission(Long missionNo, Long tripNo) {
         // 모든 일반, 스페셜 미션 조회
         List<Mission> allMissions = missionRepository.findMissionsByMissionCategoryNoIsNot(CUSTOM_MISSION);
-        Collections.shuffle(allMissions);
 
         // 현재 여행의 미션 조회
         List<TripMission> tripMissions = tripMissionRepository.findTripMissionsByTrip_TripNo(tripNo);
 
         // 새로운 미션
         Mission newMission = null;
-        // 삭제할 trip mission no
-        Long tripMissionNoToDelete = 0L;
+
         for(Mission mission: allMissions) { // 모든 미션과
+            boolean isDuplicated = false;
             for(TripMission tripMission: tripMissions) { // 현재 여행의 미션을 비교
-                // 겹치지 않는 미션을 찾으면 loop 종료
-                if(!Objects.equals(mission.getMissionNo(), tripMission.getMission().getMissionNo())) {
-                    newMission = mission;
-                    log.debug("반환할 미션 : {}", newMission);
-                    tripMissionNoToDelete = tripMission.getMission().getMissionNo();
-                    log.debug("삭제할 미션 번호: {}", tripMissionNoToDelete);
+                if(Objects.equals(mission.getMissionNo(), tripMission.getMission().getMissionNo())) {
+                    log.debug("반환할 미션 번호 : {}", newMission.getMissionNo());
+                    isDuplicated = true;
                     break;
                 }
+            }
+            if(!isDuplicated) {
+                // 반환할 미션 저장
+                newMission = mission;
+                // 기존 TripMission에서 삭제하고
+                tripMissionRepository.removeTripMissionByMission_MissionNoIs(missionNo);
+                break;
             }
         }
 
         if(newMission != null) {
-            // 기존 TripMission에서 삭제하고
-            tripMissionRepository.deleteTripMissionByTripMissionNo(tripMissionNoToDelete);
             // TripMission에 새로 저장
             tripMissionRepository.save(
                     TripMission.builder()

@@ -1,5 +1,6 @@
 package com.team.pj.donghang.api.controller;
 
+import com.team.pj.donghang.api.response.TripResponseDto;
 import com.team.pj.donghang.domain.entity.CustomUserDetails;
 import com.team.pj.donghang.domain.entity.Mission;
 import com.team.pj.donghang.domain.entity.User;
@@ -8,11 +9,11 @@ import com.team.pj.donghang.service.TripMissionService;
 import com.team.pj.donghang.service.TripService;
 import io.swagger.annotations.*;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
@@ -35,16 +36,18 @@ public class MissionController {
     @Autowired
     TripMissionService tripMissionService;
 
-    @GetMapping("")
+    @GetMapping("/trip")
     @ApiOperation(
             value = "특정 여행의 미션 목록 조회. 처음 조회 시 무작위 3개의 미션 반환한다",
             notes = "mission_category_no 0은 기본 미션, 1은 스페셜 미션, 2는 커스텀 미션이다"
     )
     public ResponseEntity<?> getMissions(
-            @ApiIgnore
-            Authentication authentication
+            @ApiParam(value = "찾고자 하는 여행의 trip_no")
+            @RequestParam Long tripNo
     ) {
-        return null;
+        List<Mission> missions = missionService.getMissions(tripNo);
+
+        return ResponseEntity.status(HttpStatus.OK).body(missions);
     }
 
     @GetMapping("/refresh")

@@ -9,5 +9,5 @@ public interface TripMissionRepository extends JpaRepository<TripMission, Long> 
     // trip_no로 해당 여행의 미션 목록 조회
     List<TripMission> findTripMissionsByTrip_TripNo(Long trip_tripNo);
 
-    void deleteTripMissionByTripMissionNo(Long tripMissionNo);
+    void removeTripMissionByMission_MissionNoIs(Long missionNo);
 }
