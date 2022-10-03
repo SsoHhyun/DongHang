@@ -29,11 +29,6 @@ public class TripMission {
     @JoinColumn(name = "mission_no")
     private Mission mission;
 
-    @OneToOne
-    @JoinColumn(name = "user_badge_no")
-    private UserBadge userBadge;
-
-
 }
 
 
