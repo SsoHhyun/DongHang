@@ -11,8 +11,8 @@ import lombok.*;
 @ApiModel(value = "Survey Create &Update Dto" ,description = "설문 조사 답한 결과 ")
 @Builder
 public class SurveyRequestDto {
-    @ApiModelProperty(name = "category bit mask",example = "")
-    private Long survey_1;
+    @ApiModelProperty(name = "category bit mask",example = "부산")
+    private String survey_1;
 
     @ApiModelProperty(name = "category bit mask",example = "0,1,2,3")
     private Long survey_2;
