@@ -23,6 +23,7 @@ import {
   nextImg,
   previousImg,
 } from "../../app/store"
+import "../../App.css"
 
 const Photos = (props) => {
   const dispatch = useDispatch()
@@ -135,7 +136,7 @@ function LabTabs(props) {
           {open === false ? undefined : <BasicModal i={props.i} />}
         </TabPanel>
         <TabPanel value="2">
-          <LastCourse />
+          <LastCourse i={props.i} />
         </TabPanel>
       </TabContext>
     </Box>
@@ -152,11 +153,11 @@ const Album = (props) => {
 
 export default Album
 
-const AlbumContainer = styled(Paper)({
+const AlbumContainer = styled(Box)({
   borderRadius: 20,
   width: "53vw",
-  height: "95vh",
-  backgroundColor: "beige",
+  height: "90vh",
+  // paddingTop: "15vh",
   marginLeft: "1.5rem",
   display: "flex",
   flexDirection: "column",
@@ -174,14 +175,16 @@ const AlbumTitle = styled(Box)({
 const AlbumName = styled(Typography)({
   textAlign: "center",
   fontSize: 30,
-  color: "brown",
+  color: "white",
   fontWeight: "bold",
+  fontFamily: "HallymGothic-Regular",
 })
 
 const Period = styled(Typography)({
   textAlign: "center",
   fontSize: 16,
-  color: "grey",
+  color: "white",
+  fontFamily: "HallymGothic-Regular",
 })
 
 const MyPhoto = styled(ImageListItem)({

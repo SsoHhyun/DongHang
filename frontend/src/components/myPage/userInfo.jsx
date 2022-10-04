@@ -1,6 +1,5 @@
-import React from "react";
-import { useSelector } from "react-redux/es/exports";
-
+import React, { useLayoutEffect } from "react"
+import { useSelector } from "react-redux/es/exports"
 import {
   Box,
   Button,
@@ -9,14 +8,15 @@ import {
   Paper,
   Input,
   Badge,
-} from "@mui/material";
-import { Photo } from "../../pages/users/myPage";
-import SmartphoneIcon from "@mui/icons-material/Smartphone";
-import EmailIcon from "@mui/icons-material/Email";
-import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
+} from "@mui/material"
+import { Photo } from "../../pages/users/myPage"
+import SmartphoneIcon from "@mui/icons-material/Smartphone"
+import EmailIcon from "@mui/icons-material/Email"
+import ChangeCircleIcon from "@mui/icons-material/ChangeCircle"
+import "../../App.css"
 
 const Info = () => {
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user)
 
   return (
     <InfoContainer>
@@ -28,7 +28,7 @@ const Info = () => {
             <ChangePhoto
               color="info"
               onClick={() => {
-                console.log(user);
+                console.log(user)
               }}
             />
           </UserPhoto>
@@ -54,30 +54,30 @@ const Info = () => {
         <EditBtn>수정</EditBtn>
       </User>
     </InfoContainer>
-  );
-};
+  )
+}
 
-export default Info;
+export default Info
 
-const InfoContainer = styled(Paper)({
+const InfoContainer = styled(Box)({
   borderRadius: 20,
   width: "53vw",
-  height: "95vh",
-  backgroundColor: "beige",
+  height: "90vh",
   marginLeft: "1.5rem",
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
   alignContent: "center",
-});
+})
 
 const MyInfo = styled(Typography)({
   fontSize: 30,
-  color: "brown",
+  color: "white",
   fontWeight: "bold",
   textAlign: "center",
   marginBottom: "2rem",
-});
+  fontFamily: "HallymGothic-Regular",
+})
 
 const User = styled(Paper)({
   display: "flex",
@@ -88,71 +88,75 @@ const User = styled(Paper)({
   marginBottom: "1rem",
   marginTop: "1rem",
   borderRadius: 10,
-  backgroundColor: "ivory",
-});
+  backgroundColor: "white",
+})
 
 const UserInfo = styled(Box)({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-});
+})
 
 const UserPhoto = styled(Box)({
   display: "flex",
   justifyContent: "center",
   alignItems: "end",
-});
+})
 
 const ChangePhoto = styled(ChangeCircleIcon)({
   position: "absolute",
   paddingBottom: 50,
   paddingLeft: 150,
-});
+})
 
 const UserName = styled(Box)({
   display: "flex",
   flexDirection: "column",
-  justifyContent: "center",
-});
+  // justifyContent: "center",
+  alignItems: "start",
+})
 
 const MyName = styled(Input)({
   color: "#c19a6b",
   fontWeight: "bold",
   fontSize: 25,
-  textAlign: "center",
-});
+  fontFamily: "HallymGothic-Regular",
+})
 
 const UserId = styled(Typography)({
   color: "grey",
-});
+  fontFamily: "HallymGothic-Regular",
+})
 
 const EditBtn = styled(Button)({
   margin: "2rem",
   color: "crimson",
-});
+})
 
 const Phone = styled(Box)({
   marginLeft: "2rem",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-});
+})
 
 const Email = styled(Box)({
   marginLeft: "2rem",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-});
+})
 
 const PhoneNumber = styled(Input)({
   marginLeft: "1rem",
   color: "grey",
   fontSize: 17,
-});
+  fontFamily: "HallymGothic-Regular",
+})
 
 const EmailAddress = styled(Input)({
   marginLeft: "1rem",
   color: "grey",
   fontSize: 17,
-});
+  fontFamily: "HallymGothic-Regular",
+})
