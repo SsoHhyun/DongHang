@@ -59,8 +59,8 @@ public class SurveyController {
     ){
         String url="";
         if(!token.contains("?")) {
-            url.concat(baseUrl);
-            url.concat(token);
+            url = url.concat(baseUrl);
+            url = url.concat(token);
 
         }else {
             url = token;
