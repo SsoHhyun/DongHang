@@ -1,6 +1,6 @@
 import { React, useEffect } from "react"
 import $ from "jquery"
-import { Box, styled } from "@material-ui/core"
+import { Box, styled, Button } from "@material-ui/core"
 import RecommTrip from "../components/main/recommTrip"
 import Grid from "@mui/material/Grid/Grid"
 import NowCourse from "../components/main/nowCourse"
@@ -8,8 +8,27 @@ import Mission from "../components/mission/mission"
 // import Fade from "react-reveal/Fade"
 import AOS from "aos"
 import "aos/dist/aos.css"
+import SurveyOpen from "../components/main/surveyOpen"
+import { useNavigate } from "react-router-dom"
+import axios from "axios"
+import interceptor from "../api/interceptor"
 
 const MainPage = () => {
+  const navigate = useNavigate()
+  const getSurveyUrl = () => {
+    return interceptor({
+      url: "/survey/generate/url",
+      method: "get",
+    })
+      .then((res) => {
+        console.log(res)
+        console.log(res)
+      })
+      .catch((err) => {
+        alert(err)
+      })
+  }
+
   // 섹션 넘어가는 애니메이션
   // window.addEventListener(
   //   "wheel",
@@ -62,6 +81,10 @@ const MainPage = () => {
           >
             <Mission></Mission>
           </MissionBox>
+          <Button onClick={() => getSurveyUrl()}>
+            {/* navigate("/survey/info")}> */}
+            설문 공유하기
+          </Button>
         </MainBox>
       </MainBackground>
     </Background>

@@ -7,6 +7,7 @@ import CreateCoursePage from "../pages/createCoursePage"
 import MainPage from "../pages/mainPage"
 import SurveyPage from "../pages/surveyPage"
 import Logout from "../pages/users/logout"
+import SurveyInfo from "../components/main/surveyInfo"
 
 const Router = () => {
   return (
@@ -19,6 +20,7 @@ const Router = () => {
       <Route path="/mypage" element={<Mypage />} />
       <Route path="/course/create" element={<CreateCoursePage />} />
       <Route path="/survey" element={<SurveyPage />} />
+      <Route path="/survey/info" element={<SurveyInfo />} />
     </Routes>
   )
 }

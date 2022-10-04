@@ -39,10 +39,11 @@ const SignUp = () => {
     password2: Yup.string()
       .oneOf([Yup.ref("password"), null], "비밀번호가 일치하지 않습니다!")
       .required("필수 입력 값입니다!"),
+    phoneNumber: Yup.string().required("전화번호를 입력하세요!"),
   })
 
   const submit = async (values) => {
-    const { email, id, nickname, password } = values
+    const { email, id, nickname, password, phoneNumber } = values
     console.log(email, id, nickname, password)
     try {
       await axios.post("http://j7a504.p.ssafy.io:8080/user", {
@@ -50,6 +51,7 @@ const SignUp = () => {
         id: id,
         nickname: nickname,
         password: password,
+        phoneNumber: phoneNumber,
       })
       toast.success(
         <h3>
@@ -95,6 +97,7 @@ const SignUp = () => {
               nickname: "",
               id: "",
               password: "",
+              phoneNumber: "",
             }}
             validationSchema={validationSchema}
             onSubmit={submit}
@@ -137,6 +140,17 @@ const SignUp = () => {
                         label="닉네임*"
                       />
                       <ErrorBox>{errors.nickname}</ErrorBox>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        value={values.phoneNumber}
+                        fullWidth
+                        name="phoneNumber"
+                        variant="outlined"
+                        onChange={handleChange}
+                        label="전화번호*"
+                      />
+                      <ErrorBox>{errors.phoneNumber}</ErrorBox>
                     </Grid>
                     <Grid item xs={12}>
                       <TextField
@@ -220,7 +234,7 @@ const theme = createTheme({
 })
 
 const ErrorBox = styled(Box)({
-  color: "tomato",
+  color: "gray",
   fontSize: "0.8em",
   marginLeft: "7px",
 })
