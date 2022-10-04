@@ -11,7 +11,7 @@ import {
   DialogTitle,
 } from "@mui/material"
 import { useState } from "react"
-import Swal from "sweetalert2"
+
 import interceptor from "../../api/interceptor"
 import TextField from "@mui/material/TextField"
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
@@ -28,7 +28,7 @@ const CourseSide = (props) => {
   const parseDate = (newValue) => {
     if (newValue == null) return "0"
     let temp = newValue.$d.getFullYear().toString()
-    if (newValue.$d.getMonth() < 11) {
+    if (newValue.$d.getMonth() < 9) {
       temp = temp + "0" + (newValue.$d.getMonth() + 1).toString()
     } else {
       temp = temp + (newValue.$d.getMonth() + 1).toString()
@@ -61,7 +61,9 @@ const CourseSide = (props) => {
         tripName: "test",
       },
     })
-      .then((res) => {})
+      .then((res) => {
+        console.log("createsuccess")
+      })
       .catch((err) => {
         alert(err)
       })
@@ -72,7 +74,7 @@ const CourseSide = (props) => {
       <Box
         style={{
           backgroundColor: "white",
-          height: "100vh",
+          height: "92vh",
           width: "20vw",
           position: "absolute",
         }}
@@ -90,7 +92,7 @@ const CourseSide = (props) => {
               <TextField
                 {...params}
                 fullWidth
-                style={{ marginTop: "15px", marginBottom: "15px" }}
+                style={{ marginBottom: "15px" }}
               />
             )}
           />

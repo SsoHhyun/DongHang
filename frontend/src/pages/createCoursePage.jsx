@@ -41,8 +41,7 @@ const CreateCoursePage = () => {
   }
   return (
     <Box>
-      <Navbar></Navbar>
-      <Box>
+      <Box style={{ paddingTop: "8vh" }}>
         <CourseSide
           recommendspot={courseSpot}
           selectedSpot={selectedSpot}
