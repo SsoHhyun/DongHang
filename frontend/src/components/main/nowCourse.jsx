@@ -1,7 +1,7 @@
 import * as React from "react"
 import { Box, styled } from "@material-ui/core"
 import Timeline from "@mui/lab/Timeline"
-import TimelineItem from "@mui/lab/TimelineItem"
+import TimelineItem, { timelineItemClasses } from "@mui/lab/TimelineItem"
 import TimelineSeparator from "@mui/lab/TimelineSeparator"
 import TimelineConnector from "@mui/lab/TimelineConnector"
 import TimelineContent from "@mui/lab/TimelineContent"
@@ -10,37 +10,31 @@ import { useParams } from "react-router-dom"
 import { useEffect } from "react"
 import interceptor from "../../api/interceptor"
 
-const NowCourse = () => {
+const NowCourse = (props) => {
+  console.log(props)
   return (
-    <Timeline position="left">
-      <TimelineItem>
-        <TimelineSeparator>
-          <TimelineDot />
-          <TimelineConnector />
-        </TimelineSeparator>
-        <TimelineContent>Eat</TimelineContent>
-      </TimelineItem>
-      <TimelineItem>
-        <TimelineSeparator>
-          <TimelineDot />
-          <TimelineConnector />
-        </TimelineSeparator>
-        <TimelineContent>Code</TimelineContent>
-      </TimelineItem>
-      <TimelineItem>
-        <TimelineSeparator>
-          <TimelineDot />
-          <TimelineConnector />
-        </TimelineSeparator>
-        <TimelineContent>Sleep</TimelineContent>
-      </TimelineItem>
-      <TimelineItem>
-        <TimelineSeparator>
-          <TimelineDot />
-        </TimelineSeparator>
-        <TimelineContent>Repeat</TimelineContent>
-      </TimelineItem>
-    </Timeline>
+    <React.Fragment>
+      <Timeline
+        sx={{
+          [`& .${timelineItemClasses.root}:before`]: {
+            flex: 0,
+            padding: 0,
+          },
+        }}
+      >
+        {props.placeList.map((item, i) => (
+          <Box key={i} item={item}>
+            <TimelineItem>
+              <TimelineSeparator>
+                <TimelineDot />
+                <TimelineConnector />
+              </TimelineSeparator>
+              <TimelineContent>{item.title}</TimelineContent>
+            </TimelineItem>
+          </Box>
+        ))}
+      </Timeline>
+    </React.Fragment>
   )
 }
 

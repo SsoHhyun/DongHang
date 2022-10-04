@@ -95,41 +95,51 @@ const Mission = (props) => {
   const handlePhotoOpen = () => setPhotoOpen(true)
   const handlePhotoClose = () => setPhotoOpen(false)
 
-  // 미션 새로고침
-
-  // const rerollMission = () => {
-  //   setMission(recommendMission(missions))
-  // }
-
-  // 이미지 업로드 함수
-  const onChangeImg = async (e) => {
+  const [selectImages, setSelectImages] = useState()
+  const onClickImageHandler = (e) => {
     e.preventDefault()
-    if (e.target.files) {
-      const uploadFile = e.target.files[0]
-      const formData = new FormData()
-      formData.append("files", uploadFile)
-      interceptor({
-        url: "​/upload​/trip?tripNo=" + props.tripNo,
-        method: "post",
-        data: formData,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-        .then((res) => {
-          console.log(res.data)
-        })
-        .catch((err) => {
-          alert(err)
-        })
+    const url =
+      "http://j7a504.p.ssafy.io:8080/upload/trip/?tripNo=" + props.tripNo
+    console.log(selectImages)
+    const formData = new FormData()
+    formData.append("images", selectImages)
+
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+        Authorization: "Bearer " + localStorage.getItem("access-token"),
+      },
     }
+    axios.post(url, formData, config).then((res) => {
+      console.log(res.data)
+    })
+  }
+  const fileChangeHandler = (e) => {
+    const files = e.target.files[0]
+    setSelectImages(files)
+  }
+
+  // reroll 함수
+  const rerollMission = (missionNo) => {
+    console.log(1, props.tripNo)
+    interceptor({
+      url: `/api/mission/refresh?missionNo=${missionNo}&tripNo=${props.tripNo}`,
+      method: "get",
+    })
+      .then((res) => {
+        console.log(res)
+        axios.get(
+          "http://j7a504.p.ssafy.io:8080/api/mission/trip?tripNo=" +
+            props.tripNo
+        )
+      })
+      .catch((err) => {
+        alert(err)
+      })
   }
 
   return (
     <MissionBox>
-      {/* <IconButton onClick={() => rerollMission()}>
-        <RefreshIcon />
-      </IconButton> */}
       <Box>
         {mission.map((item, i) => (
           <Paper key={i} item={item}>
@@ -140,6 +150,11 @@ const Mission = (props) => {
                 ? "special mission"
                 : "custom mission"}
             </Box>
+            {item.missionCategoryNo === 2 ? null : (
+              <IconButton onClick={rerollMission(item.missionNo)}>
+                <RefreshIcon />
+              </IconButton>
+            )}
             <ContentBox>
               <Box>{item.content}</Box>
               <IconButton onClick={handlePhotoOpen}>
@@ -152,8 +167,12 @@ const Mission = (props) => {
                 aria-describedby="modal-modal-description"
               >
                 <PhotoModalBox>
-                  <input type="file" accept="image/*" />
-                  <Button onClick={onChangeImg}>업로드 하기</Button>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={fileChangeHandler}
+                  />
+                  <Button onClick={onClickImageHandler}>업로드 하기</Button>
                 </PhotoModalBox>
               </Modal>
             </ContentBox>

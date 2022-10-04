@@ -5,7 +5,7 @@ import RecommTrip from "../components/main/recommTrip"
 import Grid from "@mui/material/Grid/Grid"
 import NowCourse from "../components/main/nowCourse"
 import Mission from "../components/mission/mission"
-// import Fade from "react-reveal/Fade"
+import Fade from "react-reveal/Fade"
 import AOS from "aos"
 import "aos/dist/aos.css"
 import { setUserInfo } from "../features/user/userSlice"
@@ -78,24 +78,26 @@ const MainPage = () => {
       </RecomImg>
       {myTrip === null ? (
         <MainBackground>
-          <MainBox>
-            {/* 현재 진행중인 일정 */}
-            <CourseBox
-            // data-aos="fade-up"
-            // data-aos-anchor-placement="center-center"
-            >
-              현재 일정이 없습니다.
-              <Button onClick={() => navigate("/course/create")}>
-                일정 생성하기
-              </Button>
-            </CourseBox>
-            {/* 미션 */}
-            <MissionBox
-            // data-aos="fade-up"
-            // data-aos-anchor-placement="center-center"
-            >
-              현재 미션이 없습니다.
-            </MissionBox>
+          <MainBoxone>
+            <MainBoxtwo>
+              {/* 현재 진행중인 일정 */}
+              <CourseBox
+                data-aos="fade-up"
+                data-aos-anchor-placement="center-center"
+              >
+                현재 일정이 없습니다.
+                <Button onClick={() => navigate("/course/create")}>
+                  일정 생성하기
+                </Button>
+              </CourseBox>
+              {/* 미션 */}
+              <MissionBox
+                data-aos="fade-up"
+                data-aos-anchor-placement="center-center"
+              >
+                현재 미션이 없습니다.
+              </MissionBox>
+            </MainBoxtwo>
             <Button
               onClick={() => {
                 // getSurveyUrl()
@@ -104,25 +106,27 @@ const MainPage = () => {
             >
               설문 공유하기
             </Button>
-          </MainBox>
+          </MainBoxone>
         </MainBackground>
       ) : (
         <MainBackground>
-          <MainBox>
-            {/* 현재 진행중인 일정 */}
-            <CourseBox
-            // data-aos="fade-up"
-            // data-aos-anchor-placement="center-center"
-            >
-              <NowCourse tripNo={myTrip} placeList={myPlace}></NowCourse>
-            </CourseBox>
-            {/* 미션 */}
-            <MissionBox
-            // data-aos="fade-up"
-            // data-aos-anchor-placement="center-center"
-            >
-              <Mission tripNo={myTrip}></Mission>
-            </MissionBox>
+          <MainBoxone>
+            <MainBoxtwo>
+              {/* 현재 진행중인 일정 */}
+              <CourseBox
+                data-aos="fade-up"
+                data-aos-anchor-placement="center-center"
+              >
+                <NowCourse tripNo={myTrip} placeList={myPlace}></NowCourse>
+              </CourseBox>
+              {/* 미션 */}
+              <MissionBox
+                data-aos="fade-up"
+                data-aos-anchor-placement="center-center"
+              >
+                <Mission tripNo={myTrip}></Mission>
+              </MissionBox>
+            </MainBoxtwo>
             <Button
               onClick={() => {
                 // getSurveyUrl()
@@ -131,7 +135,7 @@ const MainPage = () => {
             >
               설문 공유하기
             </Button>
-          </MainBox>
+          </MainBoxone>
         </MainBackground>
       )}
     </Background>
@@ -164,9 +168,19 @@ const MainBackground = styled(Box)({
   background: "#d5c0b4",
 })
 
-const MainBox = styled(Box)({
+const MainBoxtwo = styled(Box)({
   display: "flex",
   flexDirection: "row",
+  justifyContent: "center",
+  alignItems: "center",
+  width: "80vw",
+  height: "100vh",
+  background: "white",
+})
+
+const MainBoxone = styled(Box)({
+  display: "flex",
+  flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
   width: "80vw",
