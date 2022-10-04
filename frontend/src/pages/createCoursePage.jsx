@@ -1,7 +1,6 @@
 //여행 일정 생성 페이지
 //http://localhost:3000/course/create
 import { Box } from "@mui/system"
-import Navbar from "../components/navbar"
 import CourseSide from "../components/coursePage/courseside"
 import Map from "../components/map"
 import { styled } from "@mui/material"
@@ -9,7 +8,7 @@ import RecommendBar from "../components/coursePage/recommendbar"
 import interceptor from "../api/interceptor"
 import React from "react"
 import { Button } from "@material-ui/core"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 const CreateCoursePage = () => {
   const [recommendspot, setRecommendspot] = useState([])
@@ -41,8 +40,9 @@ const CreateCoursePage = () => {
     // console.log(courseSpot)
   }
   return (
-    <Box>
-      <Box style={{ paddingTop: "8vh" }}>
+    <CourseContainer>
+      {/* 배경이미지만 */}
+      <Box style={{ paddingTop: "16vh" }}>
         <CourseSide
           recommendspot={courseSpot}
           selectedSpot={selectedSpot}
@@ -65,11 +65,11 @@ const CreateCoursePage = () => {
           ></Map>
         </MapWrapper>
         <Button
+          variant="contained"
           style={{
             position: "absolute",
-            top: "55%",
-            right: "0",
-            backgroundColor: "white",
+            top: "65%",
+            right: "17vw",
           }}
           onClick={() => {
             interceptor({
@@ -115,16 +115,25 @@ const CreateCoursePage = () => {
           restaurants={restuarants}
         ></RecommendBar>
       </Box>
-    </Box>
+    </CourseContainer>
   )
 }
 export default CreateCoursePage
 
 const MapWrapper = styled(Box)({
-  width: "80vw",
-  height: "62vh",
+  width: "60vw",
+  height: "48vh",
   position: "absolute",
-  top: 0,
-  right: 0,
+  paddingTop: "8vh",
+  left: "23vw",
   zIndex: -1,
+})
+const CourseContainer = styled(Box)({
+  width: "100vw",
+  height: "100vh",
+  backgroundImage: "url(" + "img/kyeongju.jpg" + ")",
+  backgroundRepeat: "no-repeat",
+  backgroundSize: "cover",
+  backgroundAttachment: "fixed",
+  backgroundPosition: "top center",
 })

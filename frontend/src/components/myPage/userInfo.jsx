@@ -33,7 +33,7 @@ const Info = () => {
             />
           </UserPhoto>
           <UserName>
-            <MyName defaultValue={user.nickname}></MyName>
+            <MyName>{user.nickname}</MyName>
             <UserId>{`@${user.id}`}</UserId>
           </UserName>
         </UserInfo>
@@ -42,14 +42,16 @@ const Info = () => {
       <User elevation={2}>
         <Phone>
           <SmartphoneIcon />
-          <PhoneNumber defaultValue={user.phoneNumber}></PhoneNumber>
+          <Explain>전화번호</Explain>
+          <PhoneNumber>{user.phoneNumber}</PhoneNumber>
         </Phone>
         <EditBtn>수정</EditBtn>
       </User>
       <User elevation={2}>
         <Email>
           <EmailIcon />
-          <EmailAddress defaultValue={user.email}></EmailAddress>
+          <Explain>이메일</Explain>
+          <EmailAddress>{user.email}</EmailAddress>
         </Email>
         <EditBtn>수정</EditBtn>
       </User>
@@ -87,7 +89,7 @@ const User = styled(Paper)({
   marginRight: "4rem",
   marginBottom: "1rem",
   marginTop: "1rem",
-  borderRadius: 10,
+  borderRadius: 5,
   backgroundColor: "white",
 })
 
@@ -116,21 +118,24 @@ const UserName = styled(Box)({
   alignItems: "start",
 })
 
-const MyName = styled(Input)({
-  color: "#c19a6b",
+const MyName = styled(Typography)({
+  color: "#1976D2",
   fontWeight: "bold",
-  fontSize: 25,
-  fontFamily: "HallymGothic-Regular",
+  fontSize: 30,
+  fontFamily: "IBMPlexSansKR-Regular",
 })
 
-const UserId = styled(Typography)({
+export const UserId = styled(Typography)({
   color: "grey",
   fontFamily: "HallymGothic-Regular",
 })
 
 const EditBtn = styled(Button)({
   margin: "2rem",
-  color: "crimson",
+  color: "grey",
+  borderRadius: 30,
+  fontFamily: "HallymGothic-Regular",
+  border: "solid 1px",
 })
 
 const Phone = styled(Box)({
@@ -140,6 +145,12 @@ const Phone = styled(Box)({
   alignItems: "center",
 })
 
+const Explain = styled(Typography)({
+  fontFamily: "HallymGothic-Regular",
+  marginLeft: 10,
+  fontWeight: "bold",
+})
+
 const Email = styled(Box)({
   marginLeft: "2rem",
   display: "flex",
@@ -147,16 +158,18 @@ const Email = styled(Box)({
   alignItems: "center",
 })
 
-const PhoneNumber = styled(Input)({
+const PhoneNumber = styled(Typography)({
   marginLeft: "1rem",
-  color: "grey",
-  fontSize: 17,
+  color: "#1976D2",
+  fontSize: 19,
+  fontWeight: "bold",
   fontFamily: "HallymGothic-Regular",
 })
 
-const EmailAddress = styled(Input)({
+const EmailAddress = styled(Typography)({
   marginLeft: "1rem",
-  color: "grey",
-  fontSize: 17,
-  fontFamily: "HallymGothic-Regular",
+  color: "#1976D2",
+  fontWeight: "bold",
+  fontSize: 19,
+  fontFamily: "IBMPlexSansKR-Regular",
 })

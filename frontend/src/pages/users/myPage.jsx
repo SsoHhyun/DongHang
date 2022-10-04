@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import PropTypes from "prop-types"
-import Badge from "../../components/myPage/badge"
+// import Badge from "../../components/myPage/badge"
 import Info from "../../components/myPage/userInfo"
 import LastTrip from "../../components/myPage/lastTrip"
 import Album from "../../components/myPage/album"
@@ -8,8 +8,10 @@ import { Box, Paper, styled, Tab, Tabs, Typography } from "@mui/material"
 import { useSelector, useDispatch } from "react-redux/es/exports"
 import { setUserInfo } from "../../features/user/userSlice"
 import interceptor from "../../api/interceptor"
-import Img from "../mainPage"
 import "../../App.css"
+import PermIdentityIcon from "@mui/icons-material/PermIdentity"
+import MapIcon from "@mui/icons-material/Map"
+import { UserId } from "../../components/myPage/userInfo"
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props
@@ -58,17 +60,32 @@ const MyPage = () => {
   return (
     <Container>
       <Background>
-        <SideBar elevation={2}>
+        <SideBar elevation={0}>
           <Profile>
             <Photo src={user.profileImage} alt="profile" />
             <Name>{user.nickname}</Name>
+            <UserId>{`@${user.id}`}</UserId>
           </Profile>
-          <MyTabs orientation="vertical" value={value} onChange={handleChange}>
-            <MyTab label="내 정보" value={1} />
+          <hr color="lightGrey" width="85%"></hr>
+          <MyTabs
+            orientation="vertical"
+            value={value}
+            onChange={handleChange}
+            indicatorColor="undefined"
+            textColor="inherit"
+          >
+            <MyTab
+              label="내 정보"
+              value={1}
+              icon={<PermIdentityIcon />}
+              iconPosition="start"
+            />
             {/* <MyTab label="뱃지" value={2} /> */}
             <MyTab
               label="지난 여행"
               value={3}
+              icon={<MapIcon />}
+              iconPosition="start"
               onClick={() => setAlbumOpen(false)}
             />
           </MyTabs>
@@ -101,7 +118,6 @@ export default MyPage
 const Container = styled(Box)({
   width: "100vw",
   height: "100vh",
-  // backgroundImage: "url(" + "img/water.jpg" + ")",
   backgroundImage: "url(" + "img/kyeongju.jpg" + ")",
   backgroundRepeat: "no-repeat",
   backgroundSize: "cover",
@@ -111,23 +127,24 @@ const Container = styled(Box)({
 
 const Background = styled(Box)({
   display: "flex",
+  paddingTop: "8vh",
   justifyContent: "center",
   alignItems: "center",
   width: "100%",
-  height: "100%",
+  height: "92%",
   backgroundColor: "rgba(0, 0, 0, 0.4)",
   position: "absolute",
 })
 
 const SideBar = styled(Paper)({
-  height: "90vh",
-  width: "20vw",
+  height: "80vh",
+  width: "18vw",
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-evenly",
   alignItems: "space-evenly",
-  borderRadius: 15,
-  // background: "linear-gradient(135deg, white, beige)",
+  borderRadius: 5,
+  // background: "linear-gradient(135deg, white, chocolate)",
 })
 
 const Profile = styled(Box)({
@@ -145,24 +162,18 @@ export const Photo = styled("img")({
 })
 
 export const Name = styled(Typography)({
-  color: "#c19a6b",
+  color: "dark",
   fontWeight: "bold",
   fontSize: 30,
   fontFamily: "HallymGothic-Regular",
 })
 
-const MyTabs = styled(Tabs)({
-  // height: "50vh",
-})
+const MyTabs = styled(Tabs)({})
 
 const MyTab = styled(Tab)({
-  margin: "1rem",
-  color: "black",
+  color: "#1976D2",
   fontSize: 16,
   fontWeight: "bold",
-  // border: "solid",
   borderRadius: 10,
-  backgroundColor: "primary",
+  fontFamily: "HallymGothic-Regular",
 })
-
-// const MyTabPanel = styled(Box)({});
