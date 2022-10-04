@@ -1,25 +1,20 @@
 package com.team.pj.donghang.api.controller;
 
-import com.team.pj.donghang.api.response.TripResponseDto;
-import com.team.pj.donghang.domain.entity.CustomUserDetails;
-import com.team.pj.donghang.domain.entity.Mission;
-import com.team.pj.donghang.domain.entity.User;
+import com.team.pj.donghang.api.request.TripMissionCreateDto;
+import com.team.pj.donghang.domain.entity.*;
 import com.team.pj.donghang.service.MissionService;
 import com.team.pj.donghang.service.TripMissionService;
 import com.team.pj.donghang.service.TripService;
 import io.swagger.annotations.*;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 @Api(value = "미션 관리 API")
 @CrossOrigin("*")
@@ -50,6 +45,52 @@ public class MissionController {
         return ResponseEntity.status(HttpStatus.OK).body(missions);
     }
 
+    @Transactional
+    @PostMapping("")
+    @ApiOperation(value = "커스텀 미션 추가")
+    public ResponseEntity<?> addMission(
+            @ApiIgnore Authentication authentication,
+            @ApiParam(value = "미션의 내용과 trip_no", required = true)
+            @RequestBody TripMissionCreateDto tripMissionCreateDto
+    ) {
+        CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getDetails();
+
+        User user = customUserDetails.getUser();
+
+        Mission mission = Mission.builder()
+                .content(tripMissionCreateDto.getContent())
+                .missionCategoryNo(2L) // 2번이 커스텀 미션
+                .user(user)
+                .build();
+
+        missionService.addMission(mission);
+
+        tripMissionService.addTripMission(
+                TripMission.builder()
+                        .mission(mission)
+                        .trip(tripService.getTripInfo(tripMissionCreateDto.getTripNo()))
+                        .build()
+        );
+
+        return ResponseEntity.status(HttpStatus.CREATED).body("CREATED");
+    }
+
+    @Transactional
+    @DeleteMapping("")
+    @ApiOperation(value = "커스텀 미션 삭제")
+    public ResponseEntity<?> removeMission(
+            @ApiParam(value = "삭제할 mission_no")
+            @RequestParam
+            Long missionNo
+    ) {
+
+        tripMissionService.deleteTripMission(missionNo);
+        missionService.deleteCustomMission(missionNo);
+
+        return ResponseEntity.status(HttpStatus.OK).body("REMOVED");
+    }
+
+
     @GetMapping("/refresh")
     @ApiOperation(
             value = "특정 여행의 특정 미션을 교체한다",
@@ -62,4 +103,5 @@ public class MissionController {
         Mission result = missionService.refreshMission(missionNo, tripNo);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
+
 }
