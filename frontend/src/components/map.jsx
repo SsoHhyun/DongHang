@@ -35,7 +35,11 @@ const Map = (props) => {
           props.recommendspot[i].mapy,
           props.recommendspot[i].mapx
         ),
-        content: "<div>" + props.recommendspot[i].title + "</div>",
+        content: `<div><img src=${
+          props.recommendspot[i].firstImage1
+        } style="height:60px;width:150px"><br>${(i + 1).toString()}. ${
+          props.recommendspot[i].title
+        }</div>`,
       })
     }
     // 마커 이미지의 이미지 주소입니다
@@ -69,9 +73,9 @@ const Map = (props) => {
         "mouseout",
         makeOutListener(infowindow)
       )
+
       marker.setMap(map)
     }
-
     kakao.maps.event.addListener(map, "zoom_changed", function () {
       props.setLevel(map.getLevel())
     })
