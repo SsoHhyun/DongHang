@@ -5,8 +5,6 @@ import com.team.pj.donghang.repository.TripMissionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class TripMissionServiceImpl implements TripMissionService {
 
@@ -20,6 +18,6 @@ public class TripMissionServiceImpl implements TripMissionService {
 
     @Override
     public void deleteTripMission(Long missionNo) {
-        tripMissionRepository.removeTripMissionByMission_MissionNoIs(missionNo);
+        tripMissionRepository.removeTripMissionByMission_MissionNo(missionNo);
     }
 }
