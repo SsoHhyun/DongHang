@@ -19,7 +19,8 @@ import { useState } from "react"
 const MainPage = () => {
   const navigate = useNavigate()
 
-  const [myTrip, setTripNo] = useState(0)
+  const [myTrip, setMyTrip] = useState(0)
+  const [myPlace, setMyPlace] = useState([])
 
   // 섹션 넘어가는 애니메이션
   // window.addEventListener(
@@ -48,7 +49,6 @@ const MainPage = () => {
   //   mBackground.animate({ scrollTop: posTop })
   // })
   const dispatch = useDispatch()
-  var tripNoArr = []
 
   useEffect(() => {
     AOS.init()
@@ -62,13 +62,12 @@ const MainPage = () => {
 
   useEffect(() => {
     interceptor({
-      url: "/api/trip/getMyTripList",
+      url: "/api/trip/getTodayTrip",
       method: "get",
     }).then((res) => {
-      res.data.map(function (tripObj) {
-        tripNoArr.push(tripObj.tripNo)
-      })
-      console.log(tripNoArr)
+      console.log(res.data)
+      setMyTrip(res.data.tripNo)
+      setMyPlace(res.data.placeList)
     })
   }, [])
 
@@ -77,32 +76,64 @@ const MainPage = () => {
       <RecomImg>
         <Img src="img/fall.jpg" alt="" />
       </RecomImg>
-      <MainBackground>
-        <MainBox>
-          {/* 현재 진행중인 일정 */}
-          <CourseBox
-          // data-aos="fade-up"
-          // data-aos-anchor-placement="center-center"
-          >
-            <NowCourse></NowCourse>
-          </CourseBox>
-          {/* 미션 */}
-          <MissionBox
-          // data-aos="fade-up"
-          // data-aos-anchor-placement="center-center"
-          >
-            <Mission></Mission>
-          </MissionBox>
-          <Button
-            onClick={() => {
-              // getSurveyUrl()
-              navigate("/survey/info")
-            }}
-          >
-            설문 공유하기
-          </Button>
-        </MainBox>
-      </MainBackground>
+      {myTrip === null ? (
+        <MainBackground>
+          <MainBox>
+            {/* 현재 진행중인 일정 */}
+            <CourseBox
+            // data-aos="fade-up"
+            // data-aos-anchor-placement="center-center"
+            >
+              현재 일정이 없습니다.
+              <Button onClick={() => navigate("/course/create")}>
+                일정 생성하기
+              </Button>
+            </CourseBox>
+            {/* 미션 */}
+            <MissionBox
+            // data-aos="fade-up"
+            // data-aos-anchor-placement="center-center"
+            >
+              현재 미션이 없습니다.
+            </MissionBox>
+            <Button
+              onClick={() => {
+                // getSurveyUrl()
+                navigate("/survey/info")
+              }}
+            >
+              설문 공유하기
+            </Button>
+          </MainBox>
+        </MainBackground>
+      ) : (
+        <MainBackground>
+          <MainBox>
+            {/* 현재 진행중인 일정 */}
+            <CourseBox
+            // data-aos="fade-up"
+            // data-aos-anchor-placement="center-center"
+            >
+              <NowCourse tripNo={myTrip} placeList={myPlace}></NowCourse>
+            </CourseBox>
+            {/* 미션 */}
+            <MissionBox
+            // data-aos="fade-up"
+            // data-aos-anchor-placement="center-center"
+            >
+              <Mission tripNo={myTrip}></Mission>
+            </MissionBox>
+            <Button
+              onClick={() => {
+                // getSurveyUrl()
+                navigate("/survey/info")
+              }}
+            >
+              설문 공유하기
+            </Button>
+          </MainBox>
+        </MainBackground>
+      )}
     </Background>
   )
 }

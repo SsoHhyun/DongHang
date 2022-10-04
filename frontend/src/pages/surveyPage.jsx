@@ -32,9 +32,12 @@ const questionList = [
   "나이대가 어떻게 되시나요?",
 ]
 
+// localhost:3000
+
 const SurveyPage = () => {
   const { search } = useLocation()
-  // console.log(search)
+  const { type } = queryString.parse(search)
+  console.log(search)
 
   const dispatch = useDispatch()
   const formik = useFormik({
@@ -50,8 +53,9 @@ const SurveyPage = () => {
     },
     onSubmit: async (data) => {
       console.log(data)
+      console.log(type)
       interceptor({
-        url: "/survey/key=" + `${search}`,
+        url: "/survey?url=" + search.substring(1),
         method: "put",
         data: data,
       })

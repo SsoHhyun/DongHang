@@ -11,19 +11,6 @@ import { useEffect } from "react"
 import interceptor from "../../api/interceptor"
 
 const NowCourse = () => {
-  useEffect(() => {
-    interceptor({
-      url: "/api/trip/getMyTripList",
-      method: "get",
-    })
-      .then((res) => {
-        console.log(res)
-      })
-      .catch((err) => {
-        alert(err)
-      })
-  }, [])
-
   return (
     <Timeline position="left">
       <TimelineItem>

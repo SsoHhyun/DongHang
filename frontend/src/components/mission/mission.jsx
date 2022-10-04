@@ -70,19 +70,23 @@ var missions = [
   },
 ]
 
-const Mission = () => {
-  // useEffect(() => {
-  //   interceptor({
-  //     url: "/api/mission/trip",
-  //     method: "get",
-  //   })
-  //     .then((res) => {
-  //       console.log(res.data)
-  //     })
-  //     .catch((err) => {
-  //       alert(err)
-  //     })
-  // }, [])
+const Mission = (props) => {
+  const [mission, setMission] = useState([])
+
+  if (props.tripNo !== 0 && mission.length === 0) {
+    interceptor({
+      url: "/api/mission/trip?tripNo=" + props.tripNo,
+      method: "get",
+    })
+      .then((res) => {
+        console.log(res.data)
+        setMission(res.data)
+      })
+      .catch((err) => {
+        alert(err)
+      })
+  }
+
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
@@ -91,50 +95,23 @@ const Mission = () => {
   const handlePhotoOpen = () => setPhotoOpen(true)
   const handlePhotoClose = () => setPhotoOpen(false)
 
-  const recommendMission = function (arr) {
-    const randomSet = new Set()
-    let flag = true
-    const resultArr = []
-
-    // 랜덤한 숫자 뽑아오기
-    function rand(min, max) {
-      return Math.floor(Math.random() * (max - min + 1)) + min
-    }
-
-    while (flag) {
-      randomSet.add(rand(0, arr.length - 1))
-      if (randomSet.size == 3) {
-        flag = false
-      }
-    }
-
-    for (let item of randomSet) {
-      resultArr.push(arr[item])
-    }
-
-    return resultArr
-  }
-
   // 미션 새로고침
-  const [mission, setMission] = useState(recommendMission(missions))
-  const rerollMission = () => {
-    setMission(recommendMission(missions))
-  }
+
+  // const rerollMission = () => {
+  //   setMission(recommendMission(missions))
+  // }
 
   // 이미지 업로드 함수
   const onChangeImg = async (e) => {
     e.preventDefault()
-
     if (e.target.files) {
       const uploadFile = e.target.files[0]
-      console.log(uploadFile)
       const formData = new FormData()
       formData.append("files", uploadFile)
-      console.log(formData)
       interceptor({
-        url: "​/upload​/trip?tripNo=",
-        // + tripno,
+        url: "​/upload​/trip?tripNo=" + props.tripNo,
         method: "post",
+        data: formData,
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -150,15 +127,21 @@ const Mission = () => {
 
   return (
     <MissionBox>
-      <IconButton onClick={() => rerollMission()}>
+      {/* <IconButton onClick={() => rerollMission()}>
         <RefreshIcon />
-      </IconButton>
+      </IconButton> */}
       <Box>
         {mission.map((item, i) => (
           <Paper key={i} item={item}>
-            <Box>{item.name}</Box>
+            <Box>
+              {item.missionCategoryNo === 0
+                ? "mission"
+                : item.missionCategoryNo === 1
+                ? "special mission"
+                : "custom mission"}
+            </Box>
             <ContentBox>
-              <Box>{item.description}</Box>
+              <Box>{item.content}</Box>
               <IconButton onClick={handlePhotoOpen}>
                 <CameraAltIcon />
               </IconButton>
@@ -169,8 +152,8 @@ const Mission = () => {
                 aria-describedby="modal-modal-description"
               >
                 <PhotoModalBox>
-                  <input type="file" />
-                  <Button>인증</Button>
+                  <input type="file" accept="image/*" />
+                  <Button onClick={onChangeImg}>업로드 하기</Button>
                 </PhotoModalBox>
               </Modal>
             </ContentBox>
@@ -185,7 +168,10 @@ const Mission = () => {
         aria-describedby="modal-modal-description"
       >
         <ModalBox>
-          <CreateMission></CreateMission>
+          <CreateMission
+            tripNo={props.tripNo}
+            setOpen={setOpen}
+          ></CreateMission>
         </ModalBox>
       </Modal>
     </MissionBox>
