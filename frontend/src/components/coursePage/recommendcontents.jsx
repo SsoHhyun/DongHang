@@ -32,14 +32,29 @@ const RecommendContents = (props) => {
       }}
     >
       <CardActionArea>
-        <CardMedia
-          component="img"
-          image={props.spot.firstImage1}
-          alt="image not found"
-          height="100"
-        />
+        {props.spot.firstImage1 === "" ? (
+          <CardMedia
+            component="img"
+            image="../img/kyeongju.jpg"
+            alt="image not found"
+            height="100"
+          />
+        ) : (
+          <CardMedia
+            component="img"
+            image={props.spot.firstImage1}
+            alt="image not found"
+            height="100"
+          />
+        )}
+
         <CardContent>
-          <Typography gutterBottom variant="h7" component="div">
+          <Typography
+            gutterBottom
+            variant="h7"
+            component="div"
+            style={{ textOverflow: "ellipsis", width: "80px" }}
+          >
             {props.spot.title}
           </Typography>
         </CardContent>

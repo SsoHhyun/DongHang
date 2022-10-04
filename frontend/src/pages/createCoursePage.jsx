@@ -8,15 +8,24 @@ import { styled } from "@mui/material"
 import RecommendBar from "../components/coursePage/recommendbar"
 import interceptor from "../api/interceptor"
 import React from "react"
+import { Button } from "@material-ui/core"
 import { useEffect, useState } from "react"
 
 const CreateCoursePage = () => {
   const [courseSpot, setCourseSpot] = useState([])
   const [recommendspot, setRecommendspot] = useState([])
+  const [restuarants, setRestuarants] = useState([])
   const addCourseList = (spotdata) => {
     setCourseSpot([...courseSpot, spotdata])
     //console.log(courseSpotspot)
   }
+  const [currentSpot, setCurrentSpot] = useState({
+    mapy1: "37.49817473153595",
+    mapy2: "37.51783576502551",
+    mapx1: "127.03121197537305",
+    mapx2: "127.07049421820354",
+  })
+
   const [selectedSpot, setSelectedSpot] = useState({
     title: "삼성역",
     mapy: 37.50802,
@@ -30,24 +39,6 @@ const CreateCoursePage = () => {
     setCourseSpot([...temp, ...temp2])
     // console.log(courseSpot)
   }
-  useEffect(() => {
-    interceptor({
-      url: "/api/trip?tripNo=2019",
-      method: "get",
-    })
-      .then((res) => {
-        for (let i = 0; i < res.data.placeList.length; i++) {
-          setRecommendspot((recommendspot) => [
-            ...recommendspot,
-            res.data.placeList[i],
-          ])
-          console.log(res.data)
-        }
-      })
-      .catch((err) => {
-        alert(err)
-      })
-  }, [])
   return (
     <Box>
       <Navbar></Navbar>
@@ -67,13 +58,59 @@ const CreateCoursePage = () => {
             // center={{ lat: selectedSpot.mapy, lng: selectedSpot.mapx }}
             recommendspot={courseSpot}
             selectedSpot={selectedSpot}
+            setCurrentSpot={setCurrentSpot}
+            setSelectedSpot={setSelectedSpot}
           ></Map>
         </MapWrapper>
+        <Button
+          style={{
+            position: "absolute",
+            top: "55%",
+            right: "0",
+            backgroundColor: "white",
+          }}
+          onClick={() => {
+            interceptor({
+              url: `/api/place/recommend?mapx1=${currentSpot.mapx1}&mapx2=${currentSpot.mapx2}&mapy1=${currentSpot.mapy1}&mapy2=${currentSpot.mapy2}`,
+              method: "get",
+            })
+              .then((res) => {
+                setRecommendspot([])
+                for (let i = 0; i < res.data.length; i++) {
+                  if (i > 20) break
+                  setRecommendspot((recommendspot) => [
+                    ...recommendspot,
+                    res.data[i],
+                  ])
+                }
+              })
+              .catch((err) => {
+                alert(err)
+              })
+            interceptor({
+              url: `/api/place/restaurants?mapx1=${currentSpot.mapx1}&mapx2=${currentSpot.mapx2}&mapy1=${currentSpot.mapy1}&mapy2=${currentSpot.mapy2}`,
+              method: "get",
+            })
+              .then((res) => {
+                setRestuarants([])
+                for (let i = 0; i < res.data.length; i++) {
+                  if (i > 20) break
+                  setRestuarants((restaurants) => [...restaurants, res.data[i]])
+                }
+              })
+              .catch((err) => {
+                alert(err)
+              })
+          }}
+        >
+          추천받기
+        </Button>
         <RecommendBar
           recommendspot={recommendspot}
           addCourseList={addCourseList}
           setSelectedSpot={setSelectedSpot}
           selectedSpot={selectedSpot}
+          restaurants={restuarants}
         ></RecommendBar>
       </Box>
     </Box>

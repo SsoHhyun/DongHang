@@ -11,7 +11,7 @@ import {
   DialogTitle,
 } from "@mui/material"
 import { useState } from "react"
-
+import Swal from "sweetalert2"
 import interceptor from "../../api/interceptor"
 import TextField from "@mui/material/TextField"
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
@@ -28,7 +28,7 @@ const CourseSide = (props) => {
   const parseDate = (newValue) => {
     if (newValue == null) return "0"
     let temp = newValue.$d.getFullYear().toString()
-    if (newValue.$d.getMonth() < 10) {
+    if (newValue.$d.getMonth() < 11) {
       temp = temp + "0" + (newValue.$d.getMonth() + 1).toString()
     } else {
       temp = temp + (newValue.$d.getMonth() + 1).toString()

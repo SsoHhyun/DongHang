@@ -56,7 +56,7 @@ const SideContents = (props) => {
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          <SpotDetail></SpotDetail>
+          <SpotDetail spot={props.spot}></SpotDetail>
         </Dialog>
       </CardActions>
     </Card>
