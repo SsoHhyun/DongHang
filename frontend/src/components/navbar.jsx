@@ -1,20 +1,21 @@
 //navbar 틀만
-import React, { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Box, styled, Paper } from "@mui/material";
-import Swal from "sweetalert2";
+import React, { useState, useEffect } from "react"
+import { Link, useLocation, useNavigate } from "react-router-dom"
+import { Box, styled, Paper, Typography } from "@mui/material"
+import "../App.css"
+import Swal from "sweetalert2"
 
 const Navbar = () => {
-  const [isLogin, setIslogin] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isLogin, setIslogin] = useState(false)
+  const [isExpanded, setIsExpanded] = useState(false)
 
-  const location = useLocation();
-  const navigate = useNavigate();
+  const location = useLocation()
+  const navigate = useNavigate()
 
   const handleMenuClick = () => {
-    setIsExpanded(!isExpanded);
-    console.log(isExpanded);
-  };
+    setIsExpanded(!isExpanded)
+    console.log(isExpanded)
+  }
 
   useEffect(() => {
     //잘못된 접근 제한
@@ -23,46 +24,108 @@ const Navbar = () => {
         window.location.pathname === "/login" ||
         window.location.pathname === "/signup"
       )
-        navigate("/");
+        navigate("/")
     }
 
     if (localStorage.getItem("access-token")) {
-      setIslogin(true);
+      setIslogin(true)
     } else {
-      setIslogin(false);
+      setIslogin(false)
     }
-  }, [location]);
+  }, [location])
 
   return (
     <Container>
       <Navigate>
-        <PageLink to="/">동행</PageLink>
+        <Logo to="/">동행</Logo>
         {!isLogin ? (
-          <>
-            <PageLink to="/login">로그인</PageLink>
-            <PageLink to="/signup">회원가입</PageLink>
-          </>
+          <Links>
+            <LinkBox to="/login">
+              <PageLink>로그인</PageLink>
+              <LinkEng>login</LinkEng>
+            </LinkBox>
+            <LinkBox to="/signup">
+              <PageLink>회원가입</PageLink>
+              <LinkEng>signup</LinkEng>
+            </LinkBox>
+          </Links>
         ) : (
-          <>
-            <PageLink to="/logout">로그아웃</PageLink>
-            <PageLink to="/mypage">My Page</PageLink>
-            <PageLink to="/course/create">코스생성</PageLink>
-          </>
+          <Links>
+            <LinkBox to="/course/create">
+              <PageLink>여행하기</PageLink>
+              <LinkEng>course</LinkEng>
+            </LinkBox>
+            <LinkBox to="/mypage">
+              <PageLink>마이페이지</PageLink>
+              <LinkEng>my page</LinkEng>
+            </LinkBox>
+            <LinkBox to="/logout">
+              <PageLink>로그아웃</PageLink>
+              <LinkEng>logout</LinkEng>
+            </LinkBox>
+          </Links>
         )}
       </Navigate>
     </Container>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar
 
 const Container = styled(Box)({
   position: "fixed",
   width: "100vw",
   height: "8vh",
   zIndex: 100,
-});
+})
 
-const Navigate = styled(Box)({});
+const Navigate = styled(Box)({
+  // fontFamily: "HallymGothic-Regular",
 
-const PageLink = styled(Link)({});
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+})
+
+const Logo = styled(Link)({
+  textDecoration: "none",
+  fontFamily: "Makgeolli",
+  fontSize: 60,
+  margin: "2rem",
+  marginLeft: "3rem",
+  color: "black",
+})
+
+const Links = styled(Box)({
+  marginRight: "3rem",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+})
+
+const LinkBox = styled(Link)({
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "right",
+  alignItems: "end",
+  margin: "2rem",
+  textShadow: "1px 1px 3px #000000",
+  textDecoration: "none",
+})
+
+const PageLink = styled(Typography)({
+  color: "white",
+  fontFamily: "JSongMyung-Regular-KO",
+  fontSize: 18,
+  // fontWeight: "bold",
+  // "&:hover": {
+  //   animation: "animate__pulse",
+  //   animationDuration: "1s",
+  // },
+})
+
+const LinkEng = styled(Typography)({
+  fontFamily: "JSongMyung-Regular-KO",
+  fontSize: 14,
+  color: "white",
+})

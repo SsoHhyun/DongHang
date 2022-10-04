@@ -1,8 +1,7 @@
-import React from "react";
-import { BrowserRouter } from "react-router-dom";
-import Navbar from "./components/navbar.jsx";
-import Router from "./router/router.jsx";
-import { configureStore } from "@reduxjs/toolkit";
+import React from "react"
+import { BrowserRouter } from "react-router-dom"
+import Navbar from "./components/navbar.jsx"
+import Router from "./router/router.jsx"
 
 function App() {
   return (
@@ -14,7 +13,7 @@ function App() {
         </BrowserRouter>
       </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
