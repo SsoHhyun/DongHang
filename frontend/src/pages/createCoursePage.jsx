@@ -12,10 +12,10 @@ import { Button } from "@material-ui/core"
 import { useEffect, useState } from "react"
 
 const CreateCoursePage = () => {
-  const [courseSpot, setCourseSpot] = useState([])
   const [recommendspot, setRecommendspot] = useState([])
   const [restuarants, setRestuarants] = useState([])
   const [level, setLevel] = useState(3)
+  const [courseSpot, setCourseSpot] = useState([])
   const addCourseList = (spotdata) => {
     setCourseSpot([...courseSpot, spotdata])
     //console.log(courseSpotspot)
