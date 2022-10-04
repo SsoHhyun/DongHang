@@ -51,7 +51,7 @@ const SurveyPage = () => {
     onSubmit: async (data) => {
       console.log(data)
       interceptor({
-        url: "/survey/key=" + search,
+        url: "/survey/key=" + `${search}`,
         method: "put",
         data: data,
       })
