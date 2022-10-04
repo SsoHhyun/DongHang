@@ -4,11 +4,14 @@ import axios from "axios"
 import interceptor from "../../api/interceptor"
 
 const CreateMission = () => {
-  const CreateMissionRequest = (method, url, data) => {
+  const CreateMissionRequest = (url, method, data) => {
     interceptor({
-      url: "/mission/create",
+      url: "/api/mission",
       method: "post",
+      data,
     })
+    console
+      .log(data)
       .then((res) => {
         console.log(res.data)
       })

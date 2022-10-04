@@ -14,9 +14,12 @@ import SurveyOpen from "../components/main/surveyOpen"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
 import interceptor from "../api/interceptor"
+import { useState } from "react"
 
 const MainPage = () => {
   const navigate = useNavigate()
+
+  const [myTrip, setTripNo] = useState(0)
 
   // 섹션 넘어가는 애니메이션
   // window.addEventListener(
@@ -45,6 +48,7 @@ const MainPage = () => {
   //   mBackground.animate({ scrollTop: posTop })
   // })
   const dispatch = useDispatch()
+  var tripNoArr = []
 
   useEffect(() => {
     AOS.init()
@@ -53,6 +57,18 @@ const MainPage = () => {
       method: "get",
     }).then((res) => {
       dispatch(setUserInfo(res.data))
+    })
+  }, [])
+
+  useEffect(() => {
+    interceptor({
+      url: "/api/trip/getMyTripList",
+      method: "get",
+    }).then((res) => {
+      res.data.map(function (tripObj) {
+        tripNoArr.push(tripObj.tripNo)
+      })
+      console.log(tripNoArr)
     })
   }, [])
 

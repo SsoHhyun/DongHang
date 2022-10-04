@@ -1,4 +1,4 @@
-import { React, useState } from "react"
+import { React, useState, useEffect } from "react"
 import { Box, styled, Grid, Paper, Button, IconButton } from "@material-ui/core"
 import Carousel from "react-material-ui-carousel"
 import CameraAltIcon from "@mui/icons-material/CameraAlt"
@@ -71,6 +71,18 @@ var missions = [
 ]
 
 const Mission = () => {
+  // useEffect(() => {
+  //   interceptor({
+  //     url: "/api/mission/trip",
+  //     method: "get",
+  //   })
+  //     .then((res) => {
+  //       console.log(res.data)
+  //     })
+  //     .catch((err) => {
+  //       alert(err)
+  //     })
+  // }, [])
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
@@ -127,7 +139,9 @@ const Mission = () => {
           "Content-Type": "multipart/form-data",
         },
       })
-        .then((res) => {})
+        .then((res) => {
+          console.log(res.data)
+        })
         .catch((err) => {
           alert(err)
         })
