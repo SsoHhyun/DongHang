@@ -8,6 +8,8 @@ import { Box, Paper, styled, Tab, Tabs, Typography } from "@mui/material"
 import { useSelector, useDispatch } from "react-redux/es/exports"
 import { setUserInfo } from "../../features/user/userSlice"
 import interceptor from "../../api/interceptor"
+import Img from "../mainPage"
+import "../../App.css"
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props
@@ -55,34 +57,36 @@ const MyPage = () => {
   }
   return (
     <Container>
-      <SideBar elevation={2}>
-        <Profile>
-          <Photo src={user.profileImage} alt="profile" />
-          <Name>{user.nickname}</Name>
-        </Profile>
-        <MyTabs orientation="vertical" value={value} onChange={handleChange}>
-          <MyTab label="내 정보" value={1} />
-          <MyTab label="뱃지" value={2} />
-          <MyTab
-            label="지난 여행"
-            value={3}
-            onClick={() => setAlbumOpen(false)}
-          />
-        </MyTabs>
-      </SideBar>
-      <TabPanel value={value} index={1}>
-        <Info />
-      </TabPanel>
-      <TabPanel value={value} index={2}>
+      <Background>
+        <SideBar elevation={2}>
+          <Profile>
+            <Photo src={user.profileImage} alt="profile" />
+            <Name>{user.nickname}</Name>
+          </Profile>
+          <MyTabs orientation="vertical" value={value} onChange={handleChange}>
+            <MyTab label="내 정보" value={1} />
+            {/* <MyTab label="뱃지" value={2} /> */}
+            <MyTab
+              label="지난 여행"
+              value={3}
+              onClick={() => setAlbumOpen(false)}
+            />
+          </MyTabs>
+        </SideBar>
+        <TabPanel value={value} index={1}>
+          <Info />
+        </TabPanel>
+        {/* <TabPanel value={value} index={2}>
         <Badge />
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-        {albumOpen === false ? (
-          <LastTrip albumOpen={albumOpen} setAlbumOpen={setAlbumOpen} />
-        ) : (
-          <Album albumOpen={albumOpen} />
-        )}
-      </TabPanel>
+      </TabPanel> */}
+        <TabPanel value={value} index={3}>
+          {albumOpen === false ? (
+            <LastTrip albumOpen={albumOpen} setAlbumOpen={setAlbumOpen} />
+          ) : (
+            <Album albumOpen={albumOpen} />
+          )}
+        </TabPanel>
+      </Background>
     </Container>
   )
 }
@@ -95,22 +99,35 @@ export default MyPage
 // })
 
 const Container = styled(Box)({
+  width: "100vw",
+  height: "100vh",
+  // backgroundImage: "url(" + "img/water.jpg" + ")",
+  backgroundImage: "url(" + "img/kyeongju.jpg" + ")",
+  backgroundRepeat: "no-repeat",
+  backgroundSize: "cover",
+  backgroundAttachment: "fixed",
+  backgroundPosition: "top center",
+})
+
+const Background = styled(Box)({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  width: "100vw",
-  height: "100vh",
-  paddingTop: "8vh",
+  width: "100%",
+  height: "100%",
+  backgroundColor: "rgba(0, 0, 0, 0.4)",
+  position: "absolute",
 })
 
 const SideBar = styled(Paper)({
-  height: "100vh",
+  height: "90vh",
   width: "20vw",
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-evenly",
   alignItems: "space-evenly",
-  background: "linear-gradient(135deg, ivory, beige)",
+  borderRadius: 15,
+  // background: "linear-gradient(135deg, white, beige)",
 })
 
 const Profile = styled(Box)({
@@ -131,6 +148,7 @@ export const Name = styled(Typography)({
   color: "#c19a6b",
   fontWeight: "bold",
   fontSize: 30,
+  fontFamily: "HallymGothic-Regular",
 })
 
 const MyTabs = styled(Tabs)({
@@ -139,12 +157,12 @@ const MyTabs = styled(Tabs)({
 
 const MyTab = styled(Tab)({
   margin: "1rem",
-  color: "white",
+  color: "black",
   fontSize: 16,
   fontWeight: "bold",
-  border: "solid",
+  // border: "solid",
   borderRadius: 10,
-  backgroundColor: "#c19a6b",
+  backgroundColor: "primary",
 })
 
 // const MyTabPanel = styled(Box)({});

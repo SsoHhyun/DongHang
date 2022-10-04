@@ -13,6 +13,7 @@ import { Photo } from "../../pages/users/myPage"
 import SmartphoneIcon from "@mui/icons-material/Smartphone"
 import EmailIcon from "@mui/icons-material/Email"
 import ChangeCircleIcon from "@mui/icons-material/ChangeCircle"
+import "../../App.css"
 
 const Info = () => {
   const user = useSelector((state) => state.user)
@@ -58,11 +59,10 @@ const Info = () => {
 
 export default Info
 
-const InfoContainer = styled(Paper)({
+const InfoContainer = styled(Box)({
   borderRadius: 20,
   width: "53vw",
-  height: "95vh",
-  backgroundColor: "beige",
+  height: "90vh",
   marginLeft: "1.5rem",
   display: "flex",
   flexDirection: "column",
@@ -72,10 +72,11 @@ const InfoContainer = styled(Paper)({
 
 const MyInfo = styled(Typography)({
   fontSize: 30,
-  color: "brown",
+  color: "white",
   fontWeight: "bold",
   textAlign: "center",
   marginBottom: "2rem",
+  fontFamily: "HallymGothic-Regular",
 })
 
 const User = styled(Paper)({
@@ -87,7 +88,7 @@ const User = styled(Paper)({
   marginBottom: "1rem",
   marginTop: "1rem",
   borderRadius: 10,
-  backgroundColor: "ivory",
+  backgroundColor: "white",
 })
 
 const UserInfo = styled(Box)({
@@ -111,18 +112,20 @@ const ChangePhoto = styled(ChangeCircleIcon)({
 const UserName = styled(Box)({
   display: "flex",
   flexDirection: "column",
-  justifyContent: "center",
+  // justifyContent: "center",
+  alignItems: "start",
 })
 
 const MyName = styled(Input)({
   color: "#c19a6b",
   fontWeight: "bold",
   fontSize: 25,
-  textAlign: "center",
+  fontFamily: "HallymGothic-Regular",
 })
 
 const UserId = styled(Typography)({
   color: "grey",
+  fontFamily: "HallymGothic-Regular",
 })
 
 const EditBtn = styled(Button)({
@@ -148,10 +151,12 @@ const PhoneNumber = styled(Input)({
   marginLeft: "1rem",
   color: "grey",
   fontSize: 17,
+  fontFamily: "HallymGothic-Regular",
 })
 
 const EmailAddress = styled(Input)({
   marginLeft: "1rem",
   color: "grey",
   fontSize: 17,
+  fontFamily: "HallymGothic-Regular",
 })

@@ -37,7 +37,11 @@ const Navbar = () => {
   return (
     <Container>
       <Navigate>
-        <Logo to="/">동행</Logo>
+        {window.location.pathname === "/mypage" ? (
+          <LogoWhite to="/">동행</LogoWhite>
+        ) : (
+          <LogoBlack to="/">동행</LogoBlack>
+        )}
         {!isLogin ? (
           <Links>
             <LinkBox to="/login">
@@ -87,13 +91,23 @@ const Navigate = styled(Box)({
   alignItems: "center",
 })
 
-const Logo = styled(Link)({
+const LogoBlack = styled(Link)({
   textDecoration: "none",
   fontFamily: "Makgeolli",
   fontSize: 60,
   margin: "2rem",
   marginLeft: "3rem",
   color: "black",
+})
+
+const LogoWhite = styled(Link)({
+  textDecoration: "none",
+  fontFamily: "Makgeolli",
+  fontSize: 60,
+  margin: "2rem",
+  marginLeft: "3rem",
+  color: "white",
+  textShadow: "#fc0 1px 0 10px",
 })
 
 const Links = styled(Box)({
