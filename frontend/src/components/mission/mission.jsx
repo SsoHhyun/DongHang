@@ -81,12 +81,12 @@ const Mission = (props) => {
   const rerollMission = (missionNo) => {
     console.log(missionNo, props.tripNo)
     axios.get(
-      `http://localhost:8080/api/mission/refresh?missionNo=${missionNo}&tripNo=${props.tripNo}`
+      `http://j7a504.p.ssafy.io/api/mission/refresh?missionNo=${missionNo}&tripNo=${props.tripNo}`
     )
       .then((res) => {
         console.log(res)
         axios.get(
-          "http://localhost:8080/api/mission/trip?tripNo=" +
+          "http://j7a504.p.ssafy.io/api/mission/trip?tripNo=" +
             props.tripNo
         ).then((res) => {
           setMission(res.data)
