@@ -315,7 +315,7 @@ public class TripServiceImpl implements TripService{
         for(Trip trip :list) {
             try {
                 startDate = new Date(dateFormat.parse(trip.getStartDate()).getTime());
-                endDate = new Date(dateFormat.parse(trip.getStartDate()).getTime());
+                endDate = new Date(dateFormat.parse(trip.getEndDate()).getTime());
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
