@@ -4,21 +4,13 @@ import React from "react"
 import {
   Card,
   CardContent,
-  CardActions,
   CardMedia,
   styled,
-  Dialog,
   Typography,
   CardActionArea,
 } from "@mui/material"
-import SpotDetail from "./spotdetail"
 
 const RecommendContents = (props) => {
-  const [open, setOpen] = React.useState(false)
-
-  const handleClose = () => {
-    setOpen(false)
-  }
   return (
     <StyledCard
       onClick={() => {
@@ -37,7 +29,7 @@ const RecommendContents = (props) => {
             component="img"
             image="../img/kyeongju.jpg"
             alt="image not found"
-            height="100"
+            height="100px"
           />
         ) : (
           <CardMedia
@@ -47,27 +39,21 @@ const RecommendContents = (props) => {
             height="100"
           />
         )}
-
         <CardContent>
           <Typography
             gutterBottom
             variant="h7"
             component="div"
-            style={{ textOverflow: "ellipsis", width: "80px" }}
+            style={{
+              textOverflow: "ellipsis",
+              width: "200px",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+            }}
           >
             {props.spot.title}
           </Typography>
         </CardContent>
-        <CardActions>
-          <Dialog
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-          >
-            <SpotDetail></SpotDetail>
-          </Dialog>
-        </CardActions>
       </CardActionArea>
     </StyledCard>
   )
@@ -78,4 +64,5 @@ const StyledCard = styled(Card)({
   width: "200px",
   marginRight: "1rem",
   flex: "0 0 auto",
+  height: "172px",
 })
