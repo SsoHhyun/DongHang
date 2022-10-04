@@ -5,6 +5,10 @@ import CameraAltIcon from "@mui/icons-material/CameraAlt"
 import RefreshIcon from "@mui/icons-material/Refresh"
 import axios from "axios"
 import interceptor from "../../api/interceptor"
+import Typography from "@mui/material/Typography"
+import Modal from "@mui/material/Modal"
+import CreateMission from "./missionCreate"
+
 // const MissionGrid = styled(Grid)({
 //   display: "flex",
 //   flexDirection: "column",
@@ -67,6 +71,14 @@ var missions = [
 ]
 
 const Mission = () => {
+  const [open, setOpen] = useState(false)
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
+
+  const [photoOpen, setPhotoOpen] = useState(false)
+  const handlePhotoOpen = () => setPhotoOpen(true)
+  const handlePhotoClose = () => setPhotoOpen(false)
+
   const recommendMission = function (arr) {
     const randomSet = new Set()
     let flag = true
@@ -129,24 +141,39 @@ const Mission = () => {
       </IconButton>
       <Box>
         {mission.map((item, i) => (
-          <Paper key={i} item={item} width="80%">
+          <Paper key={i} item={item}>
             <Box>{item.name}</Box>
             <ContentBox>
               <Box>{item.description}</Box>
-              <IconButton>
-                <input
-                  type="file"
-                  id="imgupload"
-                  accept="image/*"
-                  onChange={onChangeImg}
-                  style={{ display: "none" }}
-                />
+              <IconButton onClick={handlePhotoOpen}>
                 <CameraAltIcon />
               </IconButton>
+              <Modal
+                open={photoOpen}
+                onClose={handlePhotoClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <PhotoModalBox>
+                  <input type="file" />
+                  <Button>인증</Button>
+                </PhotoModalBox>
+              </Modal>
             </ContentBox>
           </Paper>
         ))}
       </Box>
+      <Button onClick={handleOpen}>Create Custom Mission</Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <ModalBox>
+          <CreateMission></CreateMission>
+        </ModalBox>
+      </Modal>
     </MissionBox>
   )
 }
@@ -166,4 +193,31 @@ const ContentBox = styled(Box)({
   fontSize: "1.2em",
   height: "100px",
   width: "80%",
+})
+
+const ModalBox = styled(Box)({
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: "24",
+  p: "4",
+  background: "white",
+})
+
+const PhotoModalBox = styled(Box)({
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "200px",
+  height: "100px",
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: "24",
+  p: "4",
+  background: "white",
 })
