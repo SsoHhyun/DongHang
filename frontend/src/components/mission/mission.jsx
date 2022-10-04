@@ -27,48 +27,6 @@ import CreateMission from "./missionCreate"
 // 그 숫자를 다시 인덱스로 넣어줌
 
 // mission 임시로 넣어둔 리스트
-var missions = [
-  {
-    name: "Special Mission",
-    description: "부모님과 단풍잎 주워서 책갈피 만들기",
-  },
-  {
-    name: "Mission",
-    description: "부모님과 서로 가장 좋아하는 노래 소개시켜 주기",
-  },
-  {
-    name: "Mission",
-    description: "함께 눈사람 만들기",
-  },
-  {
-    name: "Mission",
-    description: "벚나무 밑에서 사진 찍기",
-  },
-  {
-    name: "Mission",
-    description: "시원한 물에 발 담그기",
-  },
-  {
-    name: "Mission",
-    description: "아이스크림 걸고 고스톱 내기",
-  },
-  {
-    name: "Mission",
-    description: "부모님 손 잡고 걷기",
-  },
-  {
-    name: "Mission",
-    description: "배에서 낚시 해보기",
-  },
-  {
-    name: "Mission",
-    description: "첨성대와 함께 찰칵",
-  },
-  {
-    name: "Mission",
-    description: "최초로 커스텀 미션 추가",
-  },
-]
 
 const Mission = (props) => {
   const [mission, setMission] = useState([])
@@ -121,17 +79,18 @@ const Mission = (props) => {
 
   // reroll 함수
   const rerollMission = (missionNo) => {
-    console.log(1, props.tripNo)
-    interceptor({
-      url: `/api/mission/refresh?missionNo=${missionNo}&tripNo=${props.tripNo}`,
-      method: "get",
-    })
+    console.log(missionNo, props.tripNo)
+    axios.get(
+      `http://localhost:8080/api/mission/refresh?missionNo=${missionNo}&tripNo=${props.tripNo}`
+    )
       .then((res) => {
         console.log(res)
         axios.get(
-          "http://j7a504.p.ssafy.io:8080/api/mission/trip?tripNo=" +
+          "http://localhost:8080/api/mission/trip?tripNo=" +
             props.tripNo
-        )
+        ).then((res) => {
+          setMission(res.data)
+        })
       })
       .catch((err) => {
         alert(err)
@@ -151,7 +110,7 @@ const Mission = (props) => {
                 : "custom mission"}
             </Box>
             {item.missionCategoryNo === 2 ? null : (
-              <IconButton onClick={rerollMission(item.missionNo)}>
+              <IconButton onClick={() => rerollMission(item.missionNo)}>
                 <RefreshIcon />
               </IconButton>
             )}
