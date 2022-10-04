@@ -107,7 +107,7 @@ const RecomImg = styled(Box)({
   overflow: "hidden",
 })
 
-const Img = styled("img")({
+export const Img = styled("img")({
   width: "100%",
   height: "100%",
   objectFit: "cover",
