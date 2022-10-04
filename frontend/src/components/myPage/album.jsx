@@ -114,7 +114,8 @@ function LabTabs(props) {
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
-
+  console.log("앨범열림")
+  console.log(props)
   return (
     <Box sx={{ width: "100%", typography: "body1" }}>
       <TabContext value={value}>
@@ -135,7 +136,7 @@ function LabTabs(props) {
           {open === false ? undefined : <BasicModal i={props.i} />}
         </TabPanel>
         <TabPanel value="2">
-          <LastCourse />
+          <LastCourse i={props.i} />
         </TabPanel>
       </TabContext>
     </Box>

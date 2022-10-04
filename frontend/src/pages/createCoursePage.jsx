@@ -15,6 +15,7 @@ const CreateCoursePage = () => {
   const [courseSpot, setCourseSpot] = useState([])
   const [recommendspot, setRecommendspot] = useState([])
   const [restuarants, setRestuarants] = useState([])
+  const [level, setLevel] = useState(3)
   const addCourseList = (spotdata) => {
     setCourseSpot([...courseSpot, spotdata])
     //console.log(courseSpotspot)
@@ -59,6 +60,8 @@ const CreateCoursePage = () => {
             selectedSpot={selectedSpot}
             setCurrentSpot={setCurrentSpot}
             setSelectedSpot={setSelectedSpot}
+            level={level}
+            setLevel={setLevel}
           ></Map>
         </MapWrapper>
         <Button

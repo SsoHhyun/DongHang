@@ -61,7 +61,6 @@ const LastTrip = (props) => {
       method: "get",
     }).then((res) => {
       dispatch(setLastTrip(res.data))
-      console.log(tripInfo)
     })
   }, [])
   return (
