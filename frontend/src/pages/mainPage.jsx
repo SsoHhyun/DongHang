@@ -8,6 +8,9 @@ import Mission from "../components/mission/mission"
 // import Fade from "react-reveal/Fade"
 import AOS from "aos"
 import "aos/dist/aos.css"
+import interceptor from "../api/interceptor"
+import { setUserInfo } from "../features/user/userSlice"
+import { useSelector, useDispatch } from "react-redux/es/exports"
 import SurveyOpen from "../components/main/surveyOpen"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
@@ -42,9 +45,16 @@ const MainPage = () => {
   //   var posTop = (page - 1) * $(window).height()
   //   mBackground.animate({ scrollTop: posTop })
   // })
+  const dispatch = useDispatch()
 
   useEffect(() => {
     AOS.init()
+    interceptor({
+      url: "/user/info",
+      method: "get",
+    }).then((res) => {
+      dispatch(setUserInfo(res.data))
+    })
   }, [])
 
   return (

@@ -6,7 +6,7 @@ import CardContent from "@mui/material/CardContent"
 import Typography from "@mui/material/Typography"
 
 //장소 상세 모달
-const SpotDetail = () => {
+const SpotDetail = (props) => {
   return (
     <Card
       style={{
@@ -19,22 +19,25 @@ const SpotDetail = () => {
         transform: `translate(-50%, -50%)`,
       }}
     >
-      <CardHeader title="여행일정장소" subheader="여행상세주소" />
-      <CardMedia
-        component="img"
-        height="400"
-        image={process.env.PUBLIC_URL + `/img/d4.jpg`}
-        alt="여행지 소개 사진"
+      <CardHeader
+        title={props.spot.title}
+        subheader={props.spot.addr1 + " " + props.spot.addr2}
       />
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          상세설명
-        </Typography>
-        <hr></hr>
-        <Typography variant="body2" color="text.secondary">
-          좋은여행지입니다좋은여행지입니다좋은여행지입니다좋은여행지입니다좋은여행지입니다좋은여행지입니다좋은여행지입니다좋은여행지입니다좋은여행지입니다좋은여행지입니다좋은여행지입니다좋은여행지입니다좋은여행지입니다
-        </Typography>
-      </CardContent>
+      {props.spot.firstImage1 === "" ? (
+        <CardMedia
+          component="img"
+          image="../img/kyeongju.jpg"
+          alt="image not found"
+          height="400"
+        />
+      ) : (
+        <CardMedia
+          component="img"
+          image={props.spot.firstImage1}
+          alt="image not found"
+          height="400"
+        />
+      )}
     </Card>
   )
 }

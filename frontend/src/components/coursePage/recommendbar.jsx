@@ -45,7 +45,15 @@ const RecommendBar = (props) => {
             </TabPanel>
             <TabPanel value="2">
               <StyledRecommendSlide>
-                <RecommendContents></RecommendContents>
+                {props.restaurants.map((user, index) => (
+                  <RecommendContents
+                    spot={props.restaurants[index]}
+                    key={index}
+                    addCourseList={props.addCourseList}
+                    setSelectedSpot={props.setSelectedSpot}
+                    selectedSpot={props.selectedSpot}
+                  ></RecommendContents>
+                ))}
               </StyledRecommendSlide>
             </TabPanel>
           </TabContext>
@@ -77,5 +85,5 @@ const WrapRecommendBar = styled(Box)({
   position: "absolute",
   bottom: 0,
   left: "20%",
-  paddingBottom: 40,
+  paddingBottom: 20,
 })

@@ -1,5 +1,8 @@
 // 지난 여행
-import React, { useState } from "react";
+import React, { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { setLastTrip } from "../../features/course/lastTripSlice"
+import interceptor from "../../api/interceptor"
 import {
   Box,
   Paper,
@@ -10,17 +13,21 @@ import {
   CardMedia,
   CardActionArea,
   Grid,
-} from "@mui/material";
+} from "@mui/material"
 
-function ActionAreaCard() {
+function ActionAreaCard(props) {
   return (
-    <MyCard sx={{ maxWidth: 345 }} onClick={() => {}}>
-      <CardActionArea>
+    <MyCard sx={{ maxWidth: 345 }}>
+      <CardActionArea
+        onClick={() => {
+          props.setAlbumOpen(props.i)
+        }}
+      >
         <CardImg>
           <CardMedia
             component="img"
-            image="/img/imgimg.jpg"
-            alt="green iguana"
+            image={props.item.thumbnail}
+            alt="thumbnail"
             style={{
               width: "12vw",
               height: "15vh",
@@ -28,56 +35,60 @@ function ActionAreaCard() {
           />
         </CardImg>
         <CardContent>
-          <CardText gutterBottom variant="h5" component="div">
-            나의 여행
+          <CardText
+            gutterBottom
+            variant="h5"
+            component="div"
+            style={{ textOverflow: "ellipsis" }}
+          >
+            {props.item.tripName}
           </CardText>
           <CardText variant="body2" color="text.secondary">
-            2022-09-06 ~ 2022-09-09
+            {`${props.item.startDate} ~ ${props.item.endDate}`}
           </CardText>
         </CardContent>
       </CardActionArea>
     </MyCard>
-  );
+  )
 }
 
-function FormRow() {
-  return (
-    <React.Fragment>
-      <Grid item xs={4}>
-        <ActionAreaCard />
-      </Grid>
-      <Grid item xs={4}>
-        <ActionAreaCard />
-      </Grid>
-      <Grid item xs={4}>
-        <ActionAreaCard />
-      </Grid>
-    </React.Fragment>
-  );
-}
-
-const LastTrip = () => {
+const LastTrip = (props) => {
+  const tripInfo = useSelector((state) => state.lastTrips)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    interceptor({
+      url: "/api/trip/getMyLastTripList",
+      method: "get",
+    }).then((res) => {
+      dispatch(setLastTrip(res.data))
+      console.log(tripInfo)
+    })
+  }, [])
   return (
     <TripContainer>
       <Title>지난 여행</Title>
       <Trips>
         <Grid container spacing={0}>
           <Grid container>
-            <FormRow />
-          </Grid>
-          <Grid container>
-            <FormRow />
-          </Grid>
-          <Grid container>
-            <FormRow />
+            <React.Fragment>
+              {tripInfo.map((item, i) => (
+                <Grid item xs={4}>
+                  <ActionAreaCard
+                    item={item}
+                    i={i}
+                    setAlbumOpen={props.setAlbumOpen}
+                  />
+                </Grid>
+              ))}
+            </React.Fragment>
           </Grid>
         </Grid>
       </Trips>
     </TripContainer>
-  );
-};
+  )
+}
 
-export default LastTrip;
+export default LastTrip
 
 const TripContainer = styled(Paper)({
   borderRadius: 20,
@@ -89,7 +100,7 @@ const TripContainer = styled(Paper)({
   flexDirection: "column",
   justifyContent: "center",
   alignContent: "center",
-});
+})
 
 const Title = styled(Typography)({
   fontSize: 30,
@@ -97,26 +108,26 @@ const Title = styled(Typography)({
   fontWeight: "bold",
   textAlign: "center",
   margin: "2rem",
-});
+})
 
 const Trips = styled(Box)({
   overflowY: "auto",
   marginBottom: "2rem",
   marginLeft: "4rem",
   marginRight: "4rem",
-});
+})
 
 const MyCard = styled(Card)({
   margin: "1rem",
-});
+})
 
 const CardImg = styled(Box)({
   display: "flex",
   justifyContent: "center",
   alignContent: "center",
   paddingTop: 10,
-});
+})
 
 const CardText = styled(Typography)({
   textAlign: "right",
-});
+})

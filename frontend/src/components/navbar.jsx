@@ -24,13 +24,6 @@ const Navbar = () => {
         window.location.pathname === "/signup"
       )
         navigate("/");
-    } else {
-      if (
-        window.location.pathname === "/logout" ||
-        window.location.pathname === "/mypage" ||
-        window.location.pathname === "/course/create"
-      )
-        navigate("/");
     }
 
     if (localStorage.getItem("access-token")) {
@@ -68,7 +61,6 @@ const Container = styled(Box)({
   width: "100vw",
   height: "8vh",
   zIndex: 100,
-  backgroundColor: "white",
 });
 
 const Navigate = styled(Box)({});

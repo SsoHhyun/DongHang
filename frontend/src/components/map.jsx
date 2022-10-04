@@ -1,5 +1,4 @@
 /*global kakao*/
-
 import React, { useEffect } from "react"
 //지도
 const Map = (props) => {
@@ -10,19 +9,15 @@ const Map = (props) => {
         props.selectedSpot.mapy,
         props.selectedSpot.mapx
       ), //mapy=lat,mapx=lng
-      level: 3,
+      level: 5,
     }
     let map = new kakao.maps.Map(container, options)
-
     var positions = []
 
     for (let i = 0; i < props.recommendspot.length; i++) {
       positions.push({
         title: props.recommendspot[i].title,
-        latlng: new kakao.maps.LatLng(
-          props.recommendspot[i].mapy,
-          props.recommendspot[i].mapx
-        ),
+        latlng: new kakao.maps.LatLng(map.getCenter()),
       })
     }
     // 마커 이미지의 이미지 주소입니다
@@ -55,6 +50,20 @@ const Map = (props) => {
       marker.setMap(map)
     }
 
+    kakao.maps.event.addListener(map, "idle", function () {
+      props.setCurrentSpot({
+        mapx1: map.getBounds().ha.toString(),
+        mapx2: map.getBounds().oa.toString(),
+        mapy1: map.getBounds().qa.toString(),
+        mapy2: map.getBounds().pa.toString(),
+      })
+      console.log(map.getCenter())
+      props.setSelectedSpot({
+        title: "",
+        mapx: map.getCenter().La,
+        mapy: map.getCenter().Ma,
+      })
+    })
     // 지도에 표시할 선을 생성합니다
     var polyline = new kakao.maps.Polyline({
       path: linePath, // 선을 구성하는 좌표배열 입니다
@@ -63,7 +72,6 @@ const Map = (props) => {
       strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
       strokeStyle: "solid", // 선의 스타일입니다
     })
-
     // 지도에 선을 표시합니다
     polyline.setMap(map)
     // 마커를 생성합니다
@@ -79,7 +87,12 @@ const Map = (props) => {
     markers.setMap(map)
   }, [props])
 
-  return <div id="map"></div>
+  return (
+    <div>
+      <button>추천받아요</button>
+      <div id="map"></div>
+    </div>
+  )
 }
 
 export default Map

@@ -1,7 +1,12 @@
 // 지난 여행 코스(탭)
-import React, { useState } from "react";
-import { Box, Button, Paper, styled, Typography } from "@mui/material";
-import Map from "../map";
+import React, { useState } from "react"
+import { Box, Button, Paper, styled, Typography } from "@mui/material"
+
+/*global kakao*/
+//지도
+const Map = (props) => {
+  return null
+}
 
 const LastCourse = () => {
   return (
@@ -11,10 +16,10 @@ const LastCourse = () => {
       </MapContainer>
       <MySpots></MySpots>
     </LastCourseContainer>
-  );
-};
+  )
+}
 
-export default LastCourse;
+export default LastCourse
 
 const LastCourseContainer = styled(Box)({
   display: "flex",
@@ -23,15 +28,15 @@ const LastCourseContainer = styled(Box)({
   alignItem: "center",
   width: "50vw",
   height: "74vh",
-});
+})
 
 const MapContainer = styled(Box)({
   position: "absolute",
   width: "50%",
   height: "40%",
-});
+})
 
 const MySpots = styled(Box)({
   width: "100%",
   height: "100%",
-});
+})
