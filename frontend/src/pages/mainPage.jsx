@@ -22,7 +22,6 @@ const MainPage = () => {
     })
       .then((res) => {
         console.log(res)
-        console.log(res)
       })
       .catch((err) => {
         alert(err)
@@ -82,6 +81,7 @@ const MainPage = () => {
             <Mission></Mission>
           </MissionBox>
           <Button onClick={() => getSurveyUrl()}>
+            {/* // navigate("/survey/info")}> */}
             {/* navigate("/survey/info")}> */}
             설문 공유하기
           </Button>
