@@ -7,7 +7,6 @@ import axios from "axios"
 import interceptor from "../../api/interceptor"
 import Typography from "@mui/material/Typography"
 import Modal from "@mui/material/Modal"
-import CreateMission from "./missionCreate"
 
 // const MissionGrid = styled(Grid)({
 //   display: "flex",
@@ -45,10 +44,6 @@ const Mission = (props) => {
       })
   }
 
-  const [open, setOpen] = useState(false)
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
-
   const [photoOpen, setPhotoOpen] = useState(false)
   const handlePhotoOpen = () => setPhotoOpen(true)
   const handlePhotoClose = () => setPhotoOpen(false)
@@ -80,17 +75,19 @@ const Mission = (props) => {
   // reroll 함수
   const rerollMission = (missionNo) => {
     console.log(missionNo, props.tripNo)
-    axios.get(
-      `http://j7a504.p.ssafy.io/api/mission/refresh?missionNo=${missionNo}&tripNo=${props.tripNo}`
-    )
+    axios
+      .get(
+        `http://j7a504.p.ssafy.io/api/mission/refresh?missionNo=${missionNo}&tripNo=${props.tripNo}`
+      )
       .then((res) => {
         console.log(res)
-        axios.get(
-          "http://j7a504.p.ssafy.io/api/mission/trip?tripNo=" +
-            props.tripNo
-        ).then((res) => {
-          setMission(res.data)
-        })
+        axios
+          .get(
+            "http://j7a504.p.ssafy.io/api/mission/trip?tripNo=" + props.tripNo
+          )
+          .then((res) => {
+            setMission(res.data)
+          })
       })
       .catch((err) => {
         alert(err)
@@ -138,20 +135,6 @@ const Mission = (props) => {
           </Paper>
         ))}
       </Box>
-      <Button onClick={handleOpen}>Create Custom Mission</Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <ModalBox>
-          <CreateMission
-            tripNo={props.tripNo}
-            setOpen={setOpen}
-          ></CreateMission>
-        </ModalBox>
-      </Modal>
     </MissionBox>
   )
 }
@@ -171,19 +154,6 @@ const ContentBox = styled(Box)({
   fontSize: "1.2em",
   height: "100px",
   width: "80%",
-})
-
-const ModalBox = styled(Box)({
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: "24",
-  p: "4",
-  background: "white",
 })
 
 const PhotoModalBox = styled(Box)({

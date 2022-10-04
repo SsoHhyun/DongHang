@@ -15,12 +15,18 @@ import { useNavigate } from "react-router-dom"
 import axios from "axios"
 import interceptor from "../api/interceptor"
 import { useState } from "react"
+import Modal from "@mui/material/Modal"
+import CreateMission from "../components/mission/missionCreate"
 
 const MainPage = () => {
   const navigate = useNavigate()
 
   const [myTrip, setMyTrip] = useState(0)
   const [myPlace, setMyPlace] = useState([])
+
+  const [open, setOpen] = useState(false)
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
 
   // 섹션 넘어가는 애니메이션
   // window.addEventListener(
@@ -125,6 +131,20 @@ const MainPage = () => {
                 data-aos-anchor-placement="center-center"
               >
                 <Mission tripNo={myTrip}></Mission>
+                <Button onClick={handleOpen}>Create Custom Mission</Button>
+                <Modal
+                  open={open}
+                  onClose={handleClose}
+                  aria-labelledby="modal-modal-title"
+                  aria-describedby="modal-modal-description"
+                >
+                  <ModalBox>
+                    <CreateMission
+                      tripNo={myTrip}
+                      setOpen={setOpen}
+                    ></CreateMission>
+                  </ModalBox>
+                </Modal>
               </MissionBox>
             </MainBoxtwo>
             <Button
@@ -206,4 +226,17 @@ const MissionBox = styled(Box)({
   width: "30%",
   justifyContent: "center",
   background: "#faf8f7",
+})
+
+const ModalBox = styled(Box)({
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: "24",
+  p: "4",
+  background: "white",
 })
