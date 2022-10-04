@@ -15,18 +15,6 @@ import interceptor from "../api/interceptor"
 
 const MainPage = () => {
   const navigate = useNavigate()
-  const getSurveyUrl = () => {
-    return interceptor({
-      url: "/survey/generate/url",
-      method: "get",
-    })
-      .then((res) => {
-        console.log(res)
-      })
-      .catch((err) => {
-        alert(err)
-      })
-  }
 
   // 섹션 넘어가는 애니메이션
   // window.addEventListener(
@@ -80,9 +68,12 @@ const MainPage = () => {
           >
             <Mission></Mission>
           </MissionBox>
-          <Button onClick={() => getSurveyUrl()}>
-            {/* // navigate("/survey/info")}> */}
-            {/* navigate("/survey/info")}> */}
+          <Button
+            onClick={() => {
+              // getSurveyUrl()
+              navigate("/survey/info")
+            }}
+          >
             설문 공유하기
           </Button>
         </MainBox>
