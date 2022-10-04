@@ -130,4 +130,5 @@ const CardImg = styled(Box)({
 
 const CardText = styled(Typography)({
   textAlign: "right",
+  fontFamily: "IBMPlexSansKR-Regular",
 })
