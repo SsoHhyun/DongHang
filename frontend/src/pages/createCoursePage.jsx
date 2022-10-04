@@ -40,7 +40,7 @@ const CreateCoursePage = () => {
     // console.log(courseSpot)
   }
   return (
-    <Container>
+    <CourseContainer>
       {/* 배경이미지만 */}
       <Box style={{ paddingTop: "16vh" }}>
         <CourseSide
@@ -115,7 +115,7 @@ const CreateCoursePage = () => {
           restaurants={restuarants}
         ></RecommendBar>
       </Box>
-    </Container>
+    </CourseContainer>
   )
 }
 export default CreateCoursePage
@@ -128,7 +128,7 @@ const MapWrapper = styled(Box)({
   left: "23vw",
   zIndex: -1,
 })
-const Container = styled(Box)({
+const CourseContainer = styled(Box)({
   width: "100vw",
   height: "100vh",
   backgroundImage: "url(" + "img/kyeongju.jpg" + ")",
