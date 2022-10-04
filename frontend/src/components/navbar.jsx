@@ -117,11 +117,11 @@ const PageLink = styled(Typography)({
   color: "white",
   fontFamily: "JSongMyung-Regular-KO",
   fontSize: 18,
-  // fontWeight: "bold",
-  // "&:hover": {
-  //   animation: "animate__pulse",
-  //   animationDuration: "1s",
-  // },
+  "&:hover": {
+    transition: "all 0.5s linear",
+    opacity: "1",
+    fontSize: 19,
+  },
 })
 
 const LinkEng = styled(Typography)({
