@@ -71,7 +71,7 @@ public class MissionServiceImpl implements MissionService {
             boolean isDuplicated = false;
             for(TripMission tripMission: tripMissions) { // 현재 여행의 미션을 비교
                 if(Objects.equals(mission.getMissionNo(), tripMission.getMission().getMissionNo())) {
-                    log.debug("반환할 미션 번호 : {}", newMission.getMissionNo());
+                    log.debug("반환할 미션 번호 : {}", mission.getMissionNo());
                     isDuplicated = true;
                     break;
                 }
@@ -80,7 +80,7 @@ public class MissionServiceImpl implements MissionService {
                 // 반환할 미션 저장
                 newMission = mission;
                 // 기존 TripMission에서 삭제하고
-                tripMissionRepository.removeTripMissionByMission_MissionNoIs(missionNo);
+                tripMissionRepository.removeTripMissionByMission_MissionNo(missionNo);
                 break;
             }
         }

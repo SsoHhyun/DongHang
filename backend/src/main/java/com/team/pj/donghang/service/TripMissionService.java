@@ -12,4 +12,6 @@ public interface TripMissionService {
     // mission_no를 통해 커스텀 미션 정보 DB에서 삭제
     void deleteTripMission(Long missionNo);
 
+    // photo uploaded 되었다고 설정
+    void setPhotoUploadedTrue(Long missionNo, Long tripNo);
 }
