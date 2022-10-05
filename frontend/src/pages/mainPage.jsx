@@ -1,6 +1,13 @@
 import { React, useEffect } from "react"
 import $, { get } from "jquery"
-import { Box, styled, Button } from "@material-ui/core"
+import {
+  Box,
+  styled,
+  Button,
+  IconButton,
+  Typography,
+  Divider,
+} from "@material-ui/core"
 import NowCourse from "../components/main/nowCourse"
 import Mission from "../components/mission/mission"
 import AOS from "aos"
@@ -12,6 +19,7 @@ import interceptor from "../api/interceptor"
 import { useState } from "react"
 import Modal from "@mui/material/Modal"
 import CreateMission from "../components/mission/missionCreate"
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline"
 
 const MainPage = () => {
   const navigate = useNavigate()
@@ -33,18 +41,18 @@ const MainPage = () => {
         method: "get",
       }).then((res) => {
         dispatch(setUserInfo(res.data))
-        interceptor({
-          url: "/api/trip/getTodayTrip",
-          method: "get",
-        }).then((res) => {
-          console.log(res.data)
-          if (res.data.tripNo != null) {
-            setMyTrip(res.data.tripNo)
-          }
-          if (res.data.placeList != null) {
-            setMyPlace(res.data.placeList)
-          }
-        })
+      })
+      interceptor({
+        url: "/api/trip/getTodayTrip",
+        method: "get",
+      }).then((res) => {
+        console.log(res.data)
+        if (res.data.tripNo != null) {
+          setMyTrip(res.data.tripNo)
+        }
+        if (res.data.placeList != null) {
+          setMyPlace(res.data.placeList)
+        }
       })
     }
   }, [])
@@ -104,7 +112,9 @@ const MainPage = () => {
                 data-aos-anchor-placement="center-center"
               >
                 <Mission tripNo={myTrip}></Mission>
-                <Button onClick={handleOpen}>Create Custom Mission</Button>
+                <IconButton onClick={handleOpen}>
+                  <AddCircleOutlineIcon />
+                </IconButton>
                 <Modal
                   open={open}
                   onClose={handleClose}
@@ -120,14 +130,20 @@ const MainPage = () => {
                 </Modal>
               </MissionBox>
             </MainBoxtwo>
-            <Button
-              onClick={() => {
-                // getSurveyUrl()
-                navigate("/survey/info")
-              }}
-            >
-              설문 공유하기
-            </Button>
+            <ShareSurveyBox data-aos="fade-up">
+              <ShareTypography>
+                부모님의 여행 취향을 알고싶다면?
+              </ShareTypography>
+              <ShareSurveyButton
+                onClick={() => {
+                  // getSurveyUrl()
+                  navigate("/survey/info")
+                }}
+                style={{ fontFamily: "HallymGothic-Regular" }}
+              >
+                Click
+              </ShareSurveyButton>
+            </ShareSurveyBox>
           </MainBoxone>
         </MainBackground>
       )}
@@ -143,6 +159,7 @@ const Background = styled(Box)({
   // alignItems: "center",
   alignItems: "center",
   background: "#d5c0b4",
+  overflow: "auto",
 })
 
 const RecomImg = styled(Box)({
@@ -159,6 +176,7 @@ export const Img = styled("img")({
 
 const MainBackground = styled(Box)({
   background: "#d5c0b4",
+  scrollSnapAlign: "start",
 })
 
 const MainBoxtwo = styled(Box)({
@@ -167,7 +185,7 @@ const MainBoxtwo = styled(Box)({
   justifyContent: "center",
   alignItems: "center",
   width: "80vw",
-  height: "100vh",
+  height: "70vh",
   background: "white",
 })
 
@@ -193,12 +211,15 @@ const CourseBox = styled(Box)({
   alignItems: "center",
   fontSize: "2em",
   margin: "3%",
+  fontFamily: "HallymGothic-Regular",
 })
 
 const MissionBox = styled(Box)({
   width: "30%",
   justifyContent: "center",
   background: "#faf8f7",
+  borderRadius: "10px",
+  height: "60vh",
 })
 
 const ModalBox = styled(Box)({
@@ -212,4 +233,34 @@ const ModalBox = styled(Box)({
   boxShadow: "24",
   p: "4",
   background: "white",
+})
+
+const ShareSurveyBox = styled(Box)({
+  width: "30%",
+  display: "flex",
+})
+
+const ShareTypography = styled(Typography)({
+  fontFamily: "IBMPlexSansKR-Regular",
+  fontSize: "1.5rem",
+})
+
+const ShareSurveyButton = styled(Button)({
+  position: "relative",
+  fontWeight: "bold",
+  "&:after": {
+    content: "",
+    display: "block",
+    width: "0",
+    height: "5px",
+    position: "absolute",
+    left: "0",
+    bottom: "0px",
+    background: "rgba(200, 125, 220, .6)",
+  },
+  "&:hover": {
+    transition: "all 0.5s linear",
+    opacity: "1",
+    fontSize: 19,
+  },
 })
