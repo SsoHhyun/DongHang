@@ -52,7 +52,6 @@ const CreateCoursePage = () => {
         <Box
           style={{
             height: "16vh",
-            marginBottom: "1rem",
           }}
         ></Box>
         <CourseSide

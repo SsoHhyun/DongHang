@@ -91,16 +91,17 @@ const CourseSide = (props) => {
         </StyledCourseSide>
         <Box>
           <Button
-            variant="contained"
-            color="success"
             style={{
               position: "absolute",
               bottom: 0,
               marginBottom: "5%",
               left: "35%",
               fontSize: 14,
-              borderRadius: 10,
+              borderRadius: "4px",
+              color: "white",
+              backgroundColor: "#003458",
               fontFamily: "HallymGothic-Regular",
+              padding: "0.5rem",
             }}
             onClick={() => {
               Swal.fire({

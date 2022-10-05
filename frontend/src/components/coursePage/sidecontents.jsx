@@ -22,6 +22,9 @@ const SideContents = (props) => {
         height: "170px",
       }}
       style={{ position: "relative", width: "18vw" }}
+      onClick={() => {
+        props.setSelectedSpot(props.spot)
+      }}
     >
       {props.spot.firstImage1 === "" ? (
         <CardMedia
@@ -38,12 +41,7 @@ const SideContents = (props) => {
           style={{ height: "100%", width: "50%" }}
         />
       )}
-      <CardContent
-        style={{ width: "50%" }}
-        onClick={() => {
-          props.setSelectedSpot(props.spot)
-        }}
-      >
+      <CardContent style={{ width: "50%" }}>
         <Typography variant="h7" component="div">
           <p style={{ fontSize: "12px", textAlign: "left" }}>
             {props.spotIndex + 1}번째 여행지
