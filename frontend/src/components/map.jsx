@@ -35,9 +35,9 @@ const Map = (props) => {
           props.recommendspot[i].mapy,
           props.recommendspot[i].mapx
         ),
-        content: `<div><img src=${
+        content: `<div style="width:180px"><img src=${
           props.recommendspot[i].firstImage1
-        } style="height:60px;width:150px"><br>${(i + 1).toString()}. ${
+        } style="height:100px;width:180px"><br>${(i + 1).toString()}. ${
           props.recommendspot[i].title
         }</div>`,
       })
