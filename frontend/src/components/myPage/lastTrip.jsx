@@ -39,7 +39,7 @@ function ActionAreaCard(props) {
             gutterBottom
             variant="h5"
             component="div"
-            style={{ textOverflow: "ellipsis" }}
+            style={{ fontWeight: "bold" }}
           >
             {props.item.tripName}
           </CardText>
@@ -89,11 +89,10 @@ const LastTrip = (props) => {
 
 export default LastTrip
 
-const TripContainer = styled(Box)({
-  borderRadius: 20,
+const TripContainer = styled(Paper)({
+  borderRadius: 5,
   width: "53vw",
-  height: "95vh",
-  // backgroundColor: "beige",
+  height: "80vh",
   marginLeft: "1.5rem",
   display: "flex",
   flexDirection: "column",
@@ -103,10 +102,11 @@ const TripContainer = styled(Box)({
 
 const Title = styled(Typography)({
   fontSize: 30,
-  color: "white",
+  color: "dark",
   fontWeight: "bold",
   textAlign: "center",
   margin: "2rem",
+  marginTop: "3rem",
   fontFamily: "HallymGothic-Regular",
 })
 
@@ -121,7 +121,7 @@ const MyCard = styled(Card)({
   margin: "1rem",
 })
 
-const CardImg = styled(Box)({
+export const CardImg = styled(Box)({
   display: "flex",
   justifyContent: "center",
   alignContent: "center",
@@ -131,4 +131,8 @@ const CardImg = styled(Box)({
 const CardText = styled(Typography)({
   textAlign: "right",
   fontFamily: "IBMPlexSansKR-Regular",
+  textOverflow: "ellipsis",
+  overflow: "hidden",
+  whiteSpace: "nowrap",
+  width: "100%",
 })
