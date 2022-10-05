@@ -22,32 +22,6 @@ const MainPage = () => {
   const [myTrip, setMyTrip] = useState(0)
   const [myPlace, setMyPlace] = useState([])
 
-  // 섹션 넘어가는 애니메이션
-  // window.addEventListener(
-  //   "wheel",
-  //   (e) => {
-  //     e.preventDefault()
-  //   },
-  //   { passive: true }
-  // )
-
-  // var mBackground = $("html")
-  // var page = 1
-
-  // mBackground.animate({ scrollTop: 0.1 }, 10)
-
-  // $(window).on("wheel", function (e) {
-  //   if (mBackground.is(":animated")) return
-  //   if (e.originalEvent.deltaY > 0) {
-  //     if (page === 2) return
-  //     page++
-  //   } else if (e.originalEvent.deltaY < 0) {
-  //     if (page === 1) return
-  //     page--
-  //   }
-  //   var posTop = (page - 1) * $(window).height()
-  //   mBackground.animate({ scrollTop: posTop })
-  // })
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -75,6 +49,7 @@ const MainPage = () => {
     <Background>
       <RecomImg>
         <Img src="img/fall.jpg" alt="" />
+        <Img src="img/donghaeng_hanja.jpg" alt="" />
       </RecomImg>
       {myTrip === null ? (
         <MainBackground>
@@ -152,12 +127,14 @@ const RecomImg = styled(Box)({
   width: "100%",
   height: "100vh",
   overflow: "hidden",
+  position: "relative",
 })
 
 const Img = styled("img")({
   width: "100%",
   height: "100%",
   objectFit: "cover",
+  position: "absolute",
 })
 
 const MainBackground = styled(Box)({
