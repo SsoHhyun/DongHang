@@ -37,6 +37,12 @@ const CreateCoursePage = () => {
     setCourseSpot([...temp, ...temp2])
     // console.log(courseSpot)
   }
+  const deleteRecommendSpot = (index) => {
+    const temp = recommendspot.slice(0, index)
+    const temp2 = recommendspot.slice(index + 1)
+    setRecommendspot([...temp, ...temp2])
+    // console.log(courseSpot)
+  }
   return (
     <FontContainer>
       {/* 배경이미지만 */}
@@ -111,6 +117,7 @@ const CreateCoursePage = () => {
           추천받기
         </Button>
         <RecommendBar
+          deleteRecommendSpot={deleteRecommendSpot}
           recommendspot={recommendspot}
           addCourseList={addCourseList}
           setSelectedSpot={setSelectedSpot}
