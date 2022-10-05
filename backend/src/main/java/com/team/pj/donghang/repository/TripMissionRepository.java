@@ -1,5 +1,7 @@
 package com.team.pj.donghang.repository;
 
+import com.team.pj.donghang.domain.entity.Mission;
+import com.team.pj.donghang.domain.entity.Trip;
 import com.team.pj.donghang.domain.entity.TripMission;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -10,4 +12,7 @@ public interface TripMissionRepository extends JpaRepository<TripMission, Long> 
     List<TripMission> findTripMissionsByTrip_TripNo(Long trip_tripNo);
 
     void removeTripMissionByMission_MissionNo(Long missionNo);
+
+    TripMission getTripMissionsByMissionAndTrip(Mission mission, Trip trip);
+
 }

@@ -69,6 +69,7 @@ public class MissionController {
                 TripMission.builder()
                         .mission(mission)
                         .trip(tripService.getTripInfo(tripMissionCreateDto.getTripNo()))
+                        .photoUploaded("false")
                         .build()
         );
 
@@ -102,6 +103,20 @@ public class MissionController {
     ) {
         Mission result = missionService.refreshMission(missionNo, tripNo);
         return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    @Transactional
+    @PutMapping("/photo")
+    @ApiOperation(
+            value = "사진 업로드했을 때 DB 값 변경"
+    )
+    public ResponseEntity<?> setPhotoUploaded(
+            @RequestParam Long missionNo,
+            @RequestParam Long tripNo
+    ) {
+        tripMissionService.setPhotoUploadedTrue(missionNo, tripNo);
+
+        return ResponseEntity.status(HttpStatus.OK).body("MODIFIED");
     }
 
 }

@@ -1,6 +1,7 @@
 package com.team.pj.donghang.domain.entity;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -28,6 +29,9 @@ public class TripMission {
     @ManyToOne
     @JoinColumn(name = "mission_no")
     private Mission mission;
+
+    @Column(name = "photo_uploaded")
+    private String photoUploaded = "false";
 
 }
 
