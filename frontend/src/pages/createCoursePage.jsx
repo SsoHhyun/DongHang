@@ -54,7 +54,8 @@ const CreateCoursePage = () => {
         <MapWrapper id="map">
           <Map
             // center={{ lat: selectedSpot.mapy, lng: selectedSpot.mapx }}
-            recommendspot={courseSpot}
+            recommendspot={recommendspot}
+            courseSpot={courseSpot}
             selectedSpot={selectedSpot}
             setCurrentSpot={setCurrentSpot}
             setSelectedSpot={setSelectedSpot}

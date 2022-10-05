@@ -35,9 +35,9 @@ const Map = (props) => {
           props.recommendspot[i].mapy,
           props.recommendspot[i].mapx
         ),
-        content: `<div style="width:180px"><img src=${
+        content: `<div style="height:150px;width:150px"><img src=${
           props.recommendspot[i].firstImage1
-        } style="height:100px;width:180px"><br>${(i + 1).toString()}. ${
+        } style="height:100px;width:150px"><br>${(i + 1).toString()}. ${
           props.recommendspot[i].title
         }</div>`,
       })
@@ -58,6 +58,7 @@ const Map = (props) => {
         title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
         image: markerImage, // 마커 이미지
         clickable: true,
+        selected: false,
       })
       var infowindow = new kakao.maps.InfoWindow({
         content: positions[i].content, // 인포윈도우에 표시할 내용
@@ -73,7 +74,12 @@ const Map = (props) => {
         "mouseout",
         makeOutListener(infowindow)
       )
-
+      for (var j = 0; j < props.courseSpot.length; j++) {
+        if (props.courseSpot[j].title === positions[i].title) {
+          marker.image = markerImage
+          continue
+        }
+      }
       marker.setMap(map)
     }
     kakao.maps.event.addListener(map, "zoom_changed", function () {
