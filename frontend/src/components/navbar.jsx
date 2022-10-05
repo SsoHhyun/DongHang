@@ -130,7 +130,7 @@ const LinkBox = styled(Link)({
 const PageLink = styled(Typography)({
   color: "white",
   fontFamily: "JSongMyung-Regular-KO",
-  fontSize: 18,
+  fontSize: 17,
   "&:hover": {
     transition: "all 0.5s linear",
     opacity: "1",

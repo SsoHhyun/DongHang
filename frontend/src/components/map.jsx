@@ -27,6 +27,7 @@ const Map = (props) => {
     let container = document.getElementById("map")
     let map = new kakao.maps.Map(container, options)
     var positions = []
+    var selectedpositions = []
 
     for (let i = 0; i < props.recommendspot.length; i++) {
       positions.push({
@@ -35,13 +36,28 @@ const Map = (props) => {
           props.recommendspot[i].mapy,
           props.recommendspot[i].mapx
         ),
-        content: `<div style="width:180px"><img src=${
+        content: `<div style="height:150px;width:150px"><img src=${
           props.recommendspot[i].firstImage1
-        } style="height:100px;width:180px"><br>${(i + 1).toString()}. ${
+        } style="height:100px;width:150px"><br>${(i + 1).toString()}. ${
           props.recommendspot[i].title
         }</div>`,
       })
     }
+    for (let i = 0; i < props.courseSpot.length; i++) {
+      selectedpositions.push({
+        title: props.courseSpot[i].title,
+        latlng: new kakao.maps.LatLng(
+          props.courseSpot[i].mapy,
+          props.courseSpot[i].mapx
+        ),
+        content: `<div style="height:150px;width:150px"><img src=${
+          props.courseSpot[i].firstImage1
+        } style="height:100px;width:150px"><br>${(i + 1).toString()}. ${
+          props.courseSpot[i].title
+        }</div>`,
+      })
+    }
+
     // 마커 이미지의 이미지 주소입니다
     var imageSrc =
       "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"
@@ -51,12 +67,11 @@ const Map = (props) => {
 
     // 마커 이미지를 생성합니다
     var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize)
-    for (var i = 0; i < positions.length; i++) {
+    for (let i = 0; i < positions.length; i++) {
       var marker = new kakao.maps.Marker({
         map: map, // 마커를 표시할 지도
         position: positions[i].latlng, // 마커를 표시할 위치
         title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-        image: markerImage, // 마커 이미지
         clickable: true,
       })
       var infowindow = new kakao.maps.InfoWindow({
@@ -75,6 +90,31 @@ const Map = (props) => {
       )
 
       marker.setMap(map)
+    }
+    for (var j = 0; j < selectedpositions.length; j++) {
+      var selectedmarker = new kakao.maps.Marker({
+        map: map, // 마커를 표시할 지도
+        position: selectedpositions[j].latlng, // 마커를 표시할 위치
+        title: selectedpositions[j].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+        image: markerImage, // 마커 이미지
+        clickable: true,
+      })
+      var seinfowindow = new kakao.maps.InfoWindow({
+        content: selectedpositions[j].content, // 인포윈도우에 표시할 내용
+      })
+
+      kakao.maps.event.addListener(
+        selectedmarker,
+        "mouseover",
+        makeOverListener(map, selectedmarker, seinfowindow)
+      )
+      kakao.maps.event.addListener(
+        selectedmarker,
+        "mouseout",
+        makeOutListener(seinfowindow)
+      )
+
+      selectedmarker.setMap(map)
     }
     kakao.maps.event.addListener(map, "zoom_changed", function () {
       props.setLevel(map.getLevel())

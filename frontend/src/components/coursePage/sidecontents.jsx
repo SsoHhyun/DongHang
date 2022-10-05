@@ -13,15 +13,6 @@ import ClearIcon from "@mui/icons-material/Clear"
 //코스관련 사이드바 내부 컨텐츠
 
 const SideContents = (props) => {
-  const [open, setOpen] = React.useState(false)
-
-  const handleClickOpen = () => {
-    setOpen(true)
-  }
-
-  const handleClose = () => {
-    setOpen(false)
-  }
   return (
     <Card
       sx={{
@@ -70,24 +61,6 @@ const SideContents = (props) => {
         </Typography>
       </CardContent>
       <CardActions>
-        {/* <Button
-          onClick={handleClickOpen}
-          style={{
-            fontSize: 13,
-            borderRadius: 10,
-            fontFamily: "HallymGothic-Regular",
-          }}
-        >
-          자세히 보기
-        </Button>
-        <Dialog
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <SpotDetail spot={props.spot}></SpotDetail>
-        </Dialog> */}
         <Button
           style={{
             top: "2px",

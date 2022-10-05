@@ -33,11 +33,13 @@ const RecommendBar = (props) => {
               <StyledRecommendSlide>
                 {props.recommendspot.map((user, index) => (
                   <RecommendContents
-                    spot={props.recommendspot[index]}
+                    spot={user}
                     key={index}
+                    idx={index}
                     addCourseList={props.addCourseList}
                     setSelectedSpot={props.setSelectedSpot}
                     selectedSpot={props.selectedSpot}
+                    deleteRecommendSpot={props.deleteRecommendSpot}
                   ></RecommendContents>
                 ))}
               </StyledRecommendSlide>

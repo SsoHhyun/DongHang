@@ -15,6 +15,7 @@ const RecommendContents = (props) => {
     <StyledCard
       onClick={() => {
         props.addCourseList(props.spot)
+        props.deleteRecommendSpot(props.idx)
         props.setSelectedSpot({
           title: props.spot.title,
           mapx: props.spot.mapx,

@@ -32,9 +32,16 @@ const CreateCoursePage = () => {
   const [startDate, setStartdate] = useState("") //시작날짜
   const [endDate, setEnddate] = useState("") //끝날짜
   const deleteCourse = (index) => {
+    setRecommendspot([...recommendspot, courseSpot[index]])
     const temp = courseSpot.slice(0, index)
     const temp2 = courseSpot.slice(index + 1)
     setCourseSpot([...temp, ...temp2])
+    // console.log(courseSpot)
+  }
+  const deleteRecommendSpot = (index) => {
+    const temp = recommendspot.slice(0, index)
+    const temp2 = recommendspot.slice(index + 1)
+    setRecommendspot([...temp, ...temp2])
     // console.log(courseSpot)
   }
   return (
@@ -54,7 +61,8 @@ const CreateCoursePage = () => {
         <MapWrapper id="map">
           <Map
             // center={{ lat: selectedSpot.mapy, lng: selectedSpot.mapx }}
-            recommendspot={courseSpot}
+            recommendspot={recommendspot}
+            courseSpot={courseSpot}
             selectedSpot={selectedSpot}
             setCurrentSpot={setCurrentSpot}
             setSelectedSpot={setSelectedSpot}
@@ -110,6 +118,7 @@ const CreateCoursePage = () => {
           추천받기
         </Button>
         <RecommendBar
+          deleteRecommendSpot={deleteRecommendSpot}
           recommendspot={recommendspot}
           addCourseList={addCourseList}
           setSelectedSpot={setSelectedSpot}
@@ -138,12 +147,12 @@ const FontContainer = styled(Box)({
   fontFamily: "HallymGothic-Regular",
 })
 
-// const CourseContainer = styled(Box)({
-//   width: "100vw",
-//   height: "100vh",
-//   backgroundImage: "url(" + "img/water.jpg" + ")",
-//   backgroundRepeat: "no-repeat",
-//   backgroundSize: "cover",
-//   backgroundAttachment: "fixed",
-//   backgroundPosition: "top center",
-// })
+const CourseContainer = styled(Box)({
+  width: "100vw",
+  height: "100vh",
+  backgroundImage: "url(" + "img/jeju.jpg" + ")",
+  backgroundRepeat: "no-repeat",
+  backgroundSize: "cover",
+  backgroundAttachment: "fixed",
+  backgroundPosition: "top center",
+})
