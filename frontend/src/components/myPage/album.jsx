@@ -40,7 +40,7 @@ const Photos = (props) => {
   }, [])
 
   return (
-    <ImageList sx={{ width: "100%", height: "70vh" }} cols={4} rowHeight={164}>
+    <ImageList sx={{ width: "100%", height: "100%" }} cols={4} rowHeight={164}>
       {itemData.map((item, i) => (
         <MyPhoto key={i}>
           <img
@@ -74,7 +74,6 @@ const BasicModal = (props) => {
       url: `/upload/getTripPhotoList?tripNo=${tripInfo[props.i].tripNo}`,
       method: "get",
     }).then((res) => {
-      console.log(res.data)
       setItemData(res.data)
     })
   }, [])
@@ -117,12 +116,26 @@ function LabTabs(props) {
   }
 
   return (
-    <Box sx={{ width: "100%", typography: "body1" }}>
+    <Box sx={{ width: "100%", typography: "body1", height: "100%" }}>
       <TabContext value={value}>
         <Box>
-          <TabList onChange={handleChange}>
-            <Tab label="앨범" value="1" />
-            <Tab label="여행기록" value="2" />
+          <TabList
+            onChange={handleChange}
+            indicatorColor="undefined"
+            textColor="inherit"
+          >
+            <AlbumTab
+              label="앨범"
+              value="1"
+              // icon={<CollectionsIcon />}
+              // iconPosition="start"
+            />
+            <AlbumTab
+              label="여행기록"
+              value="2"
+              // icon={<PlaceIcon />}
+              // iconPosition="start"
+            />
           </TabList>
         </Box>
         <AlbumTitle>
@@ -153,10 +166,10 @@ const Album = (props) => {
 
 export default Album
 
-const AlbumContainer = styled(Box)({
-  borderRadius: 20,
+const AlbumContainer = styled(Paper)({
+  borderRadius: 5,
   width: "53vw",
-  height: "90vh",
+  height: "80vh",
   // paddingTop: "15vh",
   marginLeft: "1.5rem",
   display: "flex",
@@ -175,7 +188,7 @@ const AlbumTitle = styled(Box)({
 const AlbumName = styled(Typography)({
   textAlign: "center",
   fontSize: 30,
-  color: "white",
+  color: "dark",
   fontWeight: "bold",
   fontFamily: "HallymGothic-Regular",
 })
@@ -183,8 +196,9 @@ const AlbumName = styled(Typography)({
 const Period = styled(Typography)({
   textAlign: "center",
   fontSize: 16,
-  color: "white",
-  fontFamily: "HallymGothic-Regular",
+  color: "grey",
+  fontWeight: "bold",
+  fontFamily: "IBMPlexSansKR-Regular",
 })
 
 const MyPhoto = styled(ImageListItem)({
@@ -229,4 +243,15 @@ const NextArrow = styled(ArrowForwardIosIcon)({
 
 const BackArrow = styled(ArrowBackIosIcon)({
   fontSize: 48,
+})
+
+const AlbumTab = styled(Tab)({
+  fontFamily: "JSongMyung-Regular-KO",
+  backgroundColor: "RosyBrown",
+  width: "12%",
+  marginLeft: "1rem",
+  color: "white",
+  fontSize: 15,
+  borderEndEndRadius: 5,
+  borderEndStartRadius: 5,
 })

@@ -3,23 +3,22 @@ import React from "react"
 import { useState } from "react"
 import {
   Box,
-  Button,
-  Paper,
   styled,
   Typography,
   Card,
   CardContent,
-  CardActions,
   CardMedia,
   CardActionArea,
 } from "@mui/material"
 import { useSelector } from "react-redux/es/exports"
 import Map from "../map"
+import { CardImg } from "./lastTrip"
 
 //지도
 const RecommendContents = (props) => {
   return (
     <StyledCard
+      sx={{ maxWidth: 345 }}
       onClick={() => {
         props.setSelectedSpot({
           title: props.spot.title,
@@ -30,31 +29,33 @@ const RecommendContents = (props) => {
       }}
     >
       <CardActionArea>
-        {props.spot.firstImage1 === "" ? (
-          <CardMedia
-            component="img"
-            image="../img/kyeongju.jpg"
-            alt="image not found"
-            height="100"
-          />
-        ) : (
-          <CardMedia
-            component="img"
-            image={props.spot.firstImage1}
-            alt="image not found"
-            height="100"
-          />
-        )}
-
+        <CardImg>
+          {props.spot.firstImage1 === "" ? (
+            <CardMedia
+              component="img"
+              image="../img/kyeongju.jpg"
+              alt="image not found"
+              style={{
+                width: "12vw",
+                height: "15vh",
+              }}
+            />
+          ) : (
+            <CardMedia
+              component="img"
+              image={props.spot.firstImage1}
+              alt="image not found"
+              style={{
+                width: "12vw",
+                height: "15vh",
+              }}
+            />
+          )}
+        </CardImg>
         <CardContent>
-          <Typography
-            gutterBottom
-            variant="h7"
-            component="div"
-            style={{ textOverflow: "ellipsis", width: "80px" }}
-          >
+          <CardText2 gutterBottom component="div">
             {props.spot.title}
-          </Typography>
+          </CardText2>
         </CardContent>
       </CardActionArea>
     </StyledCard>
@@ -88,15 +89,18 @@ const LastCourse = (props) => {
           setLevel={setLevel}
         />
       </MapContainer>
-      <MySpots>
-        {tripInfo[props.i].placeList.map((user, index) => (
-          <RecommendContents
-            spot={user}
-            key={index}
-            setSelectedSpot={setSelectedSpot}
-          ></RecommendContents>
-        ))}
-      </MySpots>
+      <MyBox>
+        <MyTypo>여행했던 곳들</MyTypo>
+        <MySpots>
+          {tripInfo[props.i].placeList.map((user, index) => (
+            <RecommendContents
+              spot={user}
+              key={index}
+              setSelectedSpot={setSelectedSpot}
+            ></RecommendContents>
+          ))}
+        </MySpots>
+      </MyBox>
     </LastCourseContainer>
   )
 }
@@ -105,30 +109,54 @@ export default LastCourse
 
 const LastCourseContainer = styled(Box)({
   display: "flex",
-  flexDirection: "column",
   justifyContent: "center",
   alignItem: "center",
   width: "50vw",
-  height: "74vh",
+  height: "60vh",
 })
 
 const MapContainer = styled(Box)({
   width: "100%",
-  height: "200%",
+  height: "100%",
   top: 0,
+})
+
+const MyBox = styled(Box)({
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItem: "center",
+  marginLeft: "2rem",
+})
+
+const MyTypo = styled(Box)({
+  textAlign: "left",
+  fontFamily: "HallymGothic-Regular",
+  fontWeight: "bold",
+  fontSize: 20,
 })
 
 const MySpots = styled(Box)({
   width: "100%",
   height: "100%",
-  display: "flex",
-  overflow: "auto",
+  overflowY: "auto",
   whiteSpace: "nowrap",
 })
+
 const StyledCard = styled(Card)({
-  width: "200px",
+  width: "13vw",
   marginRight: "1rem",
-  flex: "0 0 auto",
-  height: "200px",
   marginTop: "1rem",
+  marginBotton: "1rem",
+})
+
+const CardText2 = styled(Typography)({
+  textAlign: "left",
+  fontFamily: "IBMPlexSansKR-Regular",
+  // fontFamily: "HallymGothic-Regular",
+  textOverflow: "ellipsis",
+  overflow: "hidden",
+  whiteSpace: "nowrap",
+  width: "100%",
+  fontWeight: "bold",
 })

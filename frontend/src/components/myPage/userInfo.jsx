@@ -21,7 +21,7 @@ const Info = () => {
   return (
     <InfoContainer>
       <MyInfo>{user.nickname}님, 환영합니다!</MyInfo>
-      <User elevation={2}>
+      <User elevation={0}>
         <UserInfo>
           <UserPhoto>
             <Photo src={user.profileImage} alt="profile" />
@@ -39,7 +39,7 @@ const Info = () => {
         </UserInfo>
         <EditBtn>수정</EditBtn>
       </User>
-      <User elevation={2}>
+      <User elevation={1}>
         <Phone>
           <SmartphoneIcon />
           <Explain>전화번호</Explain>
@@ -47,7 +47,7 @@ const Info = () => {
         </Phone>
         <EditBtn>수정</EditBtn>
       </User>
-      <User elevation={2}>
+      <User elevation={1}>
         <Email>
           <EmailIcon />
           <Explain>이메일</Explain>
@@ -61,10 +61,10 @@ const Info = () => {
 
 export default Info
 
-const InfoContainer = styled(Box)({
-  borderRadius: 20,
+const InfoContainer = styled(Paper)({
+  borderRadius: 5,
   width: "53vw",
-  height: "90vh",
+  height: "80vh",
   marginLeft: "1.5rem",
   display: "flex",
   flexDirection: "column",
@@ -74,10 +74,10 @@ const InfoContainer = styled(Box)({
 
 const MyInfo = styled(Typography)({
   fontSize: 30,
-  color: "white",
+  color: "dark",
   fontWeight: "bold",
   textAlign: "center",
-  marginBottom: "2rem",
+  marginTop: "1rem",
   fontFamily: "HallymGothic-Regular",
 })
 
@@ -88,7 +88,6 @@ const User = styled(Paper)({
   marginLeft: "4rem",
   marginRight: "4rem",
   marginBottom: "1rem",
-  marginTop: "1rem",
   borderRadius: 5,
   backgroundColor: "white",
 })
