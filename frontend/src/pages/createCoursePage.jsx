@@ -138,12 +138,12 @@ const FontContainer = styled(Box)({
   fontFamily: "HallymGothic-Regular",
 })
 
-// const CourseContainer = styled(Box)({
-//   width: "100vw",
-//   height: "100vh",
-//   backgroundImage: "url(" + "img/water.jpg" + ")",
-//   backgroundRepeat: "no-repeat",
-//   backgroundSize: "cover",
-//   backgroundAttachment: "fixed",
-//   backgroundPosition: "top center",
-// })
+const CourseContainer = styled(Box)({
+  width: "100vw",
+  height: "100vh",
+  backgroundImage: "url(" + "img/jeju.jpg" + ")",
+  backgroundRepeat: "no-repeat",
+  backgroundSize: "cover",
+  backgroundAttachment: "fixed",
+  backgroundPosition: "top center",
+})
