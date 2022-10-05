@@ -40,9 +40,9 @@ public class PhotoController {
             @RequestParam("images")MultipartFile multipartFile,
             @RequestParam("tripNo")Long tripNo
     ) {
-        if(authentication == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED");
-        }
+//        if(authentication == null) {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED");
+//        }
 
         CustomUserDetails userDetails = (CustomUserDetails)authentication.getDetails();
 
@@ -63,9 +63,9 @@ public class PhotoController {
             @ApiIgnore Authentication authentication,
             @RequestParam("profileImage")MultipartFile multipartFile
     ) {
-        if(authentication == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED");
-        }
+//        if(authentication == null) {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED");
+//        }
 
         CustomUserDetails userDetails = (CustomUserDetails)authentication.getDetails();
 
@@ -83,9 +83,9 @@ public class PhotoController {
             @ApiIgnore Authentication authentication,
             @RequestParam("profileImage")MultipartFile multipartFile
     ){
-        if(authentication == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED");
-        }
+//        if(authentication == null) {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED");
+//        }
 
         CustomUserDetails userDetails = (CustomUserDetails)authentication.getDetails();
 
@@ -105,9 +105,9 @@ public class PhotoController {
             @ApiParam(value = "여행기록 사진들 가져오기", required = true)
             @RequestParam(value = "tripNo", required = true) Long tripNo
     ) {
-        if(authentication == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED");
-        }
+//        if(authentication == null) {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED");
+//        }
 
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getDetails();
 

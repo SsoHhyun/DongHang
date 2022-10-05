@@ -41,9 +41,9 @@ public class TripController {
             @ApiIgnore Authentication authentication,
             @ApiParam(value = "일정 생성을 위한 정보",required = true) @RequestBody TripCreateRequestDto tripCreateRequestDto
     ) {
-        if(authentication == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED");
-        }
+//        if(authentication == null) {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED");
+//        }
 
         CustomUserDetails customUserDetails = (CustomUserDetails)authentication.getDetails();
 
@@ -62,9 +62,9 @@ public class TripController {
     public ResponseEntity<?> getTodayTrip(
             @ApiIgnore Authentication authentication
     ) {
-        if(authentication == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED");
-        }
+//        if(authentication == null) {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED");
+//        }
 
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getDetails();
 
@@ -101,9 +101,9 @@ public class TripController {
     public ResponseEntity<?> getTripList(
             @ApiIgnore  Authentication authentication
     ){
-        if(authentication == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED");
-        }
+//        if(authentication == null) {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED");
+//        }
 
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getDetails();
 
@@ -125,9 +125,9 @@ public class TripController {
     public ResponseEntity<?> getLatTripList(
             @ApiIgnore Authentication authentication
     )throws Exception {
-        if(authentication == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED");
-        }
+//        if(authentication == null) {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED");
+//        }
 
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getDetails();
         User user = userDetails.getUser();
@@ -149,9 +149,9 @@ public class TripController {
     public ResponseEntity<?> getMyOneTrip(
             @ApiIgnore Authentication authentication,
             @ApiParam(value = "갖고올 일정 번호",required = true) Long tripNo) {
-        if(authentication == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED");
-        }
+//        if(authentication == null) {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED");
+//        }
 
         CustomUserDetails userDetails = (CustomUserDetails)authentication.getDetails();
         TripResponseDto result = tripService.getUserTrip(userDetails.getUser().getUserNo(),tripNo);
@@ -171,9 +171,9 @@ public class TripController {
             @ApiIgnore Authentication authentication,
             @ApiParam(value = "갖고올 일정 번호",required = true)Long tripNo
     ) {
-        if(authentication == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED");
-        }
+//        if(authentication == null) {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED");
+//        }
 
         CustomUserDetails userDetails = (CustomUserDetails)authentication.getDetails();
         LastTripResponseDto result = tripService.getUserPastOneTrip(userDetails.getUser().getUserNo(),tripNo);
@@ -196,9 +196,9 @@ public class TripController {
             @ApiIgnore Authentication authentication,
             @ApiParam(value = "일정 수정을 위한 정보",required = true) @RequestBody TripUpdateRequestDto tripUpdateRequestDto
     ) {
-        if(authentication == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED");
-        }
+//        if(authentication == null) {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED");
+//        }
         //수정해야함.
         CustomUserDetails userDetails = (CustomUserDetails)authentication.getDetails();
         boolean result = tripService.updateTrip(userDetails.getUser(),tripUpdateRequestDto);
@@ -219,9 +219,9 @@ public class TripController {
             @ApiIgnore Authentication authentication,
             @PathVariable(value = "tripNo", required = true)Long tripNo
     ) {
-        if(authentication == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED");
-        }
+//        if(authentication == null) {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED");
+//        }
         //수정해야함.
         CustomUserDetails userDetails = (CustomUserDetails)authentication.getDetails();
         boolean flag = tripService.deleteTrip(userDetails.getUser(),tripNo);

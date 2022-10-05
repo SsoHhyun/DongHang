@@ -57,9 +57,9 @@ public class MissionController {
             @ApiParam(value = "미션의 내용과 trip_no", required = true)
             @RequestBody TripMissionCreateDto tripMissionCreateDto
     ) {
-        if(authentication == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED");
-        }
+//        if(authentication == null) {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED");
+//        }
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getDetails();
         User user = customUserDetails.getUser();
 
