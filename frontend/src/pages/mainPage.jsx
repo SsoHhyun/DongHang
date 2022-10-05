@@ -53,7 +53,7 @@ const MainPage = () => {
     <Background>
       <RecomImg>
         <Img src="img/fall.jpg" alt="" />
-        <Img src="img/donghaeng_hanja.jpg" alt="" />
+        {/* <Img src="img/donghaeng_hanja.jpg" alt="" /> */}
       </RecomImg>
       {myTrip === null ? (
         <MainBackground>
@@ -149,14 +149,12 @@ const RecomImg = styled(Box)({
   width: "100%",
   height: "100vh",
   overflow: "hidden",
-  position: "relative",
 })
 
 export const Img = styled("img")({
   width: "100%",
   height: "100%",
   objectFit: "cover",
-  position: "absolute",
 })
 
 const MainBackground = styled(Box)({
@@ -185,7 +183,7 @@ const MainBoxone = styled(Box)({
 
 const CourseBox = styled(Box)({
   width: "20%",
-  height: "30vh",
+  height: "50vh",
   overflowY: "auto",
   background: "#faf8f7",
   borderRadius: "10px",

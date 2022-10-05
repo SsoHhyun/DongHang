@@ -7,6 +7,7 @@ import axios from "axios"
 import interceptor from "../../api/interceptor"
 import Typography from "@mui/material/Typography"
 import Modal from "@mui/material/Modal"
+import ClearIcon from "@mui/icons-material/Clear"
 
 // const MissionGrid = styled(Grid)({
 //   display: "flex",
@@ -21,11 +22,6 @@ import Modal from "@mui/material/Modal"
 //   textAlign: "center",
 //   margin: 10,
 // })
-
-// reroll button onclick -> get numbers 함수 -> 숫자 세개 나옴 ->
-// 그 숫자를 다시 인덱스로 넣어줌
-
-// mission 임시로 넣어둔 리스트
 
 const Mission = (props) => {
   const [mission, setMission] = useState([])
@@ -77,13 +73,14 @@ const Mission = (props) => {
     console.log(missionNo, props.tripNo)
     axios
       .get(
-        `http://j7a504.p.ssafy.io/api/mission/refresh?missionNo=${missionNo}&tripNo=${props.tripNo}`
+        `http://j7a504.p.ssafy.io:8080/api/mission/refresh?missionNo=${missionNo}&tripNo=${props.tripNo}`
       )
       .then((res) => {
         console.log(res)
         axios
           .get(
-            "http://j7a504.p.ssafy.io/api/mission/trip?tripNo=" + props.tripNo
+            "http://j7a504.p.ssafy.io:8080/api/mission/trip?tripNo=" +
+              props.tripNo
           )
           .then((res) => {
             setMission(res.data)
@@ -94,47 +91,77 @@ const Mission = (props) => {
       })
   }
 
+  // delete 함수
+  const deleteMission = (missionNo) => {
+    axios
+      .delete(
+        `http://j7a504.p.ssafy.io:8080/api/mission?missionNo=${missionNo}`
+      )
+      .then((res) => {
+        console.log(res)
+        alert("미션이 삭제되었습니다.")
+        setMission(res)
+      })
+      .catch((err) => {
+        alert(err)
+      })
+  }
+
   return (
     <MissionBox>
-      <Box>
-        {mission.map((item, i) => (
-          <Paper key={i} item={item}>
-            <Box>
-              {item.missionCategoryNo === 0
-                ? "mission"
-                : item.missionCategoryNo === 1
-                ? "special mission"
-                : "custom mission"}
-            </Box>
-            {item.missionCategoryNo === 2 ? null : (
+      {mission.map((item, i) => (
+        <MissionPaper
+          key={i}
+          item={item}
+          style={
+            item.missionCategoryNo === 0
+              ? { background: "#d5c0b4" }
+              : item.missionCategoryNo === 1
+              ? { background: "#f4b37b" }
+              : { background: "#BDCFDD" }
+          }
+        >
+          <MissionTypeBox>
+            {item.missionCategoryNo === 0 ? (
+              <Typography>mission</Typography>
+            ) : item.missionCategoryNo === 1 ? (
+              <Typography>special mission</Typography>
+            ) : (
+              <Typography>custom mission</Typography>
+            )}
+            {item.missionCategoryNo === 2 ? (
+              <IconButton onClick={() => deleteMission(item.missionNo)}>
+                <ClearIcon />
+              </IconButton>
+            ) : (
               <IconButton onClick={() => rerollMission(item.missionNo)}>
                 <RefreshIcon />
               </IconButton>
             )}
-            <ContentBox>
-              <Box>{item.content}</Box>
-              <IconButton onClick={handlePhotoOpen}>
-                <CameraAltIcon />
-              </IconButton>
-              <Modal
-                open={photoOpen}
-                onClose={handlePhotoClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-              >
-                <PhotoModalBox>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={fileChangeHandler}
-                  />
-                  <Button onClick={onClickImageHandler}>업로드 하기</Button>
-                </PhotoModalBox>
-              </Modal>
-            </ContentBox>
-          </Paper>
-        ))}
-      </Box>
+          </MissionTypeBox>
+          <ContentBox>
+            <Box>{item.content}</Box>
+            <Button onClick={handlePhotoOpen} endIcon={<CameraAltIcon />}>
+              인증샷
+            </Button>
+            <Modal
+              open={photoOpen}
+              onClose={handlePhotoClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <PhotoModalBox>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={fileChangeHandler}
+                />
+                <Button onClick={onClickImageHandler}>업로드 하기</Button>
+              </PhotoModalBox>
+            </Modal>
+          </ContentBox>
+        </MissionPaper>
+      ))}
     </MissionBox>
   )
 }
@@ -142,8 +169,30 @@ const Mission = (props) => {
 export default Mission
 
 const MissionBox = styled(Box)({
-  background: "#f4b37b",
+  background: "#faf8f7",
   padding: "2px",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  fontFamily: "HallymGothic-Regular",
+  height: "60vh",
+  overflow: "auto",
+  borderRadius: "10px",
+})
+
+const MissionPaper = styled(Box)({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  justifyContent: "space-between",
+  marginBottom: "1%",
+  borderRadius: "10px",
+  width: "95%",
+  padding: "2%",
+})
+
+const MissionTypeBox = styled(Box)({
+  width: "15%",
 })
 
 const ContentBox = styled(Box)({
