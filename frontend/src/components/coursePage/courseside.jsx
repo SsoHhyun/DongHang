@@ -66,7 +66,13 @@ const CourseSide = (props) => {
               setEndDate(parseDate(newValue))
               console.log(endDate)
             }}
-            renderInput={(params) => <TextField {...params} fullWidth />}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                fullWidth
+                style={{ marginBottom: "15px" }}
+              />
+            )}
           />
         </LocalizationProvider>
         <StyledCourseSide>
