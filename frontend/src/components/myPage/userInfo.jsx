@@ -1,6 +1,5 @@
-import React from "react";
-import { useSelector } from "react-redux/es/exports";
-
+import React, { useLayoutEffect } from "react"
+import { useSelector } from "react-redux/es/exports"
 import {
   Box,
   Button,
@@ -9,14 +8,15 @@ import {
   Paper,
   Input,
   Badge,
-} from "@mui/material";
-import { Photo } from "../../pages/users/myPage";
-import SmartphoneIcon from "@mui/icons-material/Smartphone";
-import EmailIcon from "@mui/icons-material/Email";
-import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
+} from "@mui/material"
+import { Photo } from "../../pages/users/myPage"
+import SmartphoneIcon from "@mui/icons-material/Smartphone"
+import EmailIcon from "@mui/icons-material/Email"
+import ChangeCircleIcon from "@mui/icons-material/ChangeCircle"
+import "../../App.css"
 
 const Info = () => {
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user)
 
   return (
     <InfoContainer>
@@ -28,12 +28,12 @@ const Info = () => {
             <ChangePhoto
               color="info"
               onClick={() => {
-                console.log(user);
+                console.log(user)
               }}
             />
           </UserPhoto>
           <UserName>
-            <MyName defaultValue={user.nickname}></MyName>
+            <MyName>{user.nickname}</MyName>
             <UserId>{`@${user.id}`}</UserId>
           </UserName>
         </UserInfo>
@@ -42,42 +42,44 @@ const Info = () => {
       <User elevation={2}>
         <Phone>
           <SmartphoneIcon />
-          <PhoneNumber defaultValue={user.phoneNumber}></PhoneNumber>
+          <Explain>전화번호</Explain>
+          <PhoneNumber>{user.phoneNumber}</PhoneNumber>
         </Phone>
         <EditBtn>수정</EditBtn>
       </User>
       <User elevation={2}>
         <Email>
           <EmailIcon />
-          <EmailAddress defaultValue={user.email}></EmailAddress>
+          <Explain>이메일</Explain>
+          <EmailAddress>{user.email}</EmailAddress>
         </Email>
         <EditBtn>수정</EditBtn>
       </User>
     </InfoContainer>
-  );
-};
+  )
+}
 
-export default Info;
+export default Info
 
-const InfoContainer = styled(Paper)({
+const InfoContainer = styled(Box)({
   borderRadius: 20,
   width: "53vw",
-  height: "95vh",
-  backgroundColor: "beige",
+  height: "90vh",
   marginLeft: "1.5rem",
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
   alignContent: "center",
-});
+})
 
 const MyInfo = styled(Typography)({
   fontSize: 30,
-  color: "brown",
+  color: "white",
   fontWeight: "bold",
   textAlign: "center",
   marginBottom: "2rem",
-});
+  fontFamily: "HallymGothic-Regular",
+})
 
 const User = styled(Paper)({
   display: "flex",
@@ -87,72 +89,87 @@ const User = styled(Paper)({
   marginRight: "4rem",
   marginBottom: "1rem",
   marginTop: "1rem",
-  borderRadius: 10,
-  backgroundColor: "ivory",
-});
+  borderRadius: 5,
+  backgroundColor: "white",
+})
 
 const UserInfo = styled(Box)({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-});
+})
 
 const UserPhoto = styled(Box)({
   display: "flex",
   justifyContent: "center",
   alignItems: "end",
-});
+})
 
 const ChangePhoto = styled(ChangeCircleIcon)({
   position: "absolute",
   paddingBottom: 50,
   paddingLeft: 150,
-});
+})
 
 const UserName = styled(Box)({
   display: "flex",
   flexDirection: "column",
-  justifyContent: "center",
-});
+  // justifyContent: "center",
+  alignItems: "start",
+})
 
-const MyName = styled(Input)({
-  color: "#c19a6b",
+const MyName = styled(Typography)({
+  color: "#1976D2",
   fontWeight: "bold",
-  fontSize: 25,
-  textAlign: "center",
-});
+  fontSize: 30,
+  fontFamily: "IBMPlexSansKR-Regular",
+})
 
-const UserId = styled(Typography)({
+export const UserId = styled(Typography)({
   color: "grey",
-});
+  fontFamily: "HallymGothic-Regular",
+})
 
 const EditBtn = styled(Button)({
   margin: "2rem",
-  color: "crimson",
-});
+  color: "grey",
+  borderRadius: 30,
+  fontFamily: "HallymGothic-Regular",
+  border: "solid 1px",
+})
 
 const Phone = styled(Box)({
   marginLeft: "2rem",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-});
+})
+
+const Explain = styled(Typography)({
+  fontFamily: "HallymGothic-Regular",
+  marginLeft: 10,
+  fontWeight: "bold",
+})
 
 const Email = styled(Box)({
   marginLeft: "2rem",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-});
+})
 
-const PhoneNumber = styled(Input)({
+const PhoneNumber = styled(Typography)({
   marginLeft: "1rem",
-  color: "grey",
-  fontSize: 17,
-});
+  color: "#1976D2",
+  fontSize: 19,
+  fontWeight: "bold",
+  fontFamily: "HallymGothic-Regular",
+})
 
-const EmailAddress = styled(Input)({
+const EmailAddress = styled(Typography)({
   marginLeft: "1rem",
-  color: "grey",
-  fontSize: 17,
-});
+  color: "#1976D2",
+  fontWeight: "bold",
+  fontSize: 19,
+  fontFamily: "IBMPlexSansKR-Regular",
+})

@@ -70,13 +70,13 @@ const CourseSide = (props) => {
   }
 
   return (
-    <Box>
+    <Box style={{ backgroundImage: `url("../img/d1.jpg")` }}>
       <Box
         style={{
-          backgroundColor: "white",
-          height: "92vh",
+          height: "80vh",
           width: "20vw",
           position: "absolute",
+          padding: "1rem",
         }}
       >
         <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -181,9 +181,10 @@ export default CourseSide
 
 const StyledCourseSide = styled(Box)({
   width: "20vw",
-  height: "70vh",
+  height: "55vh",
   backgroundColor: "white",
   overflow: "auto",
   left: "0%",
   position: "absolute",
+  padding: "1rem",
 })

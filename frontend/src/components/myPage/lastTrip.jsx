@@ -61,7 +61,6 @@ const LastTrip = (props) => {
       method: "get",
     }).then((res) => {
       dispatch(setLastTrip(res.data))
-      console.log(tripInfo)
     })
   }, [])
   return (
@@ -90,11 +89,11 @@ const LastTrip = (props) => {
 
 export default LastTrip
 
-const TripContainer = styled(Paper)({
+const TripContainer = styled(Box)({
   borderRadius: 20,
   width: "53vw",
   height: "95vh",
-  backgroundColor: "beige",
+  // backgroundColor: "beige",
   marginLeft: "1.5rem",
   display: "flex",
   flexDirection: "column",
@@ -104,10 +103,11 @@ const TripContainer = styled(Paper)({
 
 const Title = styled(Typography)({
   fontSize: 30,
-  color: "brown",
+  color: "white",
   fontWeight: "bold",
   textAlign: "center",
   margin: "2rem",
+  fontFamily: "HallymGothic-Regular",
 })
 
 const Trips = styled(Box)({
@@ -130,4 +130,5 @@ const CardImg = styled(Box)({
 
 const CardText = styled(Typography)({
   textAlign: "right",
+  fontFamily: "IBMPlexSansKR-Regular",
 })
