@@ -110,15 +110,10 @@ const MyPage = () => {
 
 export default MyPage
 
-// const BackImg = styled(Image)({
-//   width: "100vw",
-//   height: "100vh",
-// })
-
 const Container = styled(Box)({
   width: "100vw",
   height: "100vh",
-  backgroundImage: "url(" + "img/kyeongju.jpg" + ")",
+  backgroundImage: "url(" + "img/jeju.jpg" + ")",
   backgroundRepeat: "no-repeat",
   backgroundSize: "cover",
   backgroundAttachment: "fixed",
