@@ -8,26 +8,15 @@ import { createAsyncThunk } from "@reduxjs/toolkit"
 //     userEmail
 // }
 
-export const initialState = {
-  id: "",
-  password: "",
-  email: "",
-  nickname: "",
-}
-
-const courseListSlice = createSlice({
-  name: "user",
-  initialState,
+const missionSlice = createSlice({
+  name: "mission",
+  initialState: [],
   reducers: {
-    signup: (state, action) => {
-      state.email = action.payload.email
-      state.nickname = action.payload.nickname
-      state.id = action.payload.id
-      state.password = action.payload.password
+    setMission: (state, { payload }) => {
+      return payload
     },
   },
 })
 
-const actions = courseListSlice
-export const fetchProfile = actions
-export default courseListSlice.reducer
+export const { setMission } = missionSlice.actions
+export default missionSlice.reducer

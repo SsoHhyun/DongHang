@@ -3,9 +3,14 @@ import { Typography, Box, Button } from "@material-ui/core"
 import axios from "axios"
 import interceptor from "../../api/interceptor"
 import { useState } from "react"
+import { setMission } from "../../features/mission/missionSlice"
+import { useDispatch, useSelector } from "react-redux"
 
 const CreateMission = (props) => {
   const [content, setContent] = useState("")
+  const mission = useSelector((state) => state.mission)
+  const dispatch = useDispatch()
+
   const close = () => {
     props.setOpen(false)
   }
@@ -31,7 +36,8 @@ const CreateMission = (props) => {
               props.tripNo
           )
           .then((res) => {
-            console.log(res)
+            console.log(res.data)
+            dispatch(setMission(res.data))
           })
       })
       .catch((err) => {

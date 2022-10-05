@@ -1,6 +1,7 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit"
 import userReducer from "../features/user/userSlice"
 import lastTripsReducer from "../features/course/lastTripSlice"
+import missionReducer from "../features/mission/missionSlice"
 
 const open = createSlice({
   name: "open",
@@ -40,6 +41,7 @@ export default configureStore({
     imgIndex: imgIndex.reducer,
     user: userReducer,
     lastTrips: lastTripsReducer,
+    mission: missionReducer,
   },
   devTools: process.env.NODE_ENV !== "production",
 })

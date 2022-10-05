@@ -8,6 +8,8 @@ import interceptor from "../../api/interceptor"
 import Typography from "@mui/material/Typography"
 import Modal from "@mui/material/Modal"
 import ClearIcon from "@mui/icons-material/Clear"
+import { setMission } from "../../features/mission/missionSlice"
+import { useDispatch, useSelector } from "react-redux"
 
 // const MissionGrid = styled(Grid)({
 //   display: "flex",
@@ -24,7 +26,8 @@ import ClearIcon from "@mui/icons-material/Clear"
 // })
 
 const Mission = (props) => {
-  const [mission, setMission] = useState([])
+  const mission = useSelector((state) => state.mission)
+  const dispatch = useDispatch()
 
   if (props.tripNo !== 0 && mission.length === 0) {
     interceptor({
@@ -33,7 +36,7 @@ const Mission = (props) => {
     })
       .then((res) => {
         console.log(res.data)
-        setMission(res.data)
+        dispatch(setMission(res.data))
       })
       .catch((err) => {
         alert(err)
@@ -83,7 +86,7 @@ const Mission = (props) => {
               props.tripNo
           )
           .then((res) => {
-            setMission(res.data)
+            dispatch(setMission(res.data))
           })
       })
       .catch((err) => {
@@ -98,9 +101,15 @@ const Mission = (props) => {
         `http://j7a504.p.ssafy.io:8080/api/mission?missionNo=${missionNo}`
       )
       .then((res) => {
-        console.log(res)
         alert("미션이 삭제되었습니다.")
-        setMission(res)
+        axios
+          .get(
+            "http://j7a504.p.ssafy.io:8080/api/mission/trip?tripNo=" +
+              props.tripNo
+          )
+          .then((res) => {
+            dispatch(setMission(res.data))
+          })
       })
       .catch((err) => {
         alert(err)
