@@ -21,7 +21,7 @@ const SideContents = (props) => {
         display: "inline-flex",
         height: "170px",
       }}
-      style={{ position: "relative" }}
+      style={{ position: "relative", width: "18vw" }}
     >
       {props.spot.firstImage1 === "" ? (
         <CardMedia

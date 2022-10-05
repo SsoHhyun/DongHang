@@ -81,11 +81,12 @@ const WrapTab = styled(Box)({
 const WrapRecommendBar = styled(Box)({
   backgroundColor: "white",
   width: "60vw",
-  height: "28vh",
+  height: "25vh",
   position: "absolute",
-  bottom: 0,
+  bottom: "1rem",
   left: "23vw",
   paddingBottom: 30,
+  borderRadius: "8px",
 })
 const CourseTab = styled(Tab)({
   fontSize: 14,

@@ -46,103 +46,104 @@ const CreateCoursePage = () => {
     // console.log(courseSpot)
   }
   return (
-    <FontContainer>
-      {/* 배경이미지만 */}
-      <Box
-        style={{
-          background: "#003458",
-          height: "16vh",
-          marginBottom: "1rem",
-        }}
-      ></Box>
-      <CourseSide
-        recommendspot={courseSpot}
-        selectedSpot={selectedSpot}
-        deleteCourse={deleteCourse}
-        setStartDate={setStartdate}
-        setEnddate={setEnddate}
-        startDate={startDate}
-        endDate={endDate}
-        setSelectedSpot={setSelectedSpot}
-      ></CourseSide>
-      <MapWrapper id="map">
-        <Map
-          // center={{ lat: selectedSpot.mapy, lng: selectedSpot.mapx }}
-          recommendspot={recommendspot}
-          courseSpot={courseSpot}
+    <Background>
+      <FontContainer>
+        {/* 배경이미지만 */}
+        <Box
+          style={{
+            height: "16vh",
+            marginBottom: "1rem",
+          }}
+        ></Box>
+        <CourseSide
+          recommendspot={courseSpot}
           selectedSpot={selectedSpot}
-          setCurrentSpot={setCurrentSpot}
+          deleteCourse={deleteCourse}
+          setStartDate={setStartdate}
+          setEnddate={setEnddate}
+          startDate={startDate}
+          endDate={endDate}
           setSelectedSpot={setSelectedSpot}
-          level={level}
-          setLevel={setLevel}
-        ></Map>
-      </MapWrapper>
-      <Button
-        style={{
-          position: "absolute",
-          top: "70%",
-          right: "17vw",
-          fontSize: 14,
-          borderRadius: 10,
-          fontFamily: "HallymGothic-Regular",
-          zIndex: 2,
-        }}
-        onClick={() => {
-          interceptor({
-            url: `/api/place/recommend?mapx1=${currentSpot.mapx1}&mapx2=${currentSpot.mapx2}&mapy1=${currentSpot.mapy1}&mapy2=${currentSpot.mapy2}`,
-            method: "get",
-          })
-            .then((res) => {
-              setRecommendspot([])
-              for (let i = 0; i < res.data.length; i++) {
-                if (i > 20) break
-                setRecommendspot((recommendspot) => [
-                  ...recommendspot,
-                  res.data[i],
-                ])
-              }
+        ></CourseSide>
+        <MapWrapper id="map">
+          <Map
+            recommendspot={recommendspot}
+            courseSpot={courseSpot}
+            selectedSpot={selectedSpot}
+            setCurrentSpot={setCurrentSpot}
+            setSelectedSpot={setSelectedSpot}
+            level={level}
+            setLevel={setLevel}
+          ></Map>
+        </MapWrapper>
+        <Button
+          style={{
+            position: "absolute",
+            top: "71%",
+            right: "18vw",
+            fontSize: 14,
+            borderRadius: 10,
+            fontFamily: "HallymGothic-Regular",
+            zIndex: 2,
+          }}
+          onClick={() => {
+            interceptor({
+              url: `/api/place/recommend?mapx1=${currentSpot.mapx1}&mapx2=${currentSpot.mapx2}&mapy1=${currentSpot.mapy1}&mapy2=${currentSpot.mapy2}`,
+              method: "get",
             })
-            .catch((err) => {
-              alert(err)
+              .then((res) => {
+                setRecommendspot([])
+                for (let i = 0; i < res.data.length; i++) {
+                  if (i > 20) break
+                  setRecommendspot((recommendspot) => [
+                    ...recommendspot,
+                    res.data[i],
+                  ])
+                }
+              })
+              .catch((err) => {
+                alert(err)
+              })
+            interceptor({
+              url: `/api/place/restaurants?mapx1=${currentSpot.mapx1}&mapx2=${currentSpot.mapx2}&mapy1=${currentSpot.mapy1}&mapy2=${currentSpot.mapy2}`,
+              method: "get",
             })
-          interceptor({
-            url: `/api/place/restaurants?mapx1=${currentSpot.mapx1}&mapx2=${currentSpot.mapx2}&mapy1=${currentSpot.mapy1}&mapy2=${currentSpot.mapy2}`,
-            method: "get",
-          })
-            .then((res) => {
-              setRestuarants([])
-              for (let i = 0; i < res.data.length; i++) {
-                if (i > 20) break
-                setRestuarants((restaurants) => [...restaurants, res.data[i]])
-              }
-            })
-            .catch((err) => {
-              alert(err)
-            })
-        }}
-      >
-        <StarsIcon></StarsIcon>추천받기
-      </Button>
-      <RecommendBar
-        deleteRecommendSpot={deleteRecommendSpot}
-        recommendspot={recommendspot}
-        addCourseList={addCourseList}
-        setSelectedSpot={setSelectedSpot}
-        selectedSpot={selectedSpot}
-        restaurants={restuarants}
-      ></RecommendBar>
-    </FontContainer>
+              .then((res) => {
+                setRestuarants([])
+                for (let i = 0; i < res.data.length; i++) {
+                  if (i > 20) break
+                  setRestuarants((restaurants) => [...restaurants, res.data[i]])
+                }
+              })
+              .catch((err) => {
+                alert(err)
+              })
+          }}
+        >
+          <StarsIcon></StarsIcon>추천받기
+        </Button>
+        <RecommendBar
+          deleteRecommendSpot={deleteRecommendSpot}
+          recommendspot={recommendspot}
+          addCourseList={addCourseList}
+          setSelectedSpot={setSelectedSpot}
+          selectedSpot={selectedSpot}
+          restaurants={restuarants}
+        ></RecommendBar>
+      </FontContainer>
+    </Background>
   )
 }
 export default CreateCoursePage
 
 const MapWrapper = styled(Box)({
   width: "60vw",
-  height: "48vh",
+  height: "43vh",
   position: "absolute",
   paddingTop: "8vh",
   left: "23vw",
-  zIndex: -1,
+  backgroundColor: "tomato",
+  borderRadius: "8px",
 })
 const FontContainer = styled(Box)({
   color: "#1976D2",
@@ -152,10 +153,10 @@ const FontContainer = styled(Box)({
   fontFamily: "HallymGothic-Regular",
 })
 
-const CourseContainer = styled(Box)({
+const Background = styled(Box)({
   width: "100vw",
   height: "100vh",
-  backgroundImage: "url(" + "img/jeju.jpg" + ")",
+  backgroundImage: "url(" + "../img/kyeongju.jpg" + ")",
   backgroundRepeat: "no-repeat",
   backgroundSize: "cover",
   backgroundAttachment: "fixed",

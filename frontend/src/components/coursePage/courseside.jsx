@@ -37,7 +37,10 @@ const CourseSide = (props) => {
           height: "80vh",
           width: "20vw",
           position: "absolute",
-          paddingLeft: "1vw",
+          marginLeft: "2vw",
+          background: "white",
+          borderRadius: "4px",
+          padding: "4px",
         }}
       >
         <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -151,9 +154,10 @@ export default CourseSide
 
 const StyledCourseSide = styled(Box)({
   width: "20vw",
-  height: "55vh",
+  height: "57vh",
   overflow: "auto",
   left: "0%",
   position: "absolute",
-  padding: "1rem",
+  backgroundColor: "white",
+  borderRadius: "8px",
 })
