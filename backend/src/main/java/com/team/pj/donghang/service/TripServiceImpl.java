@@ -312,7 +312,7 @@ public class TripServiceImpl implements TripService {
             int compare = startDate.compareTo(today);
             int compare_2 = endDate.compareTo(today);
 
-            if (compare >= 0 && compare_2 <= 0) {
+            if (compare <= 0 && compare_2 >= 0) {
                 List<PlaceCommon> placeCommonList =new ArrayList<>();
                 List<TripPlace> tripPlaceList =new ArrayList<>();
                 tripPlaceList=tripPlaceRepository.findAllByTrip_TripNo(trip.getTripNo());
