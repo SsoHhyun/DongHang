@@ -32,6 +32,7 @@ const CreateCoursePage = () => {
   const [startDate, setStartdate] = useState("") //시작날짜
   const [endDate, setEnddate] = useState("") //끝날짜
   const deleteCourse = (index) => {
+    setRecommendspot([...recommendspot, courseSpot[index]])
     const temp = courseSpot.slice(0, index)
     const temp2 = courseSpot.slice(index + 1)
     setCourseSpot([...temp, ...temp2])
