@@ -34,7 +34,7 @@ public interface TripService {
     public Trip getTripInfo(Long tripNo);
     public List<TripResponseDto> getUserTripList(Long userNo);
 
-    @Transactional
+
     TripResponseDto getTodayTrip(Long userNo);
 
     //일정 검색??? ????
