@@ -53,6 +53,7 @@ const MainPage = () => {
     <Background>
       <RecomImg>
         <Img src="img/fall.jpg" alt="" />
+        {/* <Img src="img/donghaeng_hanja.jpg" alt="" /> */}
       </RecomImg>
       {myTrip === null ? (
         <MainBackground>
@@ -182,7 +183,7 @@ const MainBoxone = styled(Box)({
 
 const CourseBox = styled(Box)({
   width: "20%",
-  height: "30vh",
+  height: "50vh",
   overflowY: "auto",
   background: "#faf8f7",
   borderRadius: "10px",
