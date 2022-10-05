@@ -1,16 +1,7 @@
 import { Box } from "@material-ui/core"
 import React from "react"
 import SideContents from "./sidecontents"
-import {
-  styled,
-  Dialog,
-  Button,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-} from "@mui/material"
-import { useState } from "react"
+import { styled, Button } from "@mui/material"
 import Swal from "sweetalert2"
 import interceptor from "../../api/interceptor"
 import TextField from "@mui/material/TextField"
@@ -21,10 +12,8 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker"
 // 사이드바
 
 const CourseSide = (props) => {
-  const [opendialog, setOpendialo] = React.useState(false)
   const [startDate, setStartDate] = React.useState(null)
   const [endDate, setEndDate] = React.useState(null)
-  const [courseTitle, setcouseTitle] = React.useState("")
   const parseDate = (newValue) => {
     if (newValue == null) return "0"
     let temp = newValue.$d.getFullYear().toString()
@@ -40,43 +29,15 @@ const CourseSide = (props) => {
     }
     return temp
   }
-  const handleClickOpen = () => {
-    setOpendialo(true)
-  }
-  const handleClose = () => {
-    setOpendialo(false)
-  }
-  const clickCreateCourse = () => {
-    const commonNoList = []
-    for (let i = 0; i < props.recommendspot.length; i++) {
-      commonNoList.push(props.recommendspot[i].commonNo)
-    }
-    interceptor({
-      url: "/api/trip",
-      method: "post",
-      data: {
-        commonNoList: commonNoList,
-        endDate: endDate,
-        startDate: startDate,
-        tripName: "test",
-      },
-    })
-      .then((res) => {
-        console.log("createsuccess")
-      })
-      .catch((err) => {
-        alert(err)
-      })
-  }
 
   return (
-    <Box style={{ backgroundImage: `url("../img/d1.jpg")` }}>
+    <Box>
       <Box
         style={{
           height: "80vh",
           width: "20vw",
           position: "absolute",
-          padding: "1rem",
+          paddingLeft: "1vw",
         }}
       >
         <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -105,7 +66,13 @@ const CourseSide = (props) => {
               setEndDate(parseDate(newValue))
               console.log(endDate)
             }}
-            renderInput={(params) => <TextField {...params} fullWidth />}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                fullWidth
+                style={{ marginBottom: "15px" }}
+              />
+            )}
           />
         </LocalizationProvider>
         <StyledCourseSide>
@@ -128,6 +95,9 @@ const CourseSide = (props) => {
               bottom: 0,
               marginBottom: "5%",
               left: "35%",
+              fontSize: 14,
+              borderRadius: 10,
+              fontFamily: "HallymGothic-Regular",
             }}
             onClick={() => {
               Swal.fire({
@@ -182,7 +152,6 @@ export default CourseSide
 const StyledCourseSide = styled(Box)({
   width: "20vw",
   height: "55vh",
-  backgroundColor: "white",
   overflow: "auto",
   left: "0%",
   position: "absolute",

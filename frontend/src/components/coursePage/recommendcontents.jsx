@@ -20,7 +20,6 @@ const RecommendContents = (props) => {
           mapx: props.spot.mapx,
           mapy: props.spot.mapy,
         })
-        console.log(props.selectedSpot)
       }}
     >
       <CardActionArea>
@@ -41,14 +40,15 @@ const RecommendContents = (props) => {
         )}
         <CardContent>
           <Typography
-            gutterBottom
-            variant="h7"
             component="div"
             style={{
               textOverflow: "ellipsis",
-              width: "200px",
+              width: "190px",
               whiteSpace: "nowrap",
               overflow: "hidden",
+              fontSize: 14,
+              borderRadius: 10,
+              fontFamily: "HallymGothic-Regular",
             }}
           >
             {props.spot.title}
@@ -65,4 +65,8 @@ const StyledCard = styled(Card)({
   marginRight: "1rem",
   flex: "0 0 auto",
   height: "172px",
+  fontSize: 16,
+  fontWeight: "bold",
+  borderRadius: 10,
+  fontFamily: "HallymGothic-Regular",
 })

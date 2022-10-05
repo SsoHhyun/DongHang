@@ -96,7 +96,20 @@ const SurveyPage = () => {
       {start === false ? (
         <Box>
           <SurveyStart></SurveyStart>
-          <Button onClick={surveyStart}>시작하기!</Button>
+          <Button
+            onClick={surveyStart}
+            variant="contained"
+            style={{
+              backgroundColor: "#C99353",
+              color: "#FFFFFF",
+              fontSize: 16,
+              borderRadius: 10,
+              fontFamily: "HallymGothic-Regular",
+              margin: "1rem",
+            }}
+          >
+            시작하기!
+          </Button>
         </Box>
       ) : (
         <form onSubmit={formik.handleSubmit}>
@@ -119,7 +132,7 @@ const SurveyPage = () => {
                   </ButtonBox>
                 ) : page === 1 ? (
                   <FourBox>
-                    <button
+                    <FourButton
                       type="button"
                       id="answer21"
                       name="survey_2"
@@ -127,8 +140,8 @@ const SurveyPage = () => {
                       value="0"
                     >
                       최대한 많은 관광지를 둘러보는 관광
-                    </button>
-                    <button
+                    </FourButton>
+                    <FourButton
                       id="answer22"
                       type="button"
                       name="survey_2"
@@ -136,8 +149,8 @@ const SurveyPage = () => {
                       value="1"
                     >
                       쉬엄쉬엄 여유롭게 구경하는 스타일
-                    </button>
-                    <button
+                    </FourButton>
+                    <FourButton
                       id="answer23"
                       type="button"
                       name="survey_2"
@@ -145,8 +158,8 @@ const SurveyPage = () => {
                       value="2"
                     >
                       구경보다는 편안한 곳에서 느긋하게 힐링
-                    </button>
-                    <button
+                    </FourButton>
+                    <FourButton
                       id="answer24"
                       type="button"
                       name="survey_2"
@@ -154,11 +167,11 @@ const SurveyPage = () => {
                       value="3"
                     >
                       같이 가는 사람이 하자는 대로 다니는 스타일
-                    </button>
+                    </FourButton>
                   </FourBox>
                 ) : page === 2 ? (
                   <ButtonBox>
-                    <button
+                    <SurveyButton
                       id="answer31"
                       type="button"
                       name="survey_3"
@@ -166,8 +179,8 @@ const SurveyPage = () => {
                       value="1"
                     >
                       좋아요
-                    </button>
-                    <button
+                    </SurveyButton>
+                    <SurveyButton
                       id="answer32"
                       name="survey_3"
                       type="button"
@@ -175,11 +188,11 @@ const SurveyPage = () => {
                       onClick={formik.handleChange}
                     >
                       싫어요
-                    </button>
+                    </SurveyButton>
                   </ButtonBox>
                 ) : page === 3 ? (
                   <ButtonBox>
-                    <button
+                    <SurveyButton
                       id="answer41"
                       type="button"
                       name="survey_4"
@@ -187,8 +200,8 @@ const SurveyPage = () => {
                       value="0"
                     >
                       물 좋고 공기 좋은 곳
-                    </button>
-                    <button
+                    </SurveyButton>
+                    <SurveyButton
                       id="answer42"
                       name="survey_4"
                       type="button"
@@ -196,11 +209,11 @@ const SurveyPage = () => {
                       value="1"
                     >
                       도회적이고 깔끔한 공간
-                    </button>
+                    </SurveyButton>
                   </ButtonBox>
                 ) : page === 4 ? (
                   <ButtonBox>
-                    <button
+                    <SurveyButton
                       id="answer51"
                       type="button"
                       name="survey_5"
@@ -208,8 +221,8 @@ const SurveyPage = () => {
                       value="0"
                     >
                       활기차고 즐거운 분위기
-                    </button>
-                    <button
+                    </SurveyButton>
+                    <SurveyButton
                       id="answer52"
                       type="button"
                       name="survey_5"
@@ -217,11 +230,11 @@ const SurveyPage = () => {
                       onClick={formik.handleChange}
                     >
                       잔잔하고 평화로운 분위기
-                    </button>
+                    </SurveyButton>
                   </ButtonBox>
                 ) : page === 5 ? (
                   <ButtonBox>
-                    <button
+                    <SurveyButton
                       id="answer61"
                       type="button"
                       name="survey_6"
@@ -229,8 +242,8 @@ const SurveyPage = () => {
                       value="1"
                     >
                       좋아요
-                    </button>
-                    <button
+                    </SurveyButton>
+                    <SurveyButton
                       id="answer62"
                       type="button"
                       name="survey_6"
@@ -238,20 +251,20 @@ const SurveyPage = () => {
                       onClick={formik.handleChange}
                     >
                       싫어요
-                    </button>
+                    </SurveyButton>
                   </ButtonBox>
                 ) : page === 6 ? (
                   <ButtonBox>
-                    <button
+                    <SurveyButton
                       id="answer71"
                       name="survey_7"
                       type="button"
                       onClick={formik.handleChange}
                       value="0"
                     >
-                      백화점, 아울렛
-                    </button>
-                    <button
+                      백화점,아울렛
+                    </SurveyButton>
+                    <SurveyButton
                       id="answer72"
                       name="survey_7"
                       type="button"
@@ -259,8 +272,8 @@ const SurveyPage = () => {
                       value="1"
                     >
                       시장
-                    </button>
-                    <button
+                    </SurveyButton>
+                    <SurveyButton
                       id="answer73"
                       type="button"
                       name="survey_7"
@@ -268,7 +281,7 @@ const SurveyPage = () => {
                       onClick={formik.handleChange}
                     >
                       아니요
-                    </button>
+                    </SurveyButton>
                   </ButtonBox>
                 ) : (
                   <ButtonBox>
@@ -333,26 +346,29 @@ const Background = styled(Box)({
   height: "100vh",
   // padding: " 0 0 0",
   flexWrap: "wrap",
+  color: "#FFFFFF",
+  fontSize: 16,
+  fontFamily: "HallymGothic-Regular",
 })
 
 const SurveyBox = styled(Box)({
   display: "flex",
-  width: "80%",
+  width: "100%",
   flexDirection: "column",
   justifyContent: "center",
-  alignContent: "cetner",
+  alignItems: "cetner",
+  textAlign: "center",
 })
 
 const QuestionBox = styled(Box)({
-  fontSize: "1.5em",
-  width: "70%",
+  fontSize: "25px",
+  width: "100%",
 })
 
 const ButtonBox = styled(Box)({
-  width: "100%",
+  width: "50vw",
   display: "flex",
   justifyContent: "center",
-  justifyContent: "space-between",
 })
 
 const FourBox = styled(Box)({
@@ -361,25 +377,31 @@ const FourBox = styled(Box)({
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
-  marginBottom: "3%",
+  marginBottom: "1rem",
 })
 
 const FourButton = styled(Button)({
   width: "80%",
   height: "5vh",
-  fontSize: "1.5em",
-  background: "#faf8f7",
+  fontSize: "14px",
+  borderRadius: 10,
+  fontFamily: "HallymGothic-Regular",
+  color: "white",
+  margin: "1rem",
   border: "2px solid #faf8f7",
   marginTop: "3%",
 })
 
 const SurveyButton = styled(Button)({
-  width: "40%",
-  height: "15vh",
-  fontSize: "1.5em",
-  background: "#faf8f7",
+  width: "25%",
+  height: "7vh",
+  fontSize: "14px",
+  borderRadius: 10,
+  fontFamily: "HallymGothic-Regular",
+  color: "white",
+  margin: "1rem",
   border: "2px solid #faf8f7",
-  margin: "10% 0 10% 0",
+  marginTop: "2rem",
 })
 
 const FooterBox = styled(Box)({
@@ -394,19 +416,29 @@ const PageBox = styled(Box)({
 })
 
 const NextButton = styled(Button)({
-  background: "#322725",
-  width: "20%",
-  marginLeft: "2%",
+  backgroundColor: "#CD853F",
+  color: "#FFFFFF",
+  fontSize: 16,
+  borderRadius: 10,
+  fontFamily: "HallymGothic-Regular",
+  margin: "1rem",
 })
 
 const PrevButton = styled(Button)({
-  background: "#d5c0b4",
-  width: "20%",
-  marginRight: "2%",
+  backgroundColor: "#C99353",
+  color: "#FFFFFF",
+  fontSize: 16,
+  borderRadius: 10,
+  fontFamily: "HallymGothic-Regular",
+  margin: "1rem",
 })
 
 const CompleteButton = styled(Button)({
-  background: "#f4b37b",
-  width: "20%",
-  marginLeft: "2%",
+  backgroundColor: "#CD853F",
+  color: "#FFFFFF",
+  fontSize: 16,
+  borderRadius: 10,
+  fontFamily: "HallymGothic-Regular",
+  margin: "1rem",
+  border: "3px solid #faf8f7",
 })

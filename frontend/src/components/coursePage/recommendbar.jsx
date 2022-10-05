@@ -14,7 +14,6 @@ const RecommendBar = (props) => {
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
-  useEffect(() => {})
   return (
     <Box>
       <WrapRecommendBar>
@@ -26,8 +25,8 @@ const RecommendBar = (props) => {
                 onChange={handleChange}
                 aria-label="lab API tabs example"
               >
-                <Tab label="추천여행지" value="1" />
-                <Tab label="음식점" value="2" />
+                <CourseTab label="추천여행지" value="1" />
+                <CourseTab label="음식점" value="2" />
               </TabList>
             </Box>
             <TabPanel value="1">
@@ -85,4 +84,8 @@ const WrapRecommendBar = styled(Box)({
   bottom: 0,
   left: "23vw",
   paddingBottom: 30,
+})
+const CourseTab = styled(Tab)({
+  fontSize: 14,
+  fontFamily: "HallymGothic-Regular",
 })

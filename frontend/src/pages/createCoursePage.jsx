@@ -3,13 +3,11 @@
 import { Box } from "@mui/system"
 import CourseSide from "../components/coursePage/courseside"
 import Map from "../components/map"
-import { styled } from "@mui/material"
+import { styled, Button } from "@mui/material"
 import RecommendBar from "../components/coursePage/recommendbar"
 import interceptor from "../api/interceptor"
 import React from "react"
-import { Button } from "@material-ui/core"
 import { useState } from "react"
-
 const CreateCoursePage = () => {
   const [recommendspot, setRecommendspot] = useState([])
   const [restuarants, setRestuarants] = useState([])
@@ -40,7 +38,7 @@ const CreateCoursePage = () => {
     // console.log(courseSpot)
   }
   return (
-    <CourseContainer>
+    <FontContainer>
       {/* 배경이미지만 */}
       <Box style={{ paddingTop: "16vh" }}>
         <CourseSide
@@ -66,10 +64,14 @@ const CreateCoursePage = () => {
         </MapWrapper>
         <Button
           variant="contained"
+          color="success"
           style={{
             position: "absolute",
             top: "65%",
             right: "17vw",
+            fontSize: 14,
+            borderRadius: 10,
+            fontFamily: "HallymGothic-Regular",
           }}
           onClick={() => {
             interceptor({
@@ -115,7 +117,7 @@ const CreateCoursePage = () => {
           restaurants={restuarants}
         ></RecommendBar>
       </Box>
-    </CourseContainer>
+    </FontContainer>
   )
 }
 export default CreateCoursePage
@@ -128,12 +130,20 @@ const MapWrapper = styled(Box)({
   left: "23vw",
   zIndex: -1,
 })
-const CourseContainer = styled(Box)({
-  width: "100vw",
-  height: "100vh",
-  backgroundImage: "url(" + "img/kyeongju.jpg" + ")",
-  backgroundRepeat: "no-repeat",
-  backgroundSize: "cover",
-  backgroundAttachment: "fixed",
-  backgroundPosition: "top center",
+const FontContainer = styled(Box)({
+  color: "#1976D2",
+  fontSize: 16,
+  fontWeight: "bold",
+  borderRadius: 10,
+  fontFamily: "HallymGothic-Regular",
 })
+
+// const CourseContainer = styled(Box)({
+//   width: "100vw",
+//   height: "100vh",
+//   backgroundImage: "url(" + "img/water.jpg" + ")",
+//   backgroundRepeat: "no-repeat",
+//   backgroundSize: "cover",
+//   backgroundAttachment: "fixed",
+//   backgroundPosition: "top center",
+// })
