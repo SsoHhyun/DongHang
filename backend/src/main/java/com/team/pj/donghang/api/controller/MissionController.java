@@ -48,13 +48,19 @@ public class MissionController {
     @Transactional
     @PostMapping("")
     @ApiOperation(value = "커스텀 미션 추가")
+    @ApiResponses({
+            @ApiResponse(code = 201,message = "커스텀 미션이 추가되었습니다"),
+            @ApiResponse(code = 401, message = "유효한 사용자가 아닙니다")
+    })
     public ResponseEntity<?> addMission(
             @ApiIgnore Authentication authentication,
             @ApiParam(value = "미션의 내용과 trip_no", required = true)
             @RequestBody TripMissionCreateDto tripMissionCreateDto
     ) {
+        if(authentication == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED");
+        }
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getDetails();
-
         User user = customUserDetails.getUser();
 
         Mission mission = Mission.builder()

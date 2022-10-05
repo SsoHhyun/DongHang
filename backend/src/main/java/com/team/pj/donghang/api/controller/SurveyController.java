@@ -18,8 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 @Api(value = "설문조사와 관련된 API" ,tags = {"survey"})
-@RestController("survey 설문조사")
-@Controller
+@RestController
 @CrossOrigin("*")
 @RequestMapping("/survey")
 public class SurveyController {

@@ -19,8 +19,7 @@ public interface TripService {
 
     //사진 삭제
     // 장소 상세 정보들 list 조회
-    public List<? extends PlaceCommonDto> getPlaceDetail(Long commonNoList, String category);
-
+    public List<?> getPlaceDetail(Long commonNoList, String category);
 
     public void createTrip(User user, TripCreateRequestDto tripCreateRequestDto);
     //일정 생성하기
@@ -38,6 +37,6 @@ public interface TripService {
     TripResponseDto getTodayTrip(Long userNo);
 
     //일정 검색??? ????
-     public List<LastTripResponseDto> getUserLastTripList(Long userNo) throws ParseException;
+    public List<LastTripResponseDto> getUserLastTripList(Long userNo) throws ParseException;
     public LastTripResponseDto getUserPastOneTrip(Long userNo,Long TripNo);
 }
