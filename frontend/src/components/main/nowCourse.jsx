@@ -24,13 +24,24 @@ const NowCourse = (props) => {
       >
         {props.placeList.map((item, i) => (
           <Box key={i} item={item}>
-            <TimelineItem>
-              <TimelineSeparator>
+            {i !== props.placeList.length - 1 ? (
+              <TimelineItem>
+                <TimelineSeparator>
+                  <TimelineDot />
+                  <TimelineConnector />
+                </TimelineSeparator>
+                <TimelineContent fontFamily="HallymGothic-Regular">
+                  {item.title}
+                </TimelineContent>
+              </TimelineItem>
+            ) : (
+              <TimelineItem>
                 <TimelineDot />
-                <TimelineConnector />
-              </TimelineSeparator>
-              <TimelineContent>{item.title}</TimelineContent>
-            </TimelineItem>
+                <TimelineContent fontFamily="HallymGothic-Regular">
+                  {item.title}
+                </TimelineContent>
+              </TimelineItem>
+            )}
           </Box>
         ))}
       </Timeline>
@@ -46,4 +57,8 @@ const CoursePoint = styled(Box)({
   width: 20,
   height: 20,
   margin: 10,
+})
+
+const CourseTimeline = styled(Box)({
+  fontFamily: "HallymGothic-Regular",
 })

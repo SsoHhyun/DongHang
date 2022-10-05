@@ -150,8 +150,12 @@ const Mission = (props) => {
           </MissionTypeBox>
           <ContentBox>
             <Box>{item.content}</Box>
-            <Button onClick={handlePhotoOpen} endIcon={<CameraAltIcon />}>
-              인증샷
+            <Button
+              style={{ fontFamily: "HallymGothic-Regular" }}
+              onClick={handlePhotoOpen}
+              endIcon={<CameraAltIcon />}
+            >
+              미션 완료
             </Button>
             <Modal
               open={photoOpen}
