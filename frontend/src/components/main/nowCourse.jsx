@@ -13,39 +13,37 @@ import interceptor from "../../api/interceptor"
 const NowCourse = (props) => {
   console.log(props)
   return (
-    <React.Fragment>
-      <Timeline
-        sx={{
-          [`& .${timelineItemClasses.root}:before`]: {
-            flex: 0,
-            padding: 0,
-          },
-        }}
-      >
-        {props.placeList.map((item, i) => (
-          <Box key={i} item={item}>
-            {i !== props.placeList.length - 1 ? (
-              <TimelineItem>
-                <TimelineSeparator>
-                  <TimelineDot />
-                  <TimelineConnector />
-                </TimelineSeparator>
-                <TimelineContent fontFamily="HallymGothic-Regular">
-                  {item.title}
-                </TimelineContent>
-              </TimelineItem>
-            ) : (
-              <TimelineItem>
+    <CourseTimeline
+      sx={{
+        [`& .${timelineItemClasses.root}:before`]: {
+          flex: 0,
+          padding: 0,
+        },
+      }}
+    >
+      {props.placeList.map((item, i) => (
+        <Box key={i} item={item}>
+          {i !== props.placeList.length - 1 ? (
+            <TimelineItem>
+              <TimelineSeparator>
                 <TimelineDot />
-                <TimelineContent fontFamily="HallymGothic-Regular">
-                  {item.title}
-                </TimelineContent>
-              </TimelineItem>
-            )}
-          </Box>
-        ))}
-      </Timeline>
-    </React.Fragment>
+                <TimelineConnector />
+              </TimelineSeparator>
+              <TimelineContent fontFamily="HallymGothic-Regular">
+                {item.title}
+              </TimelineContent>
+            </TimelineItem>
+          ) : (
+            <TimelineItem>
+              <TimelineDot />
+              <TimelineContent fontFamily="HallymGothic-Regular">
+                {item.title}
+              </TimelineContent>
+            </TimelineItem>
+          )}
+        </Box>
+      ))}
+    </CourseTimeline>
   )
 }
 
@@ -60,5 +58,6 @@ const CoursePoint = styled(Box)({
 })
 
 const CourseTimeline = styled(Box)({
+  height: "100%",
   fontFamily: "HallymGothic-Regular",
 })

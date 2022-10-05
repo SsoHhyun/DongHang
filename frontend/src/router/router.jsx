@@ -7,7 +7,7 @@ import CreateCoursePage from "../pages/createCoursePage"
 import MainPage from "../pages/mainPage"
 import SurveyPage from "../pages/surveyPage"
 import Logout from "../pages/users/logout"
-import SurveyInfo from "../components/main/surveyInfo"
+import SurveyInfo from "../components/survey/surveyInfo"
 
 const Router = () => {
   return (

@@ -183,12 +183,12 @@ export default Mission
 
 const MissionBox = styled(Box)({
   background: "#faf8f7",
+  height: "100%",
   padding: "2px",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
   fontFamily: "HallymGothic-Regular",
-  height: "60vh",
   overflow: "auto",
   borderRadius: "10px",
 })

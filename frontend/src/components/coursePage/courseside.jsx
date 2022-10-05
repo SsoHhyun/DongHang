@@ -38,6 +38,7 @@ const CourseSide = (props) => {
           width: "20vw",
           position: "absolute",
           paddingLeft: "1vw",
+          background: "white",
         }}
       >
         <LocalizationProvider dateAdapter={AdapterDayjs}>

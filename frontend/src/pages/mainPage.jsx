@@ -65,8 +65,8 @@ const MainPage = () => {
       </RecomImg>
       {myTrip === null ? (
         <MainBackground>
-          <MainBoxone>
-            <MainBoxtwo>
+          <MainBox>
+            <MissionCourse>
               {/* 현재 진행중인 일정 */}
               <CourseBox
                 data-aos="fade-up"
@@ -84,7 +84,7 @@ const MainPage = () => {
               >
                 현재 미션이 없습니다.
               </MissionBox>
-            </MainBoxtwo>
+            </MissionCourse>
             <Button
               onClick={() => {
                 // getSurveyUrl()
@@ -93,12 +93,19 @@ const MainPage = () => {
             >
               설문 공유하기
             </Button>
-          </MainBoxone>
+          </MainBox>
         </MainBackground>
       ) : (
         <MainBackground>
-          <MainBoxone>
-            <MainBoxtwo>
+          <MainBox>
+            <Labels
+              data-aos="fade-up"
+              data-aos-anchor-placement="center-center"
+            >
+              <MissionTypography>일정</MissionTypography>
+              <MissionTypography>미션</MissionTypography>
+            </Labels>
+            <MissionCourse>
               {/* 현재 진행중인 일정 */}
               <CourseBox
                 data-aos="fade-up"
@@ -129,7 +136,7 @@ const MainPage = () => {
                   </ModalBox>
                 </Modal>
               </MissionBox>
-            </MainBoxtwo>
+            </MissionCourse>
             <ShareSurveyBox data-aos="fade-up">
               <ShareTypography>
                 부모님의 여행 취향을 알고싶다면?
@@ -144,7 +151,7 @@ const MainPage = () => {
                 Click
               </ShareSurveyButton>
             </ShareSurveyBox>
-          </MainBoxone>
+          </MainBox>
         </MainBackground>
       )}
     </Background>
@@ -179,17 +186,7 @@ const MainBackground = styled(Box)({
   scrollSnapAlign: "start",
 })
 
-const MainBoxtwo = styled(Box)({
-  display: "flex",
-  flexDirection: "row",
-  justifyContent: "center",
-  alignItems: "center",
-  width: "80vw",
-  height: "70vh",
-  background: "white",
-})
-
-const MainBoxone = styled(Box)({
+const MainBox = styled(Box)({
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
@@ -199,18 +196,27 @@ const MainBoxone = styled(Box)({
   background: "white",
 })
 
+const MissionCourse = styled(Box)({
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "center",
+  width: "80vw",
+  height: "60vh",
+  background: "white",
+})
+
 const CourseBox = styled(Box)({
-  width: "20%",
-  height: "50vh",
+  width: "30%",
+  height: "80%",
   overflowY: "auto",
   background: "#faf8f7",
   borderRadius: "10px",
-  padding: "5%",
+  padding: "3px",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
   fontSize: "2em",
-  margin: "3%",
+  marginRight: "3vw",
   fontFamily: "HallymGothic-Regular",
 })
 
@@ -219,7 +225,7 @@ const MissionBox = styled(Box)({
   justifyContent: "center",
   background: "#faf8f7",
   borderRadius: "10px",
-  height: "60vh",
+  height: "80%",
 })
 
 const ModalBox = styled(Box)({
@@ -245,6 +251,11 @@ const ShareTypography = styled(Typography)({
   fontSize: "1.5rem",
 })
 
+const MissionTypography = styled(Typography)({
+  fontFamily: "IBMPlexSansKR-Regular",
+  fontSize: "1.5rem",
+})
+
 const ShareSurveyButton = styled(Button)({
   position: "relative",
   fontWeight: "bold",
@@ -263,4 +274,11 @@ const ShareSurveyButton = styled(Button)({
     opacity: "1",
     fontSize: 19,
   },
+})
+
+const Labels = styled(Box)({
+  width: "38%",
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-between",
 })
