@@ -136,7 +136,10 @@ const SurveyPage = () => {
                       type="button"
                       id="answer21"
                       name="survey_2"
-                      onClick={formik.handleChange}
+                      onClick={() => {
+                        formik.handleChange()
+                        nextPage()
+                      }}
                       value="0"
                     >
                       최대한 많은 관광지를 둘러보는 관광
@@ -291,6 +294,7 @@ const SurveyPage = () => {
                       value={formik.values.survey_8}
                       onChange={formik.handleChange}
                       label="age"
+                      style={{ width: "30%", marginTop: "2rem" }}
                     >
                       <MenuItem value="40">40대</MenuItem>
                       <MenuItem value="50">50대</MenuItem>
