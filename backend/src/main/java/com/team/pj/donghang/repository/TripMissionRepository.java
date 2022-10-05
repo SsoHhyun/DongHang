@@ -14,4 +14,5 @@ public interface TripMissionRepository extends JpaRepository<TripMission, Long> 
     void removeTripMissionByMission_MissionNo(Long missionNo);
 
     TripMission getTripMissionsByMissionAndTrip(Mission mission, Trip trip);
+
 }
