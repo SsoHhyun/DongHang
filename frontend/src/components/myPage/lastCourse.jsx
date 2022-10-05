@@ -87,6 +87,8 @@ const LastCourse = (props) => {
           setSelectedSpot={setSelectedSpot}
           level={level}
           setLevel={setLevel}
+          courseSpot={[]}
+          addCourseList={[]}
         />
       </MapContainer>
       <MyBox>
