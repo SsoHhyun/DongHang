@@ -30,16 +30,9 @@ const CourseSide = (props) => {
   };
 
   return (
-    <Box>
-      <Box
-        style={{
-          height: "80vh",
-          width: "20vw",
-          position: "absolute",
-          paddingLeft: "1vw",
-        }}
-      >
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
+    <SideBox>
+      <MyBox>
+        <Date dateAdapter={AdapterDayjs}>
           <DatePicker
             Fullwidth
             label="출발 날짜"
