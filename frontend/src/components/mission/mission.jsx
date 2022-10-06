@@ -47,6 +47,7 @@ const Mission = (props) => {
 
   const [photoOpen, setPhotoOpen] = useState(false)
   const handlePhotoOpen = () => setPhotoOpen(true)
+
   const handlePhotoClose = () => setPhotoOpen(false)
   const [complete, setComplete] = useState(false)
 

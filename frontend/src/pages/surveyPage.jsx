@@ -17,6 +17,7 @@ import { useFormik } from "formik"
 import interceptor from "../api/interceptor"
 import queryString from "query-string"
 import { useLocation } from "react-router-dom"
+import Bounce from "react-reveal/Bounce"
 
 // 취향설문 페이지
 
@@ -94,23 +95,22 @@ const SurveyPage = () => {
   return (
     <Background>
       {start === false ? (
-        <Box>
-          <SurveyStart></SurveyStart>
-          <Button
-            onClick={surveyStart}
-            variant="contained"
-            style={{
-              backgroundColor: "#C99353",
-              color: "#FFFFFF",
-              fontSize: 16,
-              borderRadius: 10,
-              fontFamily: "HallymGothic-Regular",
-              margin: "1rem",
-            }}
-          >
-            시작하기!
-          </Button>
-        </Box>
+        <Bounce duration={1000}>
+          <SB>
+            <SurveyStart></SurveyStart>
+            <Button
+              onClick={surveyStart}
+              style={{
+                color: "#322725",
+                fontSize: "2rem",
+                marginTop: "3%",
+                fontFamily: "MapoFlowerIsland",
+              }}
+            >
+              시작하기!
+            </Button>
+          </SB>
+        </Bounce>
       ) : (
         <form onSubmit={formik.handleSubmit}>
           <SurveyBox>
@@ -119,7 +119,6 @@ const SurveyPage = () => {
                 <QuestionBox>
                   {number}. {questionList[page]}
                 </QuestionBox>
-
                 {page === 0 ? (
                   <ButtonBox>
                     <TextField
@@ -136,10 +135,8 @@ const SurveyPage = () => {
                       type="button"
                       id="answer21"
                       name="survey_2"
-                      onClick={() => {
-                        formik.handleChange()
-                        nextPage()
-                      }}
+                      onChange={formik.handleChange}
+                      onClick={() => nextPage()}
                       value="0"
                     >
                       최대한 많은 관광지를 둘러보는 관광
@@ -148,7 +145,8 @@ const SurveyPage = () => {
                       id="answer22"
                       type="button"
                       name="survey_2"
-                      onClick={formik.handleChange}
+                      onChange={formik.handleChange}
+                      onClick={nextPage}
                       value="1"
                     >
                       쉬엄쉬엄 여유롭게 구경하는 스타일
@@ -157,7 +155,8 @@ const SurveyPage = () => {
                       id="answer23"
                       type="button"
                       name="survey_2"
-                      onClick={formik.handleChange}
+                      onChange={formik.handleChange}
+                      onClick={nextPage}
                       value="2"
                     >
                       구경보다는 편안한 곳에서 느긋하게 힐링
@@ -166,7 +165,8 @@ const SurveyPage = () => {
                       id="answer24"
                       type="button"
                       name="survey_2"
-                      onClick={formik.handleChange}
+                      onChange={formik.handleChange}
+                      onClick={nextPage}
                       value="3"
                     >
                       같이 가는 사람이 하자는 대로 다니는 스타일
@@ -178,7 +178,8 @@ const SurveyPage = () => {
                       id="answer31"
                       type="button"
                       name="survey_3"
-                      onClick={formik.handleChange}
+                      onChange={formik.handleChange}
+                      onClick={nextPage}
                       value="1"
                     >
                       좋아요
@@ -188,7 +189,8 @@ const SurveyPage = () => {
                       name="survey_3"
                       type="button"
                       value="0"
-                      onClick={formik.handleChange}
+                      onChange={formik.handleChange}
+                      onClick={nextPage}
                     >
                       싫어요
                     </SurveyButton>
@@ -199,7 +201,8 @@ const SurveyPage = () => {
                       id="answer41"
                       type="button"
                       name="survey_4"
-                      onClick={formik.handleChange}
+                      onChange={formik.handleChange}
+                      onClick={nextPage}
                       value="0"
                     >
                       물 좋고 공기 좋은 곳
@@ -208,7 +211,8 @@ const SurveyPage = () => {
                       id="answer42"
                       name="survey_4"
                       type="button"
-                      onClick={formik.handleChange}
+                      onChange={formik.handleChange}
+                      onClick={nextPage}
                       value="1"
                     >
                       도회적이고 깔끔한 공간
@@ -220,7 +224,8 @@ const SurveyPage = () => {
                       id="answer51"
                       type="button"
                       name="survey_5"
-                      onClick={formik.handleChange}
+                      onChange={formik.handleChange}
+                      onClick={nextPage}
                       value="0"
                     >
                       활기차고 즐거운 분위기
@@ -230,7 +235,8 @@ const SurveyPage = () => {
                       type="button"
                       name="survey_5"
                       value="1"
-                      onClick={formik.handleChange}
+                      onChange={formik.handleChange}
+                      onClick={nextPage}
                     >
                       잔잔하고 평화로운 분위기
                     </SurveyButton>
@@ -241,7 +247,8 @@ const SurveyPage = () => {
                       id="answer61"
                       type="button"
                       name="survey_6"
-                      onClick={formik.handleChange}
+                      onChange={formik.handleChange}
+                      onClick={nextPage}
                       value="1"
                     >
                       좋아요
@@ -251,7 +258,8 @@ const SurveyPage = () => {
                       type="button"
                       name="survey_6"
                       value="0"
-                      onClick={formik.handleChange}
+                      onChange={formik.handleChange}
+                      onClick={nextPage}
                     >
                       싫어요
                     </SurveyButton>
@@ -262,7 +270,8 @@ const SurveyPage = () => {
                       id="answer71"
                       name="survey_7"
                       type="button"
-                      onClick={formik.handleChange}
+                      onChange={formik.handleChange}
+                      onClick={nextPage}
                       value="0"
                     >
                       백화점,아울렛
@@ -271,7 +280,8 @@ const SurveyPage = () => {
                       id="answer72"
                       name="survey_7"
                       type="button"
-                      onClick={formik.handleChange}
+                      onChange={formik.handleChange}
+                      onClick={nextPage}
                       value="1"
                     >
                       시장
@@ -281,7 +291,8 @@ const SurveyPage = () => {
                       type="button"
                       name="survey_7"
                       value="2"
-                      onClick={formik.handleChange}
+                      onChange={formik.handleChange}
+                      onClick={nextPage}
                     >
                       아니요
                     </SurveyButton>
@@ -293,6 +304,7 @@ const SurveyPage = () => {
                       name="survey_8"
                       value={formik.values.survey_8}
                       onChange={formik.handleChange}
+                      onClick={nextPage}
                       label="age"
                       style={{ width: "30%", marginTop: "2rem" }}
                     >
@@ -355,18 +367,34 @@ const Background = styled(Box)({
   fontFamily: "HallymGothic-Regular",
 })
 
+const SB = styled(Box)({
+  display: "flex",
+  width: "20vw",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "cetner",
+  background: "white",
+  borderRadius: "10px",
+  padding: "3%",
+})
+
 const SurveyBox = styled(Box)({
   display: "flex",
-  width: "100%",
+  width: "30vw",
+  height: "70vh",
+  padding: "3%",
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "cetner",
   textAlign: "center",
+  background: "white",
+  borderRadius: "10px",
 })
 
 const QuestionBox = styled(Box)({
   fontSize: "25px",
   width: "100%",
+  color: "#322725",
 })
 
 const ButtonBox = styled(Box)({

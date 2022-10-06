@@ -6,19 +6,16 @@ import { Box, styled, Typography, Button } from "@material-ui/core"
 const SurveyStart = () => {
   return (
     <Box>
-      <Typography
-        style={{
-          color: "#FFFFFF",
-          fontSize: 20,
-          borderRadius: 10,
-          fontFamily: "HallymGothic-Regular",
-          margin: "1rem",
-        }}
-      >
-        여행 계획을 짜기 위해 필요한 질문 몇 가지를 드리겠습니다. <br />
-        질문을 읽어보시고 마음에 드는 대답을 선택해주세요.
-      </Typography>
+      <SurveyTypography>당신의 여행 취향을 파악하기 위한</SurveyTypography>
+      <SurveyTypography>질문 몇 가지를 드리겠습니다.</SurveyTypography>
+      <SurveyTypography>마음에 드는 대답을 선택해주세요.</SurveyTypography>
     </Box>
   )
 }
 export default SurveyStart
+
+const SurveyTypography = styled(Typography)({
+  color: "#322725",
+  fontFamily: "MapoFlowerIsland",
+  fontSize: "1.5rem",
+})
