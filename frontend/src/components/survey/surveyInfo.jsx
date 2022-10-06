@@ -32,6 +32,7 @@ const SurveyInfo = () => {
       .then((res) => {
         // console.log(res)
         setLink(res.data)
+        console.log(res.data);
       })
       .catch((err) => {
         alert(err)
