@@ -1,5 +1,6 @@
 package com.team.pj.donghang.service;
 
+import com.team.pj.donghang.domain.dto.MissionDto;
 import com.team.pj.donghang.domain.entity.Mission;
 import com.team.pj.donghang.domain.entity.Trip;
 import com.team.pj.donghang.domain.entity.User;
@@ -33,5 +34,5 @@ public interface MissionService {
      else: 오늘 여행의 미션 개수가 0개가 아니라면
         DB에서 조회 후 front로 반환
      */
-    List<Mission> getMissions(Long tripNo);
+    List<MissionDto> getMissions(Long tripNo);
 }

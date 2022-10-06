@@ -1,5 +1,6 @@
 package com.team.pj.donghang.service;
 
+import com.team.pj.donghang.domain.dto.MissionDto;
 import com.team.pj.donghang.domain.entity.Mission;
 import com.team.pj.donghang.domain.entity.TripMission;
 import com.team.pj.donghang.repository.MissionRepository;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -60,6 +62,35 @@ public class MissionServiceImpl implements MissionService {
     public Mission refreshMission(Long missionNo, Long tripNo) {
         // 모든 일반, 스페셜 미션 조회
         List<Mission> allMissions = missionRepository.findMissionsByMissionCategoryNoIsNot(CUSTOM_MISSION);
+        Collections.shuffle(allMissions);
+
+        int month = LocalDate.now().getMonthValue();
+
+        // 계절에 따른 필터링
+        List<Mission> season = new ArrayList<>();
+        for(Mission mission: allMissions) {
+            if(mission.getMissionCategoryNo() == 0) { // 일반 미션
+                season.add(mission); // 바로 추가
+            } else { // 스페셜 미션
+                if(3 <= month && month <= 5) { // 봄
+                    if(mission.getSeason().equals("spring")) {
+                        season.add(mission);
+                    }
+                } else if(6 <= month && month <= 8) { // 여름
+                    if(mission.getSeason().equals("summer")) {
+                        season.add(mission);
+                    }
+                } else if(9 <= month && month <= 11) { // 가을
+                    if(mission.getSeason().equals("fall")) {
+                        season.add(mission);
+                    }
+                } else { // 겨울
+                    if(mission.getSeason().equals("winter")) {
+                        season.add(mission);
+                    }
+                }
+            }
+        }
 
         // 현재 여행의 미션 조회
         List<TripMission> tripMissions = tripMissionRepository.findTripMissionsByTrip_TripNo(tripNo);
@@ -67,7 +98,7 @@ public class MissionServiceImpl implements MissionService {
         // 새로운 미션
         Mission newMission = null;
 
-        for(Mission mission: allMissions) { // 모든 미션과
+        for(Mission mission: season) { // 모든 미션과
             boolean isDuplicated = false;
             for(TripMission tripMission: tripMissions) { // 현재 여행의 미션을 비교
                 if(Objects.equals(mission.getMissionNo(), tripMission.getMission().getMissionNo())) {
@@ -105,7 +136,7 @@ public class MissionServiceImpl implements MissionService {
      */
     @Override
     @Transactional
-    public List<Mission> getMissions(Long tripNo) {
+    public List<MissionDto> getMissions(Long tripNo) {
         List<TripMission> tripMissions = tripMissionRepository.findTripMissionsByTrip_TripNo(tripNo);
 
         // 여행 미션이 아직 없다면 무작위 3개 생성해서 보내줌
@@ -114,11 +145,39 @@ public class MissionServiceImpl implements MissionService {
             List<Mission> allMissions = missionRepository.findMissionsByMissionCategoryNoIsNot(CUSTOM_MISSION);
             Collections.shuffle(allMissions);
 
+            int month = LocalDate.now().getMonthValue();
+
+            // 계절에 따른 필터링
+            List<Mission> season = new ArrayList<>();
+            for(Mission mission: allMissions) {
+                if(mission.getMissionCategoryNo() == 0) { // 일반 미션
+                    season.add(mission); // 바로 추가
+                } else { // 스페셜 미션
+                    if(3 <= month && month <= 5) { // 봄
+                        if(mission.getSeason().equals("spring")) {
+                            season.add(mission);
+                        }
+                    } else if(6 <= month && month <= 8) { // 여름
+                        if(mission.getSeason().equals("summer")) {
+                            season.add(mission);
+                        }
+                    } else if(9 <= month && month <= 11) { // 가을
+                        if(mission.getSeason().equals("fall")) {
+                            season.add(mission);
+                        }
+                    } else { // 겨울
+                        if(mission.getSeason().equals("winter")) {
+                            season.add(mission);
+                        }
+                    }
+                }
+            }
+
             // 상위 3개만 반환
             List<Mission> newMissions = new ArrayList<>();
-            newMissions.add(allMissions.get(0));
-            newMissions.add(allMissions.get(1));
-            newMissions.add(allMissions.get(2));
+            newMissions.add(season.get(0));
+            newMissions.add(season.get(1));
+            newMissions.add(season.get(2));
 
             // 새로운 미션 저장
             for(Mission mission: newMissions) {
@@ -130,15 +189,28 @@ public class MissionServiceImpl implements MissionService {
                 );
             }
 
-            log.debug("미션들 : {}", newMissions);
+            List<MissionDto> result = new ArrayList<>();
+            for(Mission mission: newMissions) {
+                result.add(MissionDto.builder()
+                        .mission(mission)
+                        .photoUploaded("false")
+                        .build()
+                );
+            }
 
-            return newMissions;
+            log.debug("미션들 : {}", result);
+
+            return result;
 
         } else { // 여행 미션이 존재한다면 여행 미션 목록 반환
-            List<Mission> result = new ArrayList<>();
+            List<MissionDto> result = new ArrayList<>();
             for (TripMission tripMission : tripMissions) {
                 // TripMission의 mission_no를 통해 Mission 조회
-                result.add(getMissionInfo(tripMission.getMission().getMissionNo()));
+                result.add(MissionDto.builder()
+                                .mission(getMissionInfo(tripMission.getMission().getMissionNo()))
+                                .photoUploaded(tripMission.getPhotoUploaded())
+                                .build()
+                );
             }
             return result;
         }
