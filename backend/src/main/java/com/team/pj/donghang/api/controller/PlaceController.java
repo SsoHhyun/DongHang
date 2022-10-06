@@ -13,6 +13,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @CrossOrigin("*")
@@ -41,7 +44,17 @@ public class PlaceController {
         // CustomUserDetails userDetails = (CustomUserDetails) authentication.getDetails();
 
         // (mapx1, mapy1) ~ (mapx2, mapy2) 사이의 content_type_id가 39가 아닌 (음식점이 아닌) 여행지를 모두 찾는다
-        List<PlaceCommon> results = placeCommonRepository.findPlaceCommonByMapxBetweenAndMapyBetweenAndContentTypeIdIsNot(mapx1, mapx2, mapy1, mapy2, CONTENT_TYPE_ID_RESTAURANT);
+        List<PlaceCommon> allPlaces = placeCommonRepository.findPlaceCommonByMapxBetweenAndMapyBetweenAndContentTypeIdIsNot(mapx1, mapx2, mapy1, mapy2, CONTENT_TYPE_ID_RESTAURANT);
+        Collections.shuffle(allPlaces);
+
+        List<PlaceCommon> results = new ArrayList<>();
+        if(allPlaces.size() <= 20) {
+            results.addAll(allPlaces);
+        } else {
+            for(int i=0; i<20; i++) {
+                results.add(allPlaces.get(i));
+            }
+        }
 
         return ResponseEntity.status(HttpStatus.OK).body(results);
     }
