@@ -7,8 +7,10 @@ import axios from "axios"
 import { useToast } from "react-toastify"
 import Fade from "react-reveal/Fade"
 import Swal from "sweetalert2"
+import { useNavigate } from "react-router-dom"
 
 const SurveyInfo = () => {
+  const navigate = useNavigate()
   // 클립보드 복사
   const onClickShare = async (text) => {
     // writeText()의 인자로 넣은 텍스트가 복사된다.
@@ -79,12 +81,30 @@ const SurveyInfo = () => {
             </Fade>
           </SurveyContent1>
           <Fade bottom delay={4000}>
-            <Button
-              style={{ background: "#BDCFDD", fontFamily: "MapoFlowerIsland" }}
-              onClick={() => onClickShare(link)}
-            >
-              설문 링크 복사하기
-            </Button>
+            <ButtonBox>
+              <Button
+                style={{
+                  background: "#BDCFDD",
+                  fontFamily: "MapoFlowerIsland",
+                  width: "30%",
+                  marginRight: "3%",
+                }}
+                onClick={() => onClickShare(link)}
+              >
+                설문 링크 복사하기
+              </Button>
+              <Button
+                style={{
+                  background: "gray",
+                  fontFamily: "MapoFlowerIsland",
+                  width: "30%",
+                  marginLeft: "3%",
+                }}
+                onClick={() => navigate("/")}
+              >
+                돌아가기
+              </Button>
+            </ButtonBox>
           </Fade>
         </SurveyBox>
       </SurveyBackground>
@@ -117,7 +137,7 @@ const SurveyBackground = styled(Box)({
 
 const SurveyBox = styled(Box)({
   width: "23vw",
-  height: "50vh",
+  height: "55vh",
   display: "flex",
   flexDirection: "column",
   marginTop: "1%",
@@ -147,4 +167,9 @@ const SurveyContent2 = styled(Box)({
   alignSelf: "flex-end",
   marginBottom: "3%",
   marginTop: "1.7%",
+})
+
+const ButtonBox = styled(Box)({
+  display: "flex",
+  justifyContent: "center",
 })

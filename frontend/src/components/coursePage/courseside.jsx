@@ -1,33 +1,35 @@
-import React from "react";
-import SideContents from "./sidecontents";
-import { styled, Button, Paper, Box } from "@mui/material";
-import Swal from "sweetalert2";
-import interceptor from "../../api/interceptor";
-import TextField from "@mui/material/TextField";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import React from "react"
+import SideContents from "./sidecontents"
+import { styled, Button, Paper, Box } from "@mui/material"
+import Swal from "sweetalert2"
+import interceptor from "../../api/interceptor"
+import TextField from "@mui/material/TextField"
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
+import { DatePicker } from "@mui/x-date-pickers/DatePicker"
+import { useNavigate } from "react-router-dom"
 
 // 사이드바
 
 const CourseSide = (props) => {
-  const [startDate, setStartDate] = React.useState(null);
-  const [endDate, setEndDate] = React.useState(null);
+  const navigate = useNavigate()
+  const [startDate, setStartDate] = React.useState(null)
+  const [endDate, setEndDate] = React.useState(null)
   const parseDate = (newValue) => {
-    if (newValue == null) return "0";
-    let temp = newValue.$d.getFullYear().toString();
+    if (newValue == null) return "0"
+    let temp = newValue.$d.getFullYear().toString()
     if (newValue.$d.getMonth() < 9) {
-      temp = temp + "0" + (newValue.$d.getMonth() + 1).toString();
+      temp = temp + "0" + (newValue.$d.getMonth() + 1).toString()
     } else {
-      temp = temp + (newValue.$d.getMonth() + 1).toString();
+      temp = temp + (newValue.$d.getMonth() + 1).toString()
     }
     if (newValue.$d.getDate() < 10) {
-      temp = temp + "0" + newValue.$d.getDate().toString();
+      temp = temp + "0" + newValue.$d.getDate().toString()
     } else {
-      temp = temp + newValue.$d.getDate().toString();
+      temp = temp + newValue.$d.getDate().toString()
     }
-    return temp;
-  };
+    return temp
+  }
 
   return (
     <SideBox>
@@ -38,8 +40,8 @@ const CourseSide = (props) => {
             label="출발 날짜"
             value={startDate}
             onChange={(newValue) => {
-              setStartDate(parseDate(newValue));
-              console.log(startDate);
+              setStartDate(parseDate(newValue))
+              console.log(startDate)
             }}
             renderInput={(params) => (
               <TextField
@@ -55,8 +57,8 @@ const CourseSide = (props) => {
             label="마지막 날짜"
             value={endDate}
             onChange={(newValue) => {
-              setEndDate(parseDate(newValue));
-              console.log(endDate);
+              setEndDate(parseDate(newValue))
+              console.log(endDate)
             }}
             renderInput={(params) => (
               <TextField
@@ -92,9 +94,9 @@ const CourseSide = (props) => {
             confirmButtonText: "일정생성",
             showLoaderOnConfirm: true,
             preConfirm: (login) => {
-              const commonNoList = [];
+              const commonNoList = []
               for (let i = 0; i < props.recommendspot.length; i++) {
-                commonNoList.push(props.recommendspot[i].commonNo);
+                commonNoList.push(props.recommendspot[i].commonNo)
               }
               interceptor({
                 url: "/api/trip",
@@ -107,27 +109,29 @@ const CourseSide = (props) => {
                 },
               })
                 .then((res) => {
-                  console.log("createsuccess");
+                  console.log("createsuccess")
                   Swal.fire({
                     title: "일정이 생성되었습니다!",
                     text: "일정이 성공적으로 생성되었습니다!",
                     icon: "success",
+                    timer: 1500,
                     confirmButtonText: "확인",
-                  });
+                  })
+                  navigate("/")
                 })
                 .catch((err) => {
-                  alert(err);
-                });
+                  alert(err)
+                })
             },
-          });
+          })
         }}
       >
         일정생성
       </CourseBtn>
     </SideBox>
-  );
-};
-export default CourseSide;
+  )
+}
+export default CourseSide
 
 const StyledCourseSide = styled(Box)({
   width: "100%",
@@ -135,11 +139,11 @@ const StyledCourseSide = styled(Box)({
   overflowY: "auto",
   backgroundColor: "white",
   borderRadius: 5,
-});
+})
 
 const MyBox = styled(Box)({
   padding: "1rem",
-});
+})
 
 const SideBox = styled(Paper)({
   height: "95%",
@@ -149,7 +153,7 @@ const SideBox = styled(Paper)({
   flexDirection: "column",
   justifyContent: "space-between",
   alignitems: "center",
-});
+})
 
 const CourseBtn = styled(Button)({
   fontSize: 14,
@@ -159,8 +163,8 @@ const CourseBtn = styled(Button)({
   backgroundColor: "#003458",
   fontFamily: "HallymGothic-Regular",
   padding: 15,
-});
+})
 
 const Date = styled(LocalizationProvider)({
   margin: "1rem",
-});
+})
