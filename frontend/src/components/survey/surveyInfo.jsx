@@ -30,7 +30,7 @@ const SurveyInfo = () => {
       method: "get",
     })
       .then((res) => {
-        console.log(res)
+        // console.log(res)
         setLink(res.data)
       })
       .catch((err) => {
