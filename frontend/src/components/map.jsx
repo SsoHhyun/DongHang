@@ -125,7 +125,6 @@ const Map = (props) => {
         mapy1: map.getBounds().qa.toString(),
         mapy2: map.getBounds().pa.toString(),
       });
-      console.log(map.getCenter());
       props.setSelectedSpot({
         title: "",
         mapx: map.getCenter().La,
