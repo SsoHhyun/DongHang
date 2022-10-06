@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import interceptor from "../../api/interceptor";
-import { useSelector, useDispatch } from "react-redux/es/exports";
+import React, { useState, useEffect } from "react"
+import interceptor from "../../api/interceptor"
+import { useSelector, useDispatch } from "react-redux/es/exports"
 import {
   Box,
   Paper,
@@ -11,36 +11,36 @@ import {
   ImageListItem,
   Modal,
   Button,
-} from "@mui/material";
-import { TabContext, TabList, TabPanel } from "@mui/lab";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import LastCourse from "./lastCourse";
+} from "@mui/material"
+import { TabContext, TabList, TabPanel } from "@mui/lab"
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos"
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos"
+import LastCourse from "./lastCourse"
 import {
   setClose,
   setImgIndex,
   setOpen,
   nextImg,
   previousImg,
-} from "../../app/store";
-import "../../App.css";
+} from "../../app/store"
+import "../../App.css"
 
 const Photos = (props) => {
-  const dispatch = useDispatch();
-  const [itemData, setItemData] = useState([]);
-  const tripInfo = useSelector((state) => state.lastTrips);
+  const dispatch = useDispatch()
+  const [itemData, setItemData] = useState([])
+  const tripInfo = useSelector((state) => state.lastTrips)
   useEffect(() => {
     interceptor({
       url: `/upload/getTripPhotoList?tripNo=${tripInfo[props.i].tripNo}`,
       method: "get",
     }).then((res) => {
-      setItemData(res.data);
-      console.log(res.data);
-    });
-  }, []);
+      setItemData(res.data)
+      console.log(res.data)
+    })
+  }, [])
 
   return (
-    <ImageList sx={{ width: "100%", height: "100%" }} cols={4} rowHeight={164}>
+    <ImageList sx={{ width: "100%", height: "57vh" }} cols={4} rowHeight={164}>
       {itemData.map((item, i) => (
         <MyPhoto key={i}>
           <img
@@ -48,35 +48,35 @@ const Photos = (props) => {
             srcSet={`${itemData[i]}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
             alt={item}
             loading="lazy"
-            style={{ borderRadius: 4 }}
+            style={{ borderRadius: 5, height: "100%" }}
             onClick={() => {
-              dispatch(setOpen());
-              dispatch(setImgIndex(i));
+              dispatch(setOpen())
+              dispatch(setImgIndex(i))
             }}
           />
         </MyPhoto>
       ))}
     </ImageList>
-  );
-};
+  )
+}
 
 const BasicModal = (props) => {
-  const open = useSelector((state) => state.open);
-  const imgIndex = useSelector((state) => state.imgIndex);
-  const [itemData, setItemData] = useState([]);
-  const dispatch = useDispatch();
-  const tripInfo = useSelector((state) => state.lastTrips);
-  const handleClose = () => dispatch(setClose());
-  const handleNext = () => dispatch(nextImg());
-  const handleBack = () => dispatch(previousImg());
+  const open = useSelector((state) => state.open)
+  const imgIndex = useSelector((state) => state.imgIndex)
+  const [itemData, setItemData] = useState([])
+  const dispatch = useDispatch()
+  const tripInfo = useSelector((state) => state.lastTrips)
+  const handleClose = () => dispatch(setClose())
+  const handleNext = () => dispatch(nextImg())
+  const handleBack = () => dispatch(previousImg())
   useEffect(() => {
     interceptor({
       url: `/upload/getTripPhotoList?tripNo=${tripInfo[props.i].tripNo}`,
       method: "get",
     }).then((res) => {
-      setItemData(res.data);
-    });
-  }, []);
+      setItemData(res.data)
+    })
+  }, [])
   return (
     <div>
       <Modal open={open} onClose={handleClose}>
@@ -104,16 +104,16 @@ const BasicModal = (props) => {
         </ModalContainer>
       </Modal>
     </div>
-  );
-};
+  )
+}
 
 function LabTabs(props) {
-  const [value, setValue] = useState("1");
-  const open = useSelector((state) => state.open);
-  const tripInfo = useSelector((state) => state.lastTrips);
+  const [value, setValue] = useState("1")
+  const open = useSelector((state) => state.open)
+  const tripInfo = useSelector((state) => state.lastTrips)
   const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+    setValue(newValue)
+  }
 
   return (
     <Box sx={{ width: "100%", typography: "body1", height: "100%" }}>
@@ -143,7 +143,7 @@ function LabTabs(props) {
         </TabPanel>
       </TabContext>
     </Box>
-  );
+  )
 }
 
 const Album = (props) => {
@@ -151,10 +151,10 @@ const Album = (props) => {
     <AlbumContainer>
       <LabTabs i={props.albumOpen} />
     </AlbumContainer>
-  );
-};
+  )
+}
 
-export default Album;
+export default Album
 
 const AlbumContainer = styled(Paper)({
   borderRadius: 5,
@@ -166,14 +166,14 @@ const AlbumContainer = styled(Paper)({
   flexDirection: "column",
   justifyContent: "center",
   alignContent: "center",
-});
+})
 
 const AlbumTitle = styled(Box)({
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
-});
+})
 
 const AlbumName = styled(Typography)({
   textAlign: "center",
@@ -181,7 +181,7 @@ const AlbumName = styled(Typography)({
   color: "dark",
   fontWeight: "bold",
   fontFamily: "HallymGothic-Regular",
-});
+})
 
 const Period = styled(Typography)({
   textAlign: "center",
@@ -189,17 +189,17 @@ const Period = styled(Typography)({
   color: "grey",
   fontWeight: "bold",
   fontFamily: "IBMPlexSansKR-Regular",
-});
+})
 
 const MyPhoto = styled(ImageListItem)({
   margin: 3,
-});
+})
 
 const ModalContainer = styled(Box)({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-});
+})
 
 const PhotoQuit = styled(Button)({
   color: "white",
@@ -207,17 +207,18 @@ const PhotoQuit = styled(Button)({
   position: "absolute",
   top: "4%",
   right: "2%",
-});
+})
 
 const PhotoModal = styled("img")({
   width: 1163,
   height: 700,
-  top: "7%",
-  left: "16%",
+  top: "50%",
+  left: "50%",
   position: "absolute",
   objectFit: "scale-down",
   borderRadius: 5,
-});
+  transform: "translate(-50%, -50%)",
+})
 
 const SlideArrow = styled(Box)({
   display: "flex",
@@ -225,15 +226,15 @@ const SlideArrow = styled(Box)({
   alignItems: "center",
   height: "100vh",
   width: "95vw",
-});
+})
 
 const NextArrow = styled(ArrowForwardIosIcon)({
   fontSize: 48,
-});
+})
 
 const BackArrow = styled(ArrowBackIosIcon)({
   fontSize: 48,
-});
+})
 
 export const AlbumTab = styled(Tab)({
   fontFamily: "HallymGothic-Regular",
@@ -245,4 +246,4 @@ export const AlbumTab = styled(Tab)({
   fontWeight: "bold",
   borderEndEndRadius: 5,
   borderEndStartRadius: 5,
-});
+})
