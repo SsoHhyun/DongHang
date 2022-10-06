@@ -1,5 +1,4 @@
 import { React, useEffect } from "react"
-import $, { get } from "jquery"
 import {
   Box,
   styled,
@@ -20,6 +19,7 @@ import { useState } from "react"
 import Modal from "@mui/material/Modal"
 import CreateMission from "../components/mission/missionCreate"
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline"
+import RecommTrip from "../components/main/recommTrip"
 
 const MainPage = () => {
   const navigate = useNavigate()
@@ -60,39 +60,56 @@ const MainPage = () => {
   return (
     <Background>
       <RecomImg>
-        <Img src="img/fall.jpg" alt="" />
+        <Img src="../img/fall.jpg" alt="" />
         {/* <Img src="img/donghaeng_hanja.jpg" alt="" /> */}
       </RecomImg>
       {myTrip === null ? (
         <MainBackground>
           <MainBox>
+            <Labels
+              data-aos="fade-up"
+              data-aos-anchor-placement="center-center"
+            ></Labels>
             <MissionCourse>
               {/* 현재 진행중인 일정 */}
-              <CourseBox
+              <NoCourseBox
                 data-aos="fade-up"
                 data-aos-anchor-placement="center-center"
               >
-                현재 일정이 없습니다.
-                <Button onClick={() => navigate("/course/create")}>
+                <NoCourseTypography>현재 일정이 없습니다.</NoCourseTypography>
+                <Button
+                  style={{
+                    fontFamily: "HallymGothic-Regular",
+                    width: "30%",
+                    background: "#f4b37b",
+                  }}
+                  onClick={() => navigate("/course/create")}
+                >
                   일정 생성하기
                 </Button>
-              </CourseBox>
+              </NoCourseBox>
               {/* 미션 */}
               <MissionBox
                 data-aos="fade-up"
                 data-aos-anchor-placement="center-center"
               >
-                현재 미션이 없습니다.
+                <RecommTrip></RecommTrip>
               </MissionBox>
             </MissionCourse>
-            <Button
-              onClick={() => {
-                // getSurveyUrl()
-                navigate("/survey/info")
-              }}
-            >
-              설문 공유하기
-            </Button>
+            <ShareSurveyBox data-aos="fade-up">
+              <ShareTypography>
+                부모님의 여행 취향을 알고싶다면?
+              </ShareTypography>
+              <ShareSurveyButton
+                onClick={() => {
+                  // getSurveyUrl()
+                  navigate("/survey/info")
+                }}
+                style={{ fontFamily: "HallymGothic-Regular" }}
+              >
+                Click
+              </ShareSurveyButton>
+            </ShareSurveyBox>
           </MainBox>
         </MainBackground>
       ) : (
@@ -128,7 +145,18 @@ const MainPage = () => {
                   aria-labelledby="modal-modal-title"
                   aria-describedby="modal-modal-description"
                 >
-                  <ModalBox>
+                  <ModalBox
+                    style={{
+                      width: "30vw",
+                      height: "25vh",
+                      overflow: "hidden",
+                      borderRadius: "10px",
+                      border: "none",
+                      display: "flex",
+                      alignItems: "center",
+                      flexDirection: "column",
+                    }}
+                  >
                     <CreateMission
                       tripNo={myTrip}
                       setOpen={setOpen}
@@ -208,7 +236,7 @@ const MissionCourse = styled(Box)({
 const CourseBox = styled(Box)({
   width: "30%",
   height: "80%",
-  overflowY: "auto",
+  overflow: "auto",
   background: "#faf8f7",
   borderRadius: "10px",
   padding: "3px",
@@ -218,6 +246,29 @@ const CourseBox = styled(Box)({
   fontSize: "2em",
   marginRight: "3vw",
   fontFamily: "HallymGothic-Regular",
+  paddingTop: "2%",
+})
+
+const NoCourseBox = styled(Box)({
+  width: "30%",
+  height: "80%",
+  overflowY: "auto",
+  background: "#faf8f7",
+  borderRadius: "10px",
+  padding: "3px",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  fontSize: "2em",
+  marginRight: "3vw",
+  fontFamily: "HallymGothic-Regular",
+})
+
+const NoCourseTypography = styled(Typography)({
+  fontSize: "1.5rem",
+  fontFamily: "HallymGothic-Regular",
+  marginBottom: "3%",
 })
 
 const MissionBox = styled(Box)({

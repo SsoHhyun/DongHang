@@ -30,7 +30,7 @@ const SurveyInfo = () => {
       method: "get",
     })
       .then((res) => {
-        // console.log(res)
+        console.log(res)
         setLink(res.data)
       })
       .catch((err) => {
@@ -39,11 +39,11 @@ const SurveyInfo = () => {
   }, [])
 
   return (
-    <Container>
-      <Background>
+    <SurveyContainer>
+      <SurveyBackground>
         <SurveyBox>
           <Fade bottom>
-            <h1>부모님의 취향을 알아보세요</h1>
+            <h1>취향을 물어보세요</h1>
           </Fade>
           <SurveyContent1>
             <Fade bottom delay={1000}>
@@ -61,7 +61,7 @@ const SurveyInfo = () => {
           <SurveyContent1>
             <Fade bottom delay={3000}>
               <SurveyTypography>이제 먼저 부모님의 취향을</SurveyTypography>
-              <SurveyTypography>물어보세요.</SurveyTypography>
+              <SurveyTypography>알아보세요.</SurveyTypography>
             </Fade>
           </SurveyContent1>
           <Fade bottom delay={4000}>
@@ -73,31 +73,31 @@ const SurveyInfo = () => {
             </Button>
           </Fade>
         </SurveyBox>
-      </Background>
-    </Container>
+      </SurveyBackground>
+    </SurveyContainer>
   )
 }
 
 export default SurveyInfo
 
-const Container = styled(Box)({
+const SurveyContainer = styled(Box)({
   width: "100vw",
   height: "100vh",
-  backgroundImage: "../img/jeju.jpg",
+  backgroundImage: "url(" + "../img/jeju.jpg" + ")",
   backgroundRepeat: "no-repeat",
   backgroundSize: "cover",
   backgroundAttachment: "fixed",
   backgroundPosition: "top center",
 })
 
-const Background = styled(Box)({
+const SurveyBackground = styled(Box)({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
   paddingTop: "8vh",
   width: "100%",
   height: "92%",
-  backgroundColor: "#BDCFDD",
+  backgroundColor: "rgba(0, 0, 0, 0.4)",
   position: "absolute",
 })
 
