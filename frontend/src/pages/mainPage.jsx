@@ -13,7 +13,8 @@ import Modal from "@mui/material/Modal"
 import CreateMission from "../components/mission/missionCreate"
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline"
 import RecommTrip from "../components/main/recommTrip"
-import { width } from "@mui/system"
+import "../App.css"
+import { Fade } from "react-reveal"
 
 const MainPage = () => {
   const navigate = useNavigate()
@@ -54,8 +55,18 @@ const MainPage = () => {
   return (
     <Background>
       <RecomImg>
-        {/* <Img src="img/donghaeng_hanja.jpg" alt="" /> */}
-        <MainIntro></MainIntro>
+        <MainIntro>
+          <Fade duration={4000} delay={500}>
+            <Title>동행</Title>
+          </Fade>
+          <Fade duration={4000} delay={500}>
+            <Intro>
+              부모님과의 <strong>특별한 여행</strong>,<br></br>
+              지금 시작하세요
+            </Intro>
+          </Fade>
+        </MainIntro>
+
         {myTrip === null ? (
           <MainBackground>
             <MainBox>
@@ -184,7 +195,7 @@ export default MainPage
 const Background = styled(Box)({
   width: "100%",
   height: "200vh",
-  backgroundImage: "url(" + "img/seoul.jpg" + ")",
+  backgroundImage: "url(" + "../img/seoul.jpg" + ")",
   backgroundRepeat: "no-repeat",
   backgroundSize: "cover",
   backgroundAttachment: "fixed",
@@ -204,6 +215,32 @@ const RecomImg = styled(Box)({
 const MainIntro = styled(Box)({
   width: "100vw",
   height: "100vh",
+  display: "flex",
+  alignItems: "start",
+  flexDirection: "column",
+  display: "flex",
+  justifyContent: "center",
+})
+
+const Title = styled(Typography)({
+  fontFamily: "Makgeolli",
+  fontSize: "16em",
+  color: "white",
+  opacity: 0.9,
+  margin: "10rem",
+  marginBottom: 0,
+  textShadow: "5px 5px 11px rgba(0, 0, 0, 1)",
+})
+
+const Intro = styled(Typography)({
+  fontFamily: "JSongMyung-Regular-KO",
+  fontSize: "2.5rem",
+  color: "white",
+  opacity: 0.9,
+  textAlign: "left",
+  margin: "10rem",
+  marginTop: 0,
+  textShadow: "5px 5px 11px rgba(0, 0, 0, 1)",
 })
 
 export const Img = styled("img")({
@@ -213,7 +250,6 @@ export const Img = styled("img")({
 })
 
 const MainBackground = styled(Box)({
-  // background: "#d5c0b4",
   scrollSnapAlign: "start",
 })
 

@@ -115,6 +115,7 @@ const Trips = styled(Box)({
   marginBottom: "2rem",
   marginLeft: "4rem",
   marginRight: "4rem",
+  height: "100%",
 })
 
 const MyCard = styled(Card)({
