@@ -45,50 +45,52 @@ const CreateCoursePage = () => {
     // console.log(courseSpot)
   }
   return (
-    <Box>
-      <Background>
-        <BottomPage>
-          <Box></Box>
-          <Box></Box>
-        </BottomPage>
-        <CourseBack>
-          <CourseSide
-            recommendspot={courseSpot}
-            selectedSpot={selectedSpot}
-            deleteCourse={deleteCourse}
-            setStartDate={setStartdate}
-            setEnddate={setEnddate}
-            startDate={startDate}
-            endDate={endDate}
-            setSelectedSpot={setSelectedSpot}
-          />
-          <MapBox>
-            <MapWrapper id="map">
-              {/* <Map
-                recommendspot={recommendspot}
-                courseSpot={courseSpot}
-                selectedSpot={selectedSpot}
-                setCurrentSpot={setCurrentSpot}
-                setSelectedSpot={setSelectedSpot}
-                level={level}
-                setLevel={setLevel}
-              /> */}
-            </MapWrapper>
-            <RecommendBar
-              deleteRecommendSpot={deleteRecommendSpot}
+    <Background>
+      {/* <FontContainer> */}
+      {/* 배경이미지만 */}
+      {/* <Box
+          style={{
+            height: "16vh",
+          }}
+        ></Box> */}
+      <CourseBack>
+        <CourseSide
+          recommendspot={courseSpot}
+          selectedSpot={selectedSpot}
+          deleteCourse={deleteCourse}
+          setStartDate={setStartdate}
+          setEnddate={setEnddate}
+          startDate={startDate}
+          endDate={endDate}
+          setSelectedSpot={setSelectedSpot}
+        />
+        <MapBox>
+          <MapWrapper id="map">
+            <Map
               recommendspot={recommendspot}
-              addCourseList={addCourseList}
-              setSelectedSpot={setSelectedSpot}
+              courseSpot={courseSpot}
               selectedSpot={selectedSpot}
-              restaurants={restuarants}
-              setRecommendspot={setRecommendspot}
-              currentSpot={currentSpot}
-              setRestuarants={setRestuarants}
+              setCurrentSpot={setCurrentSpot}
+              setSelectedSpot={setSelectedSpot}
+              level={level}
+              setLevel={setLevel}
             />
-          </MapBox>
-        </CourseBack>
-      </Background>
-    </Box>
+          </MapWrapper>
+          <RecommendBar
+            deleteRecommendSpot={deleteRecommendSpot}
+            recommendspot={recommendspot}
+            addCourseList={addCourseList}
+            setSelectedSpot={setSelectedSpot}
+            selectedSpot={selectedSpot}
+            restaurants={restuarants}
+            setRecommendspot={setRecommendspot}
+            currentSpot={currentSpot}
+            setRestuarants={setRestuarants}
+          />
+        </MapBox>
+      </CourseBack>
+      {/* </FontContainer> */}
+    </Background>
   )
 }
 export default CreateCoursePage
