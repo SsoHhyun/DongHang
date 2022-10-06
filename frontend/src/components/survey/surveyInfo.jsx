@@ -6,12 +6,13 @@ import "../../App.css"
 import axios from "axios"
 import { useToast } from "react-toastify"
 import Fade from "react-reveal/Fade"
+import CopyToClipboard from "react-copy-to-clipboard"
+import Swal from "sweetalert2"
 
 const SurveyInfo = () => {
   // 클립보드 복사
   const onClickShare = async (text) => {
     
-    if(navigator.clipboard){
     // writeText()의 인자로 넣은 텍스트가 복사된다.
     console.log("click sharegit"+text);
     await window.navigator.clipboard.writeText(text)
@@ -23,30 +24,7 @@ const SurveyInfo = () => {
       .catch((error) => {
         alert("다시 시도해주세요.")
       })
-    }else{
-
-      if (!document.queryCommandSupported("copy")) {
-        return alert("복사하기가 지원되지 않는 브라우저입니다.");
-      }
-
-      const textarea = document.createElement("textarea");
-      textarea.value = text;
-      textarea.style.top = 0;
-      textarea.style.left = 0;
-      textarea.style.position = "fixed";
-
-      // 흐름 4.
-      document.body.appendChild(textarea);
-      // focus() -> 사파리 브라우저 서포팅
-      textarea.focus();
-      // select() -> 사용자가 입력한 내용을 영역을 설정할 때 필요
-      textarea.select();
-      // 흐름 5.
-      document.execCommand("copy");
-      // 흐름 6.
-      document.body.removeChild(textarea);
-      alert("클립보드에 복사되었습니다.");
-    }
+    
   }
 
   const [link, setLink] = useState("")
@@ -93,12 +71,20 @@ const SurveyInfo = () => {
             </Fade>
           </SurveyContent1>
           <Fade bottom delay={4000}>
+            <CopyToClipboard text={link}>
             <Button
               style={{ background: "#BDCFDD" }}
-              onClick={() => onClickShare(link)}
+              // onClick={() => onClickShare(link)}
+              onClick={()=>Swal.fire({
+                title: "링크를 부모님께 공유해주세요!!",
+                icon: "success",
+                timer: 1500,
+                showConfirmButton: false
+              })}
             >
               설문 링크 복사하기
             </Button>
+            </CopyToClipboard>
           </Fade>
         </SurveyBox>
       </SurveyBackground>

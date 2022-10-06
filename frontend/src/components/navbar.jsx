@@ -1,21 +1,21 @@
 //navbar 틀만
-import React, { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Box, styled, Typography } from "@mui/material";
-import "../App.css";
-import Swal from "sweetalert2";
+import React, { useState, useEffect } from "react"
+import { Link, useLocation, useNavigate } from "react-router-dom"
+import { Box, styled, Typography } from "@mui/material"
+import "../App.css"
+import Swal from "sweetalert2"
 
 const Navbar = () => {
-  const [isLogin, setIslogin] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isLogin, setIslogin] = useState(false)
+  const [isExpanded, setIsExpanded] = useState(false)
 
-  const location = useLocation();
-  const navigate = useNavigate();
+  const location = useLocation()
+  const navigate = useNavigate()
 
   const handleMenuClick = () => {
-    setIsExpanded(!isExpanded);
-    console.log(isExpanded);
-  };
+    setIsExpanded(!isExpanded)
+    console.log(isExpanded)
+  }
 
   useEffect(() => {
     //잘못된 접근 제한
@@ -24,24 +24,28 @@ const Navbar = () => {
         window.location.pathname === "/login" ||
         window.location.pathname === "/signup"
       )
-        navigate("/");
+        navigate("/")
     }
 
     if (localStorage.getItem("access-token")) {
-      setIslogin(true);
+      setIslogin(true)
     } else {
-      setIslogin(false);
+      setIslogin(false)
     }
-  }, [location]);
+  }, [location])
 
   return (
     <Container>
       <Navigate>
-        {window.location.pathname === "/mypage" ||
-        window.location.pathname === "/course/create" ? (
-          <LogoWhite to="/">동행</LogoWhite>
+        {window.location.pathname !== "/mypage" &&
+        window.location.pathname !== "/course/create" ? (
+          window.location.pathname === "/" ? (
+            <LogoWhite to="/">동행</LogoWhite>
+          ) : (
+            <LogoBlack to="/">동행</LogoBlack>
+          )
         ) : (
-          <LogoBlack to="/">동행</LogoBlack>
+          <LogoGlow to="/">동행</LogoGlow>
         )}
         {!isLogin ? (
           <Links>
@@ -72,17 +76,17 @@ const Navbar = () => {
         )}
       </Navigate>
     </Container>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar
 
 const Container = styled(Box)({
   position: "fixed",
   width: "100vw",
   height: "8vh",
   zIndex: 100,
-});
+})
 
 const Navigate = styled(Box)({
   // fontFamily: "HallymGothic-Regular",
@@ -90,7 +94,7 @@ const Navigate = styled(Box)({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
-});
+})
 
 const LogoBlack = styled(Link)({
   textDecoration: "none",
@@ -99,7 +103,7 @@ const LogoBlack = styled(Link)({
   margin: "2rem",
   marginLeft: "3rem",
   color: "black",
-});
+})
 
 const LogoWhite = styled(Link)({
   textDecoration: "none",
@@ -108,15 +112,24 @@ const LogoWhite = styled(Link)({
   margin: "2rem",
   marginLeft: "3rem",
   color: "white",
+})
+
+const LogoGlow = styled(Link)({
+  textDecoration: "none",
+  fontFamily: "Makgeolli",
+  fontSize: 60,
+  margin: "2rem",
+  marginLeft: "3rem",
+  color: "white",
   textShadow: "#fc0 1px 0 10px",
-});
+})
 
 const Links = styled(Box)({
   marginRight: "3rem",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-});
+})
 
 const LinkBox = styled(Link)({
   display: "flex",
@@ -126,21 +139,21 @@ const LinkBox = styled(Link)({
   margin: "2rem",
   textShadow: "1px 1px 3px #000000",
   textDecoration: "none",
-});
+})
 
 const PageLink = styled(Typography)({
   color: "white",
   fontFamily: "JSongMyung-Regular-KO",
   fontSize: 17,
   "&:hover": {
-    transition: "all 0.5s linear",
+    transition: "all 0.1s linear",
     opacity: "1",
-    fontSize: 19,
+    fontSize: 18,
   },
-});
+})
 
 const LinkEng = styled(Typography)({
   fontFamily: "JSongMyung-Regular-KO",
   fontSize: 14,
   color: "white",
-});
+})
