@@ -37,7 +37,8 @@ const Navbar = () => {
   return (
     <Container>
       <Navigate>
-        {window.location.pathname === "/mypage" ? (
+        {window.location.pathname === "/mypage" ||
+        window.location.pathname === "/course/create" ? (
           <LogoWhite to="/">동행</LogoWhite>
         ) : (
           <LogoBlack to="/">동행</LogoBlack>

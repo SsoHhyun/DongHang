@@ -1,6 +1,6 @@
 //코스관련 추천(하단)바 내부 컨텐츠
 
-import React from "react"
+import React from "react";
 import {
   Card,
   CardContent,
@@ -8,19 +8,20 @@ import {
   styled,
   Typography,
   CardActionArea,
-} from "@mui/material"
+} from "@mui/material";
 
 const RecommendContents = (props) => {
   return (
     <StyledCard
+      elevation={3}
       onClick={() => {
-        props.addCourseList(props.spot)
-        props.deleteRecommendSpot(props.idx)
+        props.addCourseList(props.spot);
+        props.deleteRecommendSpot(props.idx);
         props.setSelectedSpot({
           title: props.spot.title,
           mapx: props.spot.mapx,
           mapy: props.spot.mapy,
-        })
+        });
       }}
     >
       <CardActionArea>
@@ -44,11 +45,11 @@ const RecommendContents = (props) => {
             component="div"
             style={{
               textOverflow: "ellipsis",
-              width: "190px",
               whiteSpace: "nowrap",
               overflow: "hidden",
               fontSize: 14,
-              borderRadius: 10,
+              fontWeight: "bold",
+              textAlign: "left",
               fontFamily: "HallymGothic-Regular",
             }}
           >
@@ -57,17 +58,16 @@ const RecommendContents = (props) => {
         </CardContent>
       </CardActionArea>
     </StyledCard>
-  )
-}
-export default RecommendContents
+  );
+};
+export default RecommendContents;
 
 const StyledCard = styled(Card)({
-  width: "200px",
+  width: "12vw",
   marginRight: "1rem",
   flex: "0 0 auto",
-  height: "172px",
   fontSize: 16,
   fontWeight: "bold",
   borderRadius: 10,
   fontFamily: "HallymGothic-Regular",
-})
+});
