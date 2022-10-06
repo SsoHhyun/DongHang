@@ -1,21 +1,21 @@
-import React from "react";
-import { BrowserRouter } from "react-router-dom";
-import Navbar from "./components/navbar.jsx";
-import Router from "./router/router.jsx";
+import React, { useEffect } from "react"
+import { BrowserRouter } from "react-router-dom"
+import Navbar from "./components/navbar.jsx"
+import Router from "./router/router.jsx"
 
 function App() {
   return (
     <div className="App">
       <div>
         <BrowserRouter>
-          {window.window.location.pathname === "/survey" ? undefined : (
+          {window.location.pathname.split("/")[1] === "survey" ? undefined : (
             <Navbar />
           )}
           <Router />
         </BrowserRouter>
       </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

@@ -1,5 +1,12 @@
 import { React, useEffect } from "react"
-import { Box, styled, Button, IconButton, Typography } from "@material-ui/core"
+import {
+  Box,
+  styled,
+  Button,
+  IconButton,
+  Typography,
+  Paper,
+} from "@material-ui/core"
 import NowCourse from "../components/main/nowCourse"
 import Mission from "../components/mission/mission"
 import AOS from "aos"
@@ -41,7 +48,6 @@ const MainPage = () => {
         url: "/api/trip/getTodayTrip",
         method: "get",
       }).then((res) => {
-        console.log(res.data)
         if (res.data.tripNo != null) {
           setMyTrip(res.data.tripNo)
         }
@@ -66,7 +72,6 @@ const MainPage = () => {
             </Intro>
           </Fade>
         </MainIntro>
-
         {myTrip === null ? (
           <MainBackground>
             <MainBox>
@@ -119,19 +124,13 @@ const MainPage = () => {
         ) : (
           <MainBackground>
             <MainBox>
-              <Labels
-                data-aos="fade-up"
-                data-aos-anchor-placement="center-center"
-              >
-                <MissionTypography>일정</MissionTypography>
-                <MissionTypography>미션</MissionTypography>
-              </Labels>
               <MissionCourse>
                 {/* 현재 진행중인 일정 */}
                 <CourseBox
                   data-aos="fade-up"
                   data-aos-anchor-placement="center-center"
                 >
+                  <MissionTypography>현재 일정</MissionTypography>
                   <NowCourse tripNo={myTrip} placeList={myPlace}></NowCourse>
                 </CourseBox>
                 {/* 미션 */}
@@ -139,6 +138,7 @@ const MainPage = () => {
                   data-aos="fade-up"
                   data-aos-anchor-placement="center-center"
                 >
+                  <MissionTypography>미션</MissionTypography>
                   <Mission tripNo={myTrip}></Mission>
                   <IconButton onClick={handleOpen}>
                     <AddCircleOutlineIcon />
@@ -256,35 +256,40 @@ const MainBackground = styled(Box)({
 const MainBox = styled(Box)({
   display: "flex",
   flexDirection: "column",
-  justifyContent: "center",
+  justifyContent: "end",
   alignItems: "center",
   width: "100vw",
   height: "100vh",
 })
 
 const MissionCourse = styled(Box)({
-  display: "flex",
-  flexDirection: "row",
-  justifyContent: "center",
-  width: "80%",
-  height: "60%",
-  background: "white",
-})
-
-const CourseBox = styled(Box)({
-  width: "30%",
-  height: "80%",
-  overflow: "auto",
-  background: "#faf8f7",
-  borderRadius: "10px",
-  padding: "3px",
+  width: "100%",
+  height: "100%",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  fontSize: "2em",
-  marginRight: "3vw",
+  marginTop: "9rem",
+  marginBottom: "2.5rem",
+})
+
+const CourseBox = styled(Paper)({
+  width: "25%",
+  height: "100%",
+  overflow: "auto",
+  borderRadius: 10,
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
   fontFamily: "HallymGothic-Regular",
-  paddingTop: "2%",
+  marginRight: "6rem",
+})
+
+const MissionBox = styled(Paper)({
+  width: "25%",
+  height: "100%",
+  justifyContent: "center",
+  borderRadius: 10,
 })
 
 const NoCourseBox = styled(Box)({
@@ -309,21 +314,13 @@ const NoCourseTypography = styled(Typography)({
   marginBottom: "3%",
 })
 
-const MissionBox = styled(Box)({
-  width: "30%",
-  justifyContent: "center",
-  background: "#faf8f7",
-  borderRadius: "10px",
-  height: "80%",
-})
-
-const ModalBox = styled(Box)({
+const ModalBox = styled(Paper)({
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 400,
-  bgcolor: "background.paper",
+  // bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: "24",
   p: "4",
@@ -331,38 +328,42 @@ const ModalBox = styled(Box)({
 })
 
 const ShareSurveyBox = styled(Box)({
-  width: "30%",
-  display: "flex",
+  width: "100%",
+  height: "100%",
 })
 
 const ShareTypography = styled(Typography)({
   fontFamily: "IBMPlexSansKR-Regular",
   fontSize: "1.5rem",
+  color: "white",
 })
 
 const MissionTypography = styled(Typography)({
   fontFamily: "IBMPlexSansKR-Regular",
   fontSize: "1.5rem",
+  fontWeight: "bold",
+  margin: "1rem",
 })
 
 const ShareSurveyButton = styled(Button)({
-  position: "relative",
   fontWeight: "bold",
-  "&:after": {
-    content: "",
-    display: "block",
-    width: "0",
-    height: "5px",
-    position: "absolute",
-    left: "0",
-    bottom: "0px",
-    background: "rgba(200, 125, 220, .6)",
-  },
-  "&:hover": {
-    transition: "all 0.5s linear",
-    opacity: "1",
-    fontSize: 19,
-  },
+  color: "white",
+  fontSize: 20,
+  // "&:after": {
+  //   content: "",
+  //   display: "block",
+  //   width: "0",
+  //   height: "5px",
+  //   position: "absolute",
+  //   left: "0",
+  //   bottom: "0px",
+  //   background: "rgba(200, 125, 220, .6)",
+  // },
+  // "&:hover": {
+  //   transition: "all 0.5s linear",
+  //   opacity: "1",
+  //   fontSize: 19,
+  // },
 })
 
 const Labels = styled(Box)({

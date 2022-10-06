@@ -35,7 +35,6 @@ const Photos = (props) => {
       method: "get",
     }).then((res) => {
       setItemData(res.data)
-      console.log(res.data)
     })
   }, [])
 
@@ -84,14 +83,21 @@ const BasicModal = (props) => {
           <PhotoQuit onClick={handleClose}>✖</PhotoQuit>
           <PhotoModal src={itemData[imgIndex]} />
           {imgIndex === 0 || imgIndex === itemData.length - 1 ? (
-            imgIndex === 0 ? (
-              <SlideArrow>
-                <BackArrow color="disabled" />
-                <NextArrow sx={{ color: "white" }} onClick={handleNext} />
-              </SlideArrow>
+            itemData.length !== 1 ? (
+              imgIndex === 0 ? (
+                <SlideArrow>
+                  <BackArrow color="disabled" />
+                  <NextArrow sx={{ color: "white" }} onClick={handleNext} />
+                </SlideArrow>
+              ) : (
+                <SlideArrow>
+                  <BackArrow sx={{ color: "white" }} onClick={handleBack} />
+                  <NextArrow color="disabled" />
+                </SlideArrow>
+              )
             ) : (
               <SlideArrow>
-                <BackArrow sx={{ color: "white" }} onClick={handleBack} />
+                <BackArrow color="disabled" />
                 <NextArrow color="disabled" />
               </SlideArrow>
             )
