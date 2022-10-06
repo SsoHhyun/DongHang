@@ -6,22 +6,25 @@ import "../../App.css"
 import axios from "axios"
 import { useToast } from "react-toastify"
 import Fade from "react-reveal/Fade"
+import CopyToClipboard from "react-copy-to-clipboard"
+import Swal from "sweetalert2"
 
 const SurveyInfo = () => {
   // 클립보드 복사
   const onClickShare = async (text) => {
     
     // writeText()의 인자로 넣은 텍스트가 복사된다.
-    console.log("click share"+text);
-    window.navigator.clipboard
-      .writeText(text)
+    console.log("click sharegit"+text);
+    await window.navigator.clipboard.writeText(text)
       .then(() => {
+        console.log();
         // 복사가 완료되면 이 부분이 호출된다.
         alert("복사 완료!")
       })
       .catch((error) => {
         alert("다시 시도해주세요.")
       })
+    
   }
 
   const [link, setLink] = useState("")
@@ -68,12 +71,20 @@ const SurveyInfo = () => {
             </Fade>
           </SurveyContent1>
           <Fade bottom delay={4000}>
+            <CopyToClipboard text={link}>
             <Button
               style={{ background: "#BDCFDD" }}
-              onClick={() => onClickShare(link)}
+              // onClick={() => onClickShare(link)}
+              onClick={()=>Swal.fire({
+                title: "링크를 부모님께 공유해주세요!!",
+                icon: "success",
+                timer: 1500,
+                showConfirmButton: false
+              })}
             >
               설문 링크 복사하기
             </Button>
+            </CopyToClipboard>
           </Fade>
         </SurveyBox>
       </SurveyBackground>
