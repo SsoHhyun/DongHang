@@ -1,18 +1,11 @@
 import { React, useEffect } from "react"
-import {
-  Box,
-  styled,
-  Button,
-  IconButton,
-  Typography,
-  Divider,
-} from "@material-ui/core"
+import { Box, styled, Button, IconButton, Typography } from "@material-ui/core"
 import NowCourse from "../components/main/nowCourse"
 import Mission from "../components/mission/mission"
 import AOS from "aos"
 import "aos/dist/aos.css"
 import { setUserInfo } from "../features/user/userSlice"
-import { useSelector, useDispatch } from "react-redux/es/exports"
+import { useDispatch } from "react-redux/es/exports"
 import { useNavigate } from "react-router-dom"
 import interceptor from "../api/interceptor"
 import { useState } from "react"
@@ -190,8 +183,6 @@ export default MainPage
 const Background = styled(Box)({
   display: "flex",
   flexDirection: "column",
-  // justifyContent: "center",
-  // alignItems: "center",
   alignItems: "center",
   background: "#d5c0b4",
   overflow: "auto",
