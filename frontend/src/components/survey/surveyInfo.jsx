@@ -10,11 +10,11 @@ import Fade from "react-reveal/Fade"
 const SurveyInfo = () => {
   // 클립보드 복사
   const onClickShare = async (text) => {
-    console.log(link);
+    
     // writeText()의 인자로 넣은 텍스트가 복사된다.
     console.log(text);
     window.navigator.clipboard
-      .writeText(link)
+      .writeText(this.link)
       .then(() => {
         // 복사가 완료되면 이 부분이 호출된다.
         alert("복사 완료!")
