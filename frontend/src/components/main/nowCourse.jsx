@@ -1,17 +1,12 @@
 import * as React from "react"
 import { Box, styled } from "@material-ui/core"
-import Timeline from "@mui/lab/Timeline"
 import TimelineItem, { timelineItemClasses } from "@mui/lab/TimelineItem"
 import TimelineSeparator from "@mui/lab/TimelineSeparator"
 import TimelineConnector from "@mui/lab/TimelineConnector"
 import TimelineContent from "@mui/lab/TimelineContent"
 import TimelineDot from "@mui/lab/TimelineDot"
-import { useParams } from "react-router-dom"
-import { useEffect } from "react"
-import interceptor from "../../api/interceptor"
 
 const NowCourse = (props) => {
-  console.log(props)
   return (
     <CourseTimeline
       sx={{

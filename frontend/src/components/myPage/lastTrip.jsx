@@ -71,7 +71,7 @@ const LastTrip = (props) => {
           <Grid container>
             <React.Fragment>
               {tripInfo.map((item, i) => (
-                <Grid item xs={4}>
+                <Grid item xs={4} key={i}>
                   <ActionAreaCard
                     item={item}
                     i={i}

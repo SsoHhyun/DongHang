@@ -228,26 +228,25 @@ const Mission = (props) => {
 export default Mission
 
 const MissionBox = styled(Box)({
-  background: "#faf8f7",
-  height: "100%",
-  padding: "2px",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
   fontFamily: "HallymGothic-Regular",
   overflow: "auto",
-  borderRadius: "10px",
+  borderRadius: 10,
+  marginLeft: "1rem",
+  marginRight: "1rem",
 })
 
-const MissionPaper = styled(Box)({
+const MissionPaper = styled(Paper)({
   display: "flex",
   justifyContent: "center ",
   alignItems: "center",
   justifyContent: "space-between",
-  marginBottom: "1%",
-  borderRadius: "10px",
-  width: "95%",
-  padding: "2%",
+  marginBottom: "1rem",
+  borderRadius: 15,
+  width: "100%",
+  // padding: "2%",
 })
 
 const MissionTypeBox = styled(Box)({
