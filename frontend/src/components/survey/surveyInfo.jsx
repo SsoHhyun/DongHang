@@ -11,6 +11,7 @@ const SurveyInfo = () => {
   // 클립보드 복사
   const onClickShare = async (text) => {
     // writeText()의 인자로 넣은 텍스트가 복사된다.
+    console.log(text);
     window.navigator.clipboard
       .writeText(text)
       .then(() => {
