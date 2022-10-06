@@ -71,7 +71,7 @@ const LastTrip = (props) => {
           <Grid container>
             <React.Fragment>
               {tripInfo.map((item, i) => (
-                <Grid item xs={4}>
+                <Grid item xs={4} key={i}>
                   <ActionAreaCard
                     item={item}
                     i={i}
@@ -115,6 +115,7 @@ const Trips = styled(Box)({
   marginBottom: "2rem",
   marginLeft: "4rem",
   marginRight: "4rem",
+  height: "100%",
 })
 
 const MyCard = styled(Card)({

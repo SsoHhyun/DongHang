@@ -6,11 +6,11 @@ import "../../App.css"
 import axios from "axios"
 import { useToast } from "react-toastify"
 import Fade from "react-reveal/Fade"
+import CopyToClipboard from "react-copy-to-clipboard"
 import Swal from "sweetalert2"
 import { useNavigate } from "react-router-dom"
 
 const SurveyInfo = () => {
-  const navigate = useNavigate()
   // 클립보드 복사
   const onClickShare = async (text) => {
     // writeText()의 인자로 넣은 텍스트가 복사된다.
@@ -20,20 +20,10 @@ const SurveyInfo = () => {
       .then(() => {
         console.log()
         // 복사가 완료되면 이 부분이 호출된다.
-        Swal.fire({
-          icon: "success",
-          title: "복사 완료! :)",
-          showConfirmButton: false,
-          timer: 1500,
-        })
+        alert("복사 완료!")
       })
       .catch((error) => {
-        Swal.fire({
-          icon: "error",
-          title: "다시 시도해주세요.",
-          showConfirmButton: false,
-          timer: 1500,
-        })
+        alert("다시 시도해주세요.")
       })
   }
 
@@ -82,28 +72,38 @@ const SurveyInfo = () => {
           </SurveyContent1>
           <Fade bottom delay={4000}>
             <ButtonBox>
-              <Button
-                style={{
-                  background: "#BDCFDD",
-                  fontFamily: "MapoFlowerIsland",
-                  width: "30%",
-                  marginRight: "3%",
-                }}
-                onClick={() => onClickShare(link)}
-              >
-                설문 링크 복사하기
-              </Button>
-              <Button
-                style={{
-                  background: "gray",
-                  fontFamily: "MapoFlowerIsland",
-                  width: "30%",
-                  marginLeft: "3%",
-                }}
-                onClick={() => navigate("/")}
-              >
-                돌아가기
-              </Button>
+              <CopyToClipboard text={link}>
+                <Button
+                  style={{
+                    background: "#BDCFDD",
+                    fontFamily: "MapoFlowerIsland",
+                    width: "30%",
+                    marginRight: "3%",
+                  }}
+                  // onClick={() => onClickShare(link)}
+                  onClick={() =>
+                    Swal.fire({
+                      title: "링크를 부모님께 공유해주세요!!",
+                      icon: "success",
+                      timer: 1500,
+                      showConfirmButton: false,
+                    })
+                  }
+                >
+                  설문 링크 복사하기
+                </Button>
+                <Button
+                  style={{
+                    background: "gray",
+                    fontFamily: "MapoFlowerIsland",
+                    width: "30%",
+                    marginLeft: "3%",
+                  }}
+                  onClick={() => navigate("/")}
+                >
+                  돌아가기
+                </Button>
+              </CopyToClipboard>
             </ButtonBox>
           </Fade>
         </SurveyBox>

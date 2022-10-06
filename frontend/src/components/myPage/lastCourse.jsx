@@ -114,13 +114,14 @@ const LastCourseContainer = styled(Box)({
   justifyContent: "center",
   alignItem: "center",
   width: "50vw",
-  height: "60vh",
+  height: "57vh",
 })
 
 const MapContainer = styled(Box)({
   width: "100%",
   height: "100%",
   top: 0,
+  borderRadius: 8,
 })
 
 const MyBox = styled(Box)({

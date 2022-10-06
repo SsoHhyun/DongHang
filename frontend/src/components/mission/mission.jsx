@@ -37,7 +37,7 @@ const Mission = (props) => {
       method: "get",
     })
       .then((res) => {
-        console.log(1, res.data)
+        console.log(res.data)
         dispatch(setMission(res.data))
       })
       .catch((err) => {
@@ -49,15 +49,19 @@ const Mission = (props) => {
   const handlePhotoOpen = () => setPhotoOpen(true)
 
   const handlePhotoClose = () => setPhotoOpen(false)
-  const [complete, setComplete] = useState(false)
 
   const [selectImages, setSelectImages] = useState()
-  const onClickImageHandler = (missionNo) => {
-    console.log(5, missionNo)
-    // e.preventDefault()
+
+  const [selectedMission, setSelectedMission] = useState()
+
+  const sendMissionNo = (missionNo) => {
+    setSelectedMission(missionNo)
+    setPhotoOpen(true)
+  }
+
+  const onClickImageHandler = () => {
     const url =
       "http://j7a504.p.ssafy.io:8080/upload/trip/?tripNo=" + props.tripNo
-    console.log(selectImages)
     const formData = new FormData()
     formData.append("images", selectImages)
 
@@ -67,12 +71,23 @@ const Mission = (props) => {
         Authorization: "Bearer " + localStorage.getItem("access-token"),
       },
     }
+
+    console.log("mission", selectedMission)
+
     axios.post(url, formData, config).then((res) => {
-      console.log(res.data)
       interceptor({
-        url: `/api/mission/photo?missionNo=${missionNo}&tripNo=${props.tripNo}`,
+        url: `/api/mission/photo?missionNo=${selectedMission}&tripNo=${props.tripNo}`,
         method: "put",
-      }).then((res) => {
+      }).then(() => {
+        axios
+          .get(
+            "http://j7a504.p.ssafy.io:8080/api/mission/trip?tripNo=" +
+              props.tripNo
+          )
+          .then((res) => {
+            console.log("missions after upload image", res.data)
+            dispatch(setMission(res.data))
+          })
         Swal.fire({
           icon: "success",
           title: "미션 성공!",
@@ -80,15 +95,6 @@ const Mission = (props) => {
           timer: 1500,
         })
         handlePhotoClose()
-        axios
-          .get(
-            "http://j7a504.p.ssafy.io:8080/api/mission/trip?tripNo=" +
-              props.tripNo
-          )
-          .then((res) => {
-            dispatch(setMission(res.data))
-            console.log(5, res)
-          })
       })
     })
   }
@@ -102,6 +108,7 @@ const Mission = (props) => {
   const onClickFileBtn = (e) => {
     imgRef.current.click()
   }
+
   // reroll 함수
   const rerollMission = (missionNo) => {
     console.log(missionNo, props.tripNo)
@@ -159,13 +166,14 @@ const Mission = (props) => {
           key={i}
           item={item}
           style={
-            item.photoUploaded === "true"
-              ? { background: "gray" }
-              : item.mission.missionCategoryNo === 0
-              ? { background: "#d5c0b4" }
-              : item.missionCategoryNo === 1
-              ? { background: "#f4b37b" }
-              : { background: "#BDCFDD" }
+            item.photoUploaded === "true" ? { background: "gray" } : 
+            (
+              item.mission.missionCategoryNo === 0 ? 
+              { background: "#d5c0b4" } : 
+              item.mission.missionCategoryNo === 1 ? 
+              { background: "#f4b37b" } : 
+              { background: "#BDCFDD" }
+            )
           }
         >
           <MissionTypeBox>
@@ -191,7 +199,7 @@ const Mission = (props) => {
             {item.photoUploaded === "true" ? null : (
               <Button
                 style={{ fontFamily: "HallymGothic-Regular" }}
-                onClick={handlePhotoOpen}
+                onClick={() => sendMissionNo(item.mission.missionNo)}
                 endIcon={<CameraAltIcon />}
               >
                 미션 완료
@@ -213,7 +221,10 @@ const Mission = (props) => {
                 />
                 <Button onClick={() => onClickFileBtn()}>이미지 선택</Button>
                 <Button
-                  onClick={() => onClickImageHandler(item.mission.missionNo)}
+                  onClick={() => {
+                      onClickImageHandler()
+                    }
+                  }
                 >
                   등록
                 </Button>
@@ -229,26 +240,25 @@ const Mission = (props) => {
 export default Mission
 
 const MissionBox = styled(Box)({
-  background: "#faf8f7",
-  height: "100%",
-  padding: "2px",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
   fontFamily: "HallymGothic-Regular",
   overflow: "auto",
-  borderRadius: "10px",
+  borderRadius: 10,
+  marginLeft: "1rem",
+  marginRight: "1rem",
 })
 
-const MissionPaper = styled(Box)({
+const MissionPaper = styled(Paper)({
   display: "flex",
   justifyContent: "center ",
   alignItems: "center",
   justifyContent: "space-between",
-  marginBottom: "1%",
-  borderRadius: "10px",
-  width: "95%",
-  padding: "2%",
+  marginBottom: "1rem",
+  borderRadius: 15,
+  width: "100%",
+  // padding: "2%",
 })
 
 const MissionTypeBox = styled(Box)({
