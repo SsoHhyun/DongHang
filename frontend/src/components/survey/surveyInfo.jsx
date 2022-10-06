@@ -11,21 +11,7 @@ import Swal from "sweetalert2"
 import { useNavigate } from "react-router-dom"
 
 const SurveyInfo = () => {
-  // 클립보드 복사
-  const onClickShare = async (text) => {
-    // writeText()의 인자로 넣은 텍스트가 복사된다.
-    console.log("click sharegit" + text)
-    await window.navigator.clipboard
-      .writeText(text)
-      .then(() => {
-        console.log()
-        // 복사가 완료되면 이 부분이 호출된다.
-        alert("복사 완료!")
-      })
-      .catch((error) => {
-        alert("다시 시도해주세요.")
-      })
-  }
+  const navigate = useNavigate()
 
   const [link, setLink] = useState("")
 
