@@ -7,6 +7,7 @@ import axios from "axios"
 import { useToast } from "react-toastify"
 import Fade from "react-reveal/Fade"
 import CopyToClipboard from "react-copy-to-clipboard"
+import Swal from "sweetalert2"
 
 const SurveyInfo = () => {
   // 클립보드 복사
@@ -25,12 +26,6 @@ const SurveyInfo = () => {
       })
     
   }
-
-  // const testCopy =(e) =>{
-  //   e.preventDefault()
-  //   console.log(link);
-  //   e.clipboard.setData("Text",link);
-  // }
 
   const [link, setLink] = useState("")
 
@@ -80,8 +75,12 @@ const SurveyInfo = () => {
             <Button
               style={{ background: "#BDCFDD" }}
               // onClick={() => onClickShare(link)}
-              // onClick={(e) => testCopy(e)}
-              // onClick={(e) => testCopy(e)}
+              onClick={()=>Swal.fire({
+                title: "링크를 부모님께 공유해주세요!!",
+                icon: "success",
+                timer: 1500,
+                showConfirmButton: false
+              })}
             >
               설문 링크 복사하기
             </Button>
