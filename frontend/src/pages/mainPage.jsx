@@ -13,6 +13,7 @@ import Modal from "@mui/material/Modal"
 import CreateMission from "../components/mission/missionCreate"
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline"
 import RecommTrip from "../components/main/recommTrip"
+import { width } from "@mui/system"
 
 const MainPage = () => {
   const navigate = useNavigate()
@@ -53,145 +54,156 @@ const MainPage = () => {
   return (
     <Background>
       <RecomImg>
-        <Img src="../img/fall.jpg" alt="" />
         {/* <Img src="img/donghaeng_hanja.jpg" alt="" /> */}
-      </RecomImg>
-      {myTrip === null ? (
-        <MainBackground>
-          <MainBox>
-            <Labels
-              data-aos="fade-up"
-              data-aos-anchor-placement="center-center"
-            ></Labels>
-            <MissionCourse>
-              {/* 현재 진행중인 일정 */}
-              <NoCourseBox
+        <MainIntro></MainIntro>
+        {myTrip === null ? (
+          <MainBackground>
+            <MainBox>
+              <Labels
                 data-aos="fade-up"
                 data-aos-anchor-placement="center-center"
-              >
-                <NoCourseTypography>현재 일정이 없습니다.</NoCourseTypography>
-                <Button
-                  style={{
-                    fontFamily: "HallymGothic-Regular",
-                    width: "30%",
-                    background: "#f4b37b",
-                  }}
-                  onClick={() => navigate("/course/create")}
+              ></Labels>
+              <MissionCourse>
+                {/* 현재 진행중인 일정 */}
+                <NoCourseBox
+                  data-aos="fade-up"
+                  data-aos-anchor-placement="center-center"
                 >
-                  일정 생성하기
-                </Button>
-              </NoCourseBox>
-              {/* 미션 */}
-              <MissionBox
-                data-aos="fade-up"
-                data-aos-anchor-placement="center-center"
-              >
-                <RecommTrip></RecommTrip>
-              </MissionBox>
-            </MissionCourse>
-            <ShareSurveyBox data-aos="fade-up">
-              <ShareTypography>
-                부모님의 여행 취향을 알고싶다면?
-              </ShareTypography>
-              <ShareSurveyButton
-                onClick={() => {
-                  // getSurveyUrl()
-                  navigate("/survey/info")
-                }}
-                style={{ fontFamily: "HallymGothic-Regular" }}
-              >
-                Click
-              </ShareSurveyButton>
-            </ShareSurveyBox>
-          </MainBox>
-        </MainBackground>
-      ) : (
-        <MainBackground>
-          <MainBox>
-            <Labels
-              data-aos="fade-up"
-              data-aos-anchor-placement="center-center"
-            >
-              <MissionTypography>일정</MissionTypography>
-              <MissionTypography>미션</MissionTypography>
-            </Labels>
-            <MissionCourse>
-              {/* 현재 진행중인 일정 */}
-              <CourseBox
-                data-aos="fade-up"
-                data-aos-anchor-placement="center-center"
-              >
-                <NowCourse tripNo={myTrip} placeList={myPlace}></NowCourse>
-              </CourseBox>
-              {/* 미션 */}
-              <MissionBox
-                data-aos="fade-up"
-                data-aos-anchor-placement="center-center"
-              >
-                <Mission tripNo={myTrip}></Mission>
-                <IconButton onClick={handleOpen}>
-                  <AddCircleOutlineIcon />
-                </IconButton>
-                <Modal
-                  open={open}
-                  onClose={handleClose}
-                  aria-labelledby="modal-modal-title"
-                  aria-describedby="modal-modal-description"
-                >
-                  <ModalBox
+                  <NoCourseTypography>현재 일정이 없습니다.</NoCourseTypography>
+                  <Button
                     style={{
-                      width: "30vw",
-                      height: "25vh",
-                      overflow: "hidden",
-                      borderRadius: "10px",
-                      border: "none",
-                      display: "flex",
-                      alignItems: "center",
-                      flexDirection: "column",
+                      fontFamily: "HallymGothic-Regular",
+                      width: "30%",
+                      background: "#f4b37b",
                     }}
+                    onClick={() => navigate("/course/create")}
                   >
-                    <CreateMission
-                      tripNo={myTrip}
-                      setOpen={setOpen}
-                    ></CreateMission>
-                  </ModalBox>
-                </Modal>
-              </MissionBox>
-            </MissionCourse>
-            <ShareSurveyBox data-aos="fade-up">
-              <ShareTypography>
-                부모님의 여행 취향을 알고싶다면?
-              </ShareTypography>
-              <ShareSurveyButton
-                onClick={() => {
-                  // getSurveyUrl()
-                  navigate("/survey/info")
-                }}
-                style={{ fontFamily: "HallymGothic-Regular" }}
+                    일정 생성하기
+                  </Button>
+                </NoCourseBox>
+                {/* 미션 */}
+                <MissionBox
+                  data-aos="fade-up"
+                  data-aos-anchor-placement="center-center"
+                >
+                  <RecommTrip></RecommTrip>
+                </MissionBox>
+              </MissionCourse>
+              <ShareSurveyBox data-aos="fade-up">
+                <ShareTypography>
+                  부모님의 여행 취향을 알고싶다면?
+                </ShareTypography>
+                <ShareSurveyButton
+                  onClick={() => {
+                    // getSurveyUrl()
+                    navigate("/survey/info")
+                  }}
+                  style={{ fontFamily: "HallymGothic-Regular" }}
+                >
+                  Click
+                </ShareSurveyButton>
+              </ShareSurveyBox>
+            </MainBox>
+          </MainBackground>
+        ) : (
+          <MainBackground>
+            <MainBox>
+              <Labels
+                data-aos="fade-up"
+                data-aos-anchor-placement="center-center"
               >
-                Click
-              </ShareSurveyButton>
-            </ShareSurveyBox>
-          </MainBox>
-        </MainBackground>
-      )}
+                <MissionTypography>일정</MissionTypography>
+                <MissionTypography>미션</MissionTypography>
+              </Labels>
+              <MissionCourse>
+                {/* 현재 진행중인 일정 */}
+                <CourseBox
+                  data-aos="fade-up"
+                  data-aos-anchor-placement="center-center"
+                >
+                  <NowCourse tripNo={myTrip} placeList={myPlace}></NowCourse>
+                </CourseBox>
+                {/* 미션 */}
+                <MissionBox
+                  data-aos="fade-up"
+                  data-aos-anchor-placement="center-center"
+                >
+                  <Mission tripNo={myTrip}></Mission>
+                  <IconButton onClick={handleOpen}>
+                    <AddCircleOutlineIcon />
+                  </IconButton>
+                  <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                  >
+                    <ModalBox
+                      style={{
+                        width: "30vw",
+                        height: "25vh",
+                        overflow: "hidden",
+                        borderRadius: "10px",
+                        border: "none",
+                        display: "flex",
+                        alignItems: "center",
+                        flexDirection: "column",
+                      }}
+                    >
+                      <CreateMission
+                        tripNo={myTrip}
+                        setOpen={setOpen}
+                      ></CreateMission>
+                    </ModalBox>
+                  </Modal>
+                </MissionBox>
+              </MissionCourse>
+              <ShareSurveyBox data-aos="fade-up">
+                <ShareTypography>
+                  부모님의 여행 취향을 알고싶다면?
+                </ShareTypography>
+                <ShareSurveyButton
+                  onClick={() => {
+                    // getSurveyUrl()
+                    navigate("/survey/info")
+                  }}
+                  style={{ fontFamily: "HallymGothic-Regular" }}
+                >
+                  Click
+                </ShareSurveyButton>
+              </ShareSurveyBox>
+            </MainBox>
+          </MainBackground>
+        )}
+      </RecomImg>
     </Background>
   )
 }
 export default MainPage
 
 const Background = styled(Box)({
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  background: "#d5c0b4",
-  overflow: "auto",
+  width: "100%",
+  height: "200vh",
+  backgroundImage: "url(" + "img/seoul.jpg" + ")",
+  backgroundRepeat: "no-repeat",
+  backgroundSize: "cover",
+  backgroundAttachment: "fixed",
+  backgroundPosition: "top center",
 })
 
 const RecomImg = styled(Box)({
+  display: "flex",
+  flexDirection: "column",
   width: "100%",
+  height: "200vh",
+  backgroundColor: "rgba(0, 0, 0, 0.4)",
+  position: "absolute",
+  overflowX: "hidden",
+})
+
+const MainIntro = styled(Box)({
+  width: "100vw",
   height: "100vh",
-  overflow: "hidden",
 })
 
 export const Img = styled("img")({
@@ -201,7 +213,7 @@ export const Img = styled("img")({
 })
 
 const MainBackground = styled(Box)({
-  background: "#d5c0b4",
+  // background: "#d5c0b4",
   scrollSnapAlign: "start",
 })
 
@@ -210,17 +222,16 @@ const MainBox = styled(Box)({
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
-  width: "80vw",
+  width: "100vw",
   height: "100vh",
-  background: "white",
 })
 
 const MissionCourse = styled(Box)({
   display: "flex",
   flexDirection: "row",
   justifyContent: "center",
-  width: "80vw",
-  height: "60vh",
+  width: "80%",
+  height: "60%",
   background: "white",
 })
 
