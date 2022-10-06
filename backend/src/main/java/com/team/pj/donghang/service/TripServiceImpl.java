@@ -351,10 +351,10 @@ public class TripServiceImpl implements TripService {
 
 
         for (Trip trip:list) {
-            Date startDate = new Date(dateFormat.parse(trip.getStartDate()).getTime());
+            Date endDate = new Date(dateFormat.parse(trip.getEndDate()).getTime());
             Date today = new Date(dateFormat.parse(todayStr).getTime());
 
-            int compare = startDate.compareTo(today);
+            int compare = endDate.compareTo(today);
             if(compare < 0) {
                 placeCommonList = new ArrayList<>();
                 tripPlaceList = tripPlaceRepository.findAllByTrip_TripNo(trip.getTripNo());
