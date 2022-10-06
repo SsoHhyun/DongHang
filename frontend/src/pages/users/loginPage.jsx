@@ -179,9 +179,6 @@ const LoginPage = () => {
             로그인
           </LoginButton>
         </LoginInput>
-        {/* <Intro>
-          <Img src="img/d1.jpg" alt="" />
-        </Intro> */}
       </LoginBox>
     </Background>
   )
