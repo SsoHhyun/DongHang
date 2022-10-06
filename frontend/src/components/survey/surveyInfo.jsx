@@ -12,9 +12,9 @@ const SurveyInfo = () => {
   const onClickShare = async (text) => {
     
     // writeText()의 인자로 넣은 텍스트가 복사된다.
-    console.log(text);
+    console.log("click share"+text);
     window.navigator.clipboard
-      .writeText(this.link)
+      .writeText(text)
       .then(() => {
         // 복사가 완료되면 이 부분이 호출된다.
         alert("복사 완료!")
