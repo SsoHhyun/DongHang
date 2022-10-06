@@ -47,16 +47,15 @@ public class PlaceController {
         List<PlaceCommon> allPlaces = placeCommonRepository.findPlaceCommonByMapxBetweenAndMapyBetweenAndContentTypeIdIsNot(mapx1, mapx2, mapy1, mapy2, CONTENT_TYPE_ID_RESTAURANT);
         Collections.shuffle(allPlaces);
 
-        List<PlaceCommon> results = new ArrayList<>();
         if(allPlaces.size() <= 20) {
-            results.addAll(allPlaces);
+            return ResponseEntity.status(HttpStatus.OK).body(allPlaces);
         } else {
+            List<PlaceCommon> results = new ArrayList<>();
             for(int i=0; i<20; i++) {
                 results.add(allPlaces.get(i));
             }
+            return ResponseEntity.status(HttpStatus.OK).body(results);
         }
-
-        return ResponseEntity.status(HttpStatus.OK).body(results);
     }
 
     @GetMapping("/restaurants")
