@@ -1,94 +1,134 @@
-import { Box } from "@material-ui/core"
-import React, { useEffect } from "react"
-import { useState } from "react"
-import { Tab } from "@material-ui/core"
-import { TabPanel } from "@mui/lab"
-import { TabContext } from "@mui/lab"
-import { TabList } from "@mui/lab"
-import RecommendContents from "./recommendcontents"
-import { styled } from "@mui/material"
+import React, { useEffect, useState } from "react";
+import { TabPanel, TabContext, TabList } from "@mui/lab";
+import RecommendContents from "./recommendcontents";
+import { Box, Paper, styled, Tab, Typography, Button } from "@mui/material";
+import StarsIcon from "@mui/icons-material/Stars";
+import interceptor from "../../api/interceptor";
+import { AlbumTab } from "../myPage/album";
+
 //코스관련 사이드바
 const RecommendBar = (props) => {
-  const [value, setValue] = useState("1")
+  const [value, setValue] = useState("1");
 
   const handleChange = (event, newValue) => {
-    setValue(newValue)
-  }
+    setValue(newValue);
+  };
   return (
-    <Box>
-      <WrapRecommendBar>
-        <br></br>
-        <WrapTab>
-          <TabContext value={value}>
-            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-              <TabList
-                onChange={handleChange}
-                aria-label="lab API tabs example"
-              >
-                <CourseTab label="추천여행지" value="1" />
-                <CourseTab label="음식점" value="2" />
-              </TabList>
-            </Box>
-            <TabPanel value="1">
-              <StyledRecommendSlide>
-                {props.recommendspot.map((user, index) => (
-                  <RecommendContents
-                    spot={user}
-                    key={index}
-                    idx={index}
-                    addCourseList={props.addCourseList}
-                    setSelectedSpot={props.setSelectedSpot}
-                    selectedSpot={props.selectedSpot}
-                    deleteRecommendSpot={props.deleteRecommendSpot}
-                  ></RecommendContents>
-                ))}
-              </StyledRecommendSlide>
-            </TabPanel>
-            <TabPanel value="2">
-              <StyledRecommendSlide>
-                {props.restaurants.map((user, index) => (
-                  <RecommendContents
-                    spot={props.restaurants[index]}
-                    key={index}
-                    addCourseList={props.addCourseList}
-                    setSelectedSpot={props.setSelectedSpot}
-                    selectedSpot={props.selectedSpot}
-                  ></RecommendContents>
-                ))}
-              </StyledRecommendSlide>
-            </TabPanel>
-          </TabContext>
-        </WrapTab>
-      </WrapRecommendBar>
-    </Box>
-  )
-}
-export default RecommendBar
+    <WrapRecommendBar>
+      <TabContext value={value}>
+        <TabBox>
+          <TabList
+            onChange={handleChange}
+            aria-label="lab API tabs example"
+            indicatorColor="undefined"
+            textColor="inherit"
+          >
+            <AlbumTab label="여 행 지" value="1" />
+            <AlbumTab label="음 식 점" value="2" />
+          </TabList>
+          <Button
+            style={{
+              fontSize: 14,
+              borderRadius: 30,
+              fontFamily: "HallymGothic-Regular",
+              backgroundColor: "#003458",
+            }}
+            variant="contained"
+            onClick={() => {
+              interceptor({
+                url: `/api/place/recommend?mapx1=${props.currentSpot.mapx1}&mapx2=${props.currentSpot.mapx2}&mapy1=${props.currentSpot.mapy1}&mapy2=${props.currentSpot.mapy2}`,
+                method: "get",
+              })
+                .then((res) => {
+                  props.setRecommendspot([]);
+                  for (let i = 0; i < res.data.length; i++) {
+                    if (i > 20) break;
+                    props.setRecommendspot((recommendspot) => [
+                      ...recommendspot,
+                      res.data[i],
+                    ]);
+                  }
+                })
+                .catch((err) => {
+                  alert(err);
+                });
+              interceptor({
+                url: `/api/place/restaurants?mapx1=${props.currentSpot.mapx1}&mapx2=${props.currentSpot.mapx2}&mapy1=${props.currentSpot.mapy1}&mapy2=${props.currentSpot.mapy2}`,
+                method: "get",
+              })
+                .then((res) => {
+                  props.setRestuarants([]);
+                  for (let i = 0; i < res.data.length; i++) {
+                    if (i > 20) break;
+                    props.setRestuarants((restaurants) => [
+                      ...restaurants,
+                      res.data[i],
+                    ]);
+                  }
+                })
+                .catch((err) => {
+                  alert(err);
+                });
+            }}
+          >
+            <StarsIcon />
+            추천 받기
+          </Button>
+        </TabBox>
+        <TabPanel value="1">
+          <StyledRecommendSlide>
+            {props.recommendspot.map((user, index) => (
+              <RecommendContents
+                spot={user}
+                key={index}
+                idx={index}
+                addCourseList={props.addCourseList}
+                setSelectedSpot={props.setSelectedSpot}
+                selectedSpot={props.selectedSpot}
+                deleteRecommendSpot={props.deleteRecommendSpot}
+              ></RecommendContents>
+            ))}
+          </StyledRecommendSlide>
+        </TabPanel>
+        <TabPanel value="2">
+          <StyledRecommendSlide>
+            {props.restaurants.map((user, index) => (
+              <RecommendContents
+                spot={props.restaurants[index]}
+                key={index}
+                addCourseList={props.addCourseList}
+                setSelectedSpot={props.setSelectedSpot}
+                selectedSpot={props.selectedSpot}
+              ></RecommendContents>
+            ))}
+          </StyledRecommendSlide>
+        </TabPanel>
+      </TabContext>
+    </WrapRecommendBar>
+  );
+};
+export default RecommendBar;
 
 const StyledRecommendSlide = styled(Box)({
   whiteSpace: "nowrap",
   overflowX: "scroll",
   overflowY: "hidden",
   display: "flex",
-})
+});
 
-const WrapTab = styled(Box)({
-  bottom: 0,
-  position: "absolute",
+const WrapRecommendBar = styled(Paper)({
   width: "100%",
-  height: "100%",
-})
-const WrapRecommendBar = styled(Box)({
-  backgroundColor: "white",
-  width: "60vw",
-  height: "25vh",
-  position: "absolute",
-  bottom: "2rem",
-  left: "23vw",
-  paddingBottom: 30,
-  borderRadius: "8px",
-})
+  height: "72%",
+  borderRadius: 5,
+});
 const CourseTab = styled(Tab)({
   fontSize: 14,
   fontFamily: "HallymGothic-Regular",
-})
+});
+
+const TabBox = styled(Box)({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  paddingRight: "1rem",
+});
