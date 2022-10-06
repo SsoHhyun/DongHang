@@ -3,8 +3,6 @@ import { Box, Button, styled, Typography } from "@material-ui/core"
 import { useEffect } from "react"
 import interceptor from "../../api/interceptor"
 import "../../App.css"
-import axios from "axios"
-import { useToast } from "react-toastify"
 import Fade from "react-reveal/Fade"
 import CopyToClipboard from "react-copy-to-clipboard"
 import Swal from "sweetalert2"
@@ -59,36 +57,38 @@ const SurveyInfo = () => {
           <Fade bottom delay={4000}>
             <ButtonBox>
               <CopyToClipboard text={link}>
-                <Button
-                  style={{
-                    background: "#BDCFDD",
-                    fontFamily: "MapoFlowerIsland",
-                    width: "30%",
-                    marginRight: "3%",
-                  }}
-                  // onClick={() => onClickShare(link)}
-                  onClick={() =>
-                    Swal.fire({
-                      title: "링크를 부모님께 공유해주세요!!",
-                      icon: "success",
-                      timer: 1500,
-                      showConfirmButton: false,
-                    })
-                  }
-                >
-                  설문 링크 복사하기
-                </Button>
-                <Button
-                  style={{
-                    background: "gray",
-                    fontFamily: "MapoFlowerIsland",
-                    width: "30%",
-                    marginLeft: "3%",
-                  }}
-                  onClick={() => navigate("/")}
-                >
-                  돌아가기
-                </Button>
+                <Box>
+                  <Button
+                    style={{
+                      background: "#BDCFDD",
+                      fontFamily: "MapoFlowerIsland",
+                      width: "30%",
+                      marginRight: "3%",
+                    }}
+                    // onClick={() => onClickShare(link)}
+                    onClick={() =>
+                      Swal.fire({
+                        title: "링크를 부모님께 공유해주세요!!",
+                        icon: "success",
+                        timer: 1500,
+                        showConfirmButton: false,
+                      })
+                    }
+                  >
+                    설문 링크 복사하기
+                  </Button>
+                  <Button
+                    style={{
+                      background: "gray",
+                      fontFamily: "MapoFlowerIsland",
+                      width: "30%",
+                      marginLeft: "3%",
+                    }}
+                    onClick={() => navigate("/")}
+                  >
+                    돌아가기
+                  </Button>
+                </Box>
               </CopyToClipboard>
             </ButtonBox>
           </Fade>
