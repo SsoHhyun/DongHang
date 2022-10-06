@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { TabPanel, TabContext, TabList } from "@mui/lab";
-import RecommendContents from "./recommendcontents";
-import { Box, Paper, styled, Tab, Typography, Button } from "@mui/material";
-import StarsIcon from "@mui/icons-material/Stars";
-import interceptor from "../../api/interceptor";
-import { AlbumTab } from "../myPage/album";
+import React, { useEffect, useState } from "react"
+import { TabPanel, TabContext, TabList } from "@mui/lab"
+import RecommendContents from "./recommendcontents"
+import { Box, Paper, styled, Tab, Typography, Button } from "@mui/material"
+import StarsIcon from "@mui/icons-material/Stars"
+import interceptor from "../../api/interceptor"
+import { AlbumTab } from "../myPage/album"
 
 //코스관련 사이드바
 const RecommendBar = (props) => {
-  const [value, setValue] = useState("1");
+  const [value, setValue] = useState("1")
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+    setValue(newValue)
+  }
   return (
     <WrapRecommendBar>
       <TabContext value={value}>
@@ -40,35 +40,35 @@ const RecommendBar = (props) => {
                 method: "get",
               })
                 .then((res) => {
-                  props.setRecommendspot([]);
+                  props.setRecommendspot([])
                   for (let i = 0; i < res.data.length; i++) {
-                    if (i > 20) break;
+                    if (i > 20) break
                     props.setRecommendspot((recommendspot) => [
                       ...recommendspot,
                       res.data[i],
-                    ]);
+                    ])
                   }
                 })
                 .catch((err) => {
-                  alert(err);
-                });
+                  alert(err)
+                })
               interceptor({
                 url: `/api/place/restaurants?mapx1=${props.currentSpot.mapx1}&mapx2=${props.currentSpot.mapx2}&mapy1=${props.currentSpot.mapy1}&mapy2=${props.currentSpot.mapy2}`,
                 method: "get",
               })
                 .then((res) => {
-                  props.setRestuarants([]);
+                  props.setRestuarants([])
                   for (let i = 0; i < res.data.length; i++) {
-                    if (i > 20) break;
+                    if (i > 20) break
                     props.setRestuarants((restaurants) => [
                       ...restaurants,
                       res.data[i],
-                    ]);
+                    ])
                   }
                 })
                 .catch((err) => {
-                  alert(err);
-                });
+                  alert(err)
+                })
             }}
           >
             <StarsIcon />
@@ -105,30 +105,26 @@ const RecommendBar = (props) => {
         </TabPanel>
       </TabContext>
     </WrapRecommendBar>
-  );
-};
-export default RecommendBar;
+  )
+}
+export default RecommendBar
 
 const StyledRecommendSlide = styled(Box)({
   whiteSpace: "nowrap",
   overflowX: "scroll",
   overflowY: "hidden",
   display: "flex",
-});
+})
 
 const WrapRecommendBar = styled(Paper)({
   width: "100%",
   height: "72%",
   borderRadius: 5,
-});
-const CourseTab = styled(Tab)({
-  fontSize: 14,
-  fontFamily: "HallymGothic-Regular",
-});
+})
 
 const TabBox = styled(Box)({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
   paddingRight: "1rem",
-});
+})
