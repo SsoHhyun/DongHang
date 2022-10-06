@@ -2,11 +2,12 @@
 //http://localhost:3000/course/create
 import CourseSide from "../components/coursePage/courseside"
 import Map from "../components/map"
-import { styled, Box } from "@mui/material"
+import { styled, Box, Typography } from "@mui/material"
 import RecommendBar from "../components/coursePage/recommendbar"
-
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import React from "react"
 import { useState } from "react"
+import { Fade } from "react-reveal"
 
 const CreateCoursePage = () => {
   const [recommendspot, setRecommendspot] = useState([])
@@ -42,17 +43,28 @@ const CreateCoursePage = () => {
     const temp = recommendspot.slice(0, index)
     const temp2 = recommendspot.slice(index + 1)
     setRecommendspot([...temp, ...temp2])
-    // console.log(courseSpot)
   }
   return (
     <Background>
-      {/* <FontContainer> */}
-      {/* 배경이미지만 */}
-      {/* <Box
-          style={{
-            height: "16vh",
-          }}
-        ></Box> */}
+      <BottomPage>
+        <Fontbox>
+          <Fade duration={3000} delay={3000}>
+            <Coursetypo1>여행을 떠나요</Coursetypo1>
+          </Fade>
+          <Fade duration={3000} delay={1500}>
+            <Coursetypo2>마음으로</Coursetypo2>
+          </Fade>
+          <Fade duration={3000}>
+            <Coursetypo3>설레이는</Coursetypo3>
+          </Fade>
+        </Fontbox>
+
+        <Fontbox2>
+          <Fade duration={3000} delay={4500}>
+            <Coursetypo4>스크롤을 내려서 여행을 떠나요</Coursetypo4>
+          </Fade>
+        </Fontbox2>
+      </BottomPage>
       <CourseBack>
         <CourseSide
           recommendspot={courseSpot}
@@ -96,7 +108,8 @@ const CreateCoursePage = () => {
 export default CreateCoursePage
 const BottomPage = styled(Box)({
   width: "100vw",
-  height: "100vh",
+  height: "83vh",
+  paddingTop: "17vh",
   backgroundColor: "rgba(0, 0, 0, 0.4)",
 })
 const Background = styled(Box)({
@@ -136,4 +149,51 @@ const MapWrapper = styled(Box)({
   backgroundColor: "tomato",
   borderRadius: 7,
   marginBottom: "1rem",
+})
+
+const Coursetypo1 = styled(Typography)({
+  fontSize: 52,
+  fontFamily: "JSongMyung-Regular-KO",
+  textAlign: "right",
+  marginLeft: "3rem",
+  color: "white",
+  textShadow: "#fc0 1px 0 10px",
+})
+const Coursetypo2 = styled(Typography)({
+  fontSize: 48,
+  fontFamily: "JSongMyung-Regular-KO",
+  textAlign: "right",
+  marginLeft: "3rem",
+  color: "white",
+  textShadow: "#fc0 1px 0 10px",
+})
+const Coursetypo3 = styled(Typography)({
+  fontSize: 48,
+  fontFamily: "JSongMyung-Regular-KO",
+  textAlign: "right",
+  marginLeft: "3rem",
+  color: "white",
+  textShadow: "#fc0 1px 0 10px",
+})
+const Coursetypo4 = styled(Typography)({
+  fontSize: 18,
+  fontFamily: "JSongMyung-Regular-KO",
+  color: "white",
+  textShadow: "#fc0 1px 0 10px",
+})
+const Fontbox = styled(Box)({
+  height: "80%",
+  width: "90%",
+  display: "flex",
+  flexDirection: "column-reverse",
+  color: "white",
+})
+const Fontbox2 = styled(Box)({
+  height: "10%",
+  width: "100%",
+  display: "flex",
+  color: "white",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "end",
 })
