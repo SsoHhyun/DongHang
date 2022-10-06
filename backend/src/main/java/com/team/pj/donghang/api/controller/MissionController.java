@@ -1,6 +1,7 @@
 package com.team.pj.donghang.api.controller;
 
 import com.team.pj.donghang.api.request.TripMissionCreateDto;
+import com.team.pj.donghang.domain.dto.MissionDto;
 import com.team.pj.donghang.domain.entity.*;
 import com.team.pj.donghang.service.MissionService;
 import com.team.pj.donghang.service.TripMissionService;
@@ -40,7 +41,7 @@ public class MissionController {
             @ApiParam(value = "찾고자 하는 여행의 trip_no")
             @RequestParam Long tripNo
     ) {
-        List<Mission> missions = missionService.getMissions(tripNo);
+        List<MissionDto> missions = missionService.getMissions(tripNo);
 
         return ResponseEntity.status(HttpStatus.OK).body(missions);
     }
