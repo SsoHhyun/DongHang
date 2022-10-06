@@ -118,17 +118,8 @@ const StyledRecommendSlide = styled(Box)({
 
 const WrapRecommendBar = styled(Paper)({
   width: "100%",
-  height: "100%",
-});
-const WrapRecommendBar = styled(Box)({
-  backgroundColor: "white",
-  width: "60vw",
-  height: "25vh",
-  position: "absolute",
-  bottom: "2rem",
-  left: "23vw",
-  paddingBottom: "1vh",
-  borderRadius: "8px",
+  height: "72%",
+  borderRadius: 5,
 });
 const CourseTab = styled(Tab)({
   fontSize: 14,
