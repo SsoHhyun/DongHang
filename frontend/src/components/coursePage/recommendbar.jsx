@@ -85,7 +85,7 @@ const WrapRecommendBar = styled(Box)({
   position: "absolute",
   bottom: "2rem",
   left: "23vw",
-  paddingBottom: 30,
+  paddingBottom: "1vh",
   borderRadius: "8px",
 })
 const CourseTab = styled(Tab)({
